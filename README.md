@@ -2,9 +2,20 @@
 
 A股 5% / 9% 双尺度拐点监测与执行策略可视化项目。
 
+## 一键查看
+
+### [▶ 一键打开可视化网页](https://devincreator.github.io/A-share-top-monitor/)
+
+打开网页后，右下角有 **「微信分享」** 按钮，可直接：
+
+- 复制微信摘要
+- 生成微信竖版分享图
+- 单独打开完整网页
+
 ## 当前内容
 
-- `index.html`：可视化静态页
+- `index.html`：网页入口 + 微信分享工具
+- `app.html`：完整可视化静态页
 - 页面展示当前市场方向、四模块状态、三层信号图、执行策略与最新历史回测指标
 - 当前模型历史数据截至 2026-08-04
 
@@ -27,13 +38,15 @@ A股 5% / 9% 双尺度拐点监测与执行策略可视化项目。
 
 ## GitHub Pages
 
-在仓库中进入 **Settings → Pages**，将发布源设为：
+发布源：
 
 - Source: `Deploy from a branch`
 - Branch: `main`
 - Folder: `/ (root)`
 
-保存后即可通过 GitHub Pages 网址访问可视化页面。
+正式网页入口：
+
+https://devincreator.github.io/A-share-top-monitor/
 
 ## 说明
 
