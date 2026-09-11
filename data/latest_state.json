@@ -1,0 +1,36 @@
+{
+  "asof": "2026-09-10",
+  "data_status": "price_core_verified",
+  "all_a_close": 5851.83,
+  "phase5": "UP",
+  "phase9": "UP",
+  "current_direction": "寻找顶部",
+  "execution_position": 0.0,
+  "execution_state": "空仓；8月5日Top-9后已完成价格转弱确认",
+  "latest_formal_signals": {
+    "top5": {"date": "2026-08-05", "route": "B"},
+    "top9": {"date": "2026-08-05", "route": "B", "finance_gate": "PASS"},
+    "bottom5": {"date": "2026-07-29", "status": "HIT", "matched_turn": "2026-07-30"},
+    "bottom9": {"date": "2026-07-13", "status": "HIT", "matched_turn": "2026-07-30"}
+  },
+  "objective_updates": [
+    {"scale": "5%", "type": "BOTTOM", "turning_date": "2026-07-30", "confirmation_date": "2026-08-05", "turning_close": 5581.3673},
+    {"scale": "9%", "type": "BOTTOM", "turning_date": "2026-07-30", "confirmation_date": "2026-08-17", "turning_close": 5581.3673}
+  ],
+  "top9_execution": {
+    "signal_date": "2026-08-05",
+    "ret5_confirmation_date": "2026-08-19",
+    "t_plus_1_execution_date": "2026-08-20",
+    "target_position": 0.0
+  },
+  "latest_features": {
+    "ret5_pct": -0.2616,
+    "ret63_pct": -5.5586,
+    "up20_pct": 0.5727,
+    "dd20_pct": -4.2677,
+    "dd60_pct": -11.6573,
+    "rv_p756_pct": 34.3915,
+    "ret63_p756_pct": 23.8095
+  },
+  "source_note": "中证全指收盘序列更新至2026-09-10；2026-09-11收盘在当前可核验公开源中尚未稳定发布/索引。"
+}
