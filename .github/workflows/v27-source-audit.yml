@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Install dependencies
-        run: python -m pip install --disable-pip-version-check --no-cache-dir "akshare>=1.15" "pandas>=2.1" "numpy>=1.24" "pytest>=8"
+        run: python -m pip install --disable-pip-version-check --no-cache-dir "akshare>=1.15" "pandas>=2.1" "numpy>=1.24" "pytest>=8" "baostock>=0.8.8"
       - name: Verify causal computations
         run: python -m pytest -q tests/test_v27_collector.py
       - name: Collect primary source histories
@@ -31,6 +31,9 @@ jobs:
       - name: Probe alternate historical sources
         if: always()
         run: python collector/v27_fallback.py
+      - name: Check BaoStock and exchange financing source
+        if: always()
+        run: python collector/v27_baostock_probe.py
       - name: Save data and audit records
         if: always()
         uses: actions/upload-artifact@v4
