@@ -1,0 +1,37 @@
+name: v27 market source audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v27-source-audit.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  collect-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir "akshare>=1.15" "pandas>=2.1" "numpy>=1.24" "pytest>=8"
+      - name: Verify causal computations
+        run: python -m pytest -q tests/test_v27_collector.py
+      - name: Collect primary source histories
+        run: python collector/v27_collect.py
+      - name: Save data and audit records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-market-data-audit
+          path: out/
+          retention-days: 30
+          if-no-files-found: warn
