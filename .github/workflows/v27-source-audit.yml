@@ -34,6 +34,9 @@ jobs:
       - name: Check BaoStock and exchange financing source
         if: always()
         run: python collector/v27_baostock_probe.py
+      - name: Backfill missing SZSE financing dates
+        if: always()
+        run: python collector/v27_sz_finance_backfill.py
       - name: Save data and audit records
         if: always()
         uses: actions/upload-artifact@v4
