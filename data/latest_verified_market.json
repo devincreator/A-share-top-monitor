@@ -1,0 +1,22 @@
+{
+  "market_date": "2026-10-08",
+  "model_date": "2026-08-04",
+  "index": "000985.CSI",
+  "index_close": 5560.01,
+  "index_change_pct": -1.56,
+  "index_amount_cny_approx": 1610000000000,
+  "index_turnover_rate_pct": 1.38,
+  "hs300_close": 4310.28,
+  "hs300_change_pct": -1.09,
+  "zz1000_close": 7138.58,
+  "zz1000_change_pct": -2.2,
+  "three_exchange_financing_balance_cny_yi": 25445.96,
+  "complete_model_recalculated": false,
+  "sources": [
+    "https://xueqiu.com/S/SH000985/time?page=32",
+    "https://m.aichagu.com/rzrq/top.html",
+    "https://cn.investing.com/indices/csi300-historical-data",
+    "https://cn.investing.com/indices/csi1000-historical-data"
+  ],
+  "source_note": "Trading-date market snapshot, not a computed four-module trading signal. Market amount is rounded."
+}
