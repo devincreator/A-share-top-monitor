@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  statuses: write
 
 jobs:
   collect-and-audit:
@@ -35,3 +36,32 @@ jobs:
           path: out/
           retention-days: 30
           if-no-files-found: warn
+      - name: Publish machine-readable run status
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json, os, urllib.request
+          try:
+              audit = json.load(open('out/audit.json', encoding='utf-8'))
+              ok = audit.get('status') == 'RAW_FEATURES_VERIFIED_ONLY'
+              note = 'Source factors verified' if ok else ('; '.join(audit.get('errors', [])) or 'Source verification failed')
+          except Exception:
+              ok, note = False, 'No source data audit artifact'
+          body = json.dumps({
+              'state': 'success' if ok else 'failure',
+              'context': 'v27/source-data-audit',
+              'description': note[:140],
+              'target_url': f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          }).encode('utf-8')
+          url = f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}"
+          req = urllib.request.Request(url, body, method='POST', headers={
+              'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+              'Accept': 'application/vnd.github+json',
+              'X-GitHub-Api-Version': '2022-11-28',
+              'Content-Type': 'application/json'
+          })
+          with urllib.request.urlopen(req,timeout=20) as response:
+              print('Status posted:',response.status, 'verified=' + str(ok))
+          PY
