@@ -1,36 +1,75 @@
 {
-  "asof": "2026-09-10",
-  "data_status": "price_core_verified",
-  "all_a_close": 5851.83,
-  "phase5": "UP",
+  "asof": "2026-09-21",
+  "data_status": "price_core_verified_partial",
+  "all_a_close": 5921.92,
+  "phase5": "DOWN",
   "phase9": "UP",
-  "current_direction": "寻找顶部",
-  "execution_position": 0.0,
-  "execution_state": "空仓；8月5日Top-9后已完成价格转弱确认",
+  "current_direction": "短周期寻找底部；中周期寻找顶部（以9月21日价格波段为准）",
+  "execution_position": 0,
+  "execution_state": "沿用既有Top-9退出后的空仓状态；后续正式交易信号需补充量价和融资数据核验",
   "latest_formal_signals": {
-    "top5": {"date": "2026-08-05", "route": "B"},
-    "top9": {"date": "2026-08-05", "route": "B", "finance_gate": "PASS"},
-    "bottom5": {"date": "2026-07-29", "status": "HIT", "matched_turn": "2026-07-30"},
-    "bottom9": {"date": "2026-07-13", "status": "HIT", "matched_turn": "2026-07-30"}
+    "top5": {
+      "date": "2026-08-05",
+      "route": "B"
+    },
+    "top9": {
+      "date": "2026-08-05",
+      "route": "B",
+      "finance_gate": "PASS"
+    },
+    "bottom5": {
+      "date": "2026-07-29",
+      "status": "HIT",
+      "matched_turn": "2026-07-30"
+    },
+    "bottom9": {
+      "date": "2026-07-13",
+      "status": "HIT",
+      "matched_turn": "2026-07-30"
+    }
   },
   "objective_updates": [
-    {"scale": "5%", "type": "BOTTOM", "turning_date": "2026-07-30", "confirmation_date": "2026-08-05", "turning_close": 5581.3673},
-    {"scale": "9%", "type": "BOTTOM", "turning_date": "2026-07-30", "confirmation_date": "2026-08-17", "turning_close": 5581.3673}
+    {
+      "scale": "5%",
+      "type": "BOTTOM",
+      "turning_date": "2026-07-30",
+      "confirmation_date": "2026-08-05",
+      "turning_close": 5581.3673
+    },
+    {
+      "scale": "9%",
+      "type": "BOTTOM",
+      "turning_date": "2026-07-30",
+      "confirmation_date": "2026-08-17",
+      "turning_close": 5581.3673
+    },
+    {
+      "scale": "5%",
+      "type": "TOP",
+      "turning_date": "2026-08-17",
+      "confirmation_date": "2026-09-11",
+      "turning_close": 6112.7
+    }
   ],
   "top9_execution": {
     "signal_date": "2026-08-05",
     "ret5_confirmation_date": "2026-08-19",
     "t_plus_1_execution_date": "2026-08-20",
-    "target_position": 0.0
+    "target_position": 0
   },
   "latest_features": {
-    "ret5_pct": -0.2616,
-    "ret63_pct": -5.5586,
-    "up20_pct": 0.5727,
-    "dd20_pct": -4.2677,
-    "dd60_pct": -11.6573,
-    "rv_p756_pct": 34.3915,
-    "ret63_p756_pct": 23.8095
+    "ret5_pct": 2.7776,
+    "ret63_pct": -9.3295,
+    "up20_pct": 3.4633,
+    "dd20_pct": -0.7942,
+    "dd60_pct": -9.7704,
+    "rv_p756_pct": 14.8148,
+    "ret63_p756_pct": 10.3175
   },
-  "source_note": "中证全指收盘序列更新至2026-09-10；2026-09-11收盘在当前可核验公开源中尚未稳定发布/索引。"
+  "source_note": "价格核心同口径续算至2026-09-21；数据仅支持价格特征和5%/9%波段确认，不支持宣布9/22之后正式信号；完整四模块全字段仍到2026-08-04，2026-10-08是单独市场行情快照。",
+  "last_prior_verified_signals_asof": "2026-09-10",
+  "latest_price_core_source_urls": [
+    "https://www.lixinger.com/equity/index/detail/csi/000985/000985/fundamental/market",
+    "https://stock.stockstar.com/"
+  ]
 }
