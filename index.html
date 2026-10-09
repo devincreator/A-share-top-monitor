@@ -51,11 +51,27 @@ function extract(){
   }catch(e){SNAP={...FALLBACK};}
   $('#summaryPreview').textContent=summaryText();
 }
-function summaryText(){const s=SNAP;return `A股拐点观察｜${s.asof}\n\n当前方向：${s.direction}\n短周期底部状态：${s.b5}/100\n中周期底部状态：${s.b9}/100\n当前动作：${s.action}\n\n历史相似条件下形成底部的频率：\n未来1周：短周期 ${s.week5}｜中周期 ${s.week9}\n未来1个月：短周期 ${s.month5}｜中周期 ${s.month9}\n\n完整走势、历史信号和执行策略：\n${pageUrl()}\n\n历史表现用于说明模型特征，不代表未来一定重复。`;}
+function summaryText(){const s=SNAP;return `A股市场收盘速览｜2026-10-08
+中证全指 000985.CSI：5560.01（-1.56%）
+成交额约1.61万亿元｜换手率1.38%
+沪深300：4310.28（-1.09%）｜中证1000：7138.58（-2.20%）
+沪深北融资余额：25445.96亿元
+
+【历史模型快照｜${s.asof}】
+当时方向：${s.direction}
+底部短周期：${s.b5}/100｜底部中周期：${s.b9}/100
+当时动作：${s.action}
+历史相似条件下底部频率：
+未来1周：短周期 ${s.week5}｜中周期 ${s.week9}
+未来1个月：短周期 ${s.month5}｜中周期 ${s.month9}
+
+完整网页：${pageUrl()}
+
+重要：四模块模型只完整复算到2026-08-04，不能把旧模型信号作为10月8日的实时判断。历史表现不代表未来一定重复。`;}
 async function copyText(){const t=summaryText();if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t);return}const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();}
 function rr(ctx,x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}}
 function txt(ctx,text,x,y,size,weight,color,align='left'){ctx.font=`${weight} ${size}px -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Arial,sans-serif`;ctx.fillStyle=color;ctx.textAlign=align;ctx.textBaseline='alphabetic';ctx.fillText(text,x,y)}
-function imageData(){const s=SNAP,c=document.createElement('canvas');c.width=1080;c.height=1440;const x=c.getContext('2d');let g=x.createLinearGradient(0,0,0,1440);g.addColorStop(0,'#f7fafc');g.addColorStop(1,'#eef4f7');x.fillStyle=g;x.fillRect(0,0,1080,1440);txt(x,'A股市场拐点观察',70,110,48,800,'#163047');txt(x,`模型数据截至 ${s.asof}`,70,158,24,500,'#708293');rr(x,70,205,940,265,28,'#ffffff','#dfe7ec');txt(x,'当前方向',110,265,24,700,'#708293');txt(x,s.direction,110,350,72,900,'#247a5b');rr(x,110,382,410,52,26,'#edf7f2');txt(x,`当前动作：${s.action}`,315,417,24,800,'#247a5b','center');txt(x,'模型条件完成度',70,545,28,800,'#163047');rr(x,70,580,450,220,24,'#ffffff','#dfe7ec');rr(x,560,580,450,220,24,'#ffffff','#dfe7ec');txt(x,'底部·短周期',110,635,26,800,'#49657b');txt(x,s.b5,110,730,76,900,'#247a5b');txt(x,'/100',285,730,28,700,'#708293');txt(x,'底部·中周期',600,635,26,800,'#49657b');txt(x,s.b9,600,730,76,900,'#247a5b');txt(x,'/100',775,730,28,700,'#708293');txt(x,'历史相似条件下形成底部的频率',70,875,28,800,'#163047');rr(x,70,910,940,260,24,'#ffffff','#dfe7ec');txt(x,'未来1周',110,980,24,700,'#708293');txt(x,`短周期 ${s.week5}`,330,980,32,900,'#163047');txt(x,`中周期 ${s.week9}`,690,980,32,900,'#163047');x.strokeStyle='#e6ebef';x.beginPath();x.moveTo(110,1028);x.lineTo(970,1028);x.stroke();txt(x,'未来1个月',110,1100,24,700,'#708293');txt(x,`短周期 ${s.month5}`,330,1100,32,900,'#163047');txt(x,`中周期 ${s.month9}`,690,1100,32,900,'#163047');txt(x,'完整走势、历史信号和执行策略',70,1245,24,800,'#163047');txt(x,pageUrl(),70,1290,20,500,'#2a6f9e');txt(x,'历史表现用于说明模型特征，不代表未来一定重复。',70,1360,20,500,'#82919e');return c.toDataURL('image/png',.95)}
+function imageData(){const s=SNAP,c=document.createElement('canvas');c.width=1080;c.height=1440;const x=c.getContext('2d');let g=x.createLinearGradient(0,0,0,1440);g.addColorStop(0,'#f7fafc');g.addColorStop(1,'#eef4f7');x.fillStyle=g;x.fillRect(0,0,1080,1440);txt(x,'A股市场拐点观察',70,110,48,800,'#163047');txt(x,`模型数据截至 ${s.asof}`,70,158,24,500,'#708293');rr(x,70,205,940,265,28,'#ffffff','#dfe7ec');txt(x,'历史模型方向',110,265,24,700,'#708293');txt(x,s.direction,110,350,72,900,'#247a5b');rr(x,110,382,410,52,26,'#edf7f2');txt(x,`8月4日动作：${s.action}`,315,417,24,800,'#247a5b','center');txt(x,'模型条件完成度',70,545,28,800,'#163047');rr(x,70,580,450,220,24,'#ffffff','#dfe7ec');rr(x,560,580,450,220,24,'#ffffff','#dfe7ec');txt(x,'底部·短周期',110,635,26,800,'#49657b');txt(x,s.b5,110,730,76,900,'#247a5b');txt(x,'/100',285,730,28,700,'#708293');txt(x,'底部·中周期',600,635,26,800,'#49657b');txt(x,s.b9,600,730,76,900,'#247a5b');txt(x,'/100',775,730,28,700,'#708293');txt(x,'历史相似条件下形成底部的频率',70,875,28,800,'#163047');rr(x,70,910,940,260,24,'#ffffff','#dfe7ec');txt(x,'未来1周',110,980,24,700,'#708293');txt(x,`短周期 ${s.week5}`,330,980,32,900,'#163047');txt(x,`中周期 ${s.week9}`,690,980,32,900,'#163047');x.strokeStyle='#e6ebef';x.beginPath();x.moveTo(110,1028);x.lineTo(970,1028);x.stroke();txt(x,'未来1个月',110,1100,24,700,'#708293');txt(x,`短周期 ${s.month5}`,330,1100,32,900,'#163047');txt(x,`中周期 ${s.month9}`,690,1100,32,900,'#163047');txt(x,'完整走势、历史信号和执行策略',70,1245,24,800,'#163047');txt(x,pageUrl(),70,1290,20,500,'#2a6f9e');txt(x,'10/08全指5560.01；模型仅截至08/04。历史不代表未来。',70,1360,20,500,'#82919e');return c.toDataURL('image/png',.95)}
 function openImage(){const u=imageData();$('#shareImage').src=u;$('#downloadImage').href=u;$('#imageModal').classList.add('on');$('#imageModal').setAttribute('aria-hidden','false')}
 function closeImage(){$('#imageModal').classList.remove('on');$('#imageModal').setAttribute('aria-hidden','true')}
 frame.addEventListener('load',()=>setTimeout(extract,250));$('#summaryPreview').textContent=summaryText();
