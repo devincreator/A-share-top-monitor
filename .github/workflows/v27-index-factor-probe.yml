@@ -1,0 +1,50 @@
+name: v27 official CSI market factors probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v27-index-factor-probe.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --no-cache-dir "akshare>=1.15" pandas requests
+      - name: Test CSI source
+        run: python collector/index_market_factor_probe.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-csi-index-factors
+          path: out/
+          retention-days: 30
+      - name: Publish verified probe state
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              data=json.load(open('out/index_market_factor_probe.json',encoding='utf8'))
+              ok=any(x.get('source')=='csindex official' and x.get('year')==2026 and x.get('rows',0)>160 for x in data)
+              d=('CSI 2026 daily amount retrieved' if ok else 'CSI 2026 daily amount not retrieved')
+          except Exception as e:
+              ok=False
+              d=str(e)[:140]
+          payload=json.dumps({'state':'success' if ok else 'failure','context':'v27/CSI-daily-amount','description':d,
+            'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          u=f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}"
+          r=urllib.request.Request(u,payload,method='POST',
+            headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],
+            'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          with urllib.request.urlopen(r,timeout=20) as f:print(f.status)
+          PY
