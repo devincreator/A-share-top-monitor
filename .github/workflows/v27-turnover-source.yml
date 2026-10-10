@@ -1,0 +1,49 @@
+name: v27 turnover rate source audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v27-turnover-source.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --no-cache-dir pandas requests
+      - run: python collector/v27_turnover_sources.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-turnover-source-audit
+          path: out/
+          retention-days: 30
+      - name: Publish verification state
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              a=json.load(open('out/turnover_source_audit.json',encoding='utf-8'))
+              ok=any(v.get('status')=='VERIFIED_FROZEN_RANK' for v in a.get('attempts',[]))
+              msg='252-day turnover rate validated' if ok else 'Turnover source verification incomplete'
+          except Exception:
+              ok=False
+              msg='Turnover source audit unavailable'
+          payload=json.dumps({'state':'success' if ok else 'failure',
+               'context':'v27/turnover-source','description':msg,
+               'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          req=urllib.request.Request(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}",
+               payload,method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],
+               'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          with urllib.request.urlopen(req,timeout=20) as resp:print(resp.status)
+          PY
