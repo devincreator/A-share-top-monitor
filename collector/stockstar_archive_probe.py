@@ -6,8 +6,7 @@ from pathlib import Path
 import requests,json,re,time,urllib.parse
 from bs4 import BeautifulSoup
 P=Path("out");P.mkdir(exist_ok=True)
-terms=['"2026-08-05" "中证全指" "换手率" site:stock.stockstar.com',
-       '"2026-05-11" "中证全指" "换手率" site:stock.stockstar.com']
+terms=['8月5日中证全指 000985 指数 换手率 证券之星', '7月31日中证全指 000985 指数 换手率 证券之星']
 sources=[
  ('bing','https://www.bing.com/search', 'q'),
  ('baidu','https://www.baidu.com/s','wd'),
@@ -22,12 +21,14 @@ for name,url,param in sources:
    r=s.get(url,params={param:term},timeout=15,allow_redirects=True);item["http_code"]=r.status_code
    txt=BeautifulSoup(r.text,"html.parser").get_text(" ",strip=True)
    item["text_head"]=txt[:250]
-   item["hits"] = sorted({u for u in re.findall(r'https?://stock\.stockstar\.com/RB\d+\.shtml',r.text)})[:15]
+   item["hits"] = sorted(set(re.findall(r'RB20\d{14}\.shtml',urllib.parse.unquote(r.text))))[:15]
+   item["stockstar_mentions"]=r.text.lower().count("stockstar")
+   item["rb_mentions"]=r.text.count("RB2026")
    item["bytes"]=len(r.content)
   except Exception as e:item["error"]=f"{type(e).__name__}: {str(e)[:170]}"
   out.append(item); print(json.dumps(item,ensure_ascii=False),flush=True)
 url="https://stock.stockstar.com/RB2026080400030995.shtml"
-r=s.get(url,timeout=15);dom=BeautifulSoup(r.text,"html.parser")
+r=s.get(url,timeout=15);r.encoding="gb18030";dom=BeautifulSoup(r.text,"html.parser")
 text=dom.get_text(" ",strip=True)
 indices=[m.start() for m in re.finditer('换手',text)]
 out.append({"provider":"stockstar direct",
