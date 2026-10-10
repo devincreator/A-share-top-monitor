@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [".github/workflows/v27-turnover-archive-probe.yml"]
+    paths: [".github/workflows/v27-turnover-archive-probe.yml", "collector/stockstar_archive_probe.py"]
 permissions:
   contents: read
   statuses: write
