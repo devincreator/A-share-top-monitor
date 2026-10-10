@@ -1,0 +1,44 @@
+name: v30 October 9 public market snapshot
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v30-oct09-snapshot.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --no-cache-dir akshare requests pandas
+      - run: python collector/v30_oct09_snapshot.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v30-oct09-public-market
+          path: out/v30_20261009_market_snapshot.json
+          retention-days: 30
+      - if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              d=json.load(open('out/v30_20261009_market_snapshot.json'))
+              v=d['sources'].get('ashareapi_sh000985') or {}
+              ok=v.get('date')=='2026-10-09' and float(v.get('last',0))>5000
+              msg='2026-10-09 000985 close '+str(v.get('last'))
+          except Exception as e:ok=False;msg=str(e)[:130]
+          b=json.dumps({'state':'success' if ok else 'failure','context':'v30/oct09-public-snapshot','description':msg[:130],
+          'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          req=urllib.request.Request(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}",b,method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Content-Type':'application/json','Accept':'application/vnd.github+json'})
+          with urllib.request.urlopen(req,timeout=20) as r:print(r.status)
+          PY
