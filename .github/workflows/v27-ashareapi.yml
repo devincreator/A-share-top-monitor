@@ -1,0 +1,46 @@
+name: v27 free index turnover archive probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v27-ashareapi.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install requests
+      - run: python collector/v27_ashareapi_probe.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-ashareapi-turnover-probe
+          path: out/
+          retention-days: 14
+      - name: Record probe result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              a=json.load(open('out/ashareapi_source_audit.json',encoding='utf8'))
+              ok=any(row.get('rows',0)>=252 and ('turnover' in row.get('first','') or 'turnover' in row.get('last','')) for row in a)
+              note='Index turnover candidate returned' if ok else 'No verified index turnover archive yet'
+          except Exception:
+              ok=False;note='Source probe failed'
+          b=json.dumps({'state':'success' if ok else 'failure','context':'v27/turnover-archive-probe',
+            'description':note,'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          request=urllib.request.Request(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}",b,method='POST',headers={
+          'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Content-Type':'application/json','Accept':'application/vnd.github+json'})
+          with urllib.request.urlopen(request,timeout=20) as f:print(f.status)
+          PY
