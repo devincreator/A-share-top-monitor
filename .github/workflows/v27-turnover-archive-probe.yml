@@ -1,0 +1,25 @@
+name: v27 archived turnover article probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [".github/workflows/v27-turnover-archive-probe.yml"]
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests beautifulsoup4
+      - run: python collector/stockstar_archive_probe.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v27-archive-probe
+          path: out/
+          retention-days: 20
