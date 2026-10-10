@@ -6,6 +6,7 @@ on:
     paths: [".github/workflows/v27-turnover-archive-probe.yml"]
 permissions:
   contents: read
+  statuses: write
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -23,3 +24,30 @@ jobs:
           name: v27-archive-probe
           path: out/
           retention-days: 20
+
+      - name: Publish archive probe result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import json,os,urllib.request
+          try:
+              records=json.load(open('out/stockstar_archive_probe.json'))
+              hits=sum(len(x.get('hits',[])) for x in records)
+              state='success' if hits>0 else 'failure'
+              desc=f'Search archive contains {hits} raw article links'
+          except Exception as e:
+              state='failure'
+              desc=('Archive probe unavailable: '+str(e))[:130]
+          payload=json.dumps({
+              'state':state,'context':'v27/stockstar-archive-probe',
+              'description':desc[:140],
+              'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+          }).encode()
+          u=f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}"
+          request=urllib.request.Request(u,payload,method='POST',headers={
+             'Authorization':'Bearer '+os.environ['GH_TOKEN'],
+             'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          with urllib.request.urlopen(request,timeout=20) as r:print('Status',r.status)
+          PY
