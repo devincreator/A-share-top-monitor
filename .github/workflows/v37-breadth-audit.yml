@@ -1,0 +1,47 @@
+name: v37 third-party market breadth audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v37-breadth-audit.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --no-cache-dir pandas requests python-calamine
+      - name: Validate public historical breadth data
+        run: python collector/v37_breadth_history_audit.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: historical-a-share-breadth-unverified
+          path: |
+            out/*.csv
+            out/breadth_source_audit.json
+          retention-days: 14
+      - if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              a=json.load(open('out/breadth_source_audit.json',encoding='utf-8'))
+              n=a.get('retrieved_years',0)
+              ok=n>=10
+              desc=f"Retrieved {n}/12 candidate market breadth yearly histories; UNVERIFIED"
+          except Exception as e:ok=False;desc=f"Audit failure: {str(e)[:90]}"
+          b=json.dumps({'state':'success' if ok else 'failure','context':'v37/market-breadth-source','description':desc,
+          'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          q=urllib.request.Request(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}",b,method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          with urllib.request.urlopen(q,timeout=20) as r:print(r.status)
+          PY
