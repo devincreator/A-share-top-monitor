@@ -1,0 +1,46 @@
+name: v38 historical CSI volume audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v38-csi-history.yml"
+permissions:
+  contents: read
+  statuses: write
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --no-cache-dir pandas requests
+      - run: python collector/v38_csi_history.py
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v38-official-csi-history
+          path: out/
+          retention-days: 20
+      - if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python - <<'PY'
+          import os,json,urllib.request
+          try:
+              x=json.load(open('out/csi_2015_2026_audit.json',encoding='utf8'))
+              n=sum(r.get('status')=='retrieved' and r.get('rows',0)>160 for r in x)
+              ok=n>=10
+              msg=f'CSI official yearly histories with >160 rows: {n}/12'
+          except Exception as e:ok=False;msg=str(e)[:120]
+          payload=json.dumps({'state':'success' if ok else 'failure','context':'v38/CSI-official-amount-2015',
+            'description':msg,
+            'target_url':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}"}).encode()
+          request=urllib.request.Request(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/statuses/{os.environ['GITHUB_SHA']}",payload,
+            method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          with urllib.request.urlopen(request,timeout=20) as result:print(result.status)
+          PY
