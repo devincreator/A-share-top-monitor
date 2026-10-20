@@ -6,12 +6,12 @@ on:
       from_month:
         description: First month YYYY-MM, inclusive
         required: true
-        default: "2005-07"
+        default: "2005-10"
         type: string
       through_month:
         description: Last month YYYY-MM, inclusive (max 3 months)
         required: true
-        default: "2005-09"
+        default: "2005-12"
         type: string
   push:
     branches: [main]
@@ -32,8 +32,8 @@ jobs:
       - name: Collect bounded months and audit daily exchange population
         shell: bash
         env:
-          FROM_MONTH: ${{ inputs.from_month || '2005-07' }}
-          THROUGH_MONTH: ${{ inputs.through_month || '2005-09' }}
+          FROM_MONTH: ${{ inputs.from_month || '2005-10' }}
+          THROUGH_MONTH: ${{ inputs.through_month || '2005-12' }}
         run: |
           python - <<'PY'
           import os,csv,io,json,time,hashlib,datetime,calendar,urllib.request,urllib.error,random,collections
@@ -154,7 +154,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v78-monthly-${{ inputs.from_month || '2005-07' }}-to-${{ inputs.through_month || '2005-09' }}-RESEARCH
+          name: v78-monthly-${{ inputs.from_month || '2005-10' }}-to-${{ inputs.through_month || '2005-12' }}-RESEARCH
           path: v78_monthly_backfill/
           retention-days: 30
           if-no-files-found: warn
