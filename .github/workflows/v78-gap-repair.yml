@@ -1,0 +1,73 @@
+name: V78 targeted monthly missing-day recovery (research only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: Comma-separated YYYYMMDD (max 5 trading days)
+        required: true
+        default: "20050608"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v78-gap-repair.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  gap-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download missing trading day only and audit raw bytes
+        env:
+          DAYS: ${{ inputs.days || '20050608' }}
+        run: |
+          python - <<'PY'
+          import os,urllib.request,urllib.error,json,hashlib,csv,io,time,random,datetime
+          from pathlib import Path
+          out=Path('v78_gap_repair');out.mkdir(exist_ok=True)
+          raw=out/'raw';raw.mkdir(exist_ok=True)
+          dates=[d.strip() for d in os.environ['DAYS'].split(',')]
+          assert 1<=len(dates)<=5 and len(set(dates))==len(dates)
+          for d in dates:
+              assert len(d)==8 and d.isdigit()
+              datetime.datetime.strptime(d,'%Y%m%d')
+          audit=[]
+          for d in dates:
+              u='https://money-tree.eyunzhu.com/daily_kline/date/'+d+'.csv'
+              record={'date':d,'url':u}
+              try:
+                  for attempt in range(6):
+                      try:
+                          req=urllib.request.Request(u,headers={'User-Agent':'Mozilla/5.0 V78 narrow repair'})
+                          with urllib.request.urlopen(req,timeout=45) as r:b=r.read(12_000_000)
+                          break
+                      except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError) as e:
+                          if isinstance(e,urllib.error.HTTPError) and e.code==404:raise
+                          if attempt==5:raise
+                          pause=min(60,7*(2**attempt)) + random.uniform(0,2)
+                          print('RETRY',d,attempt+1,str(e)[:100],round(pause),flush=True)
+                          time.sleep(pause)
+                  rows=list(csv.DictReader(io.StringIO(b.decode('utf-8-sig'))))
+                  if len(rows)<100 or any(r.get('trade_date')!=d for r in rows):
+                      raise ValueError('Short or inconsistent historical trading day')
+                  (raw/(d+'.csv')).write_bytes(b)
+                  record.update(ok=True,rows=len(rows),bytes=len(b),sha256=hashlib.sha256(b).hexdigest())
+              except Exception as e:record.update(ok=False,error=type(e).__name__+': '+str(e)[:250])
+              audit.append(record);print(json.dumps(record),flush=True)
+          (out/'repair_audit.json').write_text(json.dumps(audit,indent=2))
+          if not all(r.get('ok') for r in audit):
+              raise SystemExit('Some days remain unavailable; raw files and failures preserved')
+          PY
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v78-historical-gap-20050608-audit
+          path: v78_gap_repair/
+          retention-days: 30
+          if-no-files-found: warn
