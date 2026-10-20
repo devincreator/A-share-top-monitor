@@ -1,0 +1,32 @@
+name: V85 2006 narrow historical gap pilot (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v85-gap-pilot.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s research/v85_pit_universe -p 'test_*.py' -v
+      - name: Recover only first five missing March 2006 dates
+        run: python research/v85_pit_universe/pilot_2006_repair.py
+      - name: Save actual raw files and errors (even if incomplete)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v85-five-day-2006-raw-${{ github.run_id }}
+          path: v85_2006_gap_pilot/
+          retention-days: 30
+          if-no-files-found: warn
