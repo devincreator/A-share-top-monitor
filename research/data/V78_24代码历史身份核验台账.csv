@@ -1,0 +1,25 @@
+code,first_sample,last_sample,occurrences,cause,company,listing_date_documented,effective_code_end_or_delist,continuation_code,reference_url,identity_evidence,full_lifecycle_verified,formal_pit_eligible
+000004.SZ,20050801,20240816,15,DELISTED,国华退,,20260714,,https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12455984&stockid=000004,INDEPENDENT_DOCUMENT,False,False
+000022.SZ,20050801,20160205,10,CODE_CHANGE,深赤湾A → 招商港口,19930505,20181226,001872.SZ,https://m.10jqka.com.cn/sn/20181213/16967327.shtml,INDEPENDENT_DOCUMENT,True,False
+000043.SZ,20050801,20160205,10,CODE_CHANGE,中航善达 → 招商积余,19940928,20191216,001914.SZ,https://www.szse.cn/disclosure/notice/general/t20191211_572534.html,INDEPENDENT_DOCUMENT,True,False
+000638.SZ,20240812,20240816,5,DELISTED,万方,,,,https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-05-26/957726ee-3aa7-4092-8788-d38f9f289046.PDF,INDEPENDENT_DOCUMENT,False,False
+002231.SZ,20240812,20240816,5,DELISTED,奥维,,,,https://www.bjnews.com.cn/detail/1780480647129005.html,INDEPENDENT_DOCUMENT,False,False
+002808.SZ,20240812,20240816,5,DELISTED,恒久科技,20160812,20260714,,https://zh.wikipedia.org/wiki/深圳证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+002898.SZ,20240812,20240816,5,DELISTED,赛隆药业,20170912,20260717,,https://zh.wikipedia.org/wiki/深圳证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+300029.SZ,20160201,20240816,10,DELISTED,天龙退,,20260710,,https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12449836&stockid=300029,INDEPENDENT_DOCUMENT,False,False
+300114.SZ,20160201,20240816,10,CODE_CHANGE,中航电测 → 中航成飞,,20250217,302132.SZ,https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=10745422&stockid=300114,INDEPENDENT_DOCUMENT,False,False
+300344.SZ,20240812,20240816,5,DELISTED,立方退,,,,https://www.bjnews.com.cn/detail/1780480647129005.html,INDEPENDENT_DOCUMENT,False,False
+300379.SZ,20160201,20240816,10,DELISTED,东通退,,,,https://www.bjnews.com.cn/detail/1780480647129005.html,INDEPENDENT_DOCUMENT,False,False
+300391.SZ,20160201,20240816,10,DELISTED,长药退,,,,https://www.bjnews.com.cn/detail/1780480647129005.html,INDEPENDENT_DOCUMENT,False,False
+600193.SH,20050801,20240816,15,DELISTED,创兴资源,19990527,20260706,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+600355.SH,20050801,20240816,15,DELISTED,精伦电子,20020613,,,https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20260420_10815915.shtml,INDEPENDENT_DOCUMENT,False,False
+600421.SH,20050801,20240816,15,DELISTED,华嵘,20040607,20260626,,https://money.finance.sina.com.cn/corp/view/vISSUE_MarketBulletinDetail.php?id=53529&stockid=600421,INDEPENDENT_DOCUMENT,True,False
+600599.SH,20050801,20240816,15,DELISTED,熊猫金控,20010828,20260626,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+600608.SH,20050801,20240816,15,DELISTED,上海宽频,19920327,20260703,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+600636.SH,20050801,20240816,15,DELISTED,国新文化,19930316,20260629,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+600696.SH,20050801,20240816,14,DELISTED,上海岩石,19931206,20260629,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+601059.SH,20240812,20240816,5,MERGER,信达证券,,20261019,601995.SH,https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20261012_10834561.shtml,INDEPENDENT_DOCUMENT,False,False
+601198.SH,20160201,20240816,10,MERGER,东兴证券,20150226,20261019,601995.SH,https://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20261012_10834560.shtml,INDEPENDENT_DOCUMENT,True,False
+603056.SH,20240812,20240816,5,DELISTED,德邦物流,20180116,20260331,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+605081.SH,20240812,20240816,5,DELISTED,上海太和水,20210209,20260630,,https://zh.wikipedia.org/wiki/上海证券交易所主板上市公司列表,INDEPENDENT_DOCUMENT,True,False
+688287.SH,20240812,20240816,5,DELISTED,观典防务,20220525,20260610,,https://www.sse.com.cn/disclosure/announcement/listing/stock/c/c_20260608_10821090.shtml,INDEPENDENT_DOCUMENT,True,False
