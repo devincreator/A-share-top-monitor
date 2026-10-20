@@ -20,7 +20,7 @@ from typing import Any
 ROOT = Path("research/progress")
 RUNS = ROOT / "runs"
 # Isolated researcher workflows only; avoid production collectors/monitor workflows.
-ELIGIBLE_PATH = re.compile(r"^\\.github/workflows/(?:research[-_]|v(?:7[6-9]|[89]\\d|\\d{3,})[-_])", re.IGNORECASE)
+ELIGIBLE_PATH = re.compile(r"^\.github/workflows/(?:research[-_]|v(?:7[6-9]|[89]\d|\d{3,})[-_])", re.IGNORECASE)
 SELF_PATH = ".github/workflows/research-progress-autojournal.yml"
 
 
