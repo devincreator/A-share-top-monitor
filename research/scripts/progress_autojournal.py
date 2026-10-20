@@ -253,7 +253,7 @@ def render_index():
         "",
     ])
     (ROOT / "README.md").write_text("\n".join(lines), encoding="utf-8")
-    print(json.dumps({"entries": len(records), "latest_run_id": latest["run_id"], "latest_conclusion": latest.get("conclusion")}, ensure_ascii=False))
+    print(json.dumps({"entries": len(records), "latest_run_id": latest.get("run_id"), "latest_conclusion": latest.get("conclusion")}, ensure_ascii=False))
 
 
 def main() -> int:
