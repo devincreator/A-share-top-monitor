@@ -1,22 +1,48 @@
 {
-  "updated_at_utc": "2026-10-20T07:46:44+00:00",
-  "entry_count": 8,
+  "updated_at_utc": "2026-10-20T07:46:59+00:00",
+  "entry_count": 9,
   "latest": {
     "schema_version": 1,
-    "record_type": "manually_reported_research_milestone",
-    "recorded_at_utc": "2026-10-20T07:46:34.072Z",
-    "workflow_name": "V82 GitHub 自动研究进度同步机制上线",
+    "record_type": "github_actions_completion",
+    "progress_source": "GITHUB_API_AUTHORITATIVE",
+    "recorded_at_utc": "2026-10-20T07:46:59+00:00",
+    "run_id": 39388764162,
+    "run_attempt": 1,
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
+    "branch": "main",
+    "commit_sha": "2a919b100c0e0df727ce91852d58661275849430",
+    "status": "completed",
     "conclusion": "success",
-    "summary": "在GitHub新增 research-progress-autojournal.yml 工作流、research/scripts/progress_autojournal.py、单元测试、AGENTS.md，以及AI_RESEARCH_HANDOFF、RUNBOOK等强制完成后写入进度条款。已验证研究GitHub Actions完成后自动保存Run ID/commit/job/artifact、失败也会入档，自动日志不改变PIT/双80质量门禁。新增非Actions聊天任务通过research/progress/manual/*.json上传后自动刷新索引。",
-    "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39388655101",
-    "evidence_urls": [
-      "https://github.com/devincreator/A-share-top-monitor/blob/main/AGENTS.md",
-      "https://github.com/devincreator/A-share-top-monitor/blob/main/research/progress/README.md",
-      "https://github.com/devincreator/A-share-top-monitor/blob/main/.github/workflows/research-progress-autojournal.yml"
+    "event": "push",
+    "created_at": "2026-10-20T07:46:38Z",
+    "run_started_at": "2026-10-20T07:46:38Z",
+    "updated_at": "2026-10-20T07:46:51Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39388764162",
+    "jobs": [
+      {
+        "id": 118514923638,
+        "name": "audit",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T07:46:41Z",
+        "completed_at": "2026-10-20T07:46:51Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39388764162/job/118514923638"
+      }
     ],
-    "data_gate": "RESEARCH_AUTOMATION_VALIDATED_ONLY",
+    "artifacts": [
+      {
+        "id": 12248243698,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
+        "expired": false,
+        "expires_at": "2026-11-19T07:46:48Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12248243698/zip"
+      }
+    ],
+    "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
     "PIT_certified": null,
     "dual80_achieved": null,
-    "next_action": "后续每轮研究结束必须同步GitHub进度；工作流自动触发，聊天/本地任务由AI创建manual记录；真实质量门禁另行审计更新。"
+    "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
   }
 }
