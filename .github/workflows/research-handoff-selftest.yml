@@ -28,6 +28,7 @@ jobs:
       - name: Assert raw SHA256 and data-contract flags
         run: |
           python research/scripts/verify_2005_release.py evidence/v82_2005_raw_242days.zip --json evidence/raw_gate.json
+          python research/scripts/check_2005_breadth_against_raw.py evidence/v82_2005_raw_242days.zip research/data/2005_traded_breadth_RESEARCH_ONLY.csv
           python - <<'PY'
           import json,pathlib
           p=pathlib.Path("research/status/quality_gates.json")
