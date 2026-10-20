@@ -1,24 +1,48 @@
 {
-  "updated_at_utc": "2026-10-20T10:09:08+00:00",
-  "entry_count": 37,
+  "updated_at_utc": "2026-10-20T15:42:12+00:00",
+  "entry_count": 38,
   "latest": {
-    "record_type": "manually_reported_research_milestone",
-    "recorded_at_utc": "2026-10-20T10:08:00Z",
-    "workflow_name": "V87 six-month unattended research execution launched",
-    "conclusion": "partial",
-    "summary": "Safely fast-forwarded 8 research-only commits to main: V86 schema/calendar validation now matches actual backtester and blocks non-FORMAL_START events; V87 six-month weekly GitHub Actions guard runs Monday 20:30 China time, archives 90-day weekly artifacts and permanent first-week monthly checkpoints. Initial GitHub Action run 39405662900 and V82 archive selftest run 39405662846 both concluded success; October report states current 4-module model DATA_PENDING, V86 event inputs BLOCKED, 2006 RAW intact but PIT unverified; no newly computed formal trading alerts or model accuracy gains.",
-    "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662900",
-    "data_gate": "RESEARCH_ONLY",
-    "dual80_achieved": false,
-    "production_updated": false,
-    "commits": [
-      "db425cd798d95db852e8eb8e03ecb3eb213e8f71"
+    "schema_version": 1,
+    "record_type": "github_actions_completion",
+    "progress_source": "GITHUB_API_AUTHORITATIVE",
+    "recorded_at_utc": "2026-10-20T15:42:12+00:00",
+    "run_id": 39450794575,
+    "run_attempt": 1,
+    "workflow_name": "V84 research daily source readiness (never formal alerts)",
+    "workflow_path": ".github/workflows/v84-readiness-research.yml",
+    "branch": "main",
+    "commit_sha": "fade82d528f20b0ba7ddf7835160ff0f5718c604",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "schedule",
+    "created_at": "2026-10-20T15:41:47Z",
+    "run_started_at": "2026-10-20T15:41:47Z",
+    "updated_at": "2026-10-20T15:42:04Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39450794575",
+    "jobs": [
+      {
+        "id": 118724731882,
+        "name": "audit",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T15:41:51Z",
+        "completed_at": "2026-10-20T15:42:03Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39450794575/job/118724731882"
+      }
     ],
-    "persistent_baseline": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v87_automation/checkpoints/2026-10.json",
-    "test_evidence": [
-      "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662900",
-      "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662846"
+    "artifacts": [
+      {
+        "id": 12278341291,
+        "name": "v84-daily-readiness-39450794575",
+        "size_in_bytes": 167916,
+        "expired": false,
+        "expires_at": "2026-11-19T15:41:59Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12278341291/zip"
+      }
     ],
-    "next_action": "Follow cron 2026-10-26 onward; prioritize finding independently verified post-2026-08-04 daily complete model inputs and recovering actual V68 event-level research archive. Never automatically promote model, deploy trading signals, or misstate PIT."
+    "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+    "PIT_certified": null,
+    "dual80_achieved": null,
+    "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
   }
 }
