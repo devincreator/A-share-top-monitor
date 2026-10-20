@@ -30,7 +30,13 @@ def validate(day, content):
         if ticker.endswith(('.SZ','.SH')):
             o,h,l,c=[float(r[k]) for k in ('open','high','low','close')]
             vol=float(r['vol']);pct=float(r['pct_chg'])
-            if not 0<l<=min(o,c)<=max(o,c)<=h or vol<0 or not -100<pct<300:
+            # Audited specific first listing day. Other extreme returns stay rejected.
+            same_day_ipo = (day == '20060619' and ticker == '002051.SZ'
+                and abs(float(r.get('pre_close','0')) - 7.4) < 0.001
+                and abs(o-17.11)<0.001 and abs(h-50.0)<0.001
+                and abs(l-15.5)<0.001 and abs(c-31.97)<0.001
+                and abs(pct-332.03)<0.01)
+            if not 0<l<=min(o,c)<=max(o,c)<=h or vol<0 or not (-100<pct<300 or same_day_ipo):
                 raise ValueError('invalid OHLC/vol/return')
     return len(rows)
 
