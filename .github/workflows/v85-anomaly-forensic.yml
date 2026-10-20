@@ -1,0 +1,31 @@
+name: V85 20060619 raw OHLC anomaly preservation (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v85-anomaly-forensic.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  forensic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Save raw exception before any normalization
+        run: python research/v85_pit_universe/forensic_20060619.py
+      - name: Preserve anomaly evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v85-anomaly-20060619-${{ github.run_id }}
+          path: v85_anomaly_forensic/
+          retention-days: 30
+          if-no-files-found: warn
