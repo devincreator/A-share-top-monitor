@@ -91,6 +91,47 @@
       },
       "next_action": "Recover Q1, patch Q2 10 missing days, Q3 source rate limit; independently validate Q4 2006 source hashes. Do not mark all-year complete.",
       "last_seen_workflow_conclusion": "failure"
+    },
+    "V85_2006": {
+      "status": "RAW_GAP_RECOVERY_IN_PROGRESS_NOT_PIT",
+      "audited_at": "2026-10-20",
+      "five_day_pilot_run_id": 39395501706,
+      "five_day_pilot_verified_dates": [
+        "20060313",
+        "20060314",
+        "20060315",
+        "20060316",
+        "20060317"
+      ],
+      "five_day_pilot_stock_daily_rows": 5738,
+      "verified_raw_trade_days_2006_to_date": 156,
+      "verified_raw_trade_days_expected": 241,
+      "raw_trade_days_missing_at_pilot_checkpoint": 85,
+      "remaining_85_batch_run_id": 39396024412,
+      "remaining_batch_completion": "IN_PROGRESS_NOT_YET_VERIFIED",
+      "PIT_certified": false,
+      "formal_fusion_training_allowed": false,
+      "evidence_urls": [
+        "https://github.com/devincreator/A-share-top-monitor/actions/runs/39395501706",
+        "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412"
+      ]
+    },
+    "V84": {
+      "status": "RESEARCH_AUDITOR_DEPLOYED_DAILY_MODEL_NOT_UPDATED",
+      "run_id": 39394993549,
+      "cloud_run_conclusion": "success",
+      "live_source_probe_date": "2026-10-20",
+      "live_source_probe_status": "DATA_UNAVAILABLE_HTTP_404",
+      "readiness_status": "DATA_PENDING",
+      "production_updated": false,
+      "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39394993549"
+    },
+    "V86": {
+      "status": "EVENT_ERROR_AUDITOR_TESTED_REAL_EVENT_INPUT_MISSING",
+      "unit_tested": true,
+      "historical_event_level_backtest_completed": false,
+      "double80_achieved": false,
+      "production_updated": false
     }
   },
   "data_quality": {
@@ -122,11 +163,11 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "2006 4-quarter source failures/expired artifacts audit",
-    "full listing episode legal start/end date independent verification",
-    "resolve 14665 no-bar candidate states",
-    "independent historical suspend/resume date source",
-    "new forward model freeze and mature labels"
+    "2006 remaining 85 raw days under run 39396024412; inspect each of 17 batch artifacts and hashes before changing completeness gate",
+    "Historical stock listing episodes and suspensions not point-in-time certified; 2005 unresolved no-bar records 14665",
+    "Recover original V63_V68 research ZIP including full event-level FORMAL_START and mature pivot CSV to diagnose actual false positives",
+    "Current index price, turnover and financing complete production model still stale; separate live raw availability from official signals",
+    "New forward model freeze and independently matured blind validation"
   ],
   "next_ai_entry": "AI_RESEARCH_HANDOFF.md -> research/README.md -> research/NEXT_AI_RUNBOOK.md",
   "production_files_do_not_overwrite": [
