@@ -35,7 +35,7 @@ PY
 
 ## 2. 恢复2006采集（任务已经发起但未验收）
 
-`gh run view 39364428554 --repo devincreator/A-share-top-monitor --json status,conclusion,jobs`。特别注意：**2006-04~06初轮抓取返回50/60天，缺20060619—20060630共10个交易日**，不能视为成功；其他季度根据最新日志和附件重新验证。
+`gh run view 39364428554 --repo devincreator/A-share-top-monitor --json status,conclusion,jobs`。最终一次查询结论：**2006Q1取消、Q2失败（50/60，缺20060619—20060630）、Q3在获取主表时HTTP429失败、Q4云端任务显示成功**。Q4也必须下载附件检查日级CSV和SHA256，不能把工作流绿灯等于数据门禁。全年目前仍不合格。
 
 ```bash
 gh run download 39364428554 --repo devincreator/A-share-top-monitor --dir v79_2006_artifacts
