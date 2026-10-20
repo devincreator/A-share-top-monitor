@@ -1,0 +1,56 @@
+name: Research handoff - verify 2005 release + metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "AI_RESEARCH_HANDOFF.md"
+      - "research/**"
+      - ".github/workflows/research-handoff-selftest.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download permanent 2005 release archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p evidence
+          gh release download research-v82-2005-20261020 --dir evidence --pattern "v82_2005_raw_242days.zip" --repo "$GITHUB_REPOSITORY"
+          test -s evidence/v82_2005_raw_242days.zip
+      - name: Assert raw SHA256 and data-contract flags
+        run: |
+          python research/scripts/verify_2005_release.py evidence/v82_2005_raw_242days.zip --json evidence/raw_gate.json
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path("research/status/quality_gates.json")
+          x=json.loads(p.read_text(encoding="utf-8"))
+          assert not x["production_updated"]
+          assert x["versions"]["V78_V82"]["2005_raw_trade_days"]==242
+          assert x["versions"]["V78_V82"]["2005_candidate_unexplained_no_daily_bars"]==14665
+          assert not x["versions"]["V78_V82"]["formal_fusion_training_allowed"]
+          assert not x["data_quality"]["broad_market_formal_features_allowed"]
+          assert not x["spec"]["new_forward_unseen_validation"]
+          for f in ["AI_RESEARCH_HANDOFF.md","research/README.md",
+                    "research/NEXT_AI_RUNBOOK.md","research/DATA_PROVENANCE_AND_GATES.md",
+                    "research/reports/V63_V68_实测报告.md",
+                    "research/reports/V69_V75_实测报告.md",
+                    "research/reports/V78_V82_实测报告.md"]:
+              assert pathlib.Path(f).is_file(),f
+          print("AI handoff file and quality-gate assertions OK")
+          PY
+      - name: Preserve independent selftest proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: research-v82-handoff-selftest
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: warn
