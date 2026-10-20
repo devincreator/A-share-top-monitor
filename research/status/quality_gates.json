@@ -82,14 +82,15 @@
     },
     "V79_2006": {
       "workflow_run_id": 39364428554,
-      "last_seen_workflow_run_status": "in_progress",
+      "last_seen_workflow_run_status": "completed",
       "quarters_last_seen": {
-        "2006Q1": "cancelled",
-        "2006Q2": "failure (50/60 dates, missing 20060619-20060630)",
-        "2006Q3": "failure",
-        "2006Q4": "in_progress"
+        "2006Q1": "cancelled (not validated)",
+        "2006Q2": "failure: 50/60 days received; missing 20060619—20060630 (10 trade days)",
+        "2006Q3": "failure: HTTP 429 at source master; uploaded artifact has no original daily data",
+        "2006Q4": "success as GitHub Actions job; audit artifact and daily SHA256 before acceptance"
       },
-      "next_action": "Always requery GitHub live before claiming completion"
+      "next_action": "Recover Q1, patch Q2 10 missing days, Q3 source rate limit; independently validate Q4 2006 source hashes. Do not mark all-year complete.",
+      "last_seen_workflow_conclusion": "failure"
     }
   },
   "data_quality": {
