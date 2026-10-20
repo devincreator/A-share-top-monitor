@@ -1,0 +1,97 @@
+name: Research archive - V82 2005 raw daily data (one-off)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/research-v82-archive-2005.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-2005:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Preserve 242 raw 2005 A-share daily files from prior action evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p archive/sub archive/final
+          fetch() {
+            echo "Downloading prior workflow artifact $1 ($2)"
+            gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts/$1/zip" > "archive/sub/$2.zip"
+            unzip -tq "archive/sub/$2.zip" >/dev/null
+            mkdir -p "archive/sub/$2"
+            unzip -q "archive/sub/$2.zip" -d "archive/sub/$2"
+          }
+          fetch 12237217500 q1
+          fetch 12237717828 q2
+          fetch 12238350093 q2gap
+          fetch 12237389321 q3
+          fetch 12237014791 q4
+          fetch 12237093482 identities
+          python - <<'PY'
+          from pathlib import Path
+          import json,csv,hashlib,zipfile,datetime,collections
+          base=Path('archive/sub')
+          paths={}
+          duplicates=[]
+          for q in ['q1','q2','q2gap','q3','q4']:
+              for f in (base/q).rglob('*.csv'):
+                  d=f.stem
+                  if len(d)!=8 or not d.isdigit(): continue
+                  datetime.datetime.strptime(d,'%Y%m%d')
+                  content=f.read_bytes()
+                  if d in paths:
+                      if paths[d][1]!=hashlib.sha256(content).hexdigest():
+                          raise RuntimeError(f"Date collision with different bytes: {d}")
+                      duplicates.append(d)
+                      continue
+                  paths[d]=(f,hashlib.sha256(content).hexdigest())
+          years=collections.Counter(k[:4] for k in paths)
+          if years!={'2005':242}:
+              raise RuntimeError(f"Expected 242 unique 2005 trading dates, got {years}")
+          for day,(p,_) in paths.items():
+              with p.open(encoding='utf-8-sig') as f:
+                  reader=csv.DictReader(f)
+                  n=0
+                  for row in reader:
+                      if row.get('trade_date')!=day: raise RuntimeError(f"bad date {day}")
+                      n+=1
+              if n<100:raise RuntimeError(f"day {day} too short")
+          dest=Path('archive/final')
+          m={'source':'money-tree.eyunzhu.com retrospective daily files; PIT_UNCERTIFIED',
+             'source_workflow_artifacts':[12237217500,12237717828,12238350093,12237389321,12237014791],
+             'raw_daily_unique_files':len(paths),'duplicate_same_sha':duplicates,
+             'PIT_certified':False,'formal_model_training_allowed':False,
+             'file_sha256':{d:sha for d,(_,sha) in sorted(paths.items())}}
+          (dest/'source_manifest_2005.json').write_text(json.dumps(m,indent=2,ensure_ascii=False))
+          with zipfile.ZipFile(dest/'v82_2005_raw_242days.zip','w',compression=zipfile.ZIP_DEFLATED,compresslevel=8) as z:
+              for day,(p,_) in sorted(paths.items()):z.write(p,arcname='raw/'+day+'.csv')
+              z.write(dest/'source_manifest_2005.json',arcname='source_manifest_2005.json')
+          print(json.dumps({'days':len(paths),'bytes':(dest/'v82_2005_raw_242days.zip').stat().st_size}))
+          PY
+          cp archive/sub/identities/v78_identity_evidence/24_ticker_price_history_evidence.csv archive/final/identity_24_ticker_history_evidence.csv || find archive/sub/identities -type f -maxdepth 4 -print
+          cat > archive/final/README_DATA_QUALITY.txt <<'TXT'
+          V82 RESEARCH SNAPSHOT / DO NOT USE IN FORMAL PIT OR PRODUCTION
+          Source: historical retrospective A-share daily HTTPS archives.
+          2005 242/242 days and raw SHA256 verified.
+          Listing/suspension/PIT temporal certification has NOT passed.
+          Use linked research handoff for precise data gates.
+          TXT
+          git_sha="${GITHUB_SHA}"
+          tag="research-v82-2005-20261020"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Existing archive: updating attached assets"
+            gh release upload "$tag" archive/final/* --clobber
+          else
+            gh release create "$tag" archive/final/* --target "$git_sha" --title "Research evidence: 2005 A-share raw daily (NOT PIT)" --notes "Nonproduction V82 research archive. 242 original day files with SHA256 manifest; temporal membership and suspension gates remain blocked." --prerelease --latest=false
+          fi
+          gh release view "$tag" --json url,assets
