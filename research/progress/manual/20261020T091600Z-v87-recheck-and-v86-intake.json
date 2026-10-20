@@ -1,0 +1,28 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-20T09:16:00Z",
+  "workflow_name": "V87 checkpoint: recheck V84/V85/V86 and fail-closed V86 event intake",
+  "conclusion": "partial",
+  "summary": "Verified main branch already contains V84 daily research audit and V85 2006 RAW 241/241 days 288399 bars. Reran 22 existing local tests and 3 new V86 event input tests (25 total passing). New V86 input inventory refuses to score aggregate-only records or missing event-level formal alerts and objective pivots. No new actual backtest or new formal signal.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/commit/202d8d079c8b6b169707fad565b408e5610277c8",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": null,
+  "production_updated": false,
+  "new_commits": [
+    "e3d6fa853b68f12dbc0b8d1b8f4ac9da6e8f0963",
+    "202d8d079c8b6b169707fad565b408e5610277c8"
+  ],
+  "verified_tests": {
+    "v84": 7,
+    "v85": 9,
+    "v86_previous": 6,
+    "v86_new": 3,
+    "total": 25
+  },
+  "blockers": [
+    "2026-10-20 probe source HTTP404; no same-day four-module recomputation",
+    "V63-V68 formal event and objective pivot event CSV not preserved; V86 replay and quantified FP classification blocked",
+    "historical listed-universe and suspension PIT quality gates not passed"
+  ],
+  "next_action": "Recover actual event-level archive with SHA256 and use newly added intake audit; add independently verified alternate current-data feed; preserve production-only frozen rules and log daily status."
+}
