@@ -25,6 +25,8 @@ jobs:
           mkdir -p evidence
           gh release download research-v82-2005-20261020 --dir evidence --pattern "v82_2005_raw_242days.zip" --repo "$GITHUB_REPOSITORY"
           test -s evidence/v82_2005_raw_242days.zip
+      - name: Regression-test automatic research progress journal
+        run: python -m unittest discover -s research/scripts -p "test_progress_autojournal.py" -v
       - name: Assert raw SHA256 and data-contract flags
         run: |
           python research/scripts/verify_2005_release.py evidence/v82_2005_raw_242days.zip --json evidence/raw_gate.json
