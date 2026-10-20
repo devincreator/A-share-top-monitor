@@ -93,28 +93,35 @@
       "last_seen_workflow_conclusion": "failure"
     },
     "V85_2006": {
-      "status": "RAW_GAP_RECOVERY_IN_PROGRESS_NOT_PIT",
-      "audited_at": "2026-10-20",
-      "five_day_pilot_run_id": 39395501706,
-      "five_day_pilot_verified_dates": [
-        "20060313",
-        "20060314",
-        "20060315",
-        "20060316",
-        "20060317"
+      "status": "RAW_241_241_VERIFIED_NOT_PIT",
+      "independent_pinned_calendar": true,
+      "raw_trading_days": 241,
+      "raw_stock_daily_records": 288399,
+      "raw_missing_trading_days": 0,
+      "raw_sha256_manifest_verification": true,
+      "official_new_ipo_return_exceptions": [
+        {
+          "date": "2006-06-19",
+          "symbol": "002051.SZ",
+          "return_pct": 332.03
+        },
+        {
+          "date": "2006-12-15",
+          "symbol": "002095.SZ",
+          "return_pct": 345.71
+        }
       ],
-      "five_day_pilot_stock_daily_rows": 5738,
-      "verified_raw_trade_days_2006_to_date": 156,
-      "verified_raw_trade_days_expected": 241,
-      "raw_trade_days_missing_at_pilot_checkpoint": 85,
-      "remaining_85_batch_run_id": 39396024412,
-      "remaining_batch_completion": "IN_PROGRESS_NOT_YET_VERIFIED",
-      "PIT_certified": false,
+      "certified_scope": "historical source file integrity only",
+      "historical_security_universe_PIT_certified": false,
+      "suspension_PIT_certified": false,
+      "company_action_PIT_certified": false,
       "formal_fusion_training_allowed": false,
-      "evidence_urls": [
-        "https://github.com/devincreator/A-share-top-monitor/actions/runs/39395501706",
-        "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412"
-      ]
+      "raw_release_tag": "research-v85-2006-20261020",
+      "raw_release_url": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v85-2006-20261020",
+      "audited_run_id": 39398717078,
+      "prior_failed_archive_run_id": 39397909554,
+      "batch_run_id": 39396024412,
+      "pilot_run_id": 39395501706
     },
     "V84": {
       "status": "RESEARCH_AUDITOR_DEPLOYED_DAILY_MODEL_NOT_UPDATED",
@@ -124,14 +131,17 @@
       "live_source_probe_status": "DATA_UNAVAILABLE_HTTP_404",
       "readiness_status": "DATA_PENDING",
       "production_updated": false,
-      "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39394993549"
+      "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39394993549",
+      "first_cloud_readiness_probe": "2026-10-20",
+      "first_cloud_probe_result": "DATA_UNAVAILABLE_404"
     },
     "V86": {
       "status": "EVENT_ERROR_AUDITOR_TESTED_REAL_EVENT_INPUT_MISSING",
       "unit_tested": true,
       "historical_event_level_backtest_completed": false,
       "double80_achieved": false,
-      "production_updated": false
+      "production_updated": false,
+      "event_replay_blocker": "V63_V68_2005长历史双向顶底_完整实测研究包.zip not preserved in repository; no event-level input available"
     }
   },
   "data_quality": {
@@ -147,7 +157,10 @@
       "delisted": "20260524"
     },
     "major_same_code_case": "600018.SH - 2005 former listed security vs 2006 later listed security",
-    "suspended_historical_case": "000638.SZ 2005"
+    "suspended_historical_case": "000638.SZ 2005",
+    "2006_raw_daily_verified": true,
+    "2006_stock_universe_PIT_verified": false,
+    "2006_source_archive_release": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v85-2006-20261020"
   },
   "source_links": {
     "primary_project": "https://github.com/devincreator/A-share-top-monitor",
@@ -163,11 +176,11 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "2006 remaining 85 raw days under run 39396024412; inspect each of 17 batch artifacts and hashes before changing completeness gate",
-    "Historical stock listing episodes and suspensions not point-in-time certified; 2005 unresolved no-bar records 14665",
-    "Recover original V63_V68 research ZIP including full event-level FORMAL_START and mature pivot CSV to diagnose actual false positives",
-    "Current index price, turnover and financing complete production model still stale; separate live raw availability from official signals",
-    "New forward model freeze and independently matured blind validation"
+    "Historical actual listed A-share security episodes require independent official start/end date confirmation, especially same-code different entity and IPO first day",
+    "Daily suspension and source-gap classification: 2005 retrospective 14665 no-bars unresolved",
+    "Recover original event-level V63-V68 research ZIP to identify true 5/9 TOP/BOTTOM errors without fabricating rows",
+    "Restore post-2026-08-04 complete live official model input by verified daily index/amount/turnover/financing; V84 read-only probe returned 2026-10-20 HTTP404",
+    "PIT-safe returns and share-universe verification across prior years, then frozen prospective blinded verification"
   ],
   "next_ai_entry": "AI_RESEARCH_HANDOFF.md -> research/README.md -> research/NEXT_AI_RUNBOOK.md",
   "production_files_do_not_overwrite": [
