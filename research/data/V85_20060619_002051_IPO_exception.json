@@ -1,0 +1,31 @@
+{
+  "date": "2006-06-19",
+  "symbol": "002051.SZ",
+  "security_listing_id": "002051.SZ/IPO/2006-06-19",
+  "event_type": "INITIAL_LISTING",
+  "listing_notice_published": "2006-06-15",
+  "listing_effective_date": "2006-06-19",
+  "raw_source": "https://money-tree.eyunzhu.com/daily_kline/date/20060619.csv",
+  "source_raw_sha256": "fe0bb95c2668667862425e8748e39a0200d6a1fc1748ed1914e579b42def44ee",
+  "raw_rows": 1127,
+  "exception_row": 337,
+  "raw_values": {
+    "open": 17.11,
+    "high": 50,
+    "low": 15.5,
+    "close": 31.97,
+    "pre_close": 7.4,
+    "pct_chg": 332.03,
+    "vol": 451453.87
+  },
+  "reason": "IPO opening-day gain of 332.03% versus issue price 7.40, externally verified; not comparable to ordinary day-over-day return",
+  "official_listing_notice": "https://www.szse.cn/disclosure/notice/t20060615_508087.html",
+  "contemporaneous_price_evidence": "https://finance.sina.com.cn/stock/newstock/20060619/15022662866.shtml",
+  "primary_issue_notice": "https://money.finance.sina.com.cn/corp/view/vISSUE_MarketBulletinDetail.php?id=156964&stockid=002051",
+  "research_decision": "ALLOW_EXACT_SOURCE_RECORD_FOR_RAW_ARCHIVE_ONLY",
+  "PIT_certified": false,
+  "complete_universe_PIT_certified": false,
+  "formal_model_allowed": false,
+  "breadth_treatment": "Exclude IPO first-day issue-price-relative pct_chg from ordinary close-to-close equal-weight return; define separate IPO handling in PIT feature engineering",
+  "no_global_threshold_relaxation": true
+}
