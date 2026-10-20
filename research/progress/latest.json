@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-20T09:10:48+00:00",
-  "entry_count": 25,
+  "updated_at_utc": "2026-10-20T09:12:37+00:00",
+  "entry_count": 26,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-20T09:10:48+00:00",
-    "run_id": 39398717078,
+    "recorded_at_utc": "2026-10-20T09:12:37+00:00",
+    "run_id": 39398961805,
     "run_attempt": 1,
-    "workflow_name": "V85 archive verified 2006 raw historical evidence (NOT PIT)",
-    "workflow_path": ".github/workflows/v85-archive-2006-raw.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "1807818584ec0e4ff2d815860d0346cb659d5e56",
+    "commit_sha": "6b9db6df3b898c2a697163ff0eef378d8d171f9b",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-20T09:10:15Z",
-    "run_started_at": "2026-10-20T09:10:15Z",
-    "updated_at": "2026-10-20T09:10:35Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39398717078",
+    "created_at": "2026-10-20T09:12:16Z",
+    "run_started_at": "2026-10-20T09:12:16Z",
+    "updated_at": "2026-10-20T09:12:29Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39398961805",
     "jobs": [
       {
-        "id": 118547786820,
-        "name": "archive",
+        "id": 118548597256,
+        "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-20T09:10:19Z",
-        "completed_at": "2026-10-20T09:10:35Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39398717078/job/118547786820"
+        "started_at": "2026-10-20T09:12:20Z",
+        "completed_at": "2026-10-20T09:12:28Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39398961805/job/118548597256"
       }
     ],
     "artifacts": [
       {
-        "id": 12253676095,
-        "name": "v85-2006-archive-audit-39398717078",
-        "size_in_bytes": 642,
+        "id": 12253531539,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2026-11-19T09:10:30Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12253676095/zip"
+        "expires_at": "2026-11-19T09:12:25Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12253531539/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
