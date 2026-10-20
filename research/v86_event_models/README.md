@@ -22,3 +22,11 @@ python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
 * 同一指数、相同日期、相同事件预算下作未来对照。
 * 市场阶段使用报警当天及过去的价格，不使用未来价格确认趋势。
 * 非法日期、重复事件id及缺少日历的事件必须失败，不得静默补值。
+
+## V87：回测输入前置审计
+
+先执行 `python research/v86_event_models/input_inventory.py --alerts alerts.csv --pivots pivots.csv --prices prices.csv --output /tmp/v86_input_status.json`。
+
+标准CSV需采用 `id,date,scale,direction`，价格日历采用 `date,close`。兼容读取旧输入的 `event_id`、`pivot_id`、`turning_date`、`confirmation_date`，但旧输入仍须先明确转换及审核，不能直接当正式模型证据。存在非FORMAL_START记录、重复ID、缺交易日或不合理标签确认日期时标记BLOCKED。
+
+该前置检查只验证输入格式与数据一致性，**即便INPUT_SCHEMA_READY，也不说明PIT、历史模型精确率、未来验证已经通过**。正式回测仍需将原始数据单独转换为event_audit.py接受的标准格式，并保留哈希和来源。
