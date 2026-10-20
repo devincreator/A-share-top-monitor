@@ -1,0 +1,23 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-20T08:49:28Z",
+  "workflow_name": "V84 V85 V86 implementation checkpoint",
+  "conclusion": "partial",
+  "summary": "V84 daily source freshness monitor + V86 causal one-to-one event audit merged on main; 16 local tests (13 V84/V86 plus 3 V85 pilot) passed; V84 initial GitHub run completed, source 20261020 HTTP404 -> DATA_PENDING, no new formal signal. V85 first five missing 2006 March trading days separately recovered: 5/5, 5738 raw rows, downloaded artifact SHA/rows independently checked, coverage now 156/241; remaining 85 dates queued under sequential 17-batch Actions run 39396024412. V86 event-level historical input missing, no new 80% results. Production strategy, index, app, collector unchanged.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39395501706",
+  "additional_evidence_urls": [
+    "https://github.com/devincreator/A-share-top-monitor/pull/2",
+    "https://github.com/devincreator/A-share-top-monitor/pull/3",
+    "https://github.com/devincreator/A-share-top-monitor/pull/4",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39394993549",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412"
+  ],
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": null,
+  "PIT_certified": false,
+  "production_updated": false,
+  "latest_release_ready": false,
+  "verified_2006_raw_trading_days": 156,
+  "remaining_2006_raw_trading_days": 85,
+  "next_action": "Verify 17-batch GitHub Actions run 39396024412 raw artifact hashes, record failed dates, and create durable 2006 raw Release; obtain V68 original full event files for actual false-positive attribution."
+}
