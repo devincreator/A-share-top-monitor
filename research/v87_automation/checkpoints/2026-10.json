@@ -1,0 +1,65 @@
+{
+  "asof": "2026-10-20",
+  "event_input_issues": [
+    "alerts: source file missing",
+    "pivots: source file missing",
+    "prices: source file missing"
+  ],
+  "formal_signals_generated": false,
+  "gates": {
+    "2005_listing_suspension_PIT": {
+      "passed": false
+    },
+    "2006_raw_integrity": {
+      "PIT_certified": false,
+      "passed": true
+    },
+    "V86_event_inputs": {
+      "passed": false,
+      "status": "BLOCKED"
+    },
+    "current_full_model": {
+      "passed": false,
+      "status": "DATA_PENDING"
+    },
+    "formal_double80": {
+      "passed": false,
+      "status": "NOT_VALIDATED"
+    },
+    "prospective_frozen_sample": {
+      "passed": false
+    }
+  },
+  "next_task": "Restore independently verified current index/volume/turnover/financing feeds",
+  "production_changed": false,
+  "readiness_channels": {
+    "full_four_module_model": {
+      "asof": "2026-08-04",
+      "calendar_age_days": 77,
+      "status": "STALE_OR_UNVERIFIED"
+    },
+    "market_snapshot": {
+      "asof": "2026-10-08",
+      "calendar_age_days": 12,
+      "status": "HISTORICAL_SNAPSHOT_ONLY"
+    },
+    "price_core": {
+      "asof": "2026-09-21",
+      "calendar_age_days": 29,
+      "status": "HISTORICAL_VERIFIED_ONLY"
+    }
+  },
+  "research_only": true,
+  "schema_version": 1,
+  "source_sha256": {
+    "latest_state": "c4f3fdeb98e57c790144baa2c9fe8a1d261e1bbec8e371785afe5e97ee2e63ab",
+    "latest_verified_market": "9130b0d65b65bc02d95e6d2e166024f845939ea58edbe50ae9d72b85c81629c5",
+    "quality_gates": "88d92cb5deccfea0a63611494645c3c0a484b14f60f0575899857d48ae53d7d1"
+  },
+  "warning": "Passing an Actions job never means PIT, forecast quality, dual80 or signal deployment passed.",
+  "window": {
+    "end": "2027-04-20",
+    "start": "2026-10-20",
+    "status": "RESEARCH_RUNNING"
+  }
+}
