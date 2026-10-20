@@ -1,0 +1,20 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-20T10:08:00Z",
+  "workflow_name": "V87 six-month unattended research execution launched",
+  "conclusion": "partial",
+  "summary": "Safely fast-forwarded 8 research-only commits to main: V86 schema/calendar validation now matches actual backtester and blocks non-FORMAL_START events; V87 six-month weekly GitHub Actions guard runs Monday 20:30 China time, archives 90-day weekly artifacts and permanent first-week monthly checkpoints. Initial GitHub Action run 39405662900 and V82 archive selftest run 39405662846 both concluded success; October report states current 4-module model DATA_PENDING, V86 event inputs BLOCKED, 2006 RAW intact but PIT unverified; no newly computed formal trading alerts or model accuracy gains.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662900",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": false,
+  "production_updated": false,
+  "commits": [
+    "db425cd798d95db852e8eb8e03ecb3eb213e8f71"
+  ],
+  "persistent_baseline": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v87_automation/checkpoints/2026-10.json",
+  "test_evidence": [
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662900",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39405662846"
+  ],
+  "next_action": "Follow cron 2026-10-26 onward; prioritize finding independently verified post-2026-08-04 daily complete model inputs and recovering actual V68 event-level research archive. Never automatically promote model, deploy trading signals, or misstate PIT."
+}
