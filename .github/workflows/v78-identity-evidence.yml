@@ -1,0 +1,74 @@
+name: V78 missing 24-code individual price-history audit (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v78-identity-evidence.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  investigate-24:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Independently probe each missing identity in individual history
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv,io,urllib.request,urllib.error,hashlib,json,time,random
+          from pathlib import Path
+          codes=("000004.SZ 000022.SZ 000043.SZ 000638.SZ 002231.SZ 002808.SZ "
+                 "002898.SZ 300029.SZ 300114.SZ 300344.SZ 300379.SZ 300391.SZ "
+                 "600193.SH 600355.SH 600421.SH 600599.SH 600608.SH 600636.SH "
+                 "600696.SH 601059.SH 601198.SH 603056.SH 605081.SH 688287.SH").split()
+          out=Path("v78_identity_evidence");out.mkdir(exist_ok=True)
+          rows=[]
+          for code in codes:
+              status={"code":code,"price_hist_evidence_only":True,
+                      "verified_ipo_date":False,"verified_delist_date":False}
+              url=f"https://money-tree.eyunzhu.com/daily_kline/qfq/{code}.csv"
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 V78 historical identity audit"})
+              try:
+                  for k in range(4):
+                      try:
+                          with urllib.request.urlopen(req,timeout=45) as r:b=r.read(12*1024*1024)
+                          break
+                      except urllib.error.HTTPError as e:
+                          if e.code not in (429,503) or k==3:raise
+                          time.sleep(5*2**k)
+                  hist=list(csv.DictReader(io.StringIO(b.decode("utf-8-sig"))))
+                  if not hist or not {"symbol","trade_date","close"}.issubset(hist[0]):
+                      raise ValueError("Empty or wrong schema")
+                  dates=sorted({r["trade_date"] for r in hist if r.get("symbol")==code and r.get("trade_date")})
+                  if not dates:raise ValueError("No matching ticker data")
+                  status.update(http=200,records=len(hist),first_observed_trade=dates[0],
+                     last_observed_trade=dates[-1],first_3_rows=json.dumps(hist[:3],ensure_ascii=False)[:350],
+                     sha256=hashlib.sha256(b).hexdigest())
+                  # Raw b is deliberately NOT uploaded: only evidence/metadata for the 24 tickers.
+              except Exception as e:
+                  status["error"]=type(e).__name__+": "+str(e)[:200]
+              rows.append(status)
+              print(json.dumps({k:v for k,v in status.items() if k!="first_3_rows"},ensure_ascii=False),flush=True)
+              time.sleep(1.1)
+          cols=list(dict.fromkeys(k for r in rows for k in r))
+          with (out/"24_ticker_price_history_evidence.csv").open("w",encoding="utf-8-sig",newline="") as f:
+              w=csv.DictWriter(f,fieldnames=cols);w.writeheader();w.writerows(rows)
+          (out/"gate.json").write_text(json.dumps({"requested":24,"verified_price_histories":sum(r.get("http")==200 for r in rows),
+              "IPO_and_delisting_date_certified":0,"full_PIT_certified":False,
+              "formal_training_allowed":False},ensure_ascii=False,indent=2))
+          if sum(r.get("http")==200 for r in rows)<18:
+              raise SystemExit("Too many source failures: review audit, no identity claims")
+          PY
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v78-missing-24-identity-price-history
+          path: v78_identity_evidence/
+          retention-days: 30
