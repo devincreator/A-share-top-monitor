@@ -1,0 +1,78 @@
+name: V76 HTTPS historical A-share source verification (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v76-https-source-probe.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  https-source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Test HTTPS historical stock and delisted securities evidence
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import urllib.request, urllib.error, hashlib, json, time, csv, io, re
+          out=Path("v76_https_probe");out.mkdir(exist_ok=True)
+          cases=[
+            ("current_master","https://money-tree.eyunzhu.com/stocks/stocks_list.csv"),
+            ("historical_day_2005","https://money-tree.eyunzhu.com/daily_kline/date/20050801.csv"),
+            ("historical_day_2016","https://money-tree.eyunzhu.com/daily_kline/date/20160203.csv"),
+            ("historical_day_2024","https://money-tree.eyunzhu.com/daily_kline/date/20240814.csv"),
+            ("delisted_600005","https://money-tree.eyunzhu.com/daily_kline/qfq/600005.SH.csv"),
+            ("github_https_control","https://raw.githubusercontent.com/rootSunc/CNEquity/main/README.md"),
+          ]
+          reports=[]
+          for name,url in cases:
+            r={"name":name,"url":url,"historical_PIT_certified":False}
+            try:
+              req=urllib.request.Request(url,headers={
+                 "User-Agent":"Mozilla/5.0 V76-data-audit","Accept":"text/csv,text/plain,*/*"})
+              with urllib.request.urlopen(req,timeout=27) as resp:
+                r["status"]=resp.status
+                r["content_type"]=resp.headers.get("Content-Type","")
+                r["content_length_header"]=resp.headers.get("Content-Length")
+                b=resp.read(25*1024*1024+1)
+              if len(b)>25*1024*1024:
+                raise ValueError("exceeds explicit 25 MiB source cap")
+              r["bytes"]=len(b);r["sha256"]=hashlib.sha256(b).hexdigest()
+              txt=b[:16384].decode("utf-8-sig",errors="replace")
+              r["first_lines"]=txt.splitlines()[:3]
+              if "github_https_control"!=name:
+                dest=out/(name+".csv")
+                dest.write_bytes(b)
+                header=txt.splitlines()[0] if txt.strip() else ""
+                r["csv_header"]=header
+                r["plausible_csv"]=bool(len(header.split(","))>=3 and not header.lstrip().startswith("<"))
+                if b.count(b"\n")<3:r["insufficient_records"]=True
+            except Exception as exc:
+              r["error"]=type(exc).__name__+": "+str(exc)[:320]
+            reports.append(r)
+            print(json.dumps({k:v for k,v in r.items() if k!="first_lines"},ensure_ascii=False),flush=True)
+            time.sleep(0.4)
+          (out/"audit.json").write_text(json.dumps({
+              "run_kind":"HTTPS_SOURCE_SMOKE_ONLY",
+              "formal_model_training_allowed":False,"full_history_acquired":False,
+              "checks":reports},ensure_ascii=False,indent=2),encoding="utf-8")
+          if not any(r.get("plausible_csv") and "historical_day_" in r["name"] for r in reports):
+            raise SystemExit("No authenticated historical daily CSV returned; inspect attached audit")
+          PY
+      - name: Preserve raw evidence and errors
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v76-https-historical-source-audit
+          path: v76_https_probe/
+          retention-days: 14
+          if-no-files-found: warn
