@@ -1,0 +1,43 @@
+name: V84 research daily source readiness (never formal alerts)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 19:30 Beijing time on weekdays; holidays and source delays are normal DATA_UNAVAILABLE.
+    - cron: '30 11 * * 1-5'
+  push:
+    branches: [main]
+    paths:
+      - 'research/v84_live_readiness/**'
+      - '.github/workflows/v84-readiness-research.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test read-only status and provenance validators
+        run: |
+          python -m unittest discover -s research/v84_live_readiness -p 'test_*.py' -v
+          python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
+      - name: Check distinct source and full-model dates
+        run: |
+          python research/v84_live_readiness/readiness.py --output v84_daily_probe_output/readiness.json
+      - name: Probe one date of public SH/SZ daily source
+        run: |
+          python research/v84_live_readiness/daily_probe.py --output-dir v84_daily_probe_output
+      - name: Persist audit, even when upstream unavailable
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v84-daily-readiness-${{ github.run_id }}
+          path: v84_daily_probe_output/
+          retention-days: 30
+          if-no-files-found: warn
