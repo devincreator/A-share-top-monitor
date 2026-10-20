@@ -35,7 +35,7 @@ A 股 **5% 短周期顶/底与 9% 中周期顶/底**四任务，要同时达到 
 
 ## 运行与取数入口
 
-- [V79 2006年四季度云端采集](https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554)：截至本文件编写时仍在运行/排队，**必须重新检查四个矩阵任务是否全部成功、附件是否真正存在、日文件是否齐全**。
+- [V79 2006年四季度云端采集](https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554)：截至2026-10-20最终核验：**Q1取消、Q2失败（缺20060619—20060630共10个交易日）、Q3因HTTP429失败、Q4工作流成功但仍需逐文件哈希复核；2006全年不合格**。后续仍须核实日志与附件。
 - [V78 2005年分季度采集工作流](.github/workflows/v78-monthly-backfill.yml)，当前是**研究工作流**，自动触发的默认月份可能随最近一次提交调整，建议只通过 `workflow_dispatch` 显式指定月份。
 - [V78 单日限流补采工作流](.github/workflows/v78-gap-repair.yml)；原2005-06-08曾429，已补齐。
 - [V78 24个异常代码逐只价格历史](.github/workflows/v78-identity-evidence.yml)；逐股交易史不是法定上市/退市时间证明。
