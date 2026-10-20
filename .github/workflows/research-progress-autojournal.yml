@@ -1,0 +1,82 @@
+name: Research progress auto journal
+
+on:
+  workflow_run:
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: Optional existing completed research Actions run ID to register
+        type: string
+        required: false
+      task_title:
+        description: For chat/local task use - required when source_run_id is blank
+        type: string
+        required: false
+      summary:
+        description: Evidence-grounded outcome; do not claim a PIT gate passed without audit
+        type: string
+        required: false
+      evidence_url:
+        description: Link to GitHub source evidence / commit / issue / completed run
+        type: string
+        required: false
+      result:
+        description: Research outcome (manual reports are NOT independently certified)
+        type: choice
+        required: true
+        default: blocked
+        options: [success, failure, blocked, partial]
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/research-progress-autojournal.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: research-progress-append-main
+  cancel-in-progress: false
+
+jobs:
+  journal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out default branch only (never untrusted PR head)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Create auditable researcher completion record
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEFAULT_RESEARCH_BRANCH: main
+        run: |
+          python research/scripts/progress_autojournal.py
+      - name: Commit journal data (not production model or quality gate)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/progress/
+          if git diff --cached --quiet; then
+            echo "No new progress entry; nothing to commit"
+            exit 0
+          fi
+          git commit -m "research(progress): record completed GitHub research workflow [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Progress committed to GitHub main"
+              exit 0
+            fi
+            echo "Concurrent push detected, retry $attempt"
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo "Progress journal push failed after retries"
+          exit 1
