@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-20T07:46:34.072Z",
+  "workflow_name": "V82 GitHub 自动研究进度同步机制上线",
+  "conclusion": "success",
+  "summary": "在GitHub新增 research-progress-autojournal.yml 工作流、research/scripts/progress_autojournal.py、单元测试、AGENTS.md，以及AI_RESEARCH_HANDOFF、RUNBOOK等强制完成后写入进度条款。已验证研究GitHub Actions完成后自动保存Run ID/commit/job/artifact、失败也会入档，自动日志不改变PIT/双80质量门禁。新增非Actions聊天任务通过research/progress/manual/*.json上传后自动刷新索引。",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39388655101",
+  "evidence_urls": [
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/AGENTS.md",
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/research/progress/README.md",
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/.github/workflows/research-progress-autojournal.yml"
+  ],
+  "data_gate": "RESEARCH_AUTOMATION_VALIDATED_ONLY",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "next_action": "后续每轮研究结束必须同步GitHub进度；工作流自动触发，聊天/本地任务由AI创建manual记录；真实质量门禁另行审计更新。"
+}
