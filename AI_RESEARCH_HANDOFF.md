@@ -53,3 +53,11 @@ A 股 **5% 短周期顶/底与 9% 中周期顶/底**四任务，要同时达到 
 6. 若用户未授权，**不合并研发实验进生产**；如在GitHub修改研究文件，记录 commit SHA、运行日志、数据/结果SHA256。
 
 **注意**：GitHub源代码中已存在研究工作流，后续接手者应该优先修复/复用，不要重复搭建同名工程或擦除质量失败证据。
+
+## 每次研究完成自动持久写进度（已部署，不得遗漏）
+
+**GitHub Actions 研究任务完成，无论成功或失败**：由 [.github/workflows/research-progress-autojournal.yml](.github/workflows/research-progress-autojournal.yml) 根据 GitHub `workflow_run.completed` 事件，将任务状态、run ID、commit SHA、Jobs、Artifacts、失败链接自动提交 `research/progress/runs/`，自动生成 [进度索引](research/progress/README.md) 与 `latest.json`。**自动进度仅证明任务运行结果，不能自动改为PIT合格或双80成功。**
+
+**聊天、本地或AI自主任务做完（不在GitHub Actions中）**：后续AI必须在**同一任务结束时**通过 GitHub API/连接器创建 `research/progress/manual/YYYYMMDDTHHMMSSZ-任务简写.json`，填写实际结果（成功、失败、阻塞、部分）、证据、遗留问题、下一步，不能等用户提醒。GitHub将自动刷新总索引。具体格式与规则见 [AGENTS.md](AGENTS.md) 和 [执行手册](research/NEXT_AI_RUNBOOK.md)。若无法写入Github，必须如实告诉用户且不声称已同步。
+
+建议每次新工作先看 [latest.json](research/progress/latest.json) 及 [质量门禁](research/status/quality_gates.json)，完成后逐项更新前者的自动记录和后者的**真实审计状态**（不得未经认证直接PASS）。
