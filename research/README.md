@@ -11,6 +11,7 @@
 | 原版审计 V63—V68 | [reports/V63_V68_实测报告.md](reports/V63_V68_实测报告.md) | 长期指数、四任务实际成绩 |
 | 原版审计 V69—V75 | [reports/V69_V75_实测报告.md](reports/V69_V75_实测报告.md) | 第三方汇总广度失真和受控消融 |
 | 原版审计 V78—V82 | [reports/V78_V82_实测报告.md](reports/V78_V82_实测报告.md) | 2005年股票身份/停牌与未认证广度 |
+| 完整研究ZIP保留状态 | [LEGACY_REPRO_PACKAGES.md](LEGACY_REPRO_PACKAGES.md) | 旧版完整二进制ZIP未全部进入GitHub，列出准确SHA256与恢复条件 |
 | 数据质量 | [DATA_PROVENANCE_AND_GATES.md](DATA_PROVENANCE_AND_GATES.md) | 来源、不可混用口径和禁止泄漏 |
 | 恢复执行 | [NEXT_AI_RUNBOOK.md](NEXT_AI_RUNBOOK.md) | 接手后顺序操作、实际验证、失败恢复 |
 | 2005研究CSV | [data/](data/) | 2005年242日研究表，标题后缀标明不能正式使用 |
