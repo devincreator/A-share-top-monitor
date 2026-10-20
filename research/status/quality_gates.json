@@ -1,0 +1,137 @@
+{
+  "last_manual_audit_date": "2026-10-20",
+  "repository": "devincreator/A-share-top-monitor",
+  "project": "A-share objective pivot early warning: 5%/9% TOP/BOTTOM",
+  "production_updated": false,
+  "research_only": true,
+  "spec": {
+    "objective_pivots": "V52 frozen alternating ZigZag with confirmation dates",
+    "tasks": [
+      "5_TOP",
+      "5_BOTTOM",
+      "9_TOP",
+      "9_BOTTOM"
+    ],
+    "minimum_formal_precision": 0.8,
+    "minimum_pivot_recall": 0.8,
+    "alert_precedes_pivot_trade_days": {
+      "5%": [
+        1,
+        10
+      ],
+      "9%": [
+        1,
+        20
+      ]
+    },
+    "formal_alert_one_to_one_with_mature_pivot": true,
+    "non_overlapping_pivot_matches": true,
+    "wave_cycle_bottom_top_bottom_separate": true,
+    "train_embargo_days": 140,
+    "new_forward_unseen_validation": false
+  },
+  "versions": {
+    "V52_V62": {
+      "status": "FROZEN_HISTORICAL_RESEARCH",
+      "original_csi_all_share_pivots_reproduced": 157
+    },
+    "V63_V68": {
+      "status": "PRICE_ONLY_RESEARCH_COMPLETED_DUAL80_FAILED",
+      "historical_transfer": "2015-2021",
+      "formal_precision": {
+        "5_TOP": "21/70",
+        "5_BOTTOM": "22/61",
+        "9_TOP": "4/27",
+        "9_BOTTOM": "6/21"
+      },
+      "pivot_recall": {
+        "5_TOP": "21/37",
+        "5_BOTTOM": "22/36",
+        "9_TOP": "4/9",
+        "9_BOTTOM": "6/8"
+      },
+      "dual80_passed": false
+    },
+    "V69_V75": {
+      "status": "UNVERIFIED_BREADTH_EXPLORATORY_ONLY",
+      "2015_2023_breadth_PIT": false,
+      "2024_2025_bad_rows": 485,
+      "independent_9pct_upgrade_train_pass": false,
+      "forward_validation_pass": false
+    },
+    "V76_V77": {
+      "status": "HTTPS_SOURCE_AND_15DAY_PILOT_COMPLETED",
+      "BaoStock_cloud_login": "FAILED_CONNECTION",
+      "HTTPS_2005_2016_2024_samples": true,
+      "identities_24": {
+        "price_histories_obtained": 24,
+        "statutory_dates_all_verified": false
+      }
+    },
+    "V78_V82": {
+      "status": "2005_RAW_VERIFIED_BREADTH_PIT_BLOCKED",
+      "2005_raw_trade_days": 242,
+      "2005_raw_stock_daily_records": 314838,
+      "2005_historical_identity_unmatched_daily_records": 2371,
+      "2005_same_ticker_different_security_listing_daily_records": 213,
+      "2005_identity_unverified_records_total": 2584,
+      "2005_candidate_unexplained_no_daily_bars": 14665,
+      "2005_traded_breadth": "RESEARCH_ONLY",
+      "2005_all_listed_breadth_PIT": false,
+      "formal_fusion_training_allowed": false
+    },
+    "V79_2006": {
+      "workflow_run_id": 39364428554,
+      "last_seen_workflow_run_status": "in_progress",
+      "quarters_last_seen": {
+        "2006Q1": "cancelled",
+        "2006Q2": "failure (50/60 dates, missing 20060619-20060630)",
+        "2006Q3": "failure",
+        "2006Q4": "in_progress"
+      },
+      "next_action": "Always requery GitHub live before claiming completion"
+    }
+  },
+  "data_quality": {
+    "2005_raw_daily_hashed": true,
+    "2005_asof_listing_universe_independently_verified": false,
+    "2005_suspension_vs_source_gap_resolved": false,
+    "PIT_dividend_adjustment": false,
+    "broad_market_formal_features_allowed": false,
+    "expected_release_tag": "research-v82-2005-20261020",
+    "release_url": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v82-2005-20261020",
+    "source_master_snapshot_mixed_dates": {
+      "listed": "20261019",
+      "delisted": "20260524"
+    },
+    "major_same_code_case": "600018.SH - 2005 former listed security vs 2006 later listed security",
+    "suspended_historical_case": "000638.SZ 2005"
+  },
+  "source_links": {
+    "primary_project": "https://github.com/devincreator/A-share-top-monitor",
+    "frozen_long_index_repo": "https://github.com/sky910140/financial-agent-takehome/tree/e071088057946de60ba1622dec8a69acce1481cd/data/market",
+    "retrospective_stock_bars": "https://money-tree.eyunzhu.com/daily_kline/date/YYYYMMDD.csv",
+    "2006_workflow": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554"
+  },
+  "do_not_claim": [
+    "double80 achieved",
+    "PIT passed",
+    "2006 year completed",
+    "true all A-share breadth identified",
+    "2022-2026 independent blind test"
+  ],
+  "next_blockers": [
+    "2006 4-quarter source failures/expired artifacts audit",
+    "full listing episode legal start/end date independent verification",
+    "resolve 14665 no-bar candidate states",
+    "independent historical suspend/resume date source",
+    "new forward model freeze and mature labels"
+  ],
+  "next_ai_entry": "AI_RESEARCH_HANDOFF.md -> research/README.md -> research/NEXT_AI_RUNBOOK.md",
+  "production_files_do_not_overwrite": [
+    "app.html",
+    "collector/",
+    "assets/",
+    "data/"
+  ]
+}
