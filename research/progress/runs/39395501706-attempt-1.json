@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-20T08:44:34+00:00",
+  "run_id": 39395501706,
+  "run_attempt": 1,
+  "workflow_name": "V85 2006 narrow historical gap pilot (research only)",
+  "workflow_path": ".github/workflows/v85-gap-pilot.yml",
+  "branch": "main",
+  "commit_sha": "3937c602d999cbd7e0c885ddd42a747635970ee8",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "push",
+  "created_at": "2026-10-20T08:43:51Z",
+  "run_started_at": "2026-10-20T08:43:51Z",
+  "updated_at": "2026-10-20T08:44:25Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39395501706",
+  "jobs": [
+    {
+      "id": 118537126083,
+      "name": "bounded-repair",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-20T08:43:55Z",
+      "completed_at": "2026-10-20T08:44:24Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39395501706/job/118537126083"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12250799747,
+      "name": "v85-five-day-2006-raw-39395501706",
+      "size_in_bytes": 145929,
+      "expired": false,
+      "expires_at": "2026-11-19T08:44:21Z",
+      "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12250799747/zip"
+    }
+  ],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
