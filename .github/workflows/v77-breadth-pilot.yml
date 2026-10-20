@@ -22,16 +22,24 @@ jobs:
         shell: bash
         run: |
           python - <<'PY'
-          import urllib.request,hashlib,json,csv,io,datetime,time
+          import urllib.request, urllib.error,hashlib,json,csv,io,datetime,time
           from pathlib import Path
           OUT=Path("v77_research_pilot");RAW=OUT/"raw";RAW.mkdir(parents=True,exist_ok=True)
           BASE="https://money-tree.eyunzhu.com"
           def request(rel):
               req=urllib.request.Request(BASE+rel,headers={"User-Agent":"Mozilla/5.0 V77 historical PIT audit"})
-              with urllib.request.urlopen(req,timeout=40) as r:
-                  b=r.read(15*1024*1024+1)
-              if len(b)>15*1024*1024: raise ValueError("Source exceeds 15MB bound")
-              return b
+              for attempt in range(5):
+                  try:
+                      with urllib.request.urlopen(req,timeout=40) as r:
+                          b=r.read(15*1024*1024+1)
+                      if len(b)>15*1024*1024: raise ValueError("Source exceeds 15MB bound")
+                      return b
+                  except urllib.error.HTTPError as e:
+                      if e.code not in (429,500,502,503,504) or attempt==4:
+                          raise
+                      wait=min(55,7*(2**attempt))
+                      print("HTTP",e.code,"retry",attempt+1,"after",wait,"sec",flush=True)
+                      time.sleep(wait)
           def records(b):
               return list(csv.DictReader(io.StringIO(b.decode("utf-8-sig"))))
           raw=request("/stocks/stocks_list.csv")
@@ -102,7 +110,7 @@ jobs:
                       "breadth":round(adv/len(good),3) if good else None}),flush=True)
               except Exception as exc:
                   holidays_or_errors.append({"date":d,"error":str(exc)[:320]})
-              time.sleep(.15)
+              time.sleep(1.5)
           keys=list(daily[0]) if daily else []
           with (OUT/"daily_breadth_PILOT_ONLY.csv").open("w",encoding="utf-8-sig",newline="") as f:
               writer=csv.DictWriter(f,fieldnames=keys);writer.writeheader();writer.writerows(daily)
