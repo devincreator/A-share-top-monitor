@@ -1,0 +1,29 @@
+{
+  "date": "2006-12-15",
+  "symbol": "002095.SZ",
+  "security_listing_id": "002095.SZ/IPO/2006-12-15",
+  "event_type": "INITIAL_LISTING",
+  "listing_notice_published": "2006-12-14",
+  "listing_effective_date": "2006-12-15",
+  "raw_source": "https://money-tree.eyunzhu.com/daily_kline/date/20061215.csv",
+  "raw_source_sha256": "1c9a2d339492da3c10c18958761c1dc0edfc96561703d39745c1d87f708f52c7",
+  "raw_values": {
+    "open": 68.1,
+    "high": 78,
+    "low": 53.05,
+    "close": 62.8,
+    "pre_close": 14.09,
+    "pct_chg": 345.71,
+    "vol": 88436.48
+  },
+  "official_listing_notice_pdf": "https://disc.static.szse.cn/disc/disk01/finalpage/2006-12-14/35b20204-5dea-41fa-8153-a6ec8d3cbdd0.PDF",
+  "official_exchange_monthly_summary": "https://www.szse.cn/market/periodical/documents/P020180328473385748473.html",
+  "contemporary_price_news": "https://tech.sina.com.cn/i/2006-12-16/15031291643.shtml",
+  "reason": "IPO first-day gain vs issuance price 14.09; not ordinary prior-trading-day close return",
+  "decision": "ALLOW_EXACT_SOURCE_RECORD_RAW_ARCHIVE_ONLY",
+  "PIT_certified": false,
+  "full_universe_certified": false,
+  "formal_model_allowed": false,
+  "breadth_treatment": "Do not treat IPO first-day pct_chg as ordinary close-to-close daily return",
+  "no_global_threshold_relaxation": true
+}
