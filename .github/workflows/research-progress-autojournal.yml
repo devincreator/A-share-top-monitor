@@ -40,6 +40,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/research-progress-autojournal.yml"
+      - "research/progress/manual/**"
 
 permissions:
   contents: write
