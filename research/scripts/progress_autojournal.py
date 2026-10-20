@@ -210,14 +210,15 @@ def write_history(record: dict):
 def render_index():
     RUNS.mkdir(parents=True, exist_ok=True)
     records = []
-    for path in RUNS.glob("*.json"):
+    candidate_files = list(RUNS.glob("*.json")) + list((ROOT / "manual").glob("*.json"))
+    for path in candidate_files:
         try:
             d = json.loads(path.read_text(encoding="utf-8"))
-            if d.get("run_id") and d.get("record_type"):
+            if d.get("record_type") and (d.get("run_id") or path.parent.name == "manual"):
                 records.append(d)
         except (json.JSONDecodeError, OSError):
             raise RuntimeError(f"Corrupted research progress entry: {path}")
-    records.sort(key=lambda a: (str(a.get("updated_at") or a.get("recorded_at_utc") or ""), int(a["run_id"])), reverse=True)
+    records.sort(key=lambda a: (str(a.get("updated_at") or a.get("recorded_at_utc") or ""), str(a.get("run_id") or "manual")), reverse=True)
     if not records:
         raise RuntimeError("No progress entries after journal")
     latest = records[0]
@@ -238,8 +239,8 @@ def render_index():
     ]
     for r in records[:30]:
         end = r.get("updated_at") or r.get("recorded_at_utc")
-        run_url = r.get("run_url")
-        evidence = f"[GitHub Actions]({run_url})" if run_url else "—"
+        run_url = r.get("run_url") or r.get("evidence_url") or next(iter(r.get("evidence_urls") or []), None)
+        evidence = f"[查看证据]({run_url})" if run_url else "—"
         lines.append(f"| {safe_md(end)} | {safe_md(r.get('workflow_name'))} | {safe_md(r.get('conclusion'))} | {evidence} |")
     lines.extend([
         "",
@@ -264,10 +265,12 @@ def main() -> int:
     if run is False:
         return 0
     record = github_run_record(run, repo, token) if run is not None else manual_record(event, repo)
-    if write_history(record):
-        render_index()
-    else:
-        print("No progress changes to commit")
+    changed = write_history(record)
+    # Rebuild even for an unchanged GitHub run: another AI may have pushed
+    # a new research/progress/manual/ entry, or the index may be missing.
+    render_index()
+    if not changed:
+        print("Source-run record unchanged; index checked for manual task updates")
     return 0
 
 
