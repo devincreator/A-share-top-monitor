@@ -7,6 +7,9 @@ on:
     paths:
       - "AI_RESEARCH_HANDOFF.md"
       - "research/**"
+      # Avoid 8MB historical archive regression on automatic progress/checkpoint writes.
+      - "!research/progress/**"
+      - "!research/v87_automation/checkpoints/**"
       - ".github/workflows/research-handoff-selftest.yml"
 
 permissions:
