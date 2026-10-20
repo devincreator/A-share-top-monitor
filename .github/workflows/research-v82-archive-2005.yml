@@ -78,7 +78,10 @@ jobs:
               z.write(dest/'source_manifest_2005.json',arcname='source_manifest_2005.json')
           print(json.dumps({'days':len(paths),'bytes':(dest/'v82_2005_raw_242days.zip').stat().st_size}))
           PY
-          cp archive/sub/identities/v78_identity_evidence/24_ticker_price_history_evidence.csv archive/final/identity_24_ticker_history_evidence.csv || find archive/sub/identities -type f -maxdepth 4 -print
+          cp archive/sub/identities/24_ticker_price_history_evidence.csv archive/final/identity_24_ticker_history_evidence.csv
+          master_path="$(find archive/sub/q1 -name master.csv -print -quit)"
+          test -n "$master_path"
+          cp "$master_path" archive/final/retrospective_master_2026_UNCERTIFIED.csv
           cat > archive/final/README_DATA_QUALITY.txt <<'TXT'
           V82 RESEARCH SNAPSHOT / DO NOT USE IN FORMAL PIT OR PRODUCTION
           Source: historical retrospective A-share daily HTTPS archives.
