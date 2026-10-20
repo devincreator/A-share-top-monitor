@@ -79,3 +79,9 @@ https://devincreator.github.io/A-share-top-monitor/
 ## 说明
 
 历史表现用于说明模型特征，不代表未来一定重复。模型分数为规则完成度，不是预测概率。
+
+## AI 研究交接（V52—V82）
+
+量化顶底预测长期研究、可复算数据、失败门禁和后续执行说明已单独归档，请先读 **[AI_RESEARCH_HANDOFF.md](AI_RESEARCH_HANDOFF.md)**，再按 **[research/NEXT_AI_RUNBOOK.md](research/NEXT_AI_RUNBOOK.md)** 操作。
+
+该研究目录不代表正式策略更新；2005年历史市场广度尚未完成停牌与历史股票池 PIT 认证，四任务双80亦未通过。原有生产网页和采集策略与研究资料隔离。
