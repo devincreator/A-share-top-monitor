@@ -1,0 +1,38 @@
+name: V85 2006 remaining bounded raw recovery (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v85-2006-remaining-batches.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  recover-batch:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        batch: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check static manifest and file parser
+        run: python -m unittest discover -s research/v85_pit_universe -p 'test_*.py' -v
+      - name: Repair bounded batch of five dates only
+        run: python research/v85_pit_universe/bulk_2006_repair.py --group '${{ matrix.batch }}'
+      - name: Archive sources and failures for independent SHA audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v85-batch-${{ matrix.batch }}-run-${{ github.run_id }}
+          path: v85_2006_bulk/
+          retention-days: 30
+          if-no-files-found: warn
