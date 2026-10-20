@@ -1,0 +1,154 @@
+name: V76 historical A-share breadth source smoke (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v76-breadth-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  historical-source-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install isolated source client
+        run: python -m pip install "baostock==0.8.9"
+      - name: Query historical stock universe, delisted stocks and sampled bars
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv, json, re, time, traceback
+          from datetime import date
+          from pathlib import Path
+          import baostock as bs
+
+          ROOT=Path("v76_source_smoke")
+          ROOT.mkdir(exist_ok=True)
+          def savecsv(file, fields, rows):
+              with (ROOT/file).open("w", encoding="utf-8-sig", newline="") as fp:
+                  writer=csv.writer(fp)
+                  writer.writerow(fields)
+                  writer.writerows(rows)
+          def query(method, **kwargs):
+              result=getattr(bs,method)(**kwargs)
+              if result.error_code != "0":
+                  raise RuntimeError(f"{method}: {result.error_code}: {result.error_msg}")
+              fields=list(result.fields)
+              rows=[]
+              while result.next(): rows.append(result.get_row_data())
+              return fields,rows
+          def is_stock(code):
+              x=re.fullmatch(r"(sh|sz)\.([0-9]{6})",code or "")
+              if not x: return False
+              sh=("600","601","603","605","688","689")
+              sz=("000","001","002","003","300","301","302")
+              return x.group(2)[:3] in (sh if x.group(1)=="sh" else sz)
+          status={"source":"BaoStock retrospective data","mode":"SMOKE_ONLY",
+                  "PIT_certified":False,"full_history_downloaded":False,
+                  "can_use_for_formal_double_80":False,
+                  "requested_date":"2026-10-19","queries":[],"failures":[]}
+          def record_error(tag,e):
+              status["failures"].append({"operation":tag,"error":str(e)})
+          login=bs.login()
+          if login.error_code!="0":
+              raise RuntimeError("BaoStock login: "+login.error_msg)
+          try:
+              cols,raw=query("query_stock_basic")
+              if not {"code","type","ipoDate","outDate"}.issubset(cols):
+                  raise RuntimeError("Missing stock_basic identity or listing columns: "+str(cols))
+              stocks=[dict(zip(cols,row)) for row in raw
+                      if row[cols.index("type")]=="1" and is_stock(row[cols.index("code")])]
+              savecsv("stocks.csv",cols,[[s.get(c,"") for c in cols] for s in stocks])
+              codes={s["code"]:s for s in stocks}
+              old=[s for s in stocks if s.get("outDate","").strip() and
+                   s["outDate"]<"2026-10-19" and s["outDate"]>"2000-01-01"]
+              status["stock_basic"]={"all_rows":len(raw),"A_share_codes":len(stocks),
+                  "delisted_before_today":len(old),"code_unique":len(codes)==len(stocks)}
+              calcols,calendar=query("query_trade_dates",
+                                    start_date="2005-01-01",end_date="2026-10-19")
+              savecsv("calendar.csv",calcols,calendar)
+              if not {"calendar_date","is_trading_day"}.issubset(calcols):
+                  raise RuntimeError("Trade calendar schema mismatch: "+str(calcols))
+              days=[dict(zip(calcols,r))["calendar_date"] for r in calendar
+                    if dict(zip(calcols,r))["is_trading_day"]=="1"]
+              status["calendar"]={"returned_rows":len(calendar),"trade_days":len(days)}
+              targets=["2005-07-01","2010-07-01","2015-06-30",
+                       "2020-07-01","2023-06-30","2025-06-30","2026-10-16"]
+              probe_days=[]
+              for target in targets:
+                  elig=[d for d in days if d<=target]
+                  if elig: probe_days.append(elig[-1])
+              for day in dict.fromkeys(probe_days):
+                  try:
+                      fields,rows=query("query_all_stock",day=day)
+                      savecsv("snapshot_"+day+".csv",fields,rows)
+                      if "code" not in fields: raise RuntimeError("snapshot has no code column")
+                      snapshot_codes={r[fields.index("code")] for r in rows if is_stock(r[fields.index("code")])}
+                      listed={s["code"] for s in stocks if s.get("ipoDate","")<=day and
+                               (not s.get("outDate","") or s["outDate"]>day)}
+                      status["queries"].append({"kind":"snapshot","date":day,
+                          "rows_raw":len(rows),"A_share_rows":len(snapshot_codes),
+                          "listed_in_master":len(listed),
+                          "listed_missing_in_snapshot":len(listed-snapshot_codes),
+                          "snapshot_missing_in_master":len(snapshot_codes-set(codes))})
+                  except Exception as exc: record_error("snapshot "+day,exc)
+                  time.sleep(0.4)
+              # Sample distinct delisted stocks across historical exit dates,
+              # plus older currently listed stocks. This is NOT a full-history harvest.
+              old.sort(key=lambda s:s.get("outDate",""))
+              def spread(seq,n):
+                  if len(seq)<=n: return seq
+                  return [seq[round(i*(len(seq)-1)/(n-1))] for i in range(n)]
+              active=sorted([s for s in stocks if not s.get("outDate","") or
+                             s.get("outDate","")>="2026-10-19"],
+                            key=lambda s:s.get("ipoDate",""))
+              sample=spread(old,8)+spread(active[:50],4)
+              for s in sample:
+                  code=s["code"]
+                  start=max("2005-01-01",s.get("ipoDate","") or "2005-01-01")
+                  end=min("2026-10-19",s.get("outDate","") or "2026-10-19")
+                  if start>end: continue
+                  try:
+                      fields,rows=query("query_history_k_data_plus",
+                          code=code,
+                          fields="date,code,close,volume,tradestatus,pctChg",
+                          start_date=start,end_date=end,frequency="d",adjustflag="3")
+                      savecsv("bars_"+code+".csv",fields,rows)
+                      status["queries"].append({"kind":"bars","code":code,
+                          "delisted":bool(s.get("outDate","") and s["outDate"]<"2026-10-19"),
+                          "ipoDate":s.get("ipoDate"),"outDate":s.get("outDate"),
+                          "returned_rows":len(rows),
+                          "first_date":rows[0][fields.index("date")] if rows else None,
+                          "last_date":rows[-1][fields.index("date")] if rows else None})
+                  except Exception as exc: record_error("bars "+code,exc)
+                  time.sleep(0.4)
+          except Exception as exc:
+              record_error("FATAL",exc)
+              traceback.print_exc()
+          finally:
+              bs.logout()
+              status["finished_date"]=date.today().isoformat()
+              (ROOT/"source_audit.json").write_text(
+                  json.dumps(status,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps({"stocks":status.get("stock_basic"),
+                            "calendar":status.get("calendar"),
+                            "query_count":len(status["queries"]),
+                            "failures":status["failures"]},ensure_ascii=False))
+          if not status.get("stock_basic",{}).get("A_share_codes") or               len([x for x in status["queries"] if x["kind"]=="snapshot" and x["rows_raw"]>0])==0 or               len([x for x in status["queries"] if x["kind"]=="bars" and x["delisted"] and x["returned_rows"]>0])==0:
+              raise SystemExit("Smoke quality gate blocked: inspect uploaded source_audit.json")
+          PY
+      - name: Preserve evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v76-baostock-historical-source-smoke
+          path: v76_source_smoke/
+          retention-days: 14
+          if-no-files-found: warn
