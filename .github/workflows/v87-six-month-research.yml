@@ -1,0 +1,89 @@
+name: V87 six-month research gate review (no external notifications)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Mondays 20:30 China time; stop substantive work after 2027-04-20.
+    - cron: '30 12 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'research/v87_automation/*.py'
+      - '.github/workflows/v87-six-month-research.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: research-progress-append-main
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check six-month window
+        id: window
+        shell: bash
+        run: |
+          python - <<'PY'
+          from datetime import datetime, date
+          from zoneinfo import ZoneInfo
+          import os
+          d = datetime.now(ZoneInfo('Asia/Shanghai')).date()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write('active=' + str(date(2026,10,20) <= d <= date(2027,4,20)).lower() + '\n')
+          PY
+      - name: Run existing and new research tests
+        if: steps.window.outputs.active == 'true'
+        run: |
+          python -m unittest discover -s research/v84_live_readiness -p 'test_*.py' -v
+          python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
+          python -m unittest discover -s research/v87_automation -p 'test_*.py' -v
+      - name: Produce non-trading gate audit
+        if: steps.window.outputs.active == 'true'
+        run: |
+          python research/v87_automation/weekly_review.py \
+            --repo . --output v87_review/weekly_report.json \
+            --checkpoint-dir research/v87_automation/checkpoints --initial
+      - name: Retain weekly raw audit output
+        if: always() && steps.window.outputs.active == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: v87-weekly-gates-${{ github.run_id }}
+          path: v87_review/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Persist one small monthly checkpoint on GitHub
+        if: success() && steps.window.outputs.active == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d research/v87_automation/checkpoints ]; then
+            echo 'No monthly checkpoint this week'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A research/v87_automation/checkpoints/
+          if git diff --cached --quiet; then
+            echo 'No new monthly report'
+            exit 0
+          fi
+          git commit -m 'research(v87): archive read-only monthly quality audit [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Monthly checkpoint push failed; investigate artifact'
+          exit 1
