@@ -1,0 +1,58 @@
+name: V85 archive verified 2006 raw historical evidence (NOT PIT)
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - 'V85 2006 remaining bounded raw recovery (research only)'
+    types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v85-archive-2006-raw.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Retrieve immutable historic research-run artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run download 39364428554 -R "$GITHUB_REPOSITORY" -D stage/v79
+          gh run download 39395501706 -R "$GITHUB_REPOSITORY" -D stage/pilot
+          gh run download 39396024412 -R "$GITHUB_REPOSITORY" -D stage/bulk
+          gh run download 39396842816 -R "$GITHUB_REPOSITORY" -D stage/forensic
+      - name: Fail closed if calendar or any daily source is incomplete
+        run: |
+          python research/v85_pit_universe/archive_2006.py --input-dir stage --output v85_2006_raw_241days.zip
+      - name: Keep data-quality audit artifact even if archive fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v85-2006-archive-audit-${{ github.run_id }}
+          path: v85_2006_archive_gate.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Permanently release original RAW history only if all 241 pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TAG=research-v85-2006-20261020
+          if gh release view "$TAG" -R "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo 'Release already exists; do not overwrite an immutable evidence set'
+            exit 0
+          fi
+          gh release create "$TAG" v85_2006_raw_241days.zip v85_2006_archive_gate.json \
+            -R "$GITHUB_REPOSITORY" --title '2006 A-share daily RAW evidence (not PIT)' \
+            --notes '241 trading days of original source CSV audited by date, SHA256 and pinned calendar. 2006-06-19 new IPO 002051.SZ +332.03% is a documented exact exception. Stock universe PIT, historical suspensions, adjustment availability and forecast double80 are NOT certified.'
