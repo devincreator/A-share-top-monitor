@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-20T09:13:00Z",
+  "workflow_name": "V84/V85/V86 first autonomous rollout complete: RAW2006 archive",
+  "conclusion": "success",
+  "summary": "2026-10-20 independently verified 2006 raw archive 241/241 dates, 288399 individual source stock daily records, pinned SSE index trade calendar, daily SHA256 and two exact official IPO first-day exceptions (002051.SZ 20060619 +332.03%; 002095.SZ 20061215 +345.71%). First cloud archive run failed and exposed second IPO, fixed without relaxing universal threshold, final cloud archive run 39398717078 succeeded; permanent release published research-v85-2006-20261020. V84 daily source readiness workflow deployed, initial current-day source returned 404 and readiness DATA_PENDING; full model remains as-of 2026-08-04. V86 one-to-one event regression available but no original event-level V63-V68 research ZIP so no new backtest. Production strategy/visualization/data untouched.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39398717078",
+  "release_url": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v85-2006-20261020",
+  "report_url": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/reports/V85_2006_完整RAW验收_20261020.md",
+  "data_gate": "RESEARCH_ONLY",
+  "raw_data_status": "RAW_2006_241_241_VERIFIED",
+  "PIT_certified": false,
+  "formal_model_allowed": false,
+  "dual80_achieved": false,
+  "production_updated": false,
+  "original_2006_stock_daily_rows": 288399,
+  "original_2006_trading_days": 241,
+  "next_action": "PIT-safe issuer listing episodes and suspension provenance audit; recover original V63–V68 event-level package; restore current complete four-module feeds; run actual false-positive attribution after original research rows restored."
+}
