@@ -2,6 +2,15 @@ name: Research progress auto journal
 
 on:
   workflow_run:
+    workflows:
+      - "V76*"
+      - "V77*"
+      - "V78*"
+      - "V79*"
+      - "V8*"
+      - "V9*"
+      - "V1*"
+      - "Research*"
     types: [completed]
   workflow_dispatch:
     inputs:
