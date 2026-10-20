@@ -1,0 +1,160 @@
+name: V78 A-share historical daily bars monthly backfill (research only)
+
+on:
+  workflow_dispatch:
+    inputs:
+      from_month:
+        description: First month YYYY-MM, inclusive
+        required: true
+        default: "2005-01"
+        type: string
+      through_month:
+        description: Last month YYYY-MM, inclusive (max 3 months)
+        required: true
+        default: "2005-03"
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v78-monthly-backfill.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  monthly-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 32
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Collect bounded months and audit daily exchange population
+        shell: bash
+        env:
+          FROM_MONTH: ${{ inputs.from_month || '2005-01' }}
+          THROUGH_MONTH: ${{ inputs.through_month || '2005-03' }}
+        run: |
+          python - <<'PY'
+          import os,csv,io,json,time,hashlib,datetime,calendar,urllib.request,urllib.error,random,collections
+          from pathlib import Path
+          start,end=os.environ["FROM_MONTH"],os.environ["THROUGH_MONTH"]
+          def monthnum(s):
+              if len(s)!=7 or s[4]!='-' or not s[:4].isdigit() or not s[5:].isdigit():
+                  raise ValueError("YYYY-MM required")
+              y,m=map(int,s.split('-'));datetime.date(y,m,1)
+              return y*12+m-1
+          n1,n2=monthnum(start),monthnum(end)
+          if n1<2005*12 or n2>2026*12+9 or n2<n1 or n2-n1>2:
+              raise ValueError("Only 1-3 consecutive months between 2005-01 and 2026-10 allowed")
+          months=[f"{n//12:04d}-{n%12+1:02d}" for n in range(n1,n2+1)]
+          root=Path("v78_monthly_backfill");raw=root/"raw";raw.mkdir(parents=True,exist_ok=True)
+          root.joinpath("REQUESTED_MONTHS.json").write_text(json.dumps(months),encoding="utf-8")
+          base="https://money-tree.eyunzhu.com"
+          def get(url,cap=15_000_000):
+              req=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 research-v78-historical-audit"})
+              for k in range(6):
+                  try:
+                      with urllib.request.urlopen(req,timeout=45) as res: data=res.read(cap+1)
+                      if len(data)>cap: raise ValueError("Download too large")
+                      return data
+                  except (urllib.error.HTTPError,urllib.error.URLError,TimeoutError) as e:
+                      if isinstance(e,urllib.error.HTTPError) and e.code==404: raise
+                      if k==5: raise
+                      time.sleep(min(55,5*2**k)+random.uniform(0,.5))
+          def sha(x): return hashlib.sha256(x).hexdigest()
+          def rows(buf): return list(csv.DictReader(io.StringIO(buf.decode('utf-8-sig'))))
+          masterbytes=get(base+"/stocks/stocks_list.csv")
+          (root/"master.csv").write_bytes(masterbytes)
+          master=rows(masterbytes)
+          symbols={s["symbol"]:s for s in master if s.get("symbol")}
+          # Anchored trading-day reference, NOT a substitute for a full source-quality calendar.
+          cpath="https://raw.githubusercontent.com/sky910140/financial-agent-takehome/e071088057946de60ba1622dec8a69acce1481cd/data/market/sse_composite.csv"
+          refdata=get(cpath)
+          refhash="fc4bd4c4ee3b1659aec07e0622d8dc8ab7df95f8354b7b4f9230a3a05bfffd20"
+          if sha(refdata)!=refhash: raise RuntimeError("Pinned Shanghai index calendar SHA256 mismatch")
+          trading={r["date"].replace('-','') for r in rows(refdata)}
+          daily=[];exceptions=[];manifest=[]
+          for month in months:
+              y,m=map(int,month.split('-'))
+              dates=[datetime.date(y,m,d) for d in range(1,calendar.monthrange(y,m)[1]+1)]
+              # Calendar is complete through 2026-07-10 only.
+              if month>"2026-07": raise RuntimeError("Calendar after July 2026 not source-verified")
+              for day in dates:
+                  d=day.strftime("%Y%m%d")
+                  if d not in trading: continue
+                  link=base+"/daily_kline/date/"+d+".csv"
+                  try:
+                      b=get(link);rr=rows(b)
+                      if not rr: raise ValueError("Empty source")
+                      if not {"symbol","trade_date","pct_chg","close","vol"}.issubset(rr[0]):
+                          raise ValueError("Unexpected daily schema")
+                      (raw/(d+".csv")).write_bytes(b)
+                      manifest.append({"date":d,"sha256":sha(b),"bytes":len(b),"rows":len(rr)})
+                      observed=set();good=[];counts=collections.Counter();delisted=0
+                      for r in rr:
+                          s=r.get("symbol","")
+                          if not (s.endswith(".SZ") or s.endswith(".SH")):
+                              counts["NON_SHSZ"]+=1;continue
+                          if s in observed: counts["DUPLICATE"]+=1;continue
+                          observed.add(s)
+                          if r.get("trade_date")!=d: counts["DATE_MISMATCH"]+=1;continue
+                          try:
+                              px=float(r["close"]);pct=float(r["pct_chg"]);vol=float(r["vol"])
+                              if not 0<px or not -100<pct<300 or vol<0: raise ValueError()
+                          except:counts["INVALID_DATA"]+=1;continue
+                          meta=symbols.get(s)
+                          if meta:
+                              i=meta.get("list_date","");o=meta.get("delist_date","")
+                              if not i or i>d or (o and o<=d):
+                                  counts["INVALID_MASTER_LIFECYCLE"]+=1;continue
+                              if meta.get("list_status")=="D":delisted+=1
+                              counts["MASTER_VERIFIED"]+=1
+                          else:
+                              counts["MASTER_MISSING_BARS"]+=1
+                              exceptions.append({"date":d,"symbol":s,"reason":"MISSING_MASTER",
+                                                 "classification":"UNRESOLVED_NOT_ADMITTED"})
+                              continue
+                          good.append((s,pct))
+                      adv=sum(p>0 for _,p in good);dec=sum(p<0 for _,p in good)
+                      daily.append({"date":d,"source_rows":len(rr),"master_valid":len(good),
+                          "advancers":adv,"decliners":dec,"unchanged":len(good)-adv-dec,
+                          "advance_pct":round(adv/len(good),8) if good else "",
+                          "currently_delisted_name_traded":delisted,
+                          **dict(counts)})
+                      if len(daily)%10==0:print("COLLECTED",len(daily),d,flush=True)
+                  except Exception as e:
+                      exceptions.append({"date":d,"symbol":"","reason":"FETCH_OR_SCHEMA_ERROR",
+                                         "classification":type(e).__name__+": "+str(e)[:230]})
+                  time.sleep(.8)
+          def save_csv(path,entries,basecols):
+              fields=list(dict.fromkeys(basecols+[k for row in entries for k in row]))
+              with (root/path).open("w",newline="",encoding="utf-8-sig") as f:
+                  w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(entries)
+          save_csv("daily_breadth_EXPLORATORY.csv",daily,
+                   ["date","source_rows","master_valid","advancers","decliners","unchanged","advance_pct"])
+          save_csv("exceptions.csv",exceptions,["date","symbol","reason","classification"])
+          save_csv("raw_sha256_manifest.csv",manifest,["date","sha256","bytes","rows"])
+          expected=sorted(d for d in trading if start.replace("-","") <= d[:6] <= end.replace("-",""))
+          got={r["date"] for r in daily}
+          missing=sorted(set(expected)-got)
+          gate={"requested_months":months,"expected_exchange_days":len(expected),
+                "received_exchange_days":len(daily),"missing_days":missing,
+                "raw_files_sha256_count":len(manifest),"source_master_sha256":sha(masterbytes),
+                "source_master_listed_observed_dates":dict(collections.Counter((r.get("observed_date","")[:8],r.get("list_status","")) for r in master)),
+                "unresolved_daily_rows":sum(r.get("MASTER_MISSING_BARS",0) for r in daily),
+                "invalid_lifecycle_rows":sum(r.get("INVALID_MASTER_LIFECYCLE",0) for r in daily),
+                "warnings":["Source is retrospective, not independently PIT certified",
+                            "Missing master identifiers excluded; do not use formal breadth"],
+                "FULL_HISTORY":False,"PIT_CERTIFIED":False,"FORMAL_DOUBLE_80_ALLOWED":False}
+          (root/"gate.json").write_text(json.dumps(gate,ensure_ascii=False,indent=2),encoding="utf-8")
+          print(json.dumps(gate,ensure_ascii=False),flush=True)
+          if missing: raise SystemExit("Month incomplete; missing trading days: "+",".join(missing[:12]))
+          PY
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v78-monthly-${{ inputs.from_month || '2005-01' }}-to-${{ inputs.through_month || '2005-03' }}-RESEARCH
+          path: v78_monthly_backfill/
+          retention-days: 30
+          if-no-files-found: warn
