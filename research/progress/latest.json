@@ -1,315 +1,43 @@
 {
-  "updated_at_utc": "2026-10-20T09:01:13+00:00",
-  "entry_count": 21,
+  "updated_at_utc": "2026-10-20T09:04:04+00:00",
+  "entry_count": 22,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-20T09:01:13+00:00",
-    "run_id": 39396024412,
+    "recorded_at_utc": "2026-10-20T09:04:04+00:00",
+    "run_id": 39397909582,
     "run_attempt": 1,
-    "workflow_name": "V85 2006 remaining bounded raw recovery (research only)",
-    "workflow_path": ".github/workflows/v85-2006-remaining-batches.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "712f2d46acc06b292215ced2bf335cd4ea94d146",
+    "commit_sha": "a3d532ed12473b6cab225c5e3b3b1f32d2a59609",
     "status": "completed",
-    "conclusion": "failure",
+    "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-20T08:48:09Z",
-    "run_started_at": "2026-10-20T08:48:09Z",
-    "updated_at": "2026-10-20T09:01:03Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412",
+    "created_at": "2026-10-20T09:03:38Z",
+    "run_started_at": "2026-10-20T09:03:38Z",
+    "updated_at": "2026-10-20T09:03:52Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39397909582",
     "jobs": [
       {
-        "id": 118538850549,
-        "name": "recover-batch (6)",
+        "id": 118545111976,
+        "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-20T08:52:36Z",
-        "completed_at": "2026-10-20T08:53:14Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538850549"
-      },
-      {
-        "id": 118538850942,
-        "name": "recover-batch (8)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:54:00Z",
-        "completed_at": "2026-10-20T08:54:36Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538850942"
-      },
-      {
-        "id": 118538850969,
-        "name": "recover-batch (4)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:51:16Z",
-        "completed_at": "2026-10-20T08:51:52Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538850969"
-      },
-      {
-        "id": 118538850970,
-        "name": "recover-batch (2)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:48:51Z",
-        "completed_at": "2026-10-20T08:49:31Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538850970"
-      },
-      {
-        "id": 118538850971,
-        "name": "recover-batch (7)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:53:17Z",
-        "completed_at": "2026-10-20T08:53:58Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538850971"
-      },
-      {
-        "id": 118538851010,
-        "name": "recover-batch (9)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:54:39Z",
-        "completed_at": "2026-10-20T08:55:17Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851010"
-      },
-      {
-        "id": 118538851077,
-        "name": "recover-batch (5)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:51:56Z",
-        "completed_at": "2026-10-20T08:52:34Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851077"
-      },
-      {
-        "id": 118538851083,
-        "name": "recover-batch (3)",
-        "status": "completed",
-        "conclusion": "failure",
-        "started_at": "2026-10-20T08:49:33Z",
-        "completed_at": "2026-10-20T08:51:14Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851083"
-      },
-      {
-        "id": 118538851163,
-        "name": "recover-batch (10)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:55:19Z",
-        "completed_at": "2026-10-20T08:56:00Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851163"
-      },
-      {
-        "id": 118538851211,
-        "name": "recover-batch (1)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:48:13Z",
-        "completed_at": "2026-10-20T08:48:49Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851211"
-      },
-      {
-        "id": 118538851237,
-        "name": "recover-batch (11)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:56:02Z",
-        "completed_at": "2026-10-20T08:56:38Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538851237"
-      },
-      {
-        "id": 118538852624,
-        "name": "recover-batch (12)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:56:41Z",
-        "completed_at": "2026-10-20T08:57:19Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538852624"
-      },
-      {
-        "id": 118538852732,
-        "name": "recover-batch (13)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:57:22Z",
-        "completed_at": "2026-10-20T08:57:57Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538852732"
-      },
-      {
-        "id": 118538852818,
-        "name": "recover-batch (14)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:58:00Z",
-        "completed_at": "2026-10-20T08:58:34Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538852818"
-      },
-      {
-        "id": 118538852895,
-        "name": "recover-batch (16)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:59:45Z",
-        "completed_at": "2026-10-20T09:00:25Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538852895"
-      },
-      {
-        "id": 118538852932,
-        "name": "recover-batch (15)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T08:58:37Z",
-        "completed_at": "2026-10-20T08:59:42Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538852932"
-      },
-      {
-        "id": 118538853087,
-        "name": "recover-batch (17)",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-20T09:00:27Z",
-        "completed_at": "2026-10-20T09:01:02Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39396024412/job/118538853087"
+        "started_at": "2026-10-20T09:03:42Z",
+        "completed_at": "2026-10-20T09:03:52Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39397909582/job/118545111976"
       }
     ],
     "artifacts": [
       {
-        "id": 12252870792,
-        "name": "v85-batch-17-run-39396024412",
-        "size_in_bytes": 167548,
+        "id": 12252826377,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2026-11-19T09:01:00Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252870792/zip"
-      },
-      {
-        "id": 12252691049,
-        "name": "v85-batch-16-run-39396024412",
-        "size_in_bytes": 168377,
-        "expired": false,
-        "expires_at": "2026-11-19T09:00:21Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252691049/zip"
-      },
-      {
-        "id": 12252621014,
-        "name": "v85-batch-15-run-39396024412",
-        "size_in_bytes": 166447,
-        "expired": false,
-        "expires_at": "2026-11-19T08:59:39Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252621014/zip"
-      },
-      {
-        "id": 12252620806,
-        "name": "v85-batch-14-run-39396024412",
-        "size_in_bytes": 165545,
-        "expired": false,
-        "expires_at": "2026-11-19T08:58:31Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252620806/zip"
-      },
-      {
-        "id": 12252565227,
-        "name": "v85-batch-9-run-39396024412",
-        "size_in_bytes": 161551,
-        "expired": false,
-        "expires_at": "2026-11-19T08:55:13Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252565227/zip"
-      },
-      {
-        "id": 12252560265,
-        "name": "v85-batch-11-run-39396024412",
-        "size_in_bytes": 161473,
-        "expired": false,
-        "expires_at": "2026-11-19T08:56:35Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252560265/zip"
-      },
-      {
-        "id": 12252500147,
-        "name": "v85-batch-7-run-39396024412",
-        "size_in_bytes": 159026,
-        "expired": false,
-        "expires_at": "2026-11-19T08:53:53Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252500147/zip"
-      },
-      {
-        "id": 12252470727,
-        "name": "v85-batch-10-run-39396024412",
-        "size_in_bytes": 159844,
-        "expired": false,
-        "expires_at": "2026-11-19T08:55:56Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252470727/zip"
-      },
-      {
-        "id": 12252430959,
-        "name": "v85-batch-8-run-39396024412",
-        "size_in_bytes": 159698,
-        "expired": false,
-        "expires_at": "2026-11-19T08:54:33Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252430959/zip"
-      },
-      {
-        "id": 12252221438,
-        "name": "v85-batch-6-run-39396024412",
-        "size_in_bytes": 160422,
-        "expired": false,
-        "expires_at": "2026-11-19T08:53:11Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252221438/zip"
-      },
-      {
-        "id": 12252160607,
-        "name": "v85-batch-1-run-39396024412",
-        "size_in_bytes": 146235,
-        "expired": false,
-        "expires_at": "2026-11-19T08:48:45Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252160607/zip"
-      },
-      {
-        "id": 12252101703,
-        "name": "v85-batch-5-run-39396024412",
-        "size_in_bytes": 156483,
-        "expired": false,
-        "expires_at": "2026-11-19T08:52:30Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252101703/zip"
-      },
-      {
-        "id": 12251927461,
-        "name": "v85-batch-12-run-39396024412",
-        "size_in_bytes": 163003,
-        "expired": false,
-        "expires_at": "2026-11-19T08:57:15Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12251927461/zip"
-      },
-      {
-        "id": 12251822715,
-        "name": "v85-batch-2-run-39396024412",
-        "size_in_bytes": 143830,
-        "expired": false,
-        "expires_at": "2026-11-19T08:49:28Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12251822715/zip"
-      },
-      {
-        "id": 12251683664,
-        "name": "v85-batch-4-run-39396024412",
-        "size_in_bytes": 149362,
-        "expired": false,
-        "expires_at": "2026-11-19T08:51:50Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12251683664/zip"
-      },
-      {
-        "id": 12251519996,
-        "name": "v85-batch-13-run-39396024412",
-        "size_in_bytes": 165871,
-        "expired": false,
-        "expires_at": "2026-11-19T08:57:54Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12251519996/zip"
-      },
-      {
-        "id": 12251084120,
-        "name": "v85-batch-3-run-39396024412",
-        "size_in_bytes": 123252,
-        "expired": false,
-        "expires_at": "2026-11-19T08:51:12Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12251084120/zip"
+        "expires_at": "2026-11-19T09:03:48Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12252826377/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
