@@ -1,0 +1,132 @@
+name: V77 historical A-share breadth 15-day pilot (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v77-breadth-pilot.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  pit-universe-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Retrieve three historical weeks and audit as-of-listing universe
+        shell: bash
+        run: |
+          python - <<'PY'
+          import urllib.request,hashlib,json,csv,io,datetime,time
+          from pathlib import Path
+          OUT=Path("v77_research_pilot");RAW=OUT/"raw";RAW.mkdir(parents=True,exist_ok=True)
+          BASE="https://money-tree.eyunzhu.com"
+          def request(rel):
+              req=urllib.request.Request(BASE+rel,headers={"User-Agent":"Mozilla/5.0 V77 historical PIT audit"})
+              with urllib.request.urlopen(req,timeout=40) as r:
+                  b=r.read(15*1024*1024+1)
+              if len(b)>15*1024*1024: raise ValueError("Source exceeds 15MB bound")
+              return b
+          def records(b):
+              return list(csv.DictReader(io.StringIO(b.decode("utf-8-sig"))))
+          raw=request("/stocks/stocks_list.csv")
+          (RAW/"master.csv").write_bytes(raw)
+          stocks=records(raw)
+          master={x["symbol"]:x for x in stocks if x.get("symbol")}
+          holidays_or_errors=[]; daily=[]; issues=[];source_files=[]
+          dates=[]
+          for start in ["2005-08-01","2016-02-01","2024-08-12"]:
+              t=datetime.date.fromisoformat(start)
+              dates += [t+datetime.timedelta(days=i) for i in range(5)]
+          def shsz(x): return x.endswith(".SH") or x.endswith(".SZ")
+          def live(meta,dt):
+              start=meta.get("list_date","").strip()
+              end=meta.get("delist_date","").strip()
+              return bool(start and start<=dt and (not end or end>dt))
+          def parse_num(x):
+              try: return float(x)
+              except (TypeError,ValueError): return None
+          for date in dates:
+              d=date.strftime("%Y%m%d")
+              try:
+                  b=request("/daily_kline/date/"+d+".csv")
+                  rows=records(b)
+                  if not rows: raise RuntimeError("Empty day file")
+                  (RAW/(d+".csv")).write_bytes(b)
+                  source_files.append({"date":d,"sha256":hashlib.sha256(b).hexdigest(),"rows":len(rows)})
+                  exchange=[r for r in rows if shsz(r.get("symbol",""))]
+                  today_symbols=set()
+                  good=[]
+                  bad={"MISSING_MASTER":0,"OUTSIDE_LIFECYCLE":0,"BSE_OR_OTHER":len(rows)-len(exchange),
+                       "INVALID_DATE":0,"INVALID_PRICE_OR_RETURN":0,"DUPLICATE":0}
+                  for r in exchange:
+                      s=r.get("symbol","")
+                      if s in today_symbols:
+                          bad["DUPLICATE"]+=1
+                          issues.append({"date":d,"symbol":s,"issue":"DUPLICATE"})
+                          continue
+                      today_symbols.add(s)
+                      m=master.get(s)
+                      why=None
+                      if not m:why="MISSING_MASTER"
+                      elif not live(m,d):why="OUTSIDE_LIFECYCLE"
+                      elif r.get("trade_date","")!=d:why="INVALID_DATE"
+                      else:
+                          close=parse_num(r.get("close")); pct=parse_num(r.get("pct_chg"))
+                          if close is None or close<=0 or pct is None or not (-100<pct<300):
+                              why="INVALID_PRICE_OR_RETURN"
+                      if why:
+                          bad[why]+=1
+                          issues.append({"date":d,"symbol":s,"issue":why})
+                      else:good.append(r)
+                  listed=sum(shsz(s) and live(m,d) for s,m in master.items())
+                  adv=sum(float(r["pct_chg"])>0 for r in good)
+                  dec=sum(float(r["pct_chg"])<0 for r in good)
+                  flat=len(good)-adv-dec
+                  delisted_traded=sum(master[r["symbol"]].get("list_status")=="D" for r in good)
+                  daily.append({"date":d,"listed_in_master":listed,"raw_rows":len(rows),
+                      "raw_SHSZ_rows":len(exchange),"eligible_traded":len(good),
+                      "advance":adv,"decline":dec,"flat":flat,
+                      "advance_share_traded":round(adv/len(good),8) if good else "",
+                      "historically_delisted_traded":delisted_traded,
+                      "listed_without_daily_bar":max(0,listed-len(good)),
+                      **bad,"quality":"UNVERIFIED_RETROSPECTIVE"})
+                  print(json.dumps({"date":d,"bar_rows":len(rows),
+                      "eligible":len(good),"outside_lifecycle":bad["OUTSIDE_LIFECYCLE"],
+                      "missing_master":bad["MISSING_MASTER"],
+                      "breadth":round(adv/len(good),3) if good else None}),flush=True)
+              except Exception as exc:
+                  holidays_or_errors.append({"date":d,"error":str(exc)[:320]})
+              time.sleep(.15)
+          keys=list(daily[0]) if daily else []
+          with (OUT/"daily_breadth_PILOT_ONLY.csv").open("w",encoding="utf-8-sig",newline="") as f:
+              writer=csv.DictWriter(f,fieldnames=keys);writer.writeheader();writer.writerows(daily)
+          with (OUT/"record_issues.csv").open("w",encoding="utf-8-sig",newline="") as f:
+              writer=csv.DictWriter(f,fieldnames=["date","symbol","issue"]);writer.writeheader();writer.writerows(issues)
+          result={"scope":"15 calendar days in 2005, 2016 and 2024",
+                  "source":"Money Tree retrospective HTTPS files",
+                  "PIT_certified":False,"formal_model_training_allowed":False,
+                  "full_history_acquired":False,
+                  "master_rows":len(stocks),"delisted_in_master":sum(s.get("list_status")=="D" for s in stocks),
+                  "received_dates":len(daily),"failed_or_nontrading_dates":holidays_or_errors,
+                  "total_unresolved_missing_master":sum(r["MISSING_MASTER"] for r in daily),
+                  "total_outside_lifecycle":sum(r["OUTSIDE_LIFECYCLE"] for r in daily),
+                  "total_other_exchange_removed":sum(r["BSE_OR_OTHER"] for r in daily),
+                  "source_manifest":source_files}
+          (OUT/"gate.json").write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
+          if len(daily)<12:
+              raise SystemExit("Insufficient historical dates: must inspect gate.json; no training authorized")
+          PY
+      - name: Upload raw sources, membership issues and pilot breadth
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v77-retrospective-breadth-PILOT-UNVERIFIED
+          path: v77_research_pilot/
+          retention-days: 14
+          if-no-files-found: warn
