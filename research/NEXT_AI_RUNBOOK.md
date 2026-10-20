@@ -73,3 +73,13 @@ gh run download 39364428554 --repo devincreator/A-share-top-monitor --dir v79_20
 - [V77 15日限流修复成功](https://github.com/devincreator/A-share-top-monitor/actions/runs/39358137081)
 - [V78单日缺口补采成功](https://github.com/devincreator/A-share-top-monitor/actions/runs/39362355495)
 - [V79 2006季度矩阵](https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554)
+
+## 7. 每次结束强制写进度（无需用户催促）
+
+以后每轮/每个任务结束时（包括失败、数据阻塞、限流），**必须在回应用户前保留 GitHub 持久进度**：
+
+- GitHub Actions研究任务：自带 `workflow_run.completed` 自动写入脚本 `research/scripts/progress_autojournal.py` 监听 [工作流](../../.github/workflows/research-progress-autojournal.yml)，产生 `research/progress/runs/<run_id>-attempt-<n>.json`。检查 [进度索引](progress/README.md) 是否产生对应条目。自动记录成功/失败/取消/超时、证据和附件；不自动放行数据质量或双80。
+- **不通过GitHub Actions执行的研究（ChatGPT、其他AI本地运行）**：当前聊天完成时**主动用GitHub创建文件接口**写入 `research/progress/manual/YYYYMMDDTHHMMSSZ-<unique>.json`，最少字段 `record_type: manually_reported_research_milestone`、`recorded_at_utc`、`workflow_name`、`conclusion: success|failure|partial|blocked`、`summary`、`evidence_url`、`data_gate`、`dual80_achieved: null`、`next_action`。注意符合JSON，而不是把状态写在聊天里就算同步；push触发索引自动刷新。若已有GitHub运行，也可以手动派发日志工作流并指定 `source_run_id`。
+- 核验记录链接、run ID和至少一条真正可读的原始证据。不得把本地计划说成已执行；失败也应留痕。科学评价另改 `research/status/quality_gates.json`（仅证据成立时），不可通过日志工具偷偷修改。
+
+可参照仓库根目录 [AGENTS.md](../../AGENTS.md)，它要求所有后续AI执行这项操作。
