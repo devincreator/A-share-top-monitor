@@ -6,12 +6,12 @@ on:
       from_month:
         description: First month YYYY-MM, inclusive
         required: true
-        default: "2005-01"
+        default: "2005-04"
         type: string
       through_month:
         description: Last month YYYY-MM, inclusive (max 3 months)
         required: true
-        default: "2005-03"
+        default: "2005-06"
         type: string
   push:
     branches: [main]
@@ -32,8 +32,8 @@ jobs:
       - name: Collect bounded months and audit daily exchange population
         shell: bash
         env:
-          FROM_MONTH: ${{ inputs.from_month || '2005-01' }}
-          THROUGH_MONTH: ${{ inputs.through_month || '2005-03' }}
+          FROM_MONTH: ${{ inputs.from_month || '2005-04' }}
+          THROUGH_MONTH: ${{ inputs.through_month || '2005-06' }}
         run: |
           python - <<'PY'
           import os,csv,io,json,time,hashlib,datetime,calendar,urllib.request,urllib.error,random,collections
@@ -141,7 +141,7 @@ jobs:
           gate={"requested_months":months,"expected_exchange_days":len(expected),
                 "received_exchange_days":len(daily),"missing_days":missing,
                 "raw_files_sha256_count":len(manifest),"source_master_sha256":sha(masterbytes),
-                "source_master_listed_observed_dates":dict(collections.Counter((r.get("observed_date","")[:8],r.get("list_status","")) for r in master)),
+                "source_master_listed_observed_dates":{f"{day}_{status}":count for (day,status),count in collections.Counter((r.get("observed_date","")[:8],r.get("list_status","")) for r in master).items()},
                 "unresolved_daily_rows":sum(r.get("MASTER_MISSING_BARS",0) for r in daily),
                 "invalid_lifecycle_rows":sum(r.get("INVALID_MASTER_LIFECYCLE",0) for r in daily),
                 "warnings":["Source is retrospective, not independently PIT certified",
@@ -154,7 +154,7 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: v78-monthly-${{ inputs.from_month || '2005-01' }}-to-${{ inputs.through_month || '2005-03' }}-RESEARCH
+          name: v78-monthly-${{ inputs.from_month || '2005-04' }}-to-${{ inputs.through_month || '2005-06' }}-RESEARCH
           path: v78_monthly_backfill/
           retention-days: 30
           if-no-files-found: warn
