@@ -15,6 +15,7 @@ on:
       - "!research/v92_margin_recovery/records/**"
       - "!research/v92_margin_recovery/raw/**"
       - "!research/v92_margin_recovery/attempts/**"
+      - "!research/v92_margin_recovery/checkpoints/**"
       - ".github/workflows/research-handoff-selftest.yml"
 
 permissions:
