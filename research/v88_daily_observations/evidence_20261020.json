@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "observation_date": "2026-10-20",
+  "source": "https://money-tree.eyunzhu.com/daily_kline/date/20261020.csv",
+  "github_run": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39450794575",
+  "github_artifact_id": 12278341291,
+  "source_raw_sha256": "987e23b51fb57fdcffe1fde14bf04882a2062a5c08873711675d95a42f6e85cd",
+  "source_bytes": 439832,
+  "source_rows": 5568,
+  "sh_sz_records": 5217,
+  "raw_advancers": 3433,
+  "raw_observed_traded_share": 0.6580410197431474,
+  "independent_archive_recheck": "ZIP bytes SHA256 and every row trade_date=20261020, source counts recalculated",
+  "formal_signal_generated": false,
+  "PIT_certified": false,
+  "market_index_quote_verified": false
+}
