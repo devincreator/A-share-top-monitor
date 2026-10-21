@@ -160,6 +160,14 @@ def probe_all(ledger,out):
     (out/"strict_gate.json").write_text(json.dumps(gate,ensure_ascii=False,indent=2)+"\n")
     report["gate_status"]=gate["status"]
     report["gate_errors"]=gate["errors"]
+    # Official and third-party sources are audited separately; agreement is not PIT certification.
+    from cross_provider import compare_all
+    compare=compare_all(out,asof=asof)
+    report["cross_provider_status"]=compare["cross_index_source_status"]
+    report["cross_provider_by_index"]={code:{"status":a["status"],"matched":a.get("matched",0),
+        "quarantined_non_trading_dates":a.get("quarantined_non_trading_dates",[])}
+        for code,a in compare["results"].items()}
+    report["financing_source_anomalies"]=compare["financing_history_anomalies"]
     return report
 
 
