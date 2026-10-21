@@ -26,6 +26,27 @@ def canonical_date(value):
         return dt.datetime.strptime(s, "%Y%m%d").date().isoformat()
 
 
+def grouped_missing_ranges(expected, absent):
+    """Group consecutive missing *index sessions*, not natural-calendar days."""
+    absent = set(absent)
+    result = []
+    start = end = None
+    count = 0
+    for trading_date in expected:
+        if trading_date in absent:
+            if start is None:
+                start = trading_date
+                count = 0
+            end = trading_date
+            count += 1
+        elif start is not None:
+            result.append({"start": start, "end": end, "missing_sessions": count})
+            start = end = None
+    if start is not None:
+        result.append({"start": start, "end": end, "missing_sessions": count})
+    return result
+
+
 def audit_financing(rows, index_rows, asof, windows=None):
     """Return factual window coverage; use index dates as calendar proxy only.
 
@@ -102,6 +123,7 @@ def audit_financing(rows, index_rows, asof, windows=None):
             "missing_session_count": len(absent),
             "invalid_balance_count": len(invalid),
             "missing_dates_head": absent[:12],
+            "missing_session_ranges": grouped_missing_ranges(expected, absent),
             "invalid_dates": invalid[:12],
             "window_complete": len(expected) == size and not absent and not invalid
         }
