@@ -1,0 +1,14 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T07:54:47.873Z",
+  "workflow_name": "V97 only: source-clock-aligned preopen market regime and complete bounded objective label enumeration",
+  "conclusion": "partial",
+  "summary": "GitHub cloud tests succeeded. Historical attribution now uses the last index-close observation whose source metadata is eligible at D preopen (test run 39564356031). Independent Decimal price stream enumeration run 39564809325 found all 39 5% and 19 9% ex-post pivots, 0 omitted, 0 extraneous and 0 different fields in 1128 genuine archived CSI 000985 price observations. Does not reconstruct original old dated FORMAL_START alerts, their actual market-time availability or new accuracy statistics.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809325",
+  "additional_evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564356031",
+  "data_gate": "E1_PARTIAL_RETROSPECTIVE_LABEL_ENUMERATION_COMPLETE_ORIGINAL_FORMAL_ALERTS_BLOCKED",
+  "dual80_achieved": false,
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "next_action": "Find actual old V63/V68 dated FORMAL_START source or independently reproduce from original pinned code and PIT preopen inputs; do not invent old alerts from objective pivot dates."
+}

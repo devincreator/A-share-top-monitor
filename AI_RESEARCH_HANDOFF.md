@@ -1,3 +1,5 @@
+> **V97 真实最新验证**： [时点回归39564356031](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564356031)修复D-1未公布收盘的隐性引用；[全源事后标签完整性39564809325](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809325)在1128条归档中证全指日线中独立复核39个5%/19个9%端点，漏标0、字段差异0。[审计JSON](research/v97_event_intake/observations/independent_label_completeness_20261021.json)。旧真实FORMAL_START报警与历史因子公布时点依然缺失，不能计算新的预测命中率或误报日期。
+
 > **当前实际可验证进度：** V97从2022—2026真实中证全指价格重建58个事后客观拐点（5%39/9%19，各1个左边界不完整），[实测报告](research/v97_event_intake/ACTUAL_PARTIAL_OBJECTIVE_REPLAY_20261021.md)；旧V68正式预警日期仍缺失，不得生成虚假的49条误报。开盘前决策不能知道D日各类日级指标，D-1也需实际披露证明。
 
 > **2026-10-21 项目研究优先级已改：只推进V97真实事件重建、逐事件回测与误报分析。** 必须先读 [唯一当前执行合同](research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md)。预测交易日D在开盘前**不知道D日任何日级指标**（指数收盘、成交额、C50、广度、融资余额等）；D-1数据也须实际已公布后才可用于D日决策。旧V63—V68历史聚合胜率没有开盘前真实时点证据，不能直接当开盘前预测精确率。V94、V95、V96、V98—V100暂缓主动新研发；已有只读来源收集可维持日常运转但不能自动放行模型。

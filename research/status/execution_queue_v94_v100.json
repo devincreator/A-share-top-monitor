@@ -41,9 +41,9 @@
       "version": "V97",
       "name": "历史FORMAL_START逐事件证据",
       "executor": "V97 source-input GitHub validation workflow",
-      "status": "SOLE_ACTIVE_E1_PARTIAL_REAL_58_OBJECTIVE_LABELS_VERIFIED_ORIGINAL_ALERTS_MISSING",
-      "last_real_evidence": "partial true objective pivot replay 39556170202, strict no-day-D gate 39556794398, corrected confirmation-maturity tests 39560791099",
-      "completed": "2022-02-23..2026-10-20 1128 true archived index prices; 5% 39 pivots (1 left censored), 9% 19 pivots (1 left censored); last TOP+confirm matched V52 report; preopen/test CI passed.",
+      "status": "SOLE_ACTIVE_E1_PARTIAL_OBJECTIVE_COMPLETE_OLD_FORMAL_ALERTS_BLOCKED",
+      "last_real_evidence": "Regime-source-clock CI 39564356031; independent full-reversal enumeration CI 39564809325",
+      "completed": "Archived 1128 CSI 000985 close observations have 39 five-percent and 19 nine-percent retrospective confirmed turning points; 0 omissions or unexpected labels in bounded source, 2 left-censored. Original formal alerts still unavailable.",
       "blockers": [
         "Original V63/V68 dated FORMAL_START source still missing",
         "Legacy original decision/published-at data unavailable",
@@ -132,5 +132,16 @@
   "prior_observations_require_publication_before_decision": true,
   "label_maturity_origin": "objective_pivot.confirmation_date",
   "label_maturity_buffer_observed_trade_sessions": 140,
-  "immature_pivot_matching_alert_policy": "PENDING_NOT_FP_NOT_TP"
+  "immature_pivot_matching_alert_policy": "PENDING_NOT_FP_NOT_TP",
+  "market_regime_must_reference_latest_price_with_valid_source_publication_asof": true,
+  "market_regime_if_index_price_source_absent": "NO_INDEX_CLOSE_ASOF_SOURCE",
+  "objective_pivots_independently_enumerated": {
+    "5": 39,
+    "9": 19,
+    "missing": 0,
+    "extra": 0,
+    "field_mismatches": 0,
+    "scope": "2022-02-23..2026-10-20, source is retrospective only"
+  },
+  "formal_alerts_missing": true
 }
