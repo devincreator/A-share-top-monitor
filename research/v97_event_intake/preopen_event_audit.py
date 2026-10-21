@@ -149,7 +149,7 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
             # Pivots are scored only once both their confirmation date and
             # an additional conservative maturity buffer have elapsed.
             mature_p=[p for p in pp if
-                      pos[date.fromisoformat(p["date"])]+MATURITY_BUFFER<len(days)]
+                      pos[date.fromisoformat(p["confirmation_date"])]+MATURITY_BUFFER<len(days)]
             mapping=max_match(aa,mature_p,pos,max_lead)
             events=[]
             for i,a in enumerate(aa):
