@@ -1,0 +1,92 @@
+name: V97 reconstruct actual V52 objective pivots (labels only, not predictions)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v97_event_intake/reconstruct_partial_pivots.py'
+      - 'research/v97_event_intake/test_reconstruct_partial_pivots.py'
+      - '.github/workflows/v97-actual-pivot-source-replay.yml'
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: v97-actual-pivot-first-capture
+  cancel-in-progress: false
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run V52 price-label invariant and no-fabrication tests
+        run: |
+          python -m unittest discover -s research/v97_event_intake -p 'test_*.py' -v
+          python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
+      - name: Read actual archived 2026-10-20 CSI All Share source with GitHub provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p v97_real_prices_raw
+          gh run download 39540193090 \
+            --name v89-index-financing-source-39540193090 \
+            --dir v97_real_prices_raw
+          test -s v97_real_prices_raw/candidate_inputs.json
+          echo 39540193090 > v97_real_prices_raw/source_run_id.txt
+      - name: Regenerate objective 5/9 turns from observed true historical prices only
+        run: |
+          python research/v97_event_intake/reconstruct_partial_pivots.py \
+            --input v97_real_prices_raw/candidate_inputs.json \
+            --out-dir research/v97_event_intake/observations \
+            --asof 2026-10-20
+      - name: Assert real reported V52 latest tops match, forbid alert claims
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import csv,json,hashlib
+          root=Path('research/v97_event_intake/observations')
+          p=root/'partial_v52_derived_objective_pivots.csv'
+          data=list(csv.DictReader(p.open()))
+          report=json.loads((root/'partial_v52_pivot_manifest.json').read_text())
+          assert len(data)>0
+          assert report['source_original_candidate_sha256']=='00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9'
+          assert report['reference_last_top_confirmation_matched'] is True
+          assert report['original_FORMAL_START_alerts_restored'] is False
+          assert report['formal_signal_allowed'] is False
+          assert hashlib.sha256(p.read_bytes()).hexdigest()==report['objective_pivots_csv_sha256']
+          print('REAL RETROSPECTIVE LABELS, NOT PREDICTED SIGNALS',len(data))
+          PY
+      - name: Keep raw source provenance and verification artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v97-real-csi-objective-pivots-${{ github.run_id }}
+          path: |
+            research/v97_event_intake/observations/
+            v97_real_prices_raw/source_run_id.txt
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Permanently preserve original-price derivative and confirmed pivot evidence
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v97_event_intake/observations/
+          if git diff --cached --quiet; then
+            echo 'Same frozen sample already archived without rewriting'
+            exit 0
+          fi
+          git commit -m 'research(v97): preserve 2022-2026 real CSI partial V52 labels [skip ci]'
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Durable archival push blocked; preserve Actions original record'
+          exit 1
