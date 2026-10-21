@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-21T04:05:00+00:00",
+  "run_id": 39541991174,
+  "run_attempt": 1,
+  "workflow_name": "V91 independent exchange financing gap source pilot (research only)",
+  "workflow_path": ".github/workflows/v91-exchange-finance-pilot.yml",
+  "branch": "main",
+  "commit_sha": "e2b67a1403920634ce0c8f4afe9ee6e79f8a7be1",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "push",
+  "created_at": "2026-10-21T04:04:07Z",
+  "run_started_at": "2026-10-21T04:04:07Z",
+  "updated_at": "2026-10-21T04:04:52Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541991174",
+  "jobs": [
+    {
+      "id": 119031590897,
+      "name": "probe",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T04:04:10Z",
+      "completed_at": "2026-10-21T04:04:52Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541991174/job/119031590897"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12320230712,
+      "name": "v91-exchange-financing-pilot-39541991174",
+      "size_in_bytes": 5147,
+      "expired": false,
+      "expires_at": "2026-11-20T04:04:48Z",
+      "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12320230712/zip"
+    }
+  ],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
