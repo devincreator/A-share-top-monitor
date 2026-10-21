@@ -3,12 +3,14 @@
 > 仅代表 **任务执行状态**，不是市场数据历史可得性(PIT)认证，更不是四任务双80成绩。
 > 研究数据门禁的唯一授权状态见 [quality_gates.json](../status/quality_gates.json)。
 
-已记录 139 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
+已记录 141 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
 
 | 完成时间(UTC) | 研究任务 | 运行结论 | 证据 |
 |---|---|---|---|
+| 2026-10-21T08:05:18Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39566608589) |
 | 2026-10-21T08:05:17Z | V97 silent old alert source inventory | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39566608572) |
 | 2026-10-21T08:05:13Z | V97 preopen event reconstruction and no-future-data audit (research only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39566608567) |
+| 2026-10-21T08:05:12Z | V97 silent autonomous E1 git-history/release/artifact original signal-source inventory | partial | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39566608572) |
 | 2026-10-21T07:55:21Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39565387995) |
 | 2026-10-21T07:54:47.873Z | V97 only: source-clock-aligned preopen market regime and complete bounded objective label enumeratio | partial | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809325) |
 | 2026-10-21T07:53:59Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39565220333) |
@@ -35,8 +37,6 @@
 | 2026-10-21T07:15:03Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39560637905) |
 | 2026-10-21T07:14:57Z | V97 preopen event reconstruction and no-future-data audit (research only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39560637893) |
 | 2026-10-21T06:42:07Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39557029456) |
-| 2026-10-21T06:41:30.870Z | V97 strict preopen historical clock and genuine event source blocker verification | partial | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556794398) |
-| 2026-10-21T06:39:54Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556794443) |
 
 ## 如何接续
 
