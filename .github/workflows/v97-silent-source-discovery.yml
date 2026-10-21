@@ -1,8 +1,6 @@
 name: V97 silent old alert source inventory
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '15 11 * * *'
   push:
     branches: [main]
     paths:
