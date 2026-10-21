@@ -127,6 +127,19 @@ def audit_financing(rows, index_rows, asof, windows=None):
             "invalid_dates": invalid[:12],
             "window_complete": len(expected) == size and not absent and not invalid
         }
+        if name == "finance_growth63_prior756_rank" and len(calendar) >= 820:
+            t = len(calendar) - 1
+            missing_growth = [
+                calendar[i] for i in range(t - 756, t)
+                if finance.get(calendar[i]) is None or
+                   finance.get(calendar[i - 63]) is None
+            ]
+            item["prior756_invalid_growth_sessions"] = len(missing_growth)
+            item["prior756_first_unusable_dates"] = missing_growth[:15]
+            item["prior756_current_growth_valid"] = (
+                finance.get(calendar[t]) is not None and
+                finance.get(calendar[t - 63]) is not None
+            )
         if len(expected) != size:
             item["status"] = "BLOCKED_INSUFFICIENT_INDEX_HISTORY"
         elif absent or invalid:
