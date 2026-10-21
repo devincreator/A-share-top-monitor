@@ -58,7 +58,8 @@ def independent_alerts(dates,closes):
             eligible=calc is not None and calc[0] and calc[1]
             edge=eligible and not previous
             signal=edge and day-last>r[4]
-            task_states[day]={"eligible":bool(eligible),"edge":bool(edge),"signal":bool(signal),
+            task_states[day]={"computed":calc is not None,
+                               "eligible":bool(eligible),"edge":bool(edge),"signal":bool(signal),
                                "position_ok":bool(calc and calc[0]),
                                "momentum_ok":bool(calc and calc[1])}
             if signal:
@@ -204,7 +205,7 @@ def build():
     },fp_rows,fn_rows,warmup_rows
 
 def day_has_computable(s):
-    return bool(s["position_ok"] or s["momentum_ok"] or s["eligible"])
+    return bool(s["computed"])
 
 def save_once(path,content):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
