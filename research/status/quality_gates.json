@@ -332,7 +332,7 @@
       "production_updated": false
     },
     "V97": {
-      "status": "EVENT_SOURCE_BUNDLE_GATE_DEPLOYED_HISTORICAL_V68_ORIGINAL_MISSING",
+      "status": "E1_ORIGINAL_DATED_EVENTS_MISSING_PREOPEN_CLOCK_RESEARCH_CODE_PENDING_CLOUD_VERIFICATION",
       "source_scan_repo_tree_and_release_assets": "NO_ORIGINAL_V63_TO_V68_EVENTS_ZIP",
       "cloud_run_id": 39552004501,
       "synthetic_schema_and_integrity_tests_passed": true,
@@ -340,7 +340,18 @@
       "four_task_new_precision_recall_measured": false,
       "source_track_csi300_vs_000985_guarded": true,
       "formal_signal_allowed": false,
-      "production_updated": false
+      "production_updated": false,
+      "single_active_research_task": true,
+      "original_archived_CSI300_aggregates_not_preopen_certified": true,
+      "main_CSI_ALL_SHARE_index_identity_separate": true,
+      "historical_false_positive_dates_verified": false,
+      "reconstruction_workplan": "research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md",
+      "score_maturity_pending_policy": "All unmatched alerts within lead window plus 140 observed sessions before asof stay PENDING; labels require mature confirmation",
+      "preopen_clock_feature_availability_attested": false,
+      "research_code_tests_pending": true,
+      "original_zip_missing": true,
+      "new_four_task_event_metrics_real": false,
+      "double80_achieved": false
     }
   },
   "data_quality": {
@@ -393,9 +404,10 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
+    "CURRENT FOCUS V97 E1: original dated V63-V68 FORMAL_START and objective pivot event input ZIP still absent, cannot reconstruct real FP dates or determine market regimes from old aggregate counts.",
+    "CURRENT FOCUS V97 E2: prediction before open D must never consume D daily features, and D-1 data require independently proven original publication before D decision clock; legacy historical research not preopen certified.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
-    "V97 V63/V68 dated original FORMAL_START and mature pivot input ZIP absent from repository and both existing research releases; cannot fabricate dated events from aggregate counts.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
     "SZSE market aggregate is shown in 100M yuan generally to 2 decimals, and no explicit response date; obtain original exact-Yuan time-stamped official data or bound uncertainty before any historical factor use.",
     "V90 recent 64/253-session financing source dates clean but finance publication timestamp and independent official exchange verification are NOT PIT certified",
@@ -403,7 +415,6 @@
     "V89 official CSI source showed 2026-09-05 non-trading row; quarantine using independently pinned exchange trading calendar",
     "Historical actual listed A-share security episodes require independent official start/end date confirmation, especially same-code different entity and IPO first day",
     "Daily suspension and source-gap classification: 2005 retrospective 14665 no-bars unresolved",
-    "Recover original event-level V63-V68 research ZIP to identify true 5/9 TOP/BOTTOM errors without fabricating rows",
     "PIT-safe returns and share-universe verification across prior years, then frozen prospective blinded verification"
   ],
   "next_ai_entry": "AI_RESEARCH_HANDOFF.md -> research/README.md -> research/NEXT_AI_RUNBOOK.md",
@@ -412,5 +423,26 @@
     "collector/",
     "assets/",
     "data/"
-  ]
+  ],
+  "active_research_priority": "SOLE_ACTIVE: V97 genuine dated events / preopen clock / replay / false positive audit",
+  "prediction_clock_contract": {
+    "decision_mode": "BEFORE_OPEN_CHINA_STOCK_MARKET",
+    "decision_local_timezone": "Asia/Shanghai",
+    "decision_local_time_rule": "strictly before 09:30 on actual eligible trading date; actual historical decision timestamp required",
+    "every_daily_feature_observation_date": "STRICTLY_BEFORE_PREDICTION_DATE",
+    "every_feature_original_publication_at": "AT_OR_BEFORE_REAL_DECISION_TIMESTAMP",
+    "historical_original_publication_missing_action": "BLOCKED_PIT_DO_NOT_ASSUME_D_MINUS_1_WAS_AVAILABLE",
+    "unknown_same_day_daily_values": [
+      "CLOSE",
+      "TURNOVER",
+      "AMOUNT",
+      "BREADTH",
+      "C50",
+      "MARGIN",
+      "OTHER_DAILY_FEATURES"
+    ],
+    "retrospective_label_confirmation": "AFTER_PIVOT_ONLY_FOR_SCORING_NOT_FOR_DECISION_FEATURES",
+    "preopen_equivalence_of_V63_V68_baseline": false,
+    "formal_signal_allowed": false
+  }
 }
