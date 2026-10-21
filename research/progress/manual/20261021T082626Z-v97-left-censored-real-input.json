@@ -1,0 +1,19 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T08:26:26.491Z",
+  "workflow_name": "V97 SHA-pinned historical objective pivot boundary event audit",
+  "conclusion": "CODE_GATE_PASS_REAL_FORMAL_ALERT_SOURCE_BLOCKED",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39568900654",
+  "evidence_sha_link": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v97_event_intake/observations/partial_v52_pivot_manifest.json",
+  "real_input_price_sessions": 1128,
+  "real_input_derived_objective_pivots": 58,
+  "left_censored_first_pivots": 2,
+  "regression_tests_v86_pass": 14,
+  "regression_tests_v97_pass": 70,
+  "change": "Allow SHA-pinned real first left-censored objective pivots without globally rejecting research input; exclude their uncertain lead-window alerts from FP and remove their labels from recall denominators; reject nonfirst or multiple artificial left-censor flags.",
+  "scientific_status": "Original V63/V68 dated FORMAL_START alarm archive and decision-time source publication evidence absent; no actual TP/FP/FN measurement",
+  "formal_signal_allowed": false,
+  "double80_achieved": false,
+  "production_updated": false,
+  "next_action": "Continue only E1 source-code and original formal alert evidence recovery with strict D-preopen source availability."
+}
