@@ -4,7 +4,7 @@
 Input CSVs: alerts(date,scale,direction,id), pivots(date,scale,direction,id),
            prices(date,close). Dates YYYY-MM-DD, scales 5/9, directions TOP/BOTTOM.
 Historical objective pivot labels MAY use hindsight. Regime feature uses only
-price observations available no later than the alert date.
+price observations STRICTLY BEFORE the alert date (pre-open clock).
 """
 import argparse
 import csv
@@ -43,10 +43,13 @@ def classify_at_alert(event, dates, closes):
     if day not in dates:
         return 'NO_PRICE_ON_ALERT_DATE'
     idx = dates.index(day)
-    if idx < 120:
+    # The prediction is issued before today's regular trading session.
+    # Therefore not even the prediction day's CLOSE can be a past feature.
+    end = idx - 1
+    if end < 120:
         return 'INSUFFICIENT_PAST'
-    r60 = closes[idx] / closes[idx - 60] - 1
-    r120 = closes[idx] / closes[idx - 120] - 1
+    r60 = closes[end] / closes[end - 60] - 1
+    r120 = closes[end] / closes[end - 120] - 1
     if r60 < -0.10 and r120 < 0:
         return 'DOWNTREND_RALLY_RISK'
     if r60 > 0.10 and r120 > 0:
