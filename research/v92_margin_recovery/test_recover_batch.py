@@ -113,7 +113,7 @@ class GapRecoveryTests(unittest.TestCase):
             self.assertEqual(result[0]["sources"]["SZSE"]["status"],
                              "SOURCE_REVISION_CONFLICT_NO_OVERWRITE")
             old=json.loads((root/"ledger"/"records"/date/"SZSE.json").read_text())
-            self.assertEqual(old["balance_yuan_from_display"],"700056000000.0")
+            self.assertEqual(old["balance_yuan_from_display"],"700056000000.00")
 
     def test_unsafe_request_size_rejected(self):
         with self.assertRaisesRegex(ValueError,"unsafe"):
