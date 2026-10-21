@@ -36,6 +36,13 @@ class PreopenClockTests(unittest.TestCase):
                                ["FINANCING_BALANCE"])
         self.assertEqual(x["status"],"BLOCKED")
 
+    def test_claimed_final_indicator_published_before_own_market_close_is_fabricated(self):
+        x=m.inspect_prediction(
+            pred(),[rec(day="2026-10-19",pub="2026-10-19T10:00:00+08:00")],
+            ["INDEX_CLOSE"])
+        self.assertEqual(x["status"],"BLOCKED")
+        self.assertIn("before its observation-day market close",str(x["errors"]))
+
     def test_previous_day_financing_not_released_until_after_prediction(self):
         x=m.inspect_prediction(pred(),[rec("FINANCING_BALANCE","2026-10-19","2026-10-20T09:10:00+08:00")],
                                ["FINANCING_BALANCE"])
