@@ -551,6 +551,78 @@
       "preserved_frozen_baseline_with_original_source_sha": true,
       "real_replay_result_archived": true,
       "model_parameter_selection_untuned_but_not_independent_advance_preregistration": true
+    },
+    "V102": {
+      "status": "INDEPENDENT_REPLAY_59_REAL_ARCHIVED_SIMULATED_ALERTS_PASS_WARMUP_CENSOR_SENSITIVITY_NOT_PIT",
+      "ci_run_id": 39621212218,
+      "actual_source_window": "000985.CSI 2022-02-23..2026-10-20",
+      "actual_trading_sessions": 1128,
+      "historical_new_formal_starts": 59,
+      "original_frozen_V101_outputs_unchanged": true,
+      "independent_price_rule_and_matcher_verified": true,
+      "independent_event_records_reconciled": 59,
+      "original_scored_FP": 32,
+      "original_scored_FN": 28,
+      "new_insufficient_price_lookback_objectives_in_original_FN": 5,
+      "actual_evaluable_FN_after_complete_lead_warmup": 23,
+      "original_label_censoring_separate_from_model_warmup": true,
+      "all_five_warmup_excluded_labels": [
+        "5_BOTTOM_2022-03-15",
+        "5_TOP_2022-03-23",
+        "5_BOTTOM_2022-04-26",
+        "9_BOTTOM_2022-04-26",
+        "9_TOP_2022-06-28"
+      ],
+      "fully_observable_recall_sensitivity": {
+        "5_TOP": {
+          "tp": 8,
+          "fp": 11,
+          "eligible_mature_pivots": 15,
+          "fn": 7,
+          "precision": 0.42105263157894735,
+          "recall": 0.5333333333333333
+        },
+        "5_BOTTOM": {
+          "tp": 6,
+          "fp": 12,
+          "eligible_mature_pivots": 14,
+          "fn": 8,
+          "precision": 0.3333333333333333,
+          "recall": 0.42857142857142855
+        },
+        "9_TOP": {
+          "tp": 2,
+          "fp": 7,
+          "eligible_mature_pivots": 6,
+          "fn": 4,
+          "precision": 0.2222222222222222,
+          "recall": 0.3333333333333333
+        },
+        "9_BOTTOM": {
+          "tp": 2,
+          "fp": 2,
+          "eligible_mature_pivots": 6,
+          "fn": 4,
+          "precision": 0.5,
+          "recall": 0.3333333333333333
+        }
+      },
+      "false_positives_expost_next_same_direction_pivot_1_to_3_lead_windows_late": 11,
+      "false_positives_expost_no_same_direction_pivot_within_three_lead_windows": 21,
+      "evaluable_FN_both_price_conditions_never_simultaneously_met": 21,
+      "evaluable_FN_cooldown_suppressed": 1,
+      "evaluable_FN_no_new_eligibility_edge": 1,
+      "new_model_historical_predictive_performance_improved": false,
+      "changing_evaluation_eligibility_does_not_improve_model": true,
+      "original_D_minus_1_publication_time_independently_certified": false,
+      "historical_PIT_certified": false,
+      "unseen_forward_data_evaluated": false,
+      "four_tasks_double80_achieved": false,
+      "formal_signal_allowed": false,
+      "production_updated": false,
+      "audit_report": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/independent_replay_and_warmup_audit.json",
+      "fp_rows": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/false_positives_descriptive.csv",
+      "fn_rows": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/missed_mature_pivots.csv"
     }
   },
   "data_quality": {
@@ -603,8 +675,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V101 newest results: 59 new independent preopen-conditional retrospective FORMAL_START signals; all four precision/recall goals fail. Historical original D-1 daily-close release times and as-of values NOT verified; still research only.",
-    "V101 next task: audit genuine new FP/FN dates and group by pre-specified prior-price regimes; independently verify one-to-one matching and exclude immature and left-truncated objective labels. Do not tune on the repeatedly studied 2022-2026 archive and call it blind.",
+    "V102 retrospective diagnosis PASS: all 59 V101 fresh preopen-conditional events and full TP/FP/PENDING results independently reproduced. V101 scored 5 mature FN for pivot dates before 63/126-price warmup, so a separate complete-opportunity sensitivity excludes them (no model gain, frozen V101 results retained).",
+    "V102 FP/FN ex-post breakdown: 32 FP (11 later objective extreme at >1x <=3x allowed lead; 21 no same-direction extreme within 3x), 23 eligible-history FN (21 rule conditions not simultaneously met, 1 cooldown blocked, 1 no new edge). Never treat retrospective pivot classes as D-day forecast inputs.",
+    "V102 next priority: register any prospective model variants before future observations, record original D-1 price actual release/vintage before D 09:20, then evaluate only future untouched independent events. No tunable retrofit of previously analyzed 2022-2026 history as blind validation.",
     "V101 historic raw market close is archive acquired 2026-10-21, not original 2022..2026 as-of capture; user D-day preopen goal requires independent source release evidence before PIT certification.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
@@ -624,7 +697,7 @@
     "assets/",
     "data/"
   ],
-  "active_research_priority": "SOLE_ACTIVE: V101 fresh day-D preopen baseline events -> per-event error analysis -> as-of data certification -> honest forward shadow validation. Legacy V63-V68 alert recovery dropped as an active dependency by user.",
+  "active_research_priority": "SOLE_ACTIVE: V102 independent diagnosis of V101 fresh preopen signals, then prospective frozen new model and PIT source verification; no in-sample threshold fitting.",
   "prediction_clock_contract": {
     "decision_mode": "BEFORE_OPEN_CHINA_STOCK_MARKET",
     "decision_local_timezone": "Asia/Shanghai",
