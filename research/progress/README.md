@@ -3,10 +3,11 @@
 > 仅代表 **任务执行状态**，不是市场数据历史可得性(PIT)认证，更不是四任务双80成绩。
 > 研究数据门禁的唯一授权状态见 [quality_gates.json](../status/quality_gates.json)。
 
-已记录 78 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
+已记录 79 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
 
 | 完成时间(UTC) | 研究任务 | 运行结论 | 证据 |
 |---|---|---|---|
+| 2026-10-21T04:16:06Z | V93 SZSE detail versus market margin balance precision pilot | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695) |
 | 2026-10-21T04:15:40Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038700) |
 | 2026-10-21T04:09:47Z | V92 gradual exchange financing source gap recovery (research only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39542417103) |
 | 2026-10-21T04:09:00Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39542417111) |
@@ -36,7 +37,6 @@
 | 2026-10-21T02:44:15Z | V89 independent index and financing source research (no alerts) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39534515226) |
 | 2026-10-21T02:42:51Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39534515150) |
 | 2026-10-21T02:42:36Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39534491451) |
-| 2026-10-21T02:42:30Z | V89 independent index and financing source research (no alerts) | failure | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39534491454) |
 
 ## 如何接续
 
