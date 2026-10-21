@@ -29,6 +29,14 @@ class EventTests(unittest.TestCase):
     def test_symmetric_bottom(self):
         x=audit([evt(160,direction='BOTTOM',id='a')],[evt(161,direction='BOTTOM',id='p')],PRICES)['tasks']['5_BOTTOM']
         self.assertEqual((x['tp'],x['fp'],x['fn']),(1,0,0))
+    def test_prediction_day_close_not_used_in_regime(self):
+        # Market forecast is made before 09:30, so t close is unknown.
+        original=audit([evt(150,id='preopen')],[],PRICES)['tasks']['5_TOP']['events'][0]['market_regime_at_alert']
+        mutated=[dict(v) for v in PRICES]
+        mutated[150]['close']='999999'
+        updated=audit([evt(150,id='preopen')],[],mutated)['tasks']['5_TOP']['events'][0]['market_regime_at_alert']
+        self.assertEqual(original,updated)
+
     def test_no_future_in_regime(self):
         x=audit([evt(150,id='a')],[],PRICES)['tasks']['5_TOP']['events'][0]['market_regime_at_alert']
         future_mod=PRICES[:151]+[dict(v,close='100000') for v in PRICES[151:]]
