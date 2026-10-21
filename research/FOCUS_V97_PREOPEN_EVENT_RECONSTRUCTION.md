@@ -1,3 +1,5 @@
+> **E1已得到部分真实结果（2026-10-21）：** 从源SHA锁定的1,128条中证全指价格行情独立重建**5% 39个、9% 19个客观拐点**，各含1个左边界不完整标签（**不可用于Recall分母**）；2026-08-17末端顶部确认日5%=09-11、9%=10-08，均与旧V52总结匹配。云端[实际重建成功39556170202](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556170202)、[开盘前门禁回归39556330381](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556330381)。详细证据见 [实际审计报告](v97_event_intake/ACTUAL_PARTIAL_OBJECTIVE_REPLAY_20261021.md)。**原始V63/V68正式报警尚缺，不能计算新Precision/FP**。其余阶段仍暂停主动研发。
+
 # 当前唯一主动研发任务：真实历史预警重建、逐事件回测与误报归因
 
 > 任务冻结：2026-10-21。**本阶段只做真实事件证据、回放时钟、事件匹配和误报归因。**

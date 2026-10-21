@@ -332,7 +332,7 @@
       "production_updated": false
     },
     "V97": {
-      "status": "E1_ORIGINAL_DATED_EVENTS_MISSING_PREOPEN_CLOCK_RESEARCH_CODE_PENDING_CLOUD_VERIFICATION",
+      "status": "E1_PARTIAL_REAL_2022_2026_OBJECTIVE_PIVOTS_REBUILT_OLD_FORMAL_ALERTS_MISSING",
       "source_scan_repo_tree_and_release_assets": "NO_ORIGINAL_V63_TO_V68_EVENTS_ZIP",
       "cloud_run_id": 39552004501,
       "synthetic_schema_and_integrity_tests_passed": true,
@@ -348,10 +348,28 @@
       "reconstruction_workplan": "research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md",
       "score_maturity_pending_policy": "All unmatched alerts within lead window plus 140 observed sessions before asof stay PENDING; labels require mature confirmation",
       "preopen_clock_feature_availability_attested": false,
-      "research_code_tests_pending": true,
+      "research_code_tests_pending": false,
       "original_zip_missing": true,
       "new_four_task_event_metrics_real": false,
-      "double80_achieved": false
+      "double80_achieved": false,
+      "label_source_scope": "000985.CSI, 2022-02-23 through 2026-10-20, REAL V89 frozen source archive",
+      "real_index_price_sessions": 1128,
+      "real_candidate_original_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+      "reconstructed_partial_V52_5pct_objective_pivots": 39,
+      "reconstructed_partial_V52_9pct_objective_pivots": 19,
+      "left_censored_partial_labels_excluded_from_recall": 2,
+      "reconstructed_label_reference_5pct_top": "2026-08-17 turning / 2026-09-11 first confirmed",
+      "reconstructed_label_reference_9pct_top": "2026-08-17 turning / 2026-10-08 first confirmed",
+      "source_reconstruction_ci_run_id": 39556170202,
+      "no_future_preopen_clock_ci_run_id": 39556330381,
+      "reconstructed_label_csv_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+      "labels_same_as_full_historical_2015_2026_V52": false,
+      "original_real_formal_start_alerts_recovered": false,
+      "preopen_historical_signal_accuracy_computed": false,
+      "preopen_clock_code_tests_pending": false,
+      "preopen_clock_code_tests_passed": true,
+      "next_gate": "E1 recover dated historical FORMAL_START / per-event inputs, then E2 actual publication clocks",
+      "real_historical_event_replay_executed": false
     }
   },
   "data_quality": {
@@ -404,8 +422,8 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "CURRENT FOCUS V97 E1: original dated V63-V68 FORMAL_START and objective pivot event input ZIP still absent, cannot reconstruct real FP dates or determine market regimes from old aggregate counts.",
-    "CURRENT FOCUS V97 E2: prediction before open D must never consume D daily features, and D-1 data require independently proven original publication before D decision clock; legacy historical research not preopen certified.",
+    "V97 E1: 2022-2026 independently rederived 58 retrospective objective pivots, including two LEFT_CENSORED initial extrema; original V63-V68 FORMAL_START dated event/source code archive still missing. Do not compute false alarm rates from pivots alone.",
+    "V97 E2: pre-open factor timing unit tests passed but legacy 2015-2021 research has no verified historical original publication times; cannot claim the old model made predictions using prior released day only.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",

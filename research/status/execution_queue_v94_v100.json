@@ -41,13 +41,13 @@
       "version": "V97",
       "name": "历史FORMAL_START逐事件证据",
       "executor": "V97 source-input GitHub validation workflow",
-      "status": "SOLE_ACTIVE_RESEARCH_TASK_E1_SOURCE_BLOCKED_CLOCK_GATE_CODE_READY_FOR_CI",
-      "last_real_evidence": "V97 run 39552004501",
-      "completed": "source SHA, original alert type, pivot confirmation and index-track acceptance gate",
+      "status": "SOLE_ACTIVE_E1_PARTIAL_REAL_58_OBJECTIVE_LABELS_VERIFIED_ORIGINAL_ALERTS_MISSING",
+      "last_real_evidence": "Real source run 39540193090; pivot recreation 39556170202; strict preopen rule 39556330381",
+      "completed": "2022-02-23..2026-10-20 1128 true archived index prices; 5% 39 pivots (1 left censored), 9% 19 pivots (1 left censored); last TOP+confirm matched V52 report; preopen/test CI passed.",
       "blockers": [
-        "V63/V68 original event-level ZIP absent from repo/releases",
-        "Legacy CSI300 price study not proven preopen",
-        "historical per-feature original availability timestamps missing"
+        "Original V63/V68 dated FORMAL_START source still missing",
+        "Legacy original decision/published-at data unavailable",
+        "2022 start left truncated; 2015-2026 full V52 157 points not reproduced"
       ],
       "pass_gate": "E1 authentic original dated alerts/pivots+hash/code; E2 all feature values observed BEFORE prediction D and publication by decision_at; E3 mature one-to-one TP/FP/FN and t-1 error regimes; E4 attributable genuine FP records",
       "production_update_allowed": false
@@ -125,5 +125,6 @@
     "W6 blind forward validation",
     "W7 formal publication"
   ],
-  "existing_scheduled_collection_policy": "Existing read-only evidence collectors can maintain archives; do not initiate new parallel model-optimization development."
+  "existing_scheduled_collection_policy": "Existing read-only evidence collectors can maintain archives; do not initiate new parallel model-optimization development.",
+  "status_verified_research_progress": "V97 E1 partial: 58 actual retrospective objective turning labels, original FORMAL_START missing"
 }
