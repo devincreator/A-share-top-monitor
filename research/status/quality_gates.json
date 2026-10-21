@@ -374,7 +374,7 @@
       "preopen_historical_signal_accuracy_computed": false,
       "preopen_clock_code_tests_pending": false,
       "preopen_clock_code_tests_passed": true,
-      "next_gate": "E1 recover actual historical FORMAL_START events with code+first-observed timestamps, then E2 publication clocks and E3 mature scored replay; do not infer warnings from 58 hindsight turning labels",
+      "next_gate": "E1 obtain date-level V63/V68 original FORMAL_START and source code commit, then verify true decision date/time. Old D-close feature statistics cannot be called D-preopen performance without re-dating/replay.",
       "real_historical_event_replay_executed": false,
       "last_preopen_timestamp_gate_verified_run_id": 39556794398,
       "last_preopen_timestamp_gate_artifact_id": 12325223549,
@@ -446,7 +446,34 @@
         "historical_source_PIT_verified": false,
         "formal_signal_allowed": false,
         "production_updated": false
-      }
+      },
+      "historical_source_recovery_latest_audit_date": "2026-10-21",
+      "V63_V68_original_report_legacy_feature_clock": "Historical report section 7 says 38 price and relative-index factors used current-day and historical closing prices; not directly executable at D preopen.",
+      "legacy_same_day_close_cannot_be_claimed_D_preopen": true,
+      "original_missing_scripts": [
+        "upstream/run_stages.py",
+        "v65_v68_research.py",
+        "v65_v68_extensions.py",
+        "v67_daily_updates.py",
+        "test_v63_v68_live.py"
+      ],
+      "repository_paths_audited_for_original_scripts": 591,
+      "local_zip_archives_scanned": 15,
+      "local_zip_entries_scanned_including_nested": 422,
+      "local_event_named_file_candidates": 0,
+      "local_archive_filename_scan_does_not_prove_universal_absence": true,
+      "local_archive_evidence_path": "research/v97_event_intake/observations/local_zip_filename_inventory_20261021.json",
+      "max_cardinality_chronological_match_algorithm": "ORDERED_INTERVAL_EARLIEST_ELIGIBLE_PIVOT",
+      "max_cardinality_exhaustive_synthetic_cases": 34596,
+      "max_cardinality_matching_test_run_id": 39572307761,
+      "matching_test_research_only": true,
+      "same_scale_same_date_duplicate_pivot_blocked": true,
+      "same_day_pivot_confirmation_blocked": true,
+      "price_asof_observation_value_required_and_matched_to_archive": true,
+      "historical_price_value_match_test_run_id": 39573086171,
+      "price_asof_optional_no_index_source_tristate_test_run_id": 39573521386,
+      "price_120_day_lookback_historical_vintage_PIT_verified": false,
+      "legacy_original_FORMAL_START_recovered": false
     }
   },
   "data_quality": {
@@ -499,8 +526,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
+    "V97 E1: original V63/V68 report explicitly documents current-day close features, incompatible with the user's D-day preopen forecast without a D+1 shift or prior-day as-of recomputation. The original five named scripts and dated FORMAL_START source are absent from inspected 591 GitHub paths; 15 local ZIPs (422 entries) contain no event-named file candidate. Scan not universal.",
+    "V97 research code now verifies chronological maximum one-to-one match against 34,596 synthetic configurations and rejects duplicate same-scale objective dates; D-preopen market attribution also requires the actual reported index close value to equal the archive. Neither code test certifies market-time PIT, legacy false alarms or four-task accuracy.",
     "V97 silent E1 source discovery 39566608572 completed 5 tests and enumerated 1896 Git history pathname log lines, 2 existing Releases and 247 unexpired Actions artifact listings; zero matching original alert candidate names found. Limited to reachable tracked Git history and visible metadata; original FORMAL_START still absent. DO NOT infer events from ex-post pivots.",
-    "V97 E2: market-regime attribution now uses evidenced last available INDEX_CLOSE observation date rather than assuming D-1 close was published. Historical original release timestamp/PIT authentication remains absent.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
