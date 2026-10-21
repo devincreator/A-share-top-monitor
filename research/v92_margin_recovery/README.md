@@ -31,3 +31,7 @@ python research/v92_margin_recovery/recover_batch.py \
 ```
 
 [云端运行入口](../../.github/workflows/v92-margin-gap-catchup.yml)。
+
+## 新增独立来源完整性审计
+
+`audit_coverage.py`在每一轮受控采集后重新读取已经永久保存的每一份交易所原始CSV，与首次`records`中的SHA256、源交易日期（仅沪市响应内置）、单位、余额值、身份证据和未放行的PIT标志进行逐项比对。将各类日期明确区分为**双来源有原始证据**、仅单来源和仍未取到的日期。每轮云端执行生成永久`checkpoints/YYYY-MM-DD/<run_id>.json`，保留首次证据与研究覆盖的推进过程，绝不因代码改动自动改写首次取数。即使全部183日补采完成，如果SZSE值精度、日期或发布时点未获独立验证，仍必须保持`finance_growth63_prior756_rank_certified=false`。
