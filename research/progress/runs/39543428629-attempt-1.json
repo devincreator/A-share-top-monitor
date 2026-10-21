@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-21T04:20:08+00:00",
+  "run_id": 39543428629,
+  "run_attempt": 1,
+  "workflow_name": "V92 archived exchange source integrity audit (zero live market API queries)",
+  "workflow_path": ".github/workflows/v92-source-integrity-selftest.yml",
+  "branch": "main",
+  "commit_sha": "29084e7ea990898b27bb591d0488f69a375d153b",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "push",
+  "created_at": "2026-10-21T04:19:47Z",
+  "run_started_at": "2026-10-21T04:19:47Z",
+  "updated_at": "2026-10-21T04:19:59Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543428629",
+  "jobs": [
+    {
+      "id": 119036139559,
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T04:19:50Z",
+      "completed_at": "2026-10-21T04:19:58Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543428629/job/119036139559"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12320088952,
+      "name": "v92-archived-source-integrity-39543428629",
+      "size_in_bytes": 564450,
+      "expired": false,
+      "expires_at": "2026-11-20T04:19:55Z",
+      "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12320088952/zip"
+    }
+  ],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
