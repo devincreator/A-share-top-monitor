@@ -1,0 +1,96 @@
+name: V92 gradual exchange financing source gap recovery (research only)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekdays 11:15 Asia/Shanghai, after the V89 read-only source check.
+    - cron: '15 3 * * 1-5'
+  push:
+    branches: [main]
+    paths:
+      - 'research/v92_margin_recovery/*.py'
+      - '.github/workflows/v92-margin-gap-catchup.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: v92-exchange-margin-catchup-main
+  cancel-in-progress: false
+
+jobs:
+  gap_research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test append-only sources, gap selection and PIT-fail-closed rules
+        run: |
+          python -m unittest discover -s research/v91_exchange_margin -p 'test_*.py' -v
+          python -m unittest discover -s research/v92_margin_recovery -p 'test_*.py' -v
+      - name: Read latest successful V89 source archive with provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          runid="$(gh run list --workflow v89-source-readiness-research.yml --branch main --limit 20 --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId')"
+          if [ -z "$runid" ] || [ "$runid" = "null" ]; then
+            echo 'ERROR: no completed V89 evidence run'
+            exit 1
+          fi
+          mkdir -p v89_source_audit_output
+          gh run download "$runid" --name "v89-index-financing-source-$runid" --dir v89_source_audit_output
+          test -s v89_source_audit_output/candidate_inputs.json
+          echo "$runid" > v89_source_audit_output/provenance_run_id.txt
+      - name: Install restricted read-only exchange interface dependencies
+        run: python -m pip install --disable-pip-version-check --no-cache-dir 'akshare>=1.15' pandas requests
+      - name: Pull no more than eight missing days, keep first raw records immutable
+        run: |
+          python research/v92_margin_recovery/recover_batch.py \
+            --candidate v89_source_audit_output/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v92_exchange_batch \
+            --max-dates 8 --retry-days 2
+      - name: Upload investigation records even if source unavailable
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v92-exchange-gap-batch-${{ github.run_id }}
+          path: |
+            v92_exchange_batch/
+            v89_source_audit_output/provenance_run_id.txt
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Permanently append exchange CSV/metadata and failed source attempts
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for folder in records raw attempts; do
+            if [ -d "research/v92_margin_recovery/$folder" ]; then
+              git add "research/v92_margin_recovery/$folder/"
+            fi
+          done
+          if git diff --cached --quiet; then
+            echo 'No new exchange source evidence'
+            exit 0
+          fi
+          git commit -m 'research(v92): preserve exchange margin source evidence [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo 'Research source records persisted'
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Research source evidence could not be persisted'
+          exit 1
