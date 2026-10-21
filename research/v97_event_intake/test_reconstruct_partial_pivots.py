@@ -42,7 +42,6 @@ class RealSourceLabelRuleTests(unittest.TestCase):
     def test_future_prices_cannot_change_previously_confirmed_labels(self):
         p=rows([100,105,100,94,95,98,104,108,100])
         existing=m.label_one(p,"5",.05)
-        longer=p+rows([101,105,99,100])[-4:]
         # Append with new strictly later observation dates.
         from datetime import date,timedelta
         end=date.fromisoformat(p[-1]["date"])
@@ -52,7 +51,11 @@ class RealSourceLabelRuleTests(unittest.TestCase):
             while end.weekday()>=5:end+=timedelta(days=1)
             longer.append({"date":end.isoformat(),"close":float(c)})
         later=m.label_one(longer,"5",.05)
-        self.assertEqual(later[:len(existing)],existing)
+        for before,after in zip(existing,later):
+            for key in ("id","date","scale","direction","confirmation_date"):
+                self.assertEqual(before[key],after[key])
+        # Next-session metadata for a confirmation on the last supplied day
+        # can be filled only once a NEW later index session is observed.
 
     def test_price_calendar_violations_block(self):
         data={"indices":{"000985":[{"code":"000985","date":"2026-10-20",
@@ -71,7 +74,7 @@ class RealSourceLabelRuleTests(unittest.TestCase):
     def test_csv_has_hashed_deterministic_output(self):
         raw=m.csv_bytes(["date","close"],rows([100,99,98,95]))
         self.assertIn(b"date,close\n",raw)
-        self.assertEqual(hashlib.sha256(raw).hexdigest(),hashlib.sha256(raw).hexdigest())
+        self.assertEqual(raw,m.csv_bytes(["date","close"],rows([100,99,98,95])))
 
 if __name__=="__main__":
     unittest.main()
