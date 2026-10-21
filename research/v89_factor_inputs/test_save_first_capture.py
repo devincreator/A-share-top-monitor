@@ -45,7 +45,7 @@ class ResearchLedgerTests(unittest.TestCase):
             path=Path(d);r=report()
             r["formal_signal_allowed"]=True
             self.assertEqual(m.archive_first_capture(r,path)["status"],"BLOCKED_NOT_RESEARCH_ONLY")
-            self.assertFalse(path.exists())
+            self.assertFalse((path/'2026-10-20.json').exists())
 
 if __name__=="__main__":
     unittest.main()
