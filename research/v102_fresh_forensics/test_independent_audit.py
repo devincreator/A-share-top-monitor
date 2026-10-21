@@ -43,7 +43,7 @@ class V102Tests(unittest.TestCase):
         for a in events:
             self.assertEqual(a["asof"],dates[a["source_index"]])
             self.assertEqual(a["date"],dates[a["source_index"]+1])
-            self.assertLess(a["source_index"],m.ROOT.joinpath("v102_fresh_forensics").exists() or 999999)
+            self.assertLess(a["source_index"],len(dates)-1)
         self.assertTrue(state)
 
     def test_D_day_close_is_not_a_predictor(self):
