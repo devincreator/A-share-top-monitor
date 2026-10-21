@@ -9,7 +9,6 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 START = date(2026, 10, 20)
-END = date(2027, 4, 20)
 
 
 def import_from(path, module_name):
@@ -70,10 +69,10 @@ def report_on(root, today, *, inventory_fn=None):
     pit = gates["data_quality"].get("2005_asof_listing_universe_independently_verified") is True and gates["data_quality"].get("2005_suspension_vs_source_gap_resolved") is True
     live = current["status"] == "FORMAL_INPUTS_READY_FOR_SEPARATE_SIGNAL_ENGINE"
     event_ready = event["status"] == "INPUT_SCHEMA_READY_NOT_YET_AUDITED"
-    stage = "BEFORE_START" if today < START else "ENDED" if today > END else "RESEARCH_RUNNING"
+    stage = "BEFORE_START" if today < START else "RESEARCH_RUNNING"
     return {
         "schema_version": 1, "asof": today.isoformat(),
-        "window": {"start":START.isoformat(), "end":END.isoformat(), "status":stage},
+        "window": {"start":START.isoformat(), "open_ended":True, "status":stage},
         "research_only":True, "formal_signals_generated":False, "production_changed":False,
         "source_sha256":{"quality_gates":gsha,"latest_state":ssha,"latest_verified_market":msha},
         "gates":{
@@ -108,7 +107,7 @@ def main(argv=None):
     target = Path(args.output)
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(s, encoding="utf-8")
-    monthly = START <= today <= END and (today.day <= 7 or (args.initial and today == START))
+    monthly = today >= START and (today.day <= 7 or (args.initial and today == START))
     if monthly:
         checkpoint = Path(args.checkpoint_dir)/(today.strftime("%Y-%m")+".json")
         checkpoint.parent.mkdir(parents=True, exist_ok=True)
