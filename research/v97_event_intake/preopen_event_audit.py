@@ -9,6 +9,7 @@ import argparse
 import csv
 from collections import Counter
 from datetime import date
+from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 import math
@@ -178,12 +179,33 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
                 last=pos[observed]
                 if last>=pos[date.fromisoformat(alert["date"])]:
                     bad.append({"id":aid,"issues":["INDEX_CLOSE source observation is not strictly earlier than forecast"]})
-                else:
+                    continue
+                # A timestamp and source URL do NOT prove that a separately
+                # archived retrospective close is the value seen at decision.
+                # Require the claimed contemporaneous close itself and make
+                # sure it agrees exactly (in decimal price units) with the
+                # price record used to describe the market regime.
+                claimed=price_evidence.get("observation_value")
+                try:
+                    if isinstance(claimed,bool) or claimed is None:
+                        raise ValueError("INDEX_CLOSE source observed numeric value absent")
+                    candidate=Decimal(str(claimed))
+                    archived=Decimal(str(price_rows[last]["close"]))
+                    if not candidate.is_finite() or candidate<=0:
+                        raise ValueError("INDEX_CLOSE source observed value invalid")
+                    if not archived.is_finite() or archived<=0:
+                        raise ValueError("historical price archive close invalid")
+                    if candidate!=archived:
+                        raise ValueError("INDEX_CLOSE claimed source value disagrees with archived market-regime close")
                     price_asof_idx[aid]=last
+                except (InvalidOperation,ValueError,TypeError) as exc:
+                    bad.append({"id":aid,"issues":[str(exc)]})
     baseline={"research_only":True,"formal_signal_allowed":False,
         "evaluation_asof":asof,"maturity_buffer_sessions":MATURITY_BUFFER,
         "clock_verification":"CANDIDATE_SOURCE_METADATA_NOT_INDEPENDENT_PIT_AUDIT",
         "market_regime_clock":"EFFECTIVE_INDEX_CLOSE_SOURCE_OBSERVATION_DATE_NOT_ASSUMED_D_MINUS_1",
+        "market_regime_endpoint_matches_claimed_source_value":not bool(bad),
+        "market_regime_lookback_vintage_independently_PIT_certified":False,
         "scored_legacy_results_not_portable_to_preopen":True}
     if bad:
         return {**baseline,"status":"BLOCKED_FEATURE_CLOCK_OR_PROVENANCE",
