@@ -42,14 +42,14 @@
       "name": "历史FORMAL_START逐事件证据",
       "executor": "V97 source-input GitHub validation workflow",
       "status": "SOLE_ACTIVE_E1_PARTIAL_REAL_58_OBJECTIVE_LABELS_VERIFIED_ORIGINAL_ALERTS_MISSING",
-      "last_real_evidence": "Real source run 39540193090; pivot recreation 39556170202; strict preopen rule 39556330381",
+      "last_real_evidence": "partial true objective pivot replay 39556170202, strict no-day-D gate 39556794398, corrected confirmation-maturity tests 39560791099",
       "completed": "2022-02-23..2026-10-20 1128 true archived index prices; 5% 39 pivots (1 left censored), 9% 19 pivots (1 left censored); last TOP+confirm matched V52 report; preopen/test CI passed.",
       "blockers": [
         "Original V63/V68 dated FORMAL_START source still missing",
         "Legacy original decision/published-at data unavailable",
         "2022 start left truncated; 2015-2026 full V52 157 points not reproduced"
       ],
-      "pass_gate": "E1 authentic original dated alerts/pivots+hash/code; E2 all feature values observed BEFORE prediction D and publication by decision_at; E3 mature one-to-one TP/FP/FN and t-1 error regimes; E4 attributable genuine FP records",
+      "pass_gate": "E1 actual per-event FORMAL_START sources and hashes; E2 D preopen source observation date < D plus independently proven original publication at <= decision time; E3 pivot confirmation+140 index sessions, immature linked alerts PENDING and one-to-one real TP/FP/FN; E4 source-grounded FP attribution",
       "production_update_allowed": false
     },
     {
@@ -111,7 +111,7 @@
     "GitHub workflow success does not imply scientific quality PASS",
     "Do not modify production website and trading rules with research inputs"
   ],
-  "current_single_task": "W3: V97 genuine event reconstruction, preopen clock, one-to-one backtest and false positive attribution",
+  "current_single_task": "W3 V97 ONLY: E1 actual dated FORMAL_START source -> E2 authentic preopen factor clocks -> E3 confirmation-date plus 140 sessions maturity one-to-one event evaluation -> E4 original FP reasons",
   "current_single_task_document": "research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md",
   "single_task_execution": true,
   "preopen_strict_factor_observation_before_prediction_date": true,
@@ -126,5 +126,11 @@
     "W7 formal publication"
   ],
   "existing_scheduled_collection_policy": "Existing read-only evidence collectors can maintain archives; do not initiate new parallel model-optimization development.",
-  "status_verified_research_progress": "V97 E1 partial: 58 actual retrospective objective turning labels, original FORMAL_START missing"
+  "status_verified_research_progress": "V97 E1 partial: 58 actual retrospective objective turning labels, original FORMAL_START missing",
+  "forecast_decision": "D market preopen, before 09:30 Asia/Shanghai",
+  "strict_no_same_day_market_daily_data": true,
+  "prior_observations_require_publication_before_decision": true,
+  "label_maturity_origin": "objective_pivot.confirmation_date",
+  "label_maturity_buffer_observed_trade_sessions": 140,
+  "immature_pivot_matching_alert_policy": "PENDING_NOT_FP_NOT_TP"
 }
