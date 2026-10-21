@@ -48,5 +48,22 @@ class MonthlyCheckTests(unittest.TestCase):
             self.assertEqual(x["window"]["status"],"ENDED")
             self.assertFalse(x["gates"]["prospective_frozen_sample"]["passed"])
 
+    def test_separate_raw_observation_never_promotes_formal_model(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=self.fixture(d)
+            ledger=root/"research/v88_daily_observations/ledger"
+            ledger.mkdir(parents=True)
+            (ledger/"2026-10-20.json").write_text(json.dumps({
+                "observation_date":"2026-10-20",
+                "source_format_verified":True,
+                "source_raw_sha256":"source-verified-only",
+                "traded_sh_sz_records":5217,
+                "raw_traded_advance_share":0.65804102}))
+            x=module.report_on(root,"2026-10-21",
+                    inventory_fn=lambda *args:{"status":"BLOCKED","issues":[]})
+            self.assertEqual(x["research_observed_raw_market"]["asof"],"2026-10-20")
+            self.assertFalse(x["research_observed_raw_market"]["is_formal_model_input"])
+            self.assertFalse(x["gates"]["current_full_model"]["passed"])
+
 if __name__ == "__main__":
     unittest.main()
