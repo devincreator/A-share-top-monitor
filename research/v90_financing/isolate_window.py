@@ -77,13 +77,13 @@ def audit_financing(rows, index_rows, asof, windows=None):
         if not all(math.isfinite(x) and x > 0 for x in (sh, sz)):
             finance[d] = None
             result["source_anomalies"].append({"date": d, "reason": "NONPOSITIVE_OR_NONFINITE",
-                                               "balance_sh_yuan": sh, "balance_sz_yuan": sz})
+                                               "balance_sh_yuan": str(sh), "balance_sz_yuan": str(sz)})
             continue
         finance[d] = sh + sz
     on_calendar = set(calendar)
     result["source_anomalies"].extend(
         {"date": d, "reason": "FINANCING_DATE_NOT_IN_INDEX_SESSIONS"}
-        for d in sorted(finance.keys() - on_calendar))
+        for d in sorted(finance.keys() - on_calendar) if d >= calendar[0])
     usable = {d: value for d, value in finance.items()
               if d in on_calendar and value is not None}
     result["finance_rows_received_through_asof"] = len(finance)
