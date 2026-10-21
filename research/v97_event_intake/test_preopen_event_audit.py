@@ -111,6 +111,13 @@ class PreopenEventTests(unittest.TestCase):
             m.audit_preopen([a],[p],prices,{"a":evidence(days,a)},
                             ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
 
+    def test_partial_history_left_censored_extreme_excluded_from_recall(self):
+        days,prices=inputs()
+        pivot_row=pivot(days,215,"left")
+        pivot_row["first_segment_left_censored"]="true"
+        with self.assertRaisesRegex(ValueError,"left-censored"):
+            m.audit_preopen([], [pivot_row],prices,{},["INDEX_CLOSE"],days[-1])
+
     def test_legacy_active_updates_are_not_new_alerts(self):
         days,prices=inputs()
         a=alert(days,200,"a")
