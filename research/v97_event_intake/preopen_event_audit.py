@@ -151,12 +151,19 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
             mature_p=[p for p in pp if
                       pos[date.fromisoformat(p["confirmation_date"])]+MATURITY_BUFFER<len(days)]
             mapping=max_match(aa,mature_p,pos,max_lead)
+            immature_p=[p for p in pp if p not in mature_p]
             events=[]
             for i,a in enumerate(aa):
                 a_idx=pos[date.fromisoformat(a["date"])]
                 pivot=mature_p[mapping[i]] if i in mapping else None
                 if pivot is not None:
                     kind="TP"
+                elif any(1 <= pos[date.fromisoformat(p["date"])]-a_idx <= max_lead
+                         for p in immature_p):
+                    # A retrospectively observed turning label may still be
+                    # awaiting its own confirmation maturity. Never call the
+                    # matching alert a false positive before it matures.
+                    kind="PENDING"
                 elif a_idx+max_lead+MATURITY_BUFFER<len(days):
                     kind="FP"
                 else:
