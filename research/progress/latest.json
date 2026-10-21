@@ -1,48 +1,20 @@
 {
-  "updated_at_utc": "2026-10-21T06:36:36+00:00",
-  "entry_count": 105,
+  "updated_at_utc": "2026-10-21T06:38:41+00:00",
+  "entry_count": 106,
   "latest": {
-    "schema_version": 1,
-    "record_type": "github_actions_completion",
-    "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T06:36:36+00:00",
-    "run_id": 39556435809,
-    "run_attempt": 1,
-    "workflow_name": "Research handoff - verify 2005 release + metadata",
-    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
-    "branch": "main",
-    "commit_sha": "082eca0d08c714b49bff734510fc04955c5788e2",
-    "status": "completed",
-    "conclusion": "success",
-    "event": "push",
-    "created_at": "2026-10-21T06:36:13Z",
-    "run_started_at": "2026-10-21T06:36:13Z",
-    "updated_at": "2026-10-21T06:36:28Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556435809",
-    "jobs": [
-      {
-        "id": 119077172222,
-        "name": "audit",
-        "status": "completed",
-        "conclusion": "success",
-        "started_at": "2026-10-21T06:36:17Z",
-        "completed_at": "2026-10-21T06:36:28Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556435809/job/119077172222"
-      }
-    ],
-    "artifacts": [
-      {
-        "id": 12325287869,
-        "name": "research-v82-handoff-selftest",
-        "size_in_bytes": 8086461,
-        "expired": false,
-        "expires_at": "2026-11-20T06:36:23Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12325287869/zip"
-      }
-    ],
-    "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
-    "PIT_certified": null,
-    "dual80_achieved": null,
-    "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+    "record_type": "manually_reported_research_milestone",
+    "recorded_at_utc": "2026-10-21T06:38:08.247Z",
+    "workflow_name": "Single-priority V97 actual objective event recovery and before-open anti-lookahead audit",
+    "conclusion": "partial",
+    "summary": "Updated project scope to only authentic historical event recovery/replay/error analysis. Enforced no decision-day daily features, previous-day publication <= preopen decision clock; changed V86 t close regime to t-1 and implemented pending maturity test. GitHub CI 39556330381 passed; independently rederived 2022-2026 real CSI 000985 objective V52-style 5%39 and 9%19 labels from 1128 SHA-locked historical prices (including first left-censored 1 each), matched published 2026-08-17 top and 5/9 confirmation dates; run 39556170202 succeeded and files archived. Original V63/V68 FORMAL_START alerts unavailable in repo/releases/available project files. No new real historical predictions or FP rates.",
+    "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556170202",
+    "additional_evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556330381",
+    "original_candidate_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+    "derived_pivot_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+    "data_gate": "V97_E1_PARTIAL_OBJECTIVE_PIVOTS_REAL_PRICE_ONLY_ORIGINAL_ALERT_SOURCE_MISSING_PREOPEN_PIT_UNVERIFIED",
+    "dual80_achieved": false,
+    "production_updated": false,
+    "formal_signal_allowed": false,
+    "next_action": "Continue E1 only: recover original V63/V68 FORMAL_START dated events or authentic versioned historical executable; require per-alert before-open decision and each feature publication evidence; do not claim legacy aggregate as preopen or fabricate dated false positives."
   }
 }
