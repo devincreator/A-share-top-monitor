@@ -76,14 +76,16 @@ def validate_events(alerts,pivots,days,asof):
         if d not in pos:
             raise ValueError("formal alert day outside price index calendar/asof")
     seen=set()
+    pivots_by_scale={scale:[] for scale in SCALES}
     for row in pivots:
         for field in ("id","date","scale","direction","confirmation_date"):
             if not row.get(field):
                 raise ValueError(f"pivot missing {field}")
         if row["scale"] not in SCALES or row["direction"] not in DIRECTIONS:
             raise ValueError("invalid pivot task")
-        if str(row.get("first_segment_left_censored","false")).lower()=="true":
-            raise ValueError("left-censored initial label cannot enter objective pivot denominator")
+        censor_flag=str(row.get("first_segment_left_censored","false")).lower()
+        if censor_flag not in ("true","false"):
+            raise ValueError("invalid left-censor flag")
         if row["id"] in seen:
             raise ValueError("duplicate pivot id")
         seen.add(row["id"])
@@ -93,6 +95,13 @@ def validate_events(alerts,pivots,days,asof):
             raise ValueError("pivot or confirmation beyond observed evaluation calendar")
         if confirmation<d:
             raise ValueError("pivot confirmed before turning date")
+        pivots_by_scale[row["scale"]].append(row)
+    for scale, rows in pivots_by_scale.items():
+        left=[p for p in rows if str(p.get("first_segment_left_censored","false")).lower()=="true"]
+        if len(left)>1:
+            raise ValueError(f"{scale}: multiple left-censored initial pivots")
+        if left and left[0]["id"]!=min(rows,key=lambda p:(p["date"],p["id"]))["id"]:
+            raise ValueError(f"{scale}: left-censored label must be earliest pivot in this scale")
 
 
 def max_match(alerts,pivots,pos,max_lead):
@@ -172,18 +181,29 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
                       key=lambda a:(a["date"],a["id"]))
             pp=sorted((p for p in pivots if p["scale"]==scale and p["direction"]==direction),
                       key=lambda p:(p["date"],p["id"]))
-            # Pivots are scored only once both their confirmation date and
-            # an additional conservative maturity buffer have elapsed.
-            mature_p=[p for p in pp if
+            # Truncated price archives can have a left-boundary extreme with
+            # unobserved prior trend. Such a label can never count as an FN/TP.
+            # Exclude alerts whose lead window intersects it from FP as well.
+            left_censored_p=[p for p in pp
+                if str(p.get("first_segment_left_censored","false")).lower()=="true"]
+            eligible_p=[p for p in pp if p not in left_censored_p]
+            # A normal objective pivot enters the denominator only after its
+            # actual confirmation day plus the 140-session maturity buffer.
+            mature_p=[p for p in eligible_p if
                       pos[date.fromisoformat(p["confirmation_date"])]+MATURITY_BUFFER<len(days)]
             mapping=max_match(aa,mature_p,pos,max_lead)
-            immature_p=[p for p in pp if p not in mature_p]
+            immature_p=[p for p in eligible_p if p not in mature_p]
             events=[]
             for i,a in enumerate(aa):
                 a_idx=pos[date.fromisoformat(a["date"])]
                 pivot=mature_p[mapping[i]] if i in mapping else None
                 if pivot is not None:
                     kind="TP"
+                elif any(1 <= pos[date.fromisoformat(p["date"])]-a_idx <= max_lead
+                         for p in left_censored_p):
+                    # Unknown pre-sample trend, so neither a confirmed hit nor
+                    # a defensible false positive in this truncated archive.
+                    kind="EXCLUDED_LEFT_CENSORED"
                 elif any(1 <= pos[date.fromisoformat(p["date"])]-a_idx <= max_lead
                          for p in immature_p):
                     # A retrospectively observed turning label may still be
@@ -207,10 +227,14 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
             tp=sum(e["result"]=="TP" for e in events)
             fp=sum(e["result"]=="FP" for e in events)
             pending=sum(e["result"]=="PENDING" for e in events)
+            excluded=sum(e["result"]=="EXCLUDED_LEFT_CENSORED" for e in events)
             fn=len(mature_p)-tp
             data[key]={
                 "status":"RESEARCH_EVENT_REPLAY_ONLY_NOT_PIT",
                 "tp":tp,"fp":fp,"fn":fn,"pending":pending,
+                "excluded_left_censored_alerts":excluded,
+                "excluded_left_censored_pivots":len(left_censored_p),
+                "scored_formal_alerts":tp+fp,
                 "formal_alerts":len(aa),"mature_pivots":len(mature_p),
                 "precision_scored":tp/(tp+fp) if tp+fp else None,
                 "recall_mature":tp/len(mature_p) if mature_p else None,
@@ -219,6 +243,7 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
                 "events":events
             }
     return {**baseline,"status":"RESEARCH_PREOPEN_SCHEMA_REPLAY_UNCERTIFIED",
+            "boundary_policy":"LEFT_CENSORED_PIVOT_EXCLUDED_AND_NEARBY_ALERT_NOT_FALSE_POSITIVE",
             "tasks":data,
             "warning":"Not proof of authentic source event identity, raw factor PIT, matured label completeness or out-of-sample model performance."}
 
