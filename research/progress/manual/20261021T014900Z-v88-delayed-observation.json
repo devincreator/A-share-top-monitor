@@ -1,0 +1,19 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T01:49:00Z",
+  "workflow_name": "V88: delayed raw trading-day evidence archived and weekly audit concurrency repaired",
+  "conclusion": "partial",
+  "summary": "2026-10-20 SH/SZ raw daily source was first unavailable (HTTP404) but later delivered complete source file: source SHA256 verified independently from 2026-10-20 Actions artifact, 5568 rows, 5217 SH/SZ traded records, 3433 positive raw pct_chg, observed traded breadth 65.804102%. V88 added twice-daily 19:30 and next-day 07:45 Beijing source audits, first-capture immutable daily evidence ledger, source date versus run date and no formal signal promotion. GitHub run 39529268418 success and observed day 2026-10-20 ledger persisted. Weekly V87 was initially cancelled due shared concurrency, changed to independent group and verified run 39529391628 success. No formal 4-module recomputation.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39529268418",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": null,
+  "production_updated": false,
+  "verified_runs": [
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39450794575",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39529268418",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39529391628"
+  ],
+  "source_hash": "987e23b51fb57fdcffe1fde14bf04882a2062a5c08873711675d95a42f6e85cd",
+  "observation_file": "research/v88_daily_observations/ledger/2026-10-20.json",
+  "followup": "Keep current full four-module model DATA_PENDING. Recover independent 000985 price-index, amount turnover, and financing sources, plus original V63-V68 event-level ZIP; continue autonomous research-only scheduled checks and do not issue unverified signals."
+}
