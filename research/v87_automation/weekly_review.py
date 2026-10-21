@@ -24,6 +24,33 @@ def read_json(path):
     return json.loads(b), hashlib.sha256(b).hexdigest()
 
 
+
+def latest_observed_raw(root, today):
+    """Reference source-verified raw trade records separately from formal model data."""
+    path = Path(root) / "research/v88_daily_observations/ledger"
+    if not path.is_dir():
+        return {"status": "NO_RETAINED_OBSERVATION", "is_formal_model_input": False}
+    found = []
+    for file in path.glob("*.json"):
+        try:
+            entry = json.loads(file.read_text(encoding="utf8"))
+            stamp = date.fromisoformat(entry["observation_date"])
+            if (stamp <= today and entry.get("source_format_verified") is True
+                    and entry.get("source_raw_sha256")):
+                found.append((stamp, entry))
+        except (OSError, ValueError, KeyError, json.JSONDecodeError):
+            continue
+    if not found:
+        return {"status": "NO_RETAINED_OBSERVATION", "is_formal_model_input": False}
+    stamp, record = sorted(found, key=lambda x: x[0])[-1]
+    return {"status": "SOURCE_RAW_RESEARCH_ONLY", "asof": stamp.isoformat(),
+            "calendar_age_days": (today-stamp).days,
+            "traded_sh_sz_records": record.get("traded_sh_sz_records"),
+            "raw_traded_advance_share": record.get("raw_traded_advance_share"),
+            "source_raw_sha256": record["source_raw_sha256"],
+            "is_formal_model_input": False, "PIT_certified": False}
+
+
 def report_on(root, today, *, inventory_fn=None):
     root = Path(root)
     if isinstance(today, str):
@@ -57,6 +84,7 @@ def report_on(root, today, *, inventory_fn=None):
             "formal_double80":{"passed":False,"status":"NOT_VALIDATED"},
             "prospective_frozen_sample":{"passed":gates["spec"].get("new_forward_unseen_validation") is True}
         },
+        "research_observed_raw_market":latest_observed_raw(root, today),
         "readiness_channels":current["channels"],
         "event_input_issues":event["issues"][:20],
         "next_task":("Restore independently verified current index/volume/turnover/financing feeds"
