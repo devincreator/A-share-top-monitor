@@ -37,7 +37,7 @@ def check_bundle(path):
     if not source.is_file():
         result["errors"].append("original V63/V68 event-level replay bundle not available")
         return result
-    result["source_zip_sha256"]=checksum(source.read_bytes())
+    if source.stat().st_size>MAX_TOTAL_BYTES:\n        result["status"]="BLOCKED_ARCHIVE_INVALID"\n        result["errors"].append("compressed original bundle is too large")\n        return result\n    result["source_zip_sha256"]=checksum(source.read_bytes())
     try:
         with zipfile.ZipFile(source) as archive:
             names=archive.namelist()
@@ -89,6 +89,13 @@ def check_bundle(path):
             raise ValueError("non-FORMAL_START alerts in bundle")
         if "confirmation_date" not in (pivot_rows[0] if pivot_rows else {}):
             raise ValueError("mature objective pivot confirmation date absent")
+        for row in pivot_rows:
+            from datetime import date
+            turning=date.fromisoformat(row["date"])
+            confirmed=date.fromisoformat(row["confirmation_date"])
+            if confirmed<turning:
+                raise ValueError("objective pivot confirmed before turning date")
+        result["mature_objective_confirmations_present"]=True
         result["source_file_hashes"]={n:checksum(document[n]) for n in (
             "alerts.csv","pivots.csv","prices.csv")}
         result["status"]=("MAIN_INDEX_BUNDLE_INTAKE_SCHEMA_VALID_NOT_PIT"
