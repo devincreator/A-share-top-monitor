@@ -38,9 +38,15 @@ def normalized_price_days(rows,asof):
     return dates[:n],closes[:n]
 
 
-def market_regime_prior_day(event_index,closes):
-    """Only closes strictly BEFORE the predicted trading day are features."""
-    last=event_index-1
+def market_regime_asof(last_observable_close_index,closes):
+    """Descriptive regime ends at the source-observation date actually available.
+
+    Do not silently use D-1 when only D-2 (or an older close) had already
+    been published at the historical D pre-open decision.
+    """
+    if last_observable_close_index is None:
+        return "NO_INDEX_CLOSE_ASOF_SOURCE"
+    last=last_observable_close_index
     if last<120:
         return "INSUFFICIENT_PREOPEN_HISTORY"
     r60=closes[last]/closes[last-60]-1
@@ -121,6 +127,7 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
     if not isinstance(availability,dict) or not required_factors:
         raise ValueError("real per-alert factor publication evidence required")
     clock={}
+    price_asof_idx={}
     bad=[]
     for alert in alerts:
         aid=alert["id"]
@@ -130,9 +137,28 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
         clock[aid]=report
         if report["status"]!="PREOPEN_SCHEMA_VALID_REQUIRES_SOURCE_AUTHENTICATION":
             bad.append({"id":aid,"issues":report["errors"]})
+            continue
+        # The disclosure gate proves a *candidate* index close at a specific
+        # observation date, not automatically the last D-1 close. If no price
+        # factor was part of the prediction contract, regime must stay unknown.
+        price_evidence=next((row for row in availability.get(aid,[])
+                             if row.get("factor")=="INDEX_CLOSE"),None)
+        if price_evidence is None:
+            price_asof_idx[aid]=None
+        else:
+            observed=date.fromisoformat(price_evidence["observation_date"])
+            if observed not in pos:
+                bad.append({"id":aid,"issues":["INDEX_CLOSE source observation date absent from archived price calendar"]})
+            else:
+                last=pos[observed]
+                if last>=pos[date.fromisoformat(alert["date"])]:
+                    bad.append({"id":aid,"issues":["INDEX_CLOSE source observation is not strictly earlier than forecast"]})
+                else:
+                    price_asof_idx[aid]=last
     baseline={"research_only":True,"formal_signal_allowed":False,
         "evaluation_asof":asof,"maturity_buffer_sessions":MATURITY_BUFFER,
         "clock_verification":"CANDIDATE_SOURCE_METADATA_NOT_INDEPENDENT_PIT_AUDIT",
+        "market_regime_clock":"EFFECTIVE_INDEX_CLOSE_SOURCE_OBSERVATION_DATE_NOT_ASSUMED_D_MINUS_1",
         "scored_legacy_results_not_portable_to_preopen":True}
     if bad:
         return {**baseline,"status":"BLOCKED_FEATURE_CLOCK_OR_PROVENANCE",
@@ -171,8 +197,11 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
                 events.append({
                     "alert_id":a["id"],"decision_at":a["decision_at"],
                     "alert_date":a["date"],"result":kind,
-                    "regime_using_prior_day":market_regime_prior_day(a_idx,closes),
-                    "last_feature_price_date":days[a_idx-1].isoformat() if a_idx>0 else None,
+                    "regime_at_available_price":market_regime_asof(price_asof_idx.get(a["id"]),closes),
+                    "regime_using_prior_day":market_regime_asof(price_asof_idx.get(a["id"]),closes),
+                    "last_feature_price_date":(days[price_asof_idx[a["id"]]].isoformat()
+                                               if price_asof_idx.get(a["id"]) is not None else None),
+                    "market_regime_provenance":"SOURCE_TIME_SCHEMA_CANDIDATE_NOT_INDEPENDENT_PIT_CERTIFICATION",
                     "pivot_id":pivot["id"] if pivot else None,
                     "lead_trading_days":pos[date.fromisoformat(pivot["date"])]-a_idx if pivot else None})
             tp=sum(e["result"]=="TP" for e in events)
