@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "status": "REAL_PRICE_PARTIAL_PIVOTS_RECONSTRUCTED_V52_LAST_TOP_MATCH",
+  "source_name": "V89 Eastmoney 000985 historical price rows, archived 2026-10-21",
+  "source_run_id": 39540193090,
+  "source_original_candidate_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+  "source_index": "000985.CSI",
+  "source_first_date": "2022-02-23",
+  "source_last_date": "2026-10-20",
+  "observed_price_sessions": 1128,
+  "label_rule": "V52 5/9 percent alternating closing-price reversal; separately reconstructed",
+  "label_left_boundary_not_full_history": true,
+  "report_2015_2026_full_V52_157_points_reproduced": false,
+  "reference_last_top_confirmation_matched": true,
+  "scales": {
+    "5": {
+      "confirmed_pivots": 39,
+      "left_censored_initial_pivots": 1,
+      "mature_historical_predictions_verified": 0
+    },
+    "9": {
+      "confirmed_pivots": 19,
+      "left_censored_initial_pivots": 1,
+      "mature_historical_predictions_verified": 0
+    }
+  },
+  "original_FORMAL_START_alerts_restored": false,
+  "preopen_historical_feature_timestamps_restored": false,
+  "historical_PIT_certified": false,
+  "formal_signal_allowed": false,
+  "confirmed_after_pivot_only_for_retrospective_scoring": true,
+  "original_V68_or_V52_labels_certified": false,
+  "price_csv_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+  "objective_pivots_csv_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+  "source_limitation": "2022+ truncated retrospective price source; do not substitute for original full V52 historical data or unavailable old alarm records"
+}
