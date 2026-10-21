@@ -233,6 +233,29 @@ class PreopenEventTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"multiple left-censored"):
             m.audit_preopen([], [a,b],prices,{},["INDEX_CLOSE"],days[-1])
 
+    def test_actual_archived_58_retrospective_labels_pass_left_boundary_validation(self):
+        # Actual frozen 1128-session archive, not generated synthetic predictions.
+        import csv
+        import hashlib
+        import json
+        folder=HERE/"observations"
+        raw_price=(folder/"index_000985_prices_20220223_20261020.csv").read_bytes()
+        raw_labels=(folder/"partial_v52_derived_objective_pivots.csv").read_bytes()
+        manifest=json.loads((folder/"partial_v52_pivot_manifest.json").read_text())
+        self.assertEqual(hashlib.sha256(raw_price).hexdigest(),manifest["price_csv_sha256"])
+        self.assertEqual(hashlib.sha256(raw_labels).hexdigest(),
+                         manifest["objective_pivots_csv_sha256"])
+        from io import StringIO
+        price_rows=list(csv.DictReader(StringIO(raw_price.decode("utf-8"))))
+        pivots=list(csv.DictReader(StringIO(raw_labels.decode("utf-8"))))
+        self.assertEqual((len(price_rows),len(pivots)),(1128,58))
+        self.assertEqual(sum(str(p["first_segment_left_censored"]).lower()=="true"
+                             for p in pivots),2)
+        # This must validate archive boundaries, not assign TP/FP without
+        # authentic FORMAL_START source records and publication-time evidence.
+        days=[__import__("datetime").date.fromisoformat(p["date"]) for p in price_rows]
+        self.assertIsNone(m.validate_events([],pivots,days,days[-1]))
+
     def test_boundary_is_specific_to_scale_not_global(self):
         days,prices=inputs()
         a=alert(days,210,"scale9_alert",scale="9")
