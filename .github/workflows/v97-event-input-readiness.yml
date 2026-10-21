@@ -1,0 +1,30 @@
+name: V97 original alert/pivot source intake and nonfabrication audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v97_event_intake/*.py'
+      - '.github/workflows/v97-event-input-readiness.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate four-task event source integrity and calendar rules
+        run: python -m unittest discover -s research/v97_event_intake -p 'test_*.py' -v
+      - name: Probe whether authenticated original V68 event input now exists
+        run: python research/v97_event_intake/bundle_gate.py --output v97_event_intake_output/source_status.json
+      - name: Preserve missing-input evidence, never substitute aggregate results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v97-old-events-source-intake
+          path: v97_event_intake_output/
+          retention-days: 30
