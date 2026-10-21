@@ -1,0 +1,17 @@
+{
+  "date": "2024-06-21",
+  "attempt_utc": "2026-10-21T04:09:10.767780+00:00",
+  "run_id": "39542417103",
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "sources": {
+    "SSE": {
+      "status": "FIRST_SOURCE_CAPTURED",
+      "sha256": "30d7cd2d0a67f9069dd62c31cb884b4f07fb6e2909fc783adea958df473da429"
+    },
+    "SZSE": {
+      "status": "FIRST_SOURCE_CAPTURED",
+      "sha256": "3c37eeeb734d4d48c6119d704b981f783a169092fca0258adf501937dc86f9de"
+    }
+  }
+}
