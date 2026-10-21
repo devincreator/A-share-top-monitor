@@ -76,6 +76,7 @@ def validate_events(alerts,pivots,days,asof):
         if d not in pos:
             raise ValueError("formal alert day outside price index calendar/asof")
     seen=set()
+    seen_task_day=set()
     pivots_by_scale={scale:[] for scale in SCALES}
     for row in pivots:
         for field in ("id","date","scale","direction","confirmation_date"):
@@ -89,12 +90,16 @@ def validate_events(alerts,pivots,days,asof):
         if row["id"] in seen:
             raise ValueError("duplicate pivot id")
         seen.add(row["id"])
+        key=(row["scale"],row["date"])
+        if key in seen_task_day:
+            raise ValueError("duplicate scale/date objective pivot, possibly double-counted recall")
+        seen_task_day.add(key)
         d=date.fromisoformat(row["date"])
         confirmation=date.fromisoformat(row["confirmation_date"])
         if d not in pos or confirmation not in pos:
             raise ValueError("pivot or confirmation beyond observed evaluation calendar")
-        if confirmation<d:
-            raise ValueError("pivot confirmed before turning date")
+        if confirmation<=d:
+            raise ValueError("pivot confirmed on or before turning date")
         pivots_by_scale[row["scale"]].append(row)
     for scale, rows in pivots_by_scale.items():
         left=[p for p in rows if str(p.get("first_segment_left_censored","false")).lower()=="true"]
