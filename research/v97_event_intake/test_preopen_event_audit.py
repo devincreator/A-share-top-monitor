@@ -30,6 +30,7 @@ def evidence(days,a):
     k=days.index(a["date"])
     return [{"factor":"INDEX_CLOSE","observation_date":days[k-1],
              "published_at":days[k-1]+"T18:00:00+08:00",
+             "observation_value":str(100+(k-1)*.2),
              "source_raw_sha256":"f"*64,"source_uri":"https://example.org/original",
              "publication_provenance":"INDEPENDENTLY_VERIFIED",
              "publication_evidence_uri":"https://example.org/notices"},
@@ -72,6 +73,7 @@ class PreopenEventTests(unittest.TestCase):
         available=evidence(days,a)
         available[0]["observation_date"]=days[207]
         available[0]["published_at"]=days[207]+"T18:00:00+08:00"
+        available[0]["observation_value"]=str(100+207*.2)
         first=m.audit_preopen([a],[],prices,{"stale_price":available},
                               ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
         event=first["tasks"]["5_TOP"]["events"][0]
@@ -87,6 +89,43 @@ class PreopenEventTests(unittest.TestCase):
         self.assertEqual(event["regime_using_prior_day"],
                          second["tasks"]["5_TOP"]["events"][0]["regime_using_prior_day"])
         self.assertEqual(second["tasks"]["5_TOP"]["events"][0]["last_feature_price_date"],days[207])
+
+    def test_published_price_metadata_without_its_value_cannot_reconstruct_regime(self):
+        days,prices=inputs()
+        a=alert(days,210,"missing_price_value")
+        available=evidence(days,a)
+        del available[0]["observation_value"]
+        out=m.audit_preopen([a],[],prices,{"missing_price_value":available},
+                            ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        self.assertEqual(out["status"],"BLOCKED_FEATURE_CLOCK_OR_PROVENANCE")
+        self.assertEqual(out["tasks"],{})
+        self.assertIn("value absent",str(out["invalid_alert_clock_examples"]))
+
+    def test_archive_close_different_from_claimed_published_close_blocks_regime(self):
+        days,prices=inputs()
+        a=alert(days,210,"changed_historical_archive")
+        available=evidence(days,a)
+        altered=[dict(row) for row in prices]
+        altered[209]["close"]="9999999"
+        out=m.audit_preopen([a],[],altered,{"changed_historical_archive":available},
+                            ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        self.assertEqual(out["status"],"BLOCKED_FEATURE_CLOCK_OR_PROVENANCE")
+        self.assertIn("disagrees",str(out["invalid_alert_clock_examples"]))
+        self.assertEqual(out["tasks"],{})
+
+    def test_truly_available_older_close_consistent_with_archive_is_accepted(self):
+        days,prices=inputs()
+        a=alert(days,210,"older_close")
+        available=evidence(days,a)
+        available[0]["observation_date"]=days[207]
+        available[0]["published_at"]=days[207]+"T18:00:00+08:00"
+        available[0]["observation_value"]=str(100+207*.2)
+        out=m.audit_preopen([a],[],prices,{"older_close":available},
+                            ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        event=out["tasks"]["5_TOP"]["events"][0]
+        self.assertEqual(event["last_feature_price_date"],days[207])
+        self.assertTrue(out["market_regime_endpoint_matches_claimed_source_value"])
+        self.assertFalse(out["market_regime_lookback_vintage_independently_PIT_certified"])
 
     def test_no_index_close_evidence_leaves_market_regime_unknown(self):
         days,prices=inputs()
