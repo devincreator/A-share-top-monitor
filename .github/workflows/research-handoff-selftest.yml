@@ -10,6 +10,7 @@ on:
       # Avoid 8MB historical archive regression on automatic progress/checkpoint writes.
       - "!research/progress/**"
       - "!research/v87_automation/checkpoints/**"
+      - "!research/v88_daily_observations/ledger/**"
       - ".github/workflows/research-handoff-selftest.yml"
 
 permissions:
