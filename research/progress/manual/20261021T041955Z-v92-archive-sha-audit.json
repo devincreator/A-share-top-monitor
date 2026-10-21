@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "record_type": "manual_research_checkpoint",
+  "checkpoint_utc": "2026-10-21T04:19:55.153467+00:00",
+  "scope": "V92 independent hash/schema audit of permanently preserved SSE/SZSE candidate source files",
+  "evidence_run_id": 39543428629,
+  "evidence_artifact_id": 12320088952,
+  "source_candidate_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+  "result": "18 source dates with both exchanges and zero integrity conflicts; 165/183 gap dates do not yet have both source observations",
+  "PIT_certified": false,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "next_action": "Daily bounded source recovery continues automatically; separately find exact market aggregate and historical publication timestamps."
+}

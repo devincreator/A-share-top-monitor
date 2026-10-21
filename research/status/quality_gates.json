@@ -246,16 +246,16 @@
       "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248787"
     },
     "V92": {
-      "status": "SIXTEEN_OF_183_SOURCE_GAP_DAYS_VERIFIED_PLUS_TWO_SEEDED_PENDING_AUDIT",
+      "status": "EIGHTEEN_OF_183_GAP_DAYS_RAW_SOURCES_SHA_VERIFIED_FORMAL_MODEL_BLOCKED",
       "missing_or_invalid_source_gap_days": 183,
-      "cloud_verified_both_exchange_sha_matches": 16,
+      "cloud_verified_both_exchange_sha_matches": 18,
       "first_batch_dates": 8,
       "second_batch_dates": 8,
       "extra_seeded_original_V91_pilot_days": [
         "2024-08-08",
         "2025-01-07"
       ],
-      "extra_seeded_independent_sha_audit_passed": false,
+      "extra_seeded_independent_sha_audit_passed": true,
       "source_raw_and_meta_permanently_archived": true,
       "working_day_bounded_GitHub_Actions_schedule": true,
       "source_schema_and_sha_cloud_run_id": 39542417103,
@@ -264,7 +264,11 @@
       "PIT_certified": false,
       "formal_signal_allowed": false,
       "quality_gate_still_blocked": true,
-      "research_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/v92_margin_recovery"
+      "research_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/v92_margin_recovery",
+      "remaining_gap_days_without_both_sources": 165,
+      "last_archive_source_integrity_run_id": 39543428629,
+      "last_archive_integrity_failures": 0,
+      "evidence_integrity_run": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543428629"
     },
     "V93": {
       "status": "SZSE_SECURITY_DETAILS_DO_NOT_RECONCILE_TO_WHOLE_MARKET_FINANCING",
@@ -324,10 +328,13 @@
     "v90_historical_finance_growth63_rank_p756_complete": false,
     "v90_financing_pit_certified": false,
     "v91_secondary_exchange_probe_20240808_szse_zero_rebutted": true,
-    "v92_raw_exchange_gap_days_both_sources_cloud_SHA_verified": 16,
+    "v92_raw_exchange_gap_days_both_sources_cloud_SHA_verified": 18,
     "v92_candidate_missing_source_dates_total": 183,
     "v93_szse_per_security_sum_matches_market_aggregate": false,
-    "v93_exact_szse_margin_market_yuan_sourced": false
+    "v93_exact_szse_margin_market_yuan_sourced": false,
+    "v92_archived_recovered_source_days_without_both_sources": 165,
+    "v92_source_sha_integrity_gate_passed": true,
+    "v92_finance_factor_long_PIT_still_blocked": true
   },
   "source_links": {
     "primary_project": "https://github.com/devincreator/A-share-top-monitor",
@@ -344,8 +351,8 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V93 2025/2026 SZSE per-security financing balances do NOT sum to exchange market aggregate (shortfalls 8197925948 and 9967858456 CNY). Do not use detailed stocks to impute official exchange market totals.",
-    "V92 after cloud evidence audit 16/183 source gap dates have archived both-exchange sources, plus two V91 seeds awaiting next independent re-audit; these are source observations, NOT exact yuan/PIT-certified.",
+    "V92 18/183 historical missing/invalid Jin10 financing days have SHA-verified SSE+SZSE source responses; 165 not yet dual-source observed. All 18 remain NON-PIT and SZSE raw source only displays 100M yuan precision.",
+    "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
     "SZSE market aggregate is shown in 100M yuan generally to 2 decimals, and no explicit response date; obtain original exact-Yuan time-stamped official data or bound uncertainty before any historical factor use.",
     "V90 recent 64/253-session financing source dates clean but finance publication timestamp and independent official exchange verification are NOT PIT certified",
     "2026-08-04 onward full four-module production data not fully verified; V89 2026-10-20 research price and amount does NOT generate formal signals",
