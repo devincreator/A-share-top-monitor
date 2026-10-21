@@ -134,8 +134,12 @@ def run_pilot(input_file, output_dir, dates=PILOTS, *, api=None, sleep=time.slee
                         else:
                             df=api.stock_margin_szse(date=day.replace("-",""))
                         break
-                    except (ConnectionError, TimeoutError, OSError):
-                        if attempt==3:
+                    except Exception as exc:
+                        transient=(isinstance(exc,(ConnectionError,TimeoutError,OSError))
+                                   or type(exc).__name__ in {
+                                       "ConnectionError","ConnectTimeout","ReadTimeout",
+                                       "Timeout","RemoteDisconnected"})
+                        if attempt==3 or not transient:
                             raise
                         sleep(1.5*attempt)
                 entry["network_attempts"]=attempt
