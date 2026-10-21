@@ -5,6 +5,7 @@ import datetime as dt
 import hashlib
 import json
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ISO = '%Y-%m-%d'
 
@@ -62,7 +63,7 @@ def main(argv=None):
     p = argparse.ArgumentParser()
     p.add_argument('--state', default='data/latest_state.json')
     p.add_argument('--market', default='data/latest_verified_market.json')
-    p.add_argument('--today', default=dt.date.today().isoformat())
+    p.add_argument('--today', default=dt.datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat())
     p.add_argument('--output', default='research/status/v84_daily_readiness.json')
     args = p.parse_args(argv)
     state, state_sha = read(args.state)
