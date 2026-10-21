@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "scanned_asof_utc": "2026-10-21",
+  "scope": "Only fifteen physically mounted /mnt/data ZIP archives visible in this session, with nested ZIP member names scanned to depth 2.",
+  "tool": "Python zipfile member filename inspection; not an exhaustive CSV content search; no GitHub expired artifacts or unavailable old files searched",
+  "zip_archives_scanned": 15,
+  "entries_scanned_including_nested": 422,
+  "source_candidate_name_pattern": "Filename matches alerts.csv or alerts.json or formal_start*.csv/json or v63/v68-containing file-name",
+  "matching_event_named_files": 0,
+  "historical_V63_V68_formal_event_source_certified": false,
+  "absence_of_candidate_filename_does_not_prove_absence_in_unsearched_archives": true,
+  "archive_evidence": [
+    {
+      "name": "A_share_V83_2006_audit_pack.zip",
+      "raw_zip_sha256": "333e8f3662bd94d5bfc043584dac2650f07ed57a0db8b542325f84f0b315661b",
+      "entry_count_including_nested": 9,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "A_share_V83_2006_raw_backup.zip",
+      "raw_zip_sha256": "467dce7f888bb060f57faca63d63d8b2d1145a5c90095af3dc636d70f52d7fc0",
+      "entry_count_including_nested": 172,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "V91_融资历史缺口与时点门禁_实测研究包.zip",
+      "raw_zip_sha256": "4699d6282dafca4af581e2c19dd963cccebdbada3ef456ffefaac70e0d70e5a7",
+      "entry_count_including_nested": 4,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12238944434.zip",
+      "raw_zip_sha256": "244a6213a3b29932fd8767d748fde7a60202b52a3e06d1cefb3e1dfcb1b87d7f",
+      "entry_count_including_nested": 56,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12239324592.zip",
+      "raw_zip_sha256": "1376d8bab2c7401208cd442936951021fe44e7312b1c4b0f0380296d4f00aba8",
+      "entry_count_including_nested": 1,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12239437736.zip",
+      "raw_zip_sha256": "348e5ad790c41eee6375f9b28ec3d199e46b170f29c3fb6dd3519e71ffb4f594",
+      "entry_count_including_nested": 43,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12239892906.zip",
+      "raw_zip_sha256": "90f28a1a2d4cd5355b2d99444c81fb06cf1ee3eb8383dd0d68af23dc30aa4628",
+      "entry_count_including_nested": 66,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12278341291.zip",
+      "raw_zip_sha256": "e82cbe3bf024e9fcd82a0588da5951e088a4b869f14b4b8ea3054a03600c4585",
+      "entry_count_including_nested": 3,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12314881250.zip",
+      "raw_zip_sha256": "000e654070772bd9c10482ad73fc09a9334dee3ac941014108d6ce8fb7820e0e",
+      "entry_count_including_nested": 3,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12316267891.zip",
+      "raw_zip_sha256": "1a07746725a7020f6ff1c87baf46fff52468d3a5623e387a1994ee8f9592eb35",
+      "entry_count_including_nested": 13,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12316555809.zip",
+      "raw_zip_sha256": "7da52a809cc24b44d8adb10d068a5ded07eb5e92bd0a197b934815e38290d90e",
+      "entry_count_including_nested": 11,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12316695963.zip",
+      "raw_zip_sha256": "d2c3a003bc94195640e3588429dcf06ffbd84330e29c62697dad786b063fa784",
+      "entry_count_including_nested": 12,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12318818042.zip",
+      "raw_zip_sha256": "f6278f6d8d5e82e87a4bf5a095568921634dd08ca0637c636b730e94a31e22d5",
+      "entry_count_including_nested": 14,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12319316411.zip",
+      "raw_zip_sha256": "c9b79d70499850d5e95e53f448db7c62e1754481fba2b154",
+      "entry_count_including_nested": 14,
+      "candidate_event_named_entries": 0
+    },
+    {
+      "name": "github-actions-artifact-12330710096.zip",
+      "raw_zip_sha256": "553db814a0472fa831be84d73e37535bb4a70e911ddad6501e441a830edee145",
+      "entry_count_including_nested": 1,
+      "candidate_event_named_entries": 0
+    }
+  ],
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "next_action": "Recover genuine dated FORMAL_START event list and original source commit from independent original archives; do not infer alert rows from ex-post objective pivot list."
+}
