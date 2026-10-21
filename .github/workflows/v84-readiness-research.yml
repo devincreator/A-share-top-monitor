@@ -3,37 +3,50 @@ name: V84 research daily source readiness (never formal alerts)
 on:
   workflow_dispatch:
   schedule:
-    # 19:30 Beijing time on weekdays; holidays and source delays are normal DATA_UNAVAILABLE.
+    # 19:30 China time: same-day attempt, may be unpublished yet.
     - cron: '30 11 * * 1-5'
+    # 07:45 China time Mon-Fri: retry previous trading day after overnight publication.
+    - cron: '45 23 * * 0-4'
   push:
     branches: [main]
     paths:
-      - 'research/v84_live_readiness/**'
+      - 'research/v84_live_readiness/*.py'
+      - 'research/v88_daily_observations/*.py'
       - '.github/workflows/v84-readiness-research.yml'
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: research-progress-append-main
+  cancel-in-progress: false
 
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Test read-only status and provenance validators
+      - name: Check research validators and non-promotion contracts
         run: |
           python -m unittest discover -s research/v84_live_readiness -p 'test_*.py' -v
           python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
-      - name: Check distinct source and full-model dates
+          python -m unittest discover -s research/v88_daily_observations -p 'test_*.py' -v
+      - name: Audit distinct full-model, index, and price-core dates
         run: |
           python research/v84_live_readiness/readiness.py --output v84_daily_probe_output/readiness.json
-      - name: Probe one date of public SH/SZ daily source
+      - name: Inspect recently available public daily source, including publication lag
         run: |
-          python research/v84_live_readiness/daily_probe.py --output-dir v84_daily_probe_output
-      - name: Persist audit, even when upstream unavailable
+          python research/v88_daily_observations/probe_recent.py \
+            --output-dir v84_daily_probe_output \
+            --ledger-dir research/v88_daily_observations/ledger
+      - name: Retain raw daily source and timestamped availability evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -41,3 +54,28 @@ jobs:
           path: v84_daily_probe_output/
           retention-days: 30
           if-no-files-found: warn
+      - name: Persist only first successfully observed raw source date (never a strategy signal)
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d research/v88_daily_observations/ledger ]; then
+            echo 'No raw source was available. Keep DATA_UNAVAILABLE without creating evidence.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v88_daily_observations/ledger/
+          if git diff --cached --quiet; then
+            echo 'Source unchanged. Existing observation retains first-capture timestamp.'
+            exit 0
+          fi
+          git commit -m 'research(v88): preserve first-published raw daily evidence [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Daily evidence push failed; source remains in Actions artifact.'
+          exit 1
