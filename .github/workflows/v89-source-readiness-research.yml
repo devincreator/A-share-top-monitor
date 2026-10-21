@@ -12,7 +12,7 @@ on:
       - '.github/workflows/v89-source-readiness-research.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: research-v89-source-readiness
@@ -41,6 +41,12 @@ jobs:
       - name: Generate past-only research price factors where index source checks passed
         run: |
           python research/v89_factor_inputs/price_only_research.py --source-dir v89_source_audit_output
+      - name: Preserve first non-trading price research snapshot only when cross-verified
+        run: |
+          python research/v89_factor_inputs/save_first_capture.py \
+            --report v89_source_audit_output/price_only_research.json \
+            --ledger research/v89_factor_inputs/observations \
+            --audit-dir v89_source_audit_output
       - name: Keep all raw responses, failure reasons and independent gate evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -49,3 +55,28 @@ jobs:
           path: v89_source_audit_output/
           retention-days: 30
           if-no-files-found: warn
+      - name: Commit bounded provenance summaries, never production or formal signals
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -d research/v89_factor_inputs/observations ]; then
+            echo 'No verified research price snapshot; keep blocked.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v89_factor_inputs/observations/
+          if git diff --cached --quiet; then
+            echo 'Same verified observation already retained.'
+            exit 0
+          fi
+          git commit -m 'research(v89): archive checked price factor first observation [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Archive push failed; review source artifact.'
+          exit 1
