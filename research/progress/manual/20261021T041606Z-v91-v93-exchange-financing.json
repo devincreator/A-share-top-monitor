@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "record_type": "manual_research_checkpoint",
+  "reported_run_completion_utc": "2026-10-21T04:16:06Z",
+  "project": "A-share-top-monitor",
+  "research_versions": [
+    "V91",
+    "V92",
+    "V93"
+  ],
+  "conclusion": "PARTIAL_RESEARCH_PROGRESS_AND_NEGATIVE_SOURCE_RESULT",
+  "successful_runs": [
+    39541248787,
+    39541991410,
+    39542417103,
+    39543038695
+  ],
+  "outcome": {
+    "V91": "10/10 exchange aggregate source requests obtained including SZSE 2024-08-08 nonzero",
+    "V92": "16 of 183 missing/invalid Jin10 finance dates now have two original market sources SHA checked in GitHub Actions; two extra historical date pairs preserved from V91 and awaiting coverage re-audit",
+    "V93": "Detailed Shenzhen security-level financing sum does not equal total market official aggregate, 2025 and 2026 differences 8.198bn and 9.968bn CNY."
+  },
+  "hard_gate": "BLOCKED_FINANCE_SOURCE_PRECISION_DATE_PUBLICATION_AND_HISTORICAL_COVERAGE",
+  "PIT_certified": false,
+  "dual80_achieved": false,
+  "production_updated": false,
+  "provenance": [
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248787",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541991410",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39542417103",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695"
+  ],
+  "next_work": "Continue V92 bounded daily first-capture research; seek exact exchange market total with dated PIT visibility and rerun independent SHA coverage; freeze official trading signals."
+}

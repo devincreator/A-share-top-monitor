@@ -223,6 +223,78 @@
       "latest_cloud_artifact_id": 12318818042,
       "latest_cloud_conclusion": "success_process_only_long_factor_BLOCKED",
       "invalid_growth_count_interpretation": "Among 756 prior candidate growth63 observations, 267 cannot be derived exactly because at least one of the two 63-session offset source balances is missing/invalid; no backfill."
+    },
+    "V91": {
+      "status": "TEN_OF_TEN_EXCHANGE_SUMMARY_PILOT_RESEARCH_ONLY",
+      "pilot_days": [
+        "2024-08-08",
+        "2023-09-22",
+        "2024-06-20",
+        "2025-01-07",
+        "2026-10-20"
+      ],
+      "independent_exchange_probe_rows_successful": 10,
+      "independent_exchange_probe_rows_attempted": 10,
+      "raw_artifact_id": 12319013043,
+      "cloud_run_id": 39541248787,
+      "primary_zero_anomaly": "2024-08-08 SZSE Jin10 zero contradicted by official-site displayed 6649.54 hundred-million yuan",
+      "baseline_szse_display_minus_jin10_yuan": -796294,
+      "szse_response_date_proven": false,
+      "exact_yuan_szse_market_balance_certified": false,
+      "model_production_updated": false,
+      "formal_signal_allowed": false,
+      "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248787"
+    },
+    "V92": {
+      "status": "SIXTEEN_OF_183_SOURCE_GAP_DAYS_VERIFIED_PLUS_TWO_SEEDED_PENDING_AUDIT",
+      "missing_or_invalid_source_gap_days": 183,
+      "cloud_verified_both_exchange_sha_matches": 16,
+      "first_batch_dates": 8,
+      "second_batch_dates": 8,
+      "extra_seeded_original_V91_pilot_days": [
+        "2024-08-08",
+        "2025-01-07"
+      ],
+      "extra_seeded_independent_sha_audit_passed": false,
+      "source_raw_and_meta_permanently_archived": true,
+      "working_day_bounded_GitHub_Actions_schedule": true,
+      "source_schema_and_sha_cloud_run_id": 39542417103,
+      "first_collection_cloud_run_id": 39541991410,
+      "official_SZ_summary_only_rounding_not_exact": true,
+      "PIT_certified": false,
+      "formal_signal_allowed": false,
+      "quality_gate_still_blocked": true,
+      "research_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/v92_margin_recovery"
+    },
+    "V93": {
+      "status": "SZSE_SECURITY_DETAILS_DO_NOT_RECONCILE_TO_WHOLE_MARKET_FINANCING",
+      "independent_pilot_run_id": 39543038695,
+      "raw_artifact_id": 12320332156,
+      "dates": {
+        "2024-08-08": {
+          "status": "HTTP_CONNECTION_RESET_NO_DETAIL_DATA"
+        },
+        "2025-01-07": {
+          "detail_stock_rows": 1897,
+          "detail_sum_yuan": "873033074052",
+          "official_summary_display_yuan": "881231000000",
+          "difference_yuan": "-8197925948",
+          "reconciled": false
+        },
+        "2026-10-20": {
+          "detail_stock_rows": 2116,
+          "detail_sum_yuan": "1175410141544",
+          "official_summary_display_yuan": "1185378000000",
+          "difference_yuan": "-9967858456",
+          "difference_vs_Jin10_exact_yuan": "-9968654750",
+          "reconciled": false
+        }
+      },
+      "exact_market_sum_recovered": false,
+      "source_PIT_certified": false,
+      "model_updated": false,
+      "formal_signal_allowed": false,
+      "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695"
     }
   },
   "data_quality": {
@@ -250,7 +322,12 @@
     "v90_recent_financing_63_data_window_complete": true,
     "v90_recent_financing_253_data_window_complete": true,
     "v90_historical_finance_growth63_rank_p756_complete": false,
-    "v90_financing_pit_certified": false
+    "v90_financing_pit_certified": false,
+    "v91_secondary_exchange_probe_20240808_szse_zero_rebutted": true,
+    "v92_raw_exchange_gap_days_both_sources_cloud_SHA_verified": 16,
+    "v92_candidate_missing_source_dates_total": 183,
+    "v93_szse_per_security_sum_matches_market_aggregate": false,
+    "v93_exact_szse_margin_market_yuan_sourced": false
   },
   "source_links": {
     "primary_project": "https://github.com/devincreator/A-share-top-monitor",
@@ -267,7 +344,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V90 model finance growth63 prior756 rank: 267/756 historical candidate growth points invalid due 182 missing raw session days and source zero; requires independent dated source repair (no imputation).",
+    "V93 2025/2026 SZSE per-security financing balances do NOT sum to exchange market aggregate (shortfalls 8197925948 and 9967858456 CNY). Do not use detailed stocks to impute official exchange market totals.",
+    "V92 after cloud evidence audit 16/183 source gap dates have archived both-exchange sources, plus two V91 seeds awaiting next independent re-audit; these are source observations, NOT exact yuan/PIT-certified.",
+    "SZSE market aggregate is shown in 100M yuan generally to 2 decimals, and no explicit response date; obtain original exact-Yuan time-stamped official data or bound uncertainty before any historical factor use.",
     "V90 recent 64/253-session financing source dates clean but finance publication timestamp and independent official exchange verification are NOT PIT certified",
     "2026-08-04 onward full four-module production data not fully verified; V89 2026-10-20 research price and amount does NOT generate formal signals",
     "V89 official CSI source showed 2026-09-05 non-trading row; quarantine using independently pinned exchange trading calendar",
