@@ -1,0 +1,70 @@
+{
+  "record_type": "verified_research_baseline_real_cloud_replay",
+  "at_utc": "2026-10-21T14:37:30Z",
+  "milestone": "V101 new independent D preopen price-only alarm generator",
+  "user_direction": "Drop dependency on old V63-V68 historical original alerts; rebuild new dated alarms from frozen source, preserve original objective label reference",
+  "code_test_run": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39617791813",
+  "cloud_execution_conclusion": "success",
+  "price_sessions": 1128,
+  "price_window": [
+    "2022-02-23",
+    "2026-10-20"
+  ],
+  "index": "000985.CSI",
+  "source_price_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+  "expost_labels_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+  "new_generated_FORMAL_START": 59,
+  "task_counts": {
+    "5_TOP": {
+      "alerts": 21,
+      "tp": 8,
+      "fp": 11,
+      "fn": 8,
+      "pending": 2,
+      "precision": 0.42105263157894735,
+      "recall": 0.5
+    },
+    "5_BOTTOM": {
+      "alerts": 22,
+      "tp": 6,
+      "fp": 12,
+      "fn": 10,
+      "pending": 4,
+      "precision": 0.3333333333333333,
+      "recall": 0.375
+    },
+    "9_TOP": {
+      "alerts": 10,
+      "tp": 2,
+      "fp": 7,
+      "fn": 5,
+      "pending": 1,
+      "precision": 0.2222222222222222,
+      "recall": 0.2857142857142857
+    },
+    "9_BOTTOM": {
+      "alerts": 6,
+      "tp": 2,
+      "fp": 2,
+      "fn": 5,
+      "pending": 2,
+      "precision": 0.5,
+      "recall": 0.2857142857142857
+    }
+  },
+  "historical_D_minus_1_original_price_publication_time_PIT_verified": false,
+  "actual_historical_preopen_alarms": false,
+  "genuine_future_unseen_holdout": false,
+  "old_V63_V68_formal_start_needed": false,
+  "historical_price_window_repeatedly_used": true,
+  "double_80_achieved": false,
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "artifacts": [
+    "research/v101_fresh_start/observations/fresh_formal_start_events.csv",
+    "research/v101_fresh_start/observations/matched_or_pending_event_audit.csv",
+    "research/v101_fresh_start/observations/frozen_baseline_report.json"
+  ],
+  "next": "Verify each fresh event with independent replay and material FP/FN cause; verify historical as-of data publication time; freeze a genuinely new forward shadow prediction without data leakage."
+}
