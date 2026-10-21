@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-21T14:33:51+00:00",
-  "entry_count": 166,
+  "updated_at_utc": "2026-10-21T14:36:06+00:00",
+  "entry_count": 167,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T14:33:51+00:00",
-    "run_id": 39617791813,
+    "recorded_at_utc": "2026-10-21T14:36:06+00:00",
+    "run_id": 39618145081,
     "run_attempt": 1,
-    "workflow_name": "V101 fresh day-D preopen price-only baseline (research, never production)",
-    "workflow_path": ".github/workflows/v101-fresh-preopen-baseline.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "45c883b5fe3237c2fa54751dcd204a7f63e58ac8",
+    "commit_sha": "3a3147604e90c19a1d1a894720b50f011944f1ff",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-21T14:33:10Z",
-    "run_started_at": "2026-10-21T14:33:10Z",
-    "updated_at": "2026-10-21T14:33:31Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39617791813",
+    "created_at": "2026-10-21T14:35:23Z",
+    "run_started_at": "2026-10-21T14:35:23Z",
+    "updated_at": "2026-10-21T14:35:56Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39618145081",
     "jobs": [
       {
-        "id": 119283154918,
-        "name": "verify",
-        "status": "queued",
+        "id": 119284268830,
+        "name": "audit",
+        "status": "in_progress",
         "conclusion": null,
-        "started_at": "2026-10-21T14:33:10Z",
+        "started_at": "2026-10-21T14:35:27Z",
         "completed_at": null,
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39617791813/job/119283154918"
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39618145081/job/119284268830"
       }
     ],
     "artifacts": [
       {
-        "id": 12352439743,
-        "name": "v101-fresh-preopen-actual-replay-39617791813",
-        "size_in_bytes": 9080,
+        "id": 12352858401,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2027-01-19T14:33:10Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12352439743/zip"
+        "expires_at": "2026-11-20T14:35:35Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12352858401/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
