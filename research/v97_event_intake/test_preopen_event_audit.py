@@ -288,6 +288,20 @@ class PreopenEventTests(unittest.TestCase):
         self.assertEqual(result["tasks"]["9_TOP"]["tp"],1)
         self.assertEqual(result["tasks"]["9_BOTTOM"]["fp"],1)
 
+    def test_duplicate_same_scale_objective_day_cannot_inflate_recall(self):
+        days,prices=inputs()
+        p1=pivot(days,210,"first_top")
+        p2=pivot(days,210,"forged_second_same_day",direction="BOTTOM")
+        # Different IDs and directions on one day do not create two pivots.
+        with self.assertRaisesRegex(ValueError,"duplicate scale/date"):
+            m.audit_preopen([], [p1,p2],prices,{},["INDEX_CLOSE"],days[-1])
+
+    def test_pivot_must_be_confirmed_after_extreme_not_same_day(self):
+        days,prices=inputs()
+        p=pivot(days,210,"same_day_confirm",confirm_delay=0)
+        with self.assertRaisesRegex(ValueError,"on or before turning date"):
+            m.audit_preopen([], [p],prices,{},["INDEX_CLOSE"],days[-1])
+
     def test_prices_sorted(self):
         days,prices=inputs()
         swapped=list(prices)
