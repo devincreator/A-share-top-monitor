@@ -1,9 +1,25 @@
 {
   "schema_version": 2,
   "contract": "量化顶底系统_后续优化及验收合同_V94-V100.md",
-  "recorded_at_utc": "2026-10-21T05:56:52Z",
-  "strategy": "Independent research lanes; missing PIT always blocks main formal signals",
+  "recorded_at_utc": "2026-10-21T14:37:00Z",
+  "strategy": "V101 FRESH SOURCE-PINNED D PREOPEN BASELINE IS CURRENT; V63/V68 historical FORMAL_START no longer required by user. Retain old results as background only.",
   "tasks": [
+    {
+      "id": "W0",
+      "version": "V101",
+      "name": "新建D日9:20基线：独立逐事件分析",
+      "executor": "GitHub cloud V101 fresh price-only baseline + next independent replay and FP/FN attribution",
+      "status": "REAL_HISTORICAL_RESEARCH_BASELINE_59_FRESH_EVENTS_REPLAY_PASS_NOT_PIT_NOT_DUAL80",
+      "last_real_evidence": "GitHub Actions 39617791813, SHA-locked real 1128 price days, 58 ex-post pivots, generated 59 new 2022-2026 conditional preopen alerts with per-event TP/FP/FN",
+      "completed": "New source-independent event generator, baseline frozen, all four tasks reported actual research Precision/Recall and failed double80, event CSV & metrics permanently archived.",
+      "blockers": [
+        "D-1 close historical original publication times not independently authenticated",
+        "2022-2026 original data retrospectively collected, not historical actual alerts or independent blind holdout",
+        "many top/bottom errors, each-task double80 not achieved"
+      ],
+      "pass_gate": "Complete independent matching and event attribution, PIT source time certification and truly unseen forward shadow, then four-task double80 statistically defensible; keep research-only until scientific gate passed",
+      "production_update_allowed": false
+    },
     {
       "id": "W1",
       "version": "V94",
@@ -41,13 +57,11 @@
       "version": "V97",
       "name": "历史FORMAL_START逐事件证据",
       "executor": "V97 source-input GitHub validation workflow",
-      "status": "SILENT_AUTONOMOUS_E1_SOURCE_DISCOVERY_ACTIVE_ORIGINAL_HISTORICAL_ALERTS_BLOCKED",
+      "status": "SUPERSEDED_AS_ACTIVE_DEPENDENCY_BY_USER_NEW_V101",
       "last_real_evidence": "E1 GitHub silent inventory CI 39566608572 scanned tracked Git history 1896 changed filename lines, 2 Releases, 247 artifacts, 0 old original FORMAL_START candidates; source still blocked",
       "completed": "Archived 1128 CSI 000985 close observations have 39 five-percent and 19 nine-percent retrospective confirmed turning points; 0 omissions or unexpected labels in bounded source, 2 left-censored. Original formal alerts still unavailable.",
       "blockers": [
-        "Original historical dated V63-V68 FORMAL_START/first-seen timestamps unavailable in scanned scopes",
-        "Legacy original decision/published-at data unavailable",
-        "2022 start left truncated; 2015-2026 full V52 157 points not reproduced"
+        "Prior old V63/V68 source original absent, but no longer a blocker for new V101 events"
       ],
       "pass_gate": "E1 actual per-event FORMAL_START sources and hashes; E2 D preopen source observation date < D plus independently proven original publication at <= decision time; E3 pivot confirmation+140 index sessions, immature linked alerts PENDING and one-to-one real TP/FP/FN; E4 source-grounded FP attribution",
       "production_update_allowed": false
@@ -111,8 +125,8 @@
     "GitHub workflow success does not imply scientific quality PASS",
     "Do not modify production website and trading rules with research inputs"
   ],
-  "current_single_task": "W3 V97 ONLY: E1 actual dated FORMAL_START source -> E2 authentic preopen factor clocks -> E3 confirmation-date plus 140 sessions maturity one-to-one event evaluation -> E4 original FP reasons",
-  "current_single_task_document": "research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md",
+  "current_single_task": "V101 W1: independently audit 59 newly generated hypothetical preopen alerts then W2 real FP/FN attribution; no legacy files needed",
+  "current_single_task_document": "research/FOCUS_V101_FRESH_PREOPEN.md",
   "single_task_execution": true,
   "preopen_strict_factor_observation_before_prediction_date": true,
   "historical_factor_publication_time_must_precede_decision": true,
@@ -144,10 +158,27 @@
     "scope": "2022-02-23..2026-10-20, source is retrospective only"
   },
   "formal_alerts_missing": true,
-  "silent_autonomous_execution": true,
+  "silent_autonomous_execution": "V101_FRESH_EVENTS_INDEPENDENT_AUDIT_HOURLY_NO_NOTIFICATIONS",
   "silent_daily_chatgpt_schedule_enabled": true,
-  "silent_daily_github_source_discovery_workflow": ".github/workflows/v97-silent-source-discovery.yml",
+  "silent_daily_github_source_discovery_workflow": "DISABLED_SCHEDULE_MANUAL_ONLY",
   "silent_user_reports": false,
   "source_discovery_last_run_id": 39566608572,
-  "source_discovery_last_result": "E1_BLOCKED_NO_ORIGINAL_EVENT_FILENAME_FOUND_WITHIN_AUDITED_SCOPES"
+  "source_discovery_last_result": "E1_BLOCKED_NO_ORIGINAL_EVENT_FILENAME_FOUND_WITHIN_AUDITED_SCOPES",
+  "current_active_model_research_version": "V101_FRESH_PRICE_ONLY_BASELINE_V0_1",
+  "fresh_preopen_pipeline_contract": {
+    "index": "000985.CSI",
+    "actual_observed_price_sessions": 1128,
+    "retrospective_pivots": 58,
+    "fresh_generated_FORMAL_START_events": 59,
+    "code_ci_run_id": 39617791813,
+    "cloud_results": "research/v101_fresh_start/observations/",
+    "historical_D_minus_1_original_publication_PIT_certified": false,
+    "formally_deployed": false,
+    "all_four_tasks_double80": false,
+    "required_legacy_event_archive": false
+  },
+  "current_target_replaced_by_user": true,
+  "legacy_FORMAL_START_recovery_required": false,
+  "legacy_scan_daily_github_workflow_disabled": true,
+  "preopen_real_PIT_verified": false
 }
