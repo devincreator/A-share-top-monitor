@@ -369,7 +369,17 @@
       "preopen_clock_code_tests_pending": false,
       "preopen_clock_code_tests_passed": true,
       "next_gate": "E1 recover dated historical FORMAL_START / per-event inputs, then E2 actual publication clocks",
-      "real_historical_event_replay_executed": false
+      "real_historical_event_replay_executed": false,
+      "last_preopen_timestamp_gate_verified_run_id": 39556794398,
+      "last_preopen_timestamp_gate_artifact_id": 12325223549,
+      "same_observation_day_before_market_close_daily_final_publication_blocked": true,
+      "source_intake_machine_status": "BLOCKED_BUNDLE_MISSING",
+      "event_replay_machine_status": "BLOCKED_ORIGINAL_EVENTS_OR_AVAILABILITY_MISSING",
+      "event_replay_required_raw_files_present": 0,
+      "event_replay_required_raw_files_total": 4,
+      "real_historical_FP_reconstructed": false,
+      "last_preopen_gate_ci_conclusion": "success_code_tests__scientific_events_blocked",
+      "error_attribution_uses_price_only_before_alert_day": true
     }
   },
   "data_quality": {

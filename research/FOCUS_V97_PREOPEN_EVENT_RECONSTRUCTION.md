@@ -1,3 +1,5 @@
+> **新增历史时钟硬规则：** 每个日级指标的“最终数值”不可能在其所属交易日的15:00（北京时间）之前真实发布。除禁止预测日D任何D日指标外，`preopen_clock.py`还会拒绝伪称D-1日10:00就已经公布D-1最终收盘/融资等数值的来源。此规则于 [39556794398](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556794398) 真实云端通过。Actions附件`12325223549`证实`original_v68_event_replay.zip`仍缺，历史真实逐事件回测返回BLOCKED并且`tasks={}`，没有生成假TP/FP。
+
 > **E1已得到部分真实结果（2026-10-21）：** 从源SHA锁定的1,128条中证全指价格行情独立重建**5% 39个、9% 19个客观拐点**，各含1个左边界不完整标签（**不可用于Recall分母**）；2026-08-17末端顶部确认日5%=09-11、9%=10-08，均与旧V52总结匹配。云端[实际重建成功39556170202](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556170202)、[开盘前门禁回归39556330381](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556330381)。详细证据见 [实际审计报告](v97_event_intake/ACTUAL_PARTIAL_OBJECTIVE_REPLAY_20261021.md)。**原始V63/V68正式报警尚缺，不能计算新Precision/FP**。其余阶段仍暂停主动研发。
 
 # 当前唯一主动研发任务：真实历史预警重建、逐事件回测与误报归因

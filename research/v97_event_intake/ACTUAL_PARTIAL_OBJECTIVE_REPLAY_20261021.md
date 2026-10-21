@@ -35,3 +35,7 @@
 ## 下一项严格串行任务
 
 仍停留在**E1 原始事件恢复**：寻找V63—V68的FORMAL_START历史逐日通知或原始参数与代码版本的可信复制，并保留来源SHA256、真实决策时刻。如果原始清单最终无法找到，只能将完整复算另记为**重新生成的历史研究**，不能冒充当年原始预警，且必须重新按开盘前`D-1已公布数据`条件计算。其后才进入E2时钟认证、E3实际回测、E4误报类型统计。
+
+## 最后一次严格时点门禁核验
+
+[GitHub Actions 39556794398](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556794398)运行代码单元测试成功，机器实际输出`BLOCKED_BUNDLE_MISSING`与`BLOCKED_ORIGINAL_EVENTS_OR_AVAILABILITY_MISSING`，4个必需的旧原始CSV/可得性文件均未存在，`tasks={}`且`formal_signal_allowed=false`。来源附件ID `12325223549`。禁止当日日级因子及所属交易日收盘前的伪造最终指标发布时间的新增测试已通过；这一代码成功**不等于历史正式报警重建成功**。
