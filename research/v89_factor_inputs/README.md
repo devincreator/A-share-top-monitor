@@ -48,3 +48,7 @@ GitHub Actions [39532734661](https://github.com/devincreator/A-share-top-monitor
 当且仅当`cross_provider_audit.json`证明`000985/000300/000852`的收盘与成交额逐日跨源吻合时，`price_only_research.py`计算`000985`的真实观测日价格因子：5/63日收益率、20/60日回撤、20/120日收益波动率比，以及相对于**前756个观测交易日（不含当日）**的历史百分位。它不使用未来数据、不修改现有正式仓位、不生成TOP/BOTTOM。
 
 另作旧版公式差异对账：基于V89下载的1128条中证全指行情，2026-09-21的5日与63日收益率与旧`data/latest_state.json`吻合至四位小数；但V89严格排除当日的756日分位分别约为`14.6825/10.1852`，旧生产摘要为`14.8148/10.3175`，两项恰好相差一个756等分点。可能是历史分位计算窗口是否包含当日的定义不同，**未审计旧生产源码前不能强行宣布旧版计算错误或直接覆盖**。
+
+## 首次可见价格因子存证
+
+新增`save_first_capture.py`：仅当`price_only_research.json`明确是`000985.CSI`且全部跨源价量检查通过，才保存`research/v89_factor_inputs/observations/YYYY-MM-DD.json`。同一天再次获取的新结果若与首次文件不一致，只生成`revision_conflict.json`审计记录，绝不悄悄改写历史预测/特征。研究观测记录不包含任何Top/Bottom发射权，未来每日新增仅是一条可核对的数据来源证据。
