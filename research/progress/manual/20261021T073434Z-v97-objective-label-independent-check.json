@@ -1,0 +1,25 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T07:34:34Z",
+  "workflow_name": "V97 E1 independent historical objective-pivot confirmation chronology audit",
+  "conclusion": "partial",
+  "summary": "Independent research-only chronological verification was run on 1128 archived 000985.CSI source-price sessions and 58 retrospective 5/9 ZigZag objective labels, independently checking source SHA, extreme close, reversal threshold first crossing, alternating direction, left censor, and earliest next-session lower bound for potential label visibility. Zero structural discrepancies. Original V63-V68 actual FORMAL_START historical alert records remain missing; no predictive Precision/Recall/FP was recalculated. User-requested D preopen strict no-day-D feature availability maintained.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39562922917",
+  "data_gate": "OBJECTIVE_LABEL_CHRONOLOGY_CANDIDATE_PASS_OLD_FORMAL_ALERT_E1_BLOCKED",
+  "input_file_sha256": {
+    "prices": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+    "labels": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1"
+  },
+  "real_price_sessions": 1128,
+  "ex_post_pivots_checked": 58,
+  "structure_conflicts": 0,
+  "original_real_formal_start_alerts_available": false,
+  "source_historical_publication_PIT": false,
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "dual80_achieved": false,
+  "next_action": "Remain solely on E1: search for authentic original V63-V68 FORMAL_START events, original model code and decision timestamps. If unavailable, mark deterministic fresh reconstruction as NEW_DETERMINISTIC_REPLAY, never historical archived alerts; then proceed to E2 publication clock, E3 mature event score, E4 true FP attribution.",
+  "links": [
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v97_event_intake/observations/independent_chronology_audit_20261021.json"
+  ]
+}
