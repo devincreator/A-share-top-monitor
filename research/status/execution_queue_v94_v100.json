@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "contract": "量化顶底系统_后续优化及验收合同_V94-V100.md",
+  "recorded_at_utc": "2026-10-21T05:56:52Z",
+  "strategy": "Independent research lanes; missing PIT always blocks main formal signals",
+  "tasks": [
+    {
+      "id": "W1",
+      "version": "V94",
+      "name": "交易所融资精确元及披露时点",
+      "executor": "GitHub V92 scheduled incremental source collector + V94 bounds audit",
+      "status": "RUNNING_RESEARCH_ONLY",
+      "last_real_evidence": "V92 run 39551302405 plus V94 selftest 39551302409",
+      "completed": "26/183 dual-source original-SHA days; source bounds guard deployed",
+      "blockers": [
+        "157 dates without both raw sources",
+        "SZSE amount display precision",
+        "original historical release timestamps"
+      ],
+      "pass_gate": "820 exact/decision-visible sessions or proven threshold-stable uncertainty, no source conflict",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W2",
+      "version": "V95",
+      "name": "PIT股票池、逐日C50与广度",
+      "executor": "V95 sample pilot; separate source/listing episode research",
+      "status": "ONE_REAL_DAY_PILOT_PASS_HISTORICAL_BLOCKED",
+      "last_real_evidence": "V95 run 39552402741, observed 2026-10-20 raw SHA 987e23...",
+      "completed": "5217 traded SH/SZ stock rows, sample C50 17.741934577%",
+      "blockers": [
+        "PIT security listing episodes",
+        "suspensions and source gaps",
+        "20-day deltas and 504/756 window"
+      ],
+      "pass_gate": "as-of eligible stock episodes, PIT market amount denominator and independent 504/756 rank reproducible",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W3",
+      "version": "V97",
+      "name": "历史FORMAL_START逐事件证据",
+      "executor": "V97 source-input GitHub validation workflow",
+      "status": "INPUT_GATE_PASS_HISTORICAL_SOURCE_MISSING",
+      "last_real_evidence": "V97 run 39552004501",
+      "completed": "source SHA, original alert type, pivot confirmation and index-track acceptance gate",
+      "blockers": [
+        "V63/V68 event ZIP unavailable in current repo/releases",
+        "mature event pending evaluation"
+      ],
+      "pass_gate": "real event rows, frozen label version, source SHA and one-to-one V86 replay, no historic hindsight",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W4",
+      "version": "V96",
+      "name": "统一四模块PIT因子",
+      "executor": "Await V94 + V95 source gates",
+      "status": "DEPENDENCY_BLOCKED",
+      "blockers": [
+        "V94 PIT finance incomplete",
+        "V95 PIT universe incomplete"
+      ],
+      "pass_gate": "all required date/clock/source provenance and two-code recalculation PASS",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W5",
+      "version": "V98",
+      "name": "市场阶段识别与误报削减消融",
+      "executor": "Await V97 genuine dated events + V96 PIT features",
+      "status": "DEPENDENCY_BLOCKED",
+      "blockers": [
+        "no genuine V68 event replay",
+        "no full PIT features"
+      ],
+      "pass_gate": "frozen budgets/labels, four separate Precision/Recall outcomes with controls",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W6",
+      "version": "V99",
+      "name": "参数冻结前瞻影子预测",
+      "executor": "To be activated only after data completeness and transparent frozen candidate",
+      "status": "NOT_STARTED",
+      "blockers": [
+        "no independently verified stable candidate"
+      ],
+      "pass_gate": "immutable first prediction per observation, matured labels and disclosed confidence intervals",
+      "production_update_allowed": false
+    },
+    {
+      "id": "W7",
+      "version": "V100",
+      "name": "受控升级及回滚",
+      "executor": "Independent future production gate",
+      "status": "BLOCKED",
+      "blockers": [
+        "V94-V99 scientific gates not passed"
+      ],
+      "pass_gate": "all G0-G6 gates, explicit release audit, rollback and risk circuit breaker",
+      "production_update_allowed": false
+    }
+  ],
+  "hard_rules": [
+    "No invented historical events",
+    "No old C50 sample called PIT",
+    "No rounded amount asserted exact",
+    "Do not overwrite earliest observed values",
+    "GitHub workflow success does not imply scientific quality PASS",
+    "Do not modify production website and trading rules with research inputs"
+  ]
+}

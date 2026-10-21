@@ -246,9 +246,9 @@
       "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248787"
     },
     "V92": {
-      "status": "EIGHTEEN_OF_183_GAP_DAYS_RAW_SOURCES_SHA_VERIFIED_FORMAL_MODEL_BLOCKED",
+      "status": "TWENTYSIX_OF_183_GAP_DAYS_RAW_SOURCES_SHA_VERIFIED_FORMAL_MODEL_BLOCKED",
       "missing_or_invalid_source_gap_days": 183,
-      "cloud_verified_both_exchange_sha_matches": 18,
+      "cloud_verified_both_exchange_sha_matches": 26,
       "first_batch_dates": 8,
       "second_batch_dates": 8,
       "extra_seeded_original_V91_pilot_days": [
@@ -265,8 +265,8 @@
       "formal_signal_allowed": false,
       "quality_gate_still_blocked": true,
       "research_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/v92_margin_recovery",
-      "remaining_gap_days_without_both_sources": 165,
-      "last_archive_source_integrity_run_id": 39543428629,
+      "remaining_gap_days_without_both_sources": 157,
+      "last_archive_source_integrity_run_id": 39551302405,
       "last_archive_integrity_failures": 0,
       "evidence_integrity_run": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543428629"
     },
@@ -299,6 +299,48 @@
       "model_updated": false,
       "formal_signal_allowed": false,
       "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695"
+    },
+    "V94": {
+      "status": "SOURCE_SHA_PRECISION_AND_PIT_GATE_IMPLEMENTED_NOT_FACTOR_APPROVED",
+      "code_commit": "348d466420e190f443cfd8958bdeb5c0382e6fcc",
+      "selftest_run_id": 39551302409,
+      "v92_live_batch_run_id": 39551302405,
+      "archived_source_dates_reaudited": [
+        "2024-08-08",
+        "2025-01-07"
+      ],
+      "conditional_szse_rounded_amount_bounds": true,
+      "official_display_rounding_method_certified": false,
+      "historical_publication_timestamps_certified": false,
+      "validated_820_session_finance_rank": false,
+      "formal_signal_allowed": false,
+      "production_updated": false
+    },
+    "V95": {
+      "status": "20261020_TRADED_SOURCE_SAMPLE_C50_RECALCULATED_NO_LISTING_PIT",
+      "selftest_and_real_csv_run_id": 39552402741,
+      "raw_source_sha256": "987e23b51fb57fdcffe1fde14bf04882a2062a5c08873711675d95a42f6e85cd",
+      "original_source_records": 5568,
+      "observed_traded_sh_sz_rows": 5217,
+      "bj_rows_excluded": 351,
+      "c50_traded_source_sample_pct": "17.74193457725119354064484937420267787676",
+      "historical_c50_d20_available": false,
+      "history_504_756_percentiles_available": false,
+      "historical_listing_episode_PIT_verified": false,
+      "sample_report_url": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v95_c50/observations/2026-10-20.json",
+      "formal_signal_allowed": false,
+      "production_updated": false
+    },
+    "V97": {
+      "status": "EVENT_SOURCE_BUNDLE_GATE_DEPLOYED_HISTORICAL_V68_ORIGINAL_MISSING",
+      "source_scan_repo_tree_and_release_assets": "NO_ORIGINAL_V63_TO_V68_EVENTS_ZIP",
+      "cloud_run_id": 39552004501,
+      "synthetic_schema_and_integrity_tests_passed": true,
+      "real_historical_replay_executed": false,
+      "four_task_new_precision_recall_measured": false,
+      "source_track_csi300_vs_000985_guarded": true,
+      "formal_signal_allowed": false,
+      "production_updated": false
     }
   },
   "data_quality": {
@@ -351,7 +393,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V92 18/183 historical missing/invalid Jin10 financing days have SHA-verified SSE+SZSE source responses; 165 not yet dual-source observed. All 18 remain NON-PIT and SZSE raw source only displays 100M yuan precision.",
+    "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
+    "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
+    "V97 V63/V68 dated original FORMAL_START and mature pivot input ZIP absent from repository and both existing research releases; cannot fabricate dated events from aggregate counts.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
     "SZSE market aggregate is shown in 100M yuan generally to 2 decimals, and no explicit response date; obtain original exact-Yuan time-stamped official data or bound uncertainty before any historical factor use.",
     "V90 recent 64/253-session financing source dates clean but finance publication timestamp and independent official exchange verification are NOT PIT certified",

@@ -1,0 +1,18 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T05:56:52Z",
+  "workflow_name": "V94-V100 self-assigned research execution, V94/V95/V97 actual cloud validation",
+  "conclusion": "partial",
+  "summary": "Executed and published V94 bounded historical official financing precision gate, V97 authenticated events bundle intake fail-closed gate and V95 actual 2026-10-20 raw-hash C50 traded-sample calculation. Cloud runs 39551302409,39552004501,39552402741 passed. V92 auto gap audit now shows 26/183 SHA-verified dual-exchange sources. Real event original missing and historical finance precision/PIT still blocked.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39552402741",
+  "data_gate": "V94_RESEARCH_ONLY_V95_TRADED_SAMPLE_ONLY_V97_SOURCE_MISSING",
+  "dual80_achieved": false,
+  "production_updated": false,
+  "next_action": "Continue automated bounded source recovery, independently verify SZSE historical exact yuan and original publication timestamps; recover authentic V68 event rows; build PIT listing episodes/C50 timeline before any four-module model fitting.",
+  "links": [
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551302409",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551302405",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39552004501",
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39552402741"
+  ]
+}
