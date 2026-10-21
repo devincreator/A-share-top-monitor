@@ -1,0 +1,58 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T15:00:00Z",
+  "version": "V102",
+  "status": "PASS_INDEPENDENT_RETROSPECTIVE_EVENT_AUDIT_BLOCKED_HISTORICAL_PIT_AND_FORWARD_VALIDATION",
+  "hypothesis": "V101's frozen four-task Recall denominator contains pivots with no computable preopen price features at all in their permitted lead windows",
+  "original_source": [
+    "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv",
+    "research/v97_event_intake/observations/partial_v52_derived_objective_pivots.csv",
+    "research/v101_fresh_start/observations/fresh_formal_start_events.csv",
+    "research/v101_fresh_start/observations/matched_or_pending_event_audit.csv"
+  ],
+  "cloud_workflow_run_id": 39621212218,
+  "cloud_workflow_conclusion": "success",
+  "independently_generated_simulated_formal_starts": 59,
+  "independently_reproduced_frozen_event_results": 59,
+  "V101_original_scored_FP": 32,
+  "V101_original_scored_FN": 28,
+  "identified_impossible_without_lookback_FN": 5,
+  "audit_only_revised_scoring": {
+    "5_TOP": {
+      "original_recall": "8/16",
+      "full_lookback_opportunity_recall": "8/15"
+    },
+    "5_BOTTOM": {
+      "original_recall": "6/16",
+      "full_lookback_opportunity_recall": "6/14"
+    },
+    "9_TOP": {
+      "original_recall": "2/7",
+      "full_lookback_opportunity_recall": "2/6"
+    },
+    "9_BOTTOM": {
+      "original_recall": "2/7",
+      "full_lookback_opportunity_recall": "2/6"
+    }
+  },
+  "error_analysis": {
+    "mature_FP_total": 32,
+    "FP_later_same_direction_extreme_within_2_to_3x_lead": 11,
+    "FP_no_same_direction_extreme_within_3x_lead": 21,
+    "mature_eligible_FN_total": 23,
+    "no_simultaneous_position_and_momentum": 21,
+    "cooldown_suppressed": 1,
+    "no_new_edge": 1
+  },
+  "frozen_V101_original_outputs_overwritten": false,
+  "original_D_minus_1_publication_time_PIT_verified": false,
+  "model_out_of_sample_improvement_established": false,
+  "four_tasks_double80_achieved": false,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "next_priority": "Freeze candidate hypothesis before observing new days; implement genuinely prospective before-open source observation capture and verified publication time; evaluate separate independent future events, not tune reused 2022-2026 sample.",
+  "links": [
+    "https://github.com/devincreator/A-share-top-monitor/actions/runs/39621212218",
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/independent_replay_and_warmup_audit.json"
+  ]
+}
