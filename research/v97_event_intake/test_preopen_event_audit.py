@@ -112,7 +112,7 @@ class PreopenEventTests(unittest.TestCase):
                                  ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
         row=observed["tasks"]["5_TOP"]
         self.assertEqual((row["tp"],row["fn"],row["mature_pivots"]),(0,0,0))
-        self.assertEqual(row["fp"],1)
+        self.assertEqual((row["fp"],row["pending"]),(0,1))
         self.assertEqual(row["events"][0]["pivot_id"],None)
 
     def test_mature_confirmation_requires_full_140_session_buffer(self):
