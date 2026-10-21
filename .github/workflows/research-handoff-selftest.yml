@@ -12,6 +12,9 @@ on:
       - "!research/v87_automation/checkpoints/**"
       - "!research/v88_daily_observations/ledger/**"
       - "!research/v89_factor_inputs/observations/**"
+      - "!research/v92_margin_recovery/records/**"
+      - "!research/v92_margin_recovery/raw/**"
+      - "!research/v92_margin_recovery/attempts/**"
       - ".github/workflows/research-handoff-selftest.yml"
 
 permissions:
