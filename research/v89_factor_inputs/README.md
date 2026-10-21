@@ -1,0 +1,32 @@
+# V89 指数和融资原始数据门禁（独立研究，不发正式信号）
+
+## 目标
+
+原有V88只认证来自单一第三方的**原始逐股成交观察日**，并不能填补中证全指价格指数、沪深300、中证1000、成交额、换手率及两市融资余额。V89新增一个独立研究执行链，**不调用生产模型、不更改生产文件**。
+
+* 第一候选：中证指数公司网站`index-perf`接口。查询`000985 / 000300 / 000852`；只记录返回原始JSON、SHA256、字段结构及请求参数。即使得到HTTP 200，若未明确验证指数身份、字段单位和官方收盘口径，只标为`RAW_DOWNLOADED_NOT_YET_MAPPED`。
+* 第二候选：AKShare `index_zh_a_hist`（经东方财富转接）三个指数的历史日线。逐日绑定请求指数代码，提供 `close/amount/turnover` 标准研究行；该绑定**不等于已由第二来源独立核实指数身份**。
+* 第三候选：AKShare `macro_china_market_margin_sh/sz`（金十数据来源）按上海、深圳分别读取融资余额，明确单位为**元**，不把融资融券余额混成融资余额。
+* 只采用先前V88真实获取、可校验的原始交易日作 `asof`，绝不默认最新自然日就有行情，也不要求融资当日一定公布。
+
+## 判定与防未来函数
+
+`strict_gate.py`要求：
+1. 指数必须是`000985`、`000300`、`000852`，各至少756条有效日线，字段`date,close,amount,turnover`均存在，全部有明确代码、无重复日期、数值合法。
+2. `000985`三个封存历史锚点（2026-08-04、09-30、10-08）必须符合旧生产价格指数量纲且误差不超过1点；不同指数不得混同。
+3. 三指数必须具备所选`asof`的同日记录，不能有未来日期。
+4. 两市融资各自余额须齐全，合并后至少850条日数据，所有记录单位元且指定日两市合计在历史合理数量级范围内（量纲启发式不是独立官方认证）。
+5. 满足以上仅返回`PRIMITIVE_INPUTS_SCHEMA_VALID_RESEARCH_ONLY`，`formal_signal_allowed`永久为`false`。尚未证明历史发布时点、756日衍生因子窗口完整性、资金与官方指数独立同源校验或正式策略逻辑一致。
+
+## 产物与调度
+
+[GitHub Actions V89 source readiness](../../.github/workflows/v89-source-readiness-research.yml) 每个工作日北京时间08:30进行一次只读探测。输出 `source_matrix.json`、`strict_gate.json`、`candidate_inputs.json`及取得的来源原始文件，作为工作流附件暂存30天。**工作流成功仅说明程序执行正常，实际数据状态必须看`gate_status`**。不自动改`data/latest_state.json`、网页、正式预警、既有研究质量门禁。
+
+完整研究数据可能来自单一底层供应商；来源名称不同并不自动视为独立。无法返回或认证的字段保持BLOCKED，绝不人工填补。
+
+本地执行：
+```bash
+python -m unittest discover -s research/v89_factor_inputs -p 'test_*.py' -v
+pip install akshare pandas requests
+python research/v89_factor_inputs/collect_candidates.py --output-dir /tmp/v89
+```
