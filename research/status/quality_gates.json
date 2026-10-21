@@ -338,7 +338,7 @@
       "production_updated": false
     },
     "V97": {
-      "status": "E1_PARTIAL_REAL_2022_2026_OBJECTIVE_PIVOTS_REBUILT_OLD_FORMAL_ALERTS_MISSING",
+      "status": "E1_REAL_LABEL_INPUT_GATE_PASS_ORIGINAL_DATED_FORMAL_START_EVENTS_MISSING",
       "source_scan_repo_tree_and_release_assets": "NO_ORIGINAL_V63_TO_V68_EVENTS_ZIP",
       "cloud_run_id": 39552004501,
       "synthetic_schema_and_integrity_tests_passed": true,
@@ -426,7 +426,27 @@
       "daily_silent_source_reachable_git_change_lines": 1896,
       "daily_silent_source_releases_examined": 2,
       "daily_silent_source_artifacts_examined": 247,
-      "daily_silent_source_filename_candidates": 0
+      "daily_silent_source_filename_candidates": 0,
+      "left_censored_replay_research_gate": {
+        "status": "PASS_CODE_ONLY_AUTHENTIC_FORMAL_EVENTS_STILL_BLOCKED",
+        "ci_run_id": 39568900654,
+        "test_v86_pass": 14,
+        "test_v97_pass": 70,
+        "actual_frozen_input_price_sessions": 1128,
+        "actual_frozen_objective_pivots": 58,
+        "actual_left_censored_first_events": 2,
+        "accepts_original_SHA_pinned_label_archive": true,
+        "excluded_pivot_outside_recall_denominator": true,
+        "excluded_nearby_formal_alerts_not_FP": true,
+        "normal_mature_events_remain_scoreable": true,
+        "invalid_late_censor_flag_rejected": true,
+        "missing_real_original_alert_archive": true,
+        "historical_precision_measured": false,
+        "historical_recall_measured": false,
+        "historical_source_PIT_verified": false,
+        "formal_signal_allowed": false,
+        "production_updated": false
+      }
     }
   },
   "data_quality": {
