@@ -34,7 +34,9 @@
     "prior_day_factor_original_publication_must_precede_decision": true,
     "pivot_confirmation_maturity_buffer_trading_sessions": 140,
     "immature_pivot_matched_alert_must_remain_pending": true,
-    "market_regime_price_endpoint_must_be_verified_available_at_decision": true
+    "market_regime_price_endpoint_must_be_verified_available_at_decision": true,
+    "new_baseline_may_generate_independent_formal_starts_without_old_V63_V68_files": true,
+    "old_V63_V68_perf_not_validated_as_D_open_preopen": false
   },
   "versions": {
     "V52_V62": {
@@ -338,7 +340,7 @@
       "production_updated": false
     },
     "V97": {
-      "status": "E1_REAL_LABEL_INPUT_GATE_PASS_ORIGINAL_DATED_FORMAL_START_EVENTS_MISSING",
+      "status": "HISTORICAL_AUDIT_ARCHIVED_NOT_BLOCKING_NEW_V101",
       "source_scan_repo_tree_and_release_assets": "NO_ORIGINAL_V63_TO_V68_EVENTS_ZIP",
       "cloud_run_id": 39552004501,
       "synthetic_schema_and_integrity_tests_passed": true,
@@ -473,7 +475,79 @@
       "historical_price_value_match_test_run_id": 39573086171,
       "price_asof_optional_no_index_source_tristate_test_run_id": 39573521386,
       "price_120_day_lookback_historical_vintage_PIT_verified": false,
-      "legacy_original_FORMAL_START_recovered": false
+      "legacy_original_FORMAL_START_recovered": false,
+      "active_development_recovery_of_original_old_events": false,
+      "replaced_by_fresh_event_generation_V101": true
+    },
+    "V101": {
+      "status": "FRESH_UNTUNED_PRICE_BASELINE_REAL_RETROSPECTIVE_REPLAY_PASS_NOT_PIT_NOT_DUAL80",
+      "source_index": "000985.CSI",
+      "window": "2022-02-23..2026-10-20",
+      "archived_price_sessions": 1128,
+      "frozen_price_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+      "frozen_label_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+      "archived_objective_labels": 58,
+      "V63_V68_formal_start_required": false,
+      "formal_starts_new_generated": 59,
+      "decision_clock": "D 09:20 Asia/Shanghai",
+      "latest_feature_observation": "D-1 index trading session or earlier",
+      "original_historical_D_minus_1_publication_certified": false,
+      "historical_asof_price_vintage_certified": false,
+      "historical_source_snapshot_captured_at_that_date": false,
+      "labels_enter_model_features": false,
+      "model_parameters_refitted_to_retrospective_results": false,
+      "source_independent_true_blind_2022_2026": false,
+      "maturity_window_after_confirmation_sessions": 140,
+      "each_task": {
+        "5_TOP": {
+          "alerts": 21,
+          "tp": 8,
+          "fp": 11,
+          "fn": 8,
+          "pending": 2,
+          "mature_pivots": 16,
+          "precision": 0.42105263157894735,
+          "recall": 0.5
+        },
+        "5_BOTTOM": {
+          "alerts": 22,
+          "tp": 6,
+          "fp": 12,
+          "fn": 10,
+          "pending": 4,
+          "mature_pivots": 16,
+          "precision": 0.3333333333333333,
+          "recall": 0.375
+        },
+        "9_TOP": {
+          "alerts": 10,
+          "tp": 2,
+          "fp": 7,
+          "fn": 5,
+          "pending": 1,
+          "mature_pivots": 7,
+          "precision": 0.2222222222222222,
+          "recall": 0.2857142857142857
+        },
+        "9_BOTTOM": {
+          "alerts": 6,
+          "tp": 2,
+          "fp": 2,
+          "fn": 5,
+          "pending": 2,
+          "mature_pivots": 7,
+          "precision": 0.5,
+          "recall": 0.2857142857142857
+        }
+      },
+      "cloud_ci_run_id": 39617791813,
+      "cloud_replay_result": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v101_fresh_start/observations/frozen_baseline_report.json",
+      "novel_alert_records": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v101_fresh_start/observations/fresh_formal_start_events.csv",
+      "each_event_audit": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v101_fresh_start/observations/matched_or_pending_event_audit.csv",
+      "V101_quality_code_pass": true,
+      "formal_signal_allowed": false,
+      "four_tasks_double80_achieved": false,
+      "production_updated": false
     }
   },
   "data_quality": {
@@ -526,9 +600,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V97 E1: original V63/V68 report explicitly documents current-day close features, incompatible with the user's D-day preopen forecast without a D+1 shift or prior-day as-of recomputation. The original five named scripts and dated FORMAL_START source are absent from inspected 591 GitHub paths; 15 local ZIPs (422 entries) contain no event-named file candidate. Scan not universal.",
-    "V97 research code now verifies chronological maximum one-to-one match against 34,596 synthetic configurations and rejects duplicate same-scale objective dates; D-preopen market attribution also requires the actual reported index close value to equal the archive. Neither code test certifies market-time PIT, legacy false alarms or four-task accuracy.",
-    "V97 silent E1 source discovery 39566608572 completed 5 tests and enumerated 1896 Git history pathname log lines, 2 existing Releases and 247 unexpired Actions artifact listings; zero matching original alert candidate names found. Limited to reachable tracked Git history and visible metadata; original FORMAL_START still absent. DO NOT infer events from ex-post pivots.",
+    "V101 newest results: 59 new independent preopen-conditional retrospective FORMAL_START signals; all four precision/recall goals fail. Historical original D-1 daily-close release times and as-of values NOT verified; still research only.",
+    "V101 next task: audit genuine new FP/FN dates and group by pre-specified prior-price regimes; independently verify one-to-one matching and exclude immature and left-truncated objective labels. Do not tune on the repeatedly studied 2022-2026 archive and call it blind.",
+    "V101 historic raw market close is archive acquired 2026-10-21, not original 2022..2026 as-of capture; user D-day preopen goal requires independent source release evidence before PIT certification.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
@@ -547,7 +621,7 @@
     "assets/",
     "data/"
   ],
-  "active_research_priority": "SOLE_ACTIVE: V97 genuine dated events / preopen clock / replay / false positive audit",
+  "active_research_priority": "SOLE_ACTIVE: V101 fresh day-D preopen baseline events -> per-event error analysis -> as-of data certification -> honest forward shadow validation. Legacy V63-V68 alert recovery dropped as an active dependency by user.",
   "prediction_clock_contract": {
     "decision_mode": "BEFORE_OPEN_CHINA_STOCK_MARKET",
     "decision_local_timezone": "Asia/Shanghai",
