@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-21T03:56:10+00:00",
-  "entry_count": 70,
+  "updated_at_utc": "2026-10-21T03:56:25+00:00",
+  "entry_count": 71,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T03:56:10+00:00",
-    "run_id": 39541248826,
+    "recorded_at_utc": "2026-10-21T03:56:25+00:00",
+    "run_id": 39541229731,
     "run_attempt": 1,
-    "workflow_name": "Research handoff - verify 2005 release + metadata",
-    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
+    "workflow_name": "V91 independent exchange financing gap source pilot (research only)",
+    "workflow_path": ".github/workflows/v91-exchange-finance-pilot.yml",
     "branch": "main",
-    "commit_sha": "db5a821e99e0d5ef872fd6b013e8cc8594c79148",
+    "commit_sha": "1407d9d2c12c3c24a4d87328e8dd6f00e71cea61",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-21T03:55:49Z",
-    "run_started_at": "2026-10-21T03:55:49Z",
-    "updated_at": "2026-10-21T03:56:02Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248826",
+    "created_at": "2026-10-21T03:55:36Z",
+    "run_started_at": "2026-10-21T03:55:36Z",
+    "updated_at": "2026-10-21T03:56:17Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541229731",
     "jobs": [
       {
-        "id": 119029251021,
-        "name": "audit",
+        "id": 119029191081,
+        "name": "probe",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-21T03:55:52Z",
-        "completed_at": "2026-10-21T03:56:01Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248826/job/119029251021"
+        "started_at": "2026-10-21T03:55:39Z",
+        "completed_at": "2026-10-21T03:56:16Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541229731/job/119029191081"
       }
     ],
     "artifacts": [
       {
-        "id": 12319722506,
-        "name": "research-v82-handoff-selftest",
-        "size_in_bytes": 8086461,
+        "id": 12319677378,
+        "name": "v91-exchange-financing-pilot-39541229731",
+        "size_in_bytes": 5147,
         "expired": false,
-        "expires_at": "2026-11-20T03:55:58Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12319722506/zip"
+        "expires_at": "2026-11-20T03:56:14Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12319677378/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
