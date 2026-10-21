@@ -1,0 +1,61 @@
+name: V97 independent original-price pivot chronology audit (labels only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v97_event_intake/verify_archived_pivot_chronology.py'
+      - 'research/v97_event_intake/test_verify_archived_pivot_chronology.py'
+      - '.github/workflows/v97-label-chronology-independent.yml'
+permissions:
+  contents: write
+concurrency:
+  group: v97-label-independent-chronology
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independent actual-source first-reversal tests and anti-hindsight cases
+        run: |
+          python -m unittest discover -s research/v97_event_intake \
+            -p 'test_verify_archived_pivot_chronology.py' -v
+      - name: Verify immutable archived 1128 CSI prices and 58 ex-post objective labels
+        run: |
+          python research/v97_event_intake/verify_archived_pivot_chronology.py \
+            --observations research/v97_event_intake/observations \
+            --output research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+      - name: Preserve raw-hashed independent label audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v97-independent-label-chronology-${{ github.run_id }}
+          path: research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Save research-only label evidence permanently if new
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+          if git diff --cached --quiet; then
+            echo "Same independent objective-label report retained"
+            exit 0
+          fi
+          git commit -m 'research(v97): retain independent actual objective label chronology [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo "Research archive push blocked"
+          exit 1
