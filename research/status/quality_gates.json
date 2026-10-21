@@ -166,6 +166,58 @@
       "price_cross_provider_PIT_certified": false,
       "formal_fusion_training_allowed": false,
       "double80_achieved": false
+    },
+    "V90": {
+      "status": "RECENT_FINANCING_WINDOWS_RESEARCH_ONLY_LONG_P756_BLOCKED",
+      "source_batch_run_id": 39539695414,
+      "source_candidate_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+      "index_session_asof": "2026-10-20",
+      "observed_finance_market_sessions_valid": 945,
+      "observed_index_sessions": 1128,
+      "finance_63_growth_window": {
+        "required_sessions": 64,
+        "source_missing": 0,
+        "invalid_balances": 0,
+        "research_candidate": true,
+        "PIT_certified": false
+      },
+      "finance_recent252": {
+        "required_sessions": 253,
+        "source_missing": 0,
+        "invalid_balances": 0,
+        "research_candidate": true,
+        "PIT_certified": false
+      },
+      "finance_growth63_p756": {
+        "required_sessions": 820,
+        "source_missing": 182,
+        "invalid_balance_dates": [
+          "2024-08-08"
+        ],
+        "research_candidate": false,
+        "PIT_certified": false
+      },
+      "missing_source_segments": [
+        {
+          "from": "2023-09-21",
+          "through": "2023-09-27",
+          "trade_sessions": 5
+        },
+        {
+          "from": "2024-06-14",
+          "through": "2024-07-05",
+          "trade_sessions": 16
+        },
+        {
+          "from": "2024-10-21",
+          "through": "2025-06-18",
+          "trade_sessions": 161
+        }
+      ],
+      "formal_signal_allowed": false,
+      "production_updated": false,
+      "source_audit": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39539695414",
+      "research_report": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v90_financing/ACTUAL_AUDIT_20261021.md"
     }
   },
   "data_quality": {
@@ -189,7 +241,11 @@
     "v89_20261020_amount_cross_provider_matched": true,
     "v89_turnover_second_source_verified": false,
     "v89_financing_historical_all_rows_verified": false,
-    "v89_price_756_prior_only_percentiles_research": true
+    "v89_price_756_prior_only_percentiles_research": true,
+    "v90_recent_financing_63_data_window_complete": true,
+    "v90_recent_financing_253_data_window_complete": true,
+    "v90_historical_finance_growth63_rank_p756_complete": false,
+    "v90_financing_pit_certified": false
   },
   "source_links": {
     "primary_project": "https://github.com/devincreator/A-share-top-monitor",
@@ -206,8 +262,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
+    "V90 820-session financing factor history has 182 source missing index-trading days in three concentrated gaps and source anomaly 2024-08-08; full 63-day finance growth prior756 rank BLOCKED",
+    "V90 recent 64/253-session financing source dates clean but finance publication timestamp and independent official exchange verification are NOT PIT certified",
     "2026-08-04 onward full four-module production data not fully verified; V89 2026-10-20 research price and amount does NOT generate formal signals",
-    "V89 Jin10 Shenzhen financing 2024-08-08 zero-source anomaly must be independently resolved (no silent zero or forward-fill)",
     "V89 official CSI source showed 2026-09-05 non-trading row; quarantine using independently pinned exchange trading calendar",
     "Historical actual listed A-share security episodes require independent official start/end date confirmation, especially same-code different entity and IPO first day",
     "Daily suspension and source-gap classification: 2005 retrospective 14665 no-bars unresolved",
