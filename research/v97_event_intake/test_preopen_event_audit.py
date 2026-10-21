@@ -66,6 +66,51 @@ class PreopenEventTests(unittest.TestCase):
         self.assertEqual(first["last_feature_price_date"],days[209])
         self.assertEqual(second["last_feature_price_date"],days[209])
 
+    def test_stale_but_published_close_controls_regime_not_unpublished_d_minus_one(self):
+        days,prices=inputs()
+        a=alert(days,210,"stale_price")
+        available=evidence(days,a)
+        available[0]["observation_date"]=days[207]
+        available[0]["published_at"]=days[207]+"T18:00:00+08:00"
+        first=m.audit_preopen([a],[],prices,{"stale_price":available},
+                              ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        event=first["tasks"]["5_TOP"]["events"][0]
+        self.assertEqual(event["last_feature_price_date"],days[207])
+        self.assertEqual(event["regime_using_prior_day"],"MIXED_OR_RANGE")
+        revised=[dict(row) for row in prices]
+        # D-1/D-2 closes were NOT proven available at the preopen decision.
+        revised[209]["close"]="999999"
+        revised[208]["close"]="999999"
+        revised[210]["close"]="999999"
+        second=m.audit_preopen([a],[],revised,{"stale_price":available},
+                               ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        self.assertEqual(event["regime_using_prior_day"],
+                         second["tasks"]["5_TOP"]["events"][0]["regime_using_prior_day"])
+        self.assertEqual(second["tasks"]["5_TOP"]["events"][0]["last_feature_price_date"],days[207])
+
+    def test_no_index_close_evidence_leaves_market_regime_unknown(self):
+        days,prices=inputs()
+        a=alert(days,210,"finance_only")
+        evidence_finance=[row for row in evidence(days,a)
+                          if row["factor"]=="FINANCING_BALANCE"]
+        result=m.audit_preopen([a],[],prices,{"finance_only":evidence_finance},
+                               ["FINANCING_BALANCE"],days[-1])
+        event=result["tasks"]["5_TOP"]["events"][0]
+        self.assertEqual(event["regime_using_prior_day"],"NO_INDEX_CLOSE_ASOF_SOURCE")
+        self.assertIsNone(event["last_feature_price_date"])
+
+    def test_available_index_close_must_exist_in_original_trading_calendar(self):
+        days,prices=inputs()
+        a=alert(days,210,"off_calendar")
+        ev=evidence(days,a)
+        ev[0]["observation_date"]="2021-12-31"
+        ev[0]["published_at"]=days[207]+"T18:00:00+08:00"
+        result=m.audit_preopen([a],[],prices,{"off_calendar":ev},
+                               ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        self.assertEqual(result["status"],"BLOCKED_FEATURE_CLOCK_OR_PROVENANCE")
+        self.assertEqual(result["tasks"],{})
+        self.assertIn("archived price calendar",str(result["invalid_alert_clock_examples"]))
+
     def test_historical_financing_late_released_blocks_replay(self):
         days,prices=inputs()
         a=alert(days,200,"a1")
