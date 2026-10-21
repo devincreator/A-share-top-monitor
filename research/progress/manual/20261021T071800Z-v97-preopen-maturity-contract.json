@@ -1,0 +1,18 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T07:18:00Z",
+  "workflow_name": "V97 ONLY: strict preopen prediction, real event evidence, confirmation maturity scoring",
+  "conclusion": "partial",
+  "summary": "Reaffirmed user contract: D morning forecast uses no D daily indicators; D-1 source must be available and published by decision. Frozen sole active W3 E1-E4; corrected event replay to require 140 observed sessions after pivot confirmation (not after turning date), and to keep alerts matching immature pivots PENDING rather than count premature FP. Actual V97 GitHub Actions 39560791099 passed. Original dated V63/V68 FORMAL_START input remains unavailable. Partial 1128 real CSI 000985 prices and 58 retrospectively reconstructed labels cannot be called real alerts.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39560791099",
+  "data_gate": "BLOCKED_ORIGINAL_FORMAL_START_EVENTS_AND_HISTORICAL_PUBLICATION_CLOCKS",
+  "code_gate": "PASS_REAL_GITHUB_ACTIONS_39560791099",
+  "dual80_achieved": false,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "next_action": "Remain solely on E1 historical source search and deterministic event reconstruction from authentic old model code; never infer alerts from objective pivots or aggregate counts; then E2 preopen as-of evidence before E3 real scores.",
+  "source_links": [
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/research/FOCUS_V97_PREOPEN_EVENT_RECONSTRUCTION.md",
+    "https://github.com/devincreator/A-share-top-monitor/blob/main/research/status/quality_gates.json"
+  ]
+}
