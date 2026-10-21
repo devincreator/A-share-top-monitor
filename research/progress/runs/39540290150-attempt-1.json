@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-21T03:45:30+00:00",
+  "run_id": 39540290150,
+  "run_attempt": 1,
+  "workflow_name": "Research handoff - verify 2005 release + metadata",
+  "workflow_path": ".github/workflows/research-handoff-selftest.yml",
+  "branch": "main",
+  "commit_sha": "228660e95f000c0fb1cd74c8cd9516d56c1ff05e",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "push",
+  "created_at": "2026-10-21T03:45:08Z",
+  "run_started_at": "2026-10-21T03:45:08Z",
+  "updated_at": "2026-10-21T03:45:23Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39540290150",
+  "jobs": [
+    {
+      "id": 119026218035,
+      "name": "audit",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-21T03:45:12Z",
+      "completed_at": "2026-10-21T03:45:22Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39540290150/job/119026218035"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12319631687,
+      "name": "research-v82-handoff-selftest",
+      "size_in_bytes": 8086461,
+      "expired": false,
+      "expires_at": "2026-11-20T03:45:18Z",
+      "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12319631687/zip"
+    }
+  ],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
