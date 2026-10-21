@@ -1,0 +1,79 @@
+name: V101 fresh day-D preopen price-only baseline (research, never production)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v101_fresh_start/*.py'
+      - 'research/v101_fresh_start/README.md'
+      - '.github/workflows/v101-fresh-preopen-baseline.yml'
+permissions:
+  contents: write
+concurrency:
+  group: research-v101-frozen-fresh-preopen
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independently test frozen source, all four tasks, and no D-day data
+        run: python -m unittest discover -s research/v101_fresh_start -p 'test_*.py' -v
+      - name: Generate new FORMAL_START signals and maturity-aware event audit
+        run: python research/v101_fresh_start/fresh_preopen_baseline.py
+      - name: Verify actual frozen real-history scores not 80 percent
+        run: |
+          python - <<'PY'
+          import json,hashlib,csv
+          from pathlib import Path
+          root=Path('research/v101_fresh_start/observations')
+          result=json.loads((root/'frozen_baseline_report.json').read_text())
+          assert result['signals_count']==59
+          assert result['historical_PIT_certified'] is False
+          assert result['sample_out_of_sample'] is False
+          assert result['formal_signal_allowed'] is False
+          assert result['all_four_tasks_precision_and_recall_ge_0_8'] is False
+          expected={'5_TOP':(21,8,11,8,2),'5_BOTTOM':(22,6,12,10,4),
+                    '9_TOP':(10,2,7,5,1),'9_BOTTOM':(6,2,2,5,2)}
+          for task,values in expected.items():
+              m=result['task_metrics'][task]
+              actual=tuple(m[k] for k in ('generated_formal_starts','tp','fp','fn','pending'))
+              assert actual==values,(task,actual)
+          events=list(csv.DictReader((root/'fresh_formal_start_events.csv').open()))
+          assert len(events)==59
+          assert all(e['last_price_observation_index']<e['decision_price_index']
+                     for e in events)
+          print('V101 REAL RESEARCH REPLAY CHECK PASS: 59 NEW signals; no historical PIT or production promotion.')
+          PY
+      - name: Archive immutable evidence even if later Git write fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v101-fresh-preopen-actual-replay-${{ github.run_id }}
+          path: research/v101_fresh_start/observations/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Commit first-capture research events and audit only
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v101_fresh_start/observations/
+          if git diff --cached --quiet; then
+            echo 'Immutable first capture already present'
+            exit 0
+          fi
+          git commit -m 'research(v101): archive 59 fresh preopen events and true historical score audit [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'GitHub write failed; first-capture results preserved in artifact'
+          exit 1
