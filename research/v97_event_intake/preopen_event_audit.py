@@ -76,6 +76,8 @@ def validate_events(alerts,pivots,days,asof):
                 raise ValueError(f"pivot missing {field}")
         if row["scale"] not in SCALES or row["direction"] not in DIRECTIONS:
             raise ValueError("invalid pivot task")
+        if str(row.get("first_segment_left_censored","false")).lower()=="true":
+            raise ValueError("left-censored initial label cannot enter objective pivot denominator")
         if row["id"] in seen:
             raise ValueError("duplicate pivot id")
         seen.add(row["id"])
