@@ -41,12 +41,11 @@ class MonthlyCheckTests(unittest.TestCase):
             self.assertTrue(x["gates"]["2006_raw_integrity"]["passed"])
             self.assertEqual(x["window"]["status"],"RESEARCH_RUNNING")
 
-    def test_ongoing_audit_does_not_imply_model_success(self):
+    def test_end_does_not_imply_model_success(self):
         with tempfile.TemporaryDirectory() as d:
             x = module.report_on(self.fixture(d),"2027-04-21",
                     inventory_fn=lambda *args:{"status":"BLOCKED","issues":[]})
-            self.assertEqual(x["window"]["status"],"RESEARCH_RUNNING")
-            self.assertTrue(x["window"]["open_ended"])
+            self.assertEqual(x["window"]["status"],"ENDED")
             self.assertFalse(x["gates"]["prospective_frozen_sample"]["passed"])
 
     def test_separate_raw_observation_never_promotes_formal_model(self):
