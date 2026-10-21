@@ -186,8 +186,64 @@ class PreopenEventTests(unittest.TestCase):
         days,prices=inputs()
         pivot_row=pivot(days,215,"left")
         pivot_row["first_segment_left_censored"]="true"
-        with self.assertRaisesRegex(ValueError,"left-censored"):
-            m.audit_preopen([], [pivot_row],prices,{},["INDEX_CLOSE"],days[-1])
+        a=alert(days,210,"alert_near_unobservable_start")
+        out=m.audit_preopen([a],[pivot_row],prices,{a["id"]:evidence(days,a)},
+                            ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        row=out["tasks"]["5_TOP"]
+        self.assertEqual((row["tp"],row["fp"],row["fn"],row["pending"]),(0,0,0,0))
+        self.assertEqual(row["excluded_left_censored_alerts"],1)
+        self.assertEqual(row["excluded_left_censored_pivots"],1)
+        self.assertEqual(row["scored_formal_alerts"],0)
+        self.assertIsNone(row["precision_scored"])
+        self.assertIsNone(row["recall_mature"])
+        self.assertEqual(row["events"][0]["result"],"EXCLUDED_LEFT_CENSORED")
+
+    def test_left_censored_label_does_not_hide_valid_mature_event(self):
+        days,prices=inputs()
+        left=pivot(days,205,"truncated")
+        left["first_segment_left_censored"]="true"
+        normal=pivot(days,305,"valid",confirm_delay=25)
+        alerts=[alert(days,200,"near_left"),alert(days,300,"near_valid")]
+        report=m.audit_preopen(alerts,[left,normal],prices,
+                               {a["id"]:evidence(days,a) for a in alerts},
+                               ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        task=report["tasks"]["5_TOP"]
+        self.assertEqual((task["tp"],task["fp"],task["fn"]),(1,0,0))
+        self.assertEqual(task["excluded_left_censored_alerts"],1)
+        self.assertEqual(task["excluded_left_censored_pivots"],1)
+        self.assertEqual(task["mature_pivots"],1)
+        self.assertEqual(task["precision_scored"],1)
+        self.assertEqual(task["recall_mature"],1)
+        self.assertFalse(report["formal_signal_allowed"])
+
+    def test_left_censor_must_be_first_label_per_scale(self):
+        days,prices=inputs()
+        first=pivot(days,200,"first")
+        later=pivot(days,245,"later")
+        later["first_segment_left_censored"]="true"
+        with self.assertRaisesRegex(ValueError,"must be earliest"):
+            m.audit_preopen([], [first,later],prices,{},["INDEX_CLOSE"],days[-1])
+
+    def test_multiple_left_boundary_labels_rejected(self):
+        days,prices=inputs()
+        a=pivot(days,200,"left1")
+        b=pivot(days,205,"left2")
+        a["first_segment_left_censored"]="true"
+        b["first_segment_left_censored"]="true"
+        with self.assertRaisesRegex(ValueError,"multiple left-censored"):
+            m.audit_preopen([], [a,b],prices,{},["INDEX_CLOSE"],days[-1])
+
+    def test_boundary_is_specific_to_scale_not_global(self):
+        days,prices=inputs()
+        a=alert(days,210,"scale9_alert",scale="9")
+        left=pivot(days,215,"left5")
+        left["first_segment_left_censored"]="true"
+        # Only 5% TOP is left-censored. A 9% TOP alert remains scoreable.
+        report=m.audit_preopen([a],[left],prices,{a["id"]:evidence(days,a)},
+                               ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        t=report["tasks"]["9_TOP"]
+        self.assertEqual((t["fp"],t["excluded_left_censored_alerts"]),(1,0))
+
 
     def test_legacy_active_updates_are_not_new_alerts(self):
         days,prices=inputs()
