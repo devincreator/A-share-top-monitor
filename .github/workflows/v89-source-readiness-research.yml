@@ -38,6 +38,9 @@ jobs:
           python research/v89_factor_inputs/collect_candidates.py \
             --raw-ledger research/v88_daily_observations/ledger \
             --output-dir v89_source_audit_output
+      - name: Generate past-only research price factors where index source checks passed
+        run: |
+          python research/v89_factor_inputs/price_only_research.py --source-dir v89_source_audit_output
       - name: Keep all raw responses, failure reasons and independent gate evidence
         if: always()
         uses: actions/upload-artifact@v4
