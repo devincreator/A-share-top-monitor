@@ -105,28 +105,39 @@ def validate_events(alerts,pivots,days,asof):
 
 
 def max_match(alerts,pivots,pos,max_lead):
-    """Deterministic max-cardinality bipartite matching."""
-    arcs=[]
-    for a in alerts:
-        options=[]
-        for i,p in enumerate(pivots):
-            gap=pos[date.fromisoformat(p["date"])]-pos[date.fromisoformat(a["date"])]
-            if 1<=gap<=max_lead:
-                options.append((gap,i))
-        arcs.append([index for _,index in sorted(options)])
-    assigned={}
-    def dfs(ai,used):
-        for pi in arcs[ai]:
-            if pi in used:
-                continue
-            used.add(pi)
-            if pi not in assigned or dfs(assigned[pi],used):
-                assigned[pi]=ai
-                return True
-        return False
-    for i in range(len(alerts)):
-        dfs(i,set())
-    return {ai:pi for pi,ai in assigned.items()}
+    """Chronological, maximum-cardinality one-to-one matching, no hindsight preference.
+
+    All alerts in one scale/direction share the same STRICT lead window
+    [1, max_lead] in index trading sessions. For this ordered interval
+    matching problem, assign the earliest still-eligible pivot to each alert
+    in alert-date order. This is maximum-cardinality (exchange argument):
+    if an optimal assignment sends an earlier alert to a later pivot, swap
+    it with any earlier pivot assigned to a later alert, or occupy the
+    earlier available pivot; neither lead bound is violated by the swap.
+
+    Unlike augmenting-path DFS, this preserves non-crossing chronological
+    order among matched events, avoiding artificial reversal of which alarm
+    preceded which turning point. Both input lists MUST be chronological;
+    caller audit_preopen() sorts its four tasks before matching.
+    """
+    alert_days=[pos[date.fromisoformat(a["date"])] for a in alerts]
+    pivot_days=[pos[date.fromisoformat(p["date"])] for p in pivots]
+    if any(alert_days[k]<alert_days[k-1] for k in range(1,len(alert_days))):
+        raise ValueError("one-to-one matcher alerts not chronological")
+    if any(pivot_days[k]<pivot_days[k-1] for k in range(1,len(pivot_days))):
+        raise ValueError("one-to-one matcher pivots not chronological")
+    if not isinstance(max_lead,int) or max_lead<1:
+        raise ValueError("positive integer lead window required")
+
+    matched={}
+    pi=0
+    for ai,aday in enumerate(alert_days):
+        while pi<len(pivot_days) and pivot_days[pi]<=aday:
+            pi+=1  # Cannot predict a pivot on or before its own trading date.
+        if pi<len(pivot_days) and 1<=pivot_days[pi]-aday<=max_lead:
+            matched[ai]=pi
+            pi+=1
+    return matched
 
 
 def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
