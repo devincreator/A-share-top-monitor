@@ -3,10 +3,11 @@
 > 仅代表 **任务执行状态**，不是市场数据历史可得性(PIT)认证，更不是四任务双80成绩。
 > 研究数据门禁的唯一授权状态见 [quality_gates.json](../status/quality_gates.json)。
 
-已记录 133 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
+已记录 134 条研究任务完成记录。按最近时间显示前30条。新AI必须查阅失败结果及相应原始附件。
 
 | 完成时间(UTC) | 研究任务 | 运行结论 | 证据 |
 |---|---|---|---|
+| 2026-10-21T07:50:32Z | V97 preopen event reconstruction and no-future-data audit (research only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809312) |
 | 2026-10-21T07:50:30Z | V97 independent original-price pivot chronology audit (labels only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809325) |
 | 2026-10-21T07:46:43Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564356186) |
 | 2026-10-21T07:46:38Z | V97 preopen event reconstruction and no-future-data audit (research only) | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39564356031) |
@@ -36,7 +37,6 @@
 | 2026-10-21T06:38:48Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556678991) |
 | 2026-10-21T06:38:08.247Z | Single-priority V97 actual objective event recovery and before-open anti-lookahead audit | partial | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556170202) |
 | 2026-10-21T06:36:28Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556435809) |
-| 2026-10-21T06:35:27Z | Research handoff - verify 2005 release + metadata | success | [查看证据](https://github.com/devincreator/A-share-top-monitor/actions/runs/39556330464) |
 
 ## 如何接续
 
