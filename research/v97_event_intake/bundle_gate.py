@@ -37,7 +37,11 @@ def check_bundle(path):
     if not source.is_file():
         result["errors"].append("original V63/V68 event-level replay bundle not available")
         return result
-    if source.stat().st_size>MAX_TOTAL_BYTES:\n        result["status"]="BLOCKED_ARCHIVE_INVALID"\n        result["errors"].append("compressed original bundle is too large")\n        return result\n    result["source_zip_sha256"]=checksum(source.read_bytes())
+    if source.stat().st_size>MAX_TOTAL_BYTES:
+        result["status"]="BLOCKED_ARCHIVE_INVALID"
+        result["errors"].append("compressed original bundle is too large")
+        return result
+    result["source_zip_sha256"]=checksum(source.read_bytes())
     try:
         with zipfile.ZipFile(source) as archive:
             names=archive.namelist()
