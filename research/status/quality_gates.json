@@ -1,5 +1,5 @@
 {
-  "last_manual_audit_date": "2026-10-20",
+  "last_manual_audit_date": "2026-10-21",
   "repository": "devincreator/A-share-top-monitor",
   "project": "A-share objective pivot early warning: 5%/9% TOP/BOTTOM",
   "production_updated": false,
@@ -142,6 +142,30 @@
       "double80_achieved": false,
       "production_updated": false,
       "event_replay_blocker": "V63_V68_2005长历史双向顶底_完整实测研究包.zip not preserved in repository; no event-level input available"
+    },
+    "V89": {
+      "status": "CROSS_PROVIDER_INDEX_PRICE_AMOUNT_VERIFIED_FINANCING_HISTORY_BLOCKED",
+      "asof": "2026-10-20",
+      "primary_price_index": "000985.CSI",
+      "index_codes": [
+        "000985",
+        "000300",
+        "000852"
+      ],
+      "official_vs_eastmoney_trading_days_matched_per_index": 26,
+      "official_index_non_trading_date_quarantined": "2026-09-05",
+      "index_all_share_research_close": 5306.57,
+      "research_price_ret5_pct": -3.362816709553229,
+      "research_price_ret63_pct": -12.658542446417343,
+      "margin_sh_sz_raw_overlap_days": 3814,
+      "margin_sz_zero_anomaly_date": "2024-08-08",
+      "margin_financing_history_gate": "BLOCKED",
+      "source_readiness_run_id": 39534515226,
+      "price_first_capture_url": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v89_factor_inputs/observations/2026-10-20.json",
+      "published_today_full_model": false,
+      "price_cross_provider_PIT_certified": false,
+      "formal_fusion_training_allowed": false,
+      "double80_achieved": false
     }
   },
   "data_quality": {
@@ -160,13 +184,19 @@
     "suspended_historical_case": "000638.SZ 2005",
     "2006_raw_daily_verified": true,
     "2006_stock_universe_PIT_verified": false,
-    "2006_source_archive_release": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v85-2006-20261020"
+    "2006_source_archive_release": "https://github.com/devincreator/A-share-top-monitor/releases/tag/research-v85-2006-20261020",
+    "v89_20261020_index_close_cross_provider_matched": true,
+    "v89_20261020_amount_cross_provider_matched": true,
+    "v89_turnover_second_source_verified": false,
+    "v89_financing_historical_all_rows_verified": false,
+    "v89_price_756_prior_only_percentiles_research": true
   },
   "source_links": {
     "primary_project": "https://github.com/devincreator/A-share-top-monitor",
     "frozen_long_index_repo": "https://github.com/sky910140/financial-agent-takehome/tree/e071088057946de60ba1622dec8a69acce1481cd/data/market",
     "retrospective_stock_bars": "https://money-tree.eyunzhu.com/daily_kline/date/YYYYMMDD.csv",
-    "2006_workflow": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554"
+    "2006_workflow": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39364428554",
+    "v89_source_readiness": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39534515226"
   },
   "do_not_claim": [
     "double80 achieved",
@@ -176,10 +206,12 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
+    "2026-08-04 onward full four-module production data not fully verified; V89 2026-10-20 research price and amount does NOT generate formal signals",
+    "V89 Jin10 Shenzhen financing 2024-08-08 zero-source anomaly must be independently resolved (no silent zero or forward-fill)",
+    "V89 official CSI source showed 2026-09-05 non-trading row; quarantine using independently pinned exchange trading calendar",
     "Historical actual listed A-share security episodes require independent official start/end date confirmation, especially same-code different entity and IPO first day",
     "Daily suspension and source-gap classification: 2005 retrospective 14665 no-bars unresolved",
     "Recover original event-level V63-V68 research ZIP to identify true 5/9 TOP/BOTTOM errors without fabricating rows",
-    "Restore post-2026-08-04 complete live official model input by verified daily index/amount/turnover/financing; V84 read-only probe returned 2026-10-20 HTTP404",
     "PIT-safe returns and share-universe verification across prior years, then frozen prospective blinded verification"
   ],
   "next_ai_entry": "AI_RESEARCH_HANDOFF.md -> research/README.md -> research/NEXT_AI_RUNBOOK.md",
