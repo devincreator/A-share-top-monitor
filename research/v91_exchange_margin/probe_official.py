@@ -125,11 +125,20 @@ def run_pilot(input_file, output_dir, dates=PILOTS, *, api=None, sleep=time.slee
             entry={"status":"SOURCE_FAILED","exchange":exchange,
                    "formal_signal_allowed":False}
             try:
-                if exchange=="SSE":
-                    df=api.stock_margin_sse(start_date=day.replace("-",""),
-                                            end_date=day.replace("-",""))
-                else:
-                    df=api.stock_margin_szse(date=day.replace("-",""))
+                # A transient network reset is not an observation. Retry at most twice.
+                for attempt in range(1,4):
+                    try:
+                        if exchange=="SSE":
+                            df=api.stock_margin_sse(start_date=day.replace("-",""),
+                                                    end_date=day.replace("-",""))
+                        else:
+                            df=api.stock_margin_szse(date=day.replace("-",""))
+                        break
+                    except (ConnectionError, TimeoutError, OSError):
+                        if attempt==3:
+                            raise
+                        sleep(1.5*attempt)
+                entry["network_attempts"]=attempt
                 # Persist returned dataframe *before* schema checks, for audit.
                 csv_path=root/f"{exchange.lower()}_{day}_raw.csv"
                 df.to_csv(csv_path,index=False)
