@@ -50,7 +50,7 @@ jobs:
           if not asof:
               (folder/"finance_windows.json").write_text(json.dumps({
                   "status":"BLOCKED_NO_VERIFIED_SOURCE_DAY","formal_signal_allowed":False
-              })+"\\n")
+              })+"\n")
           else:
               subprocess.run([sys.executable,"research/v90_financing/isolate_window.py",
                   "--input",str(folder/"candidate_inputs.json"),"--asof",asof,
