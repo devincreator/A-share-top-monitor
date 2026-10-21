@@ -1,0 +1,13 @@
+{
+  "exchange": "SZ",
+  "trade_date": "2024-08-08",
+  "value_yi_yuan": 6649.54,
+  "precision_yi_yuan": 0.01,
+  "first_supported_publication_date": "2024-08-09",
+  "source_kind": "News/media reported financing summary, not exact stock-exchange original",
+  "urls": [
+    "https://www.jiemian.com/article/11535150.html",
+    "https://finance.sina.com.cn/stock/zqgd/2024-08-09/doc-inciaeka5537104.shtml"
+  ],
+  "interpretation": "On 2024-08-09 sources report SZSE financing balance at 2024-08-08 6649.54 yi-yuan. This disproves Jin10 source's 0, but is rounded and published later: not an exact as-of-trade-close replacement."
+}
