@@ -56,6 +56,12 @@ jobs:
             --ledger research/v92_margin_recovery \
             --out v92_exchange_batch \
             --max-dates 8 --retry-days 2
+      - name: Independently verify permanent source hashes and blocked PIT state
+        run: |
+          python research/v92_margin_recovery/audit_coverage.py \
+            --candidate v89_source_audit_output/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v92_exchange_batch/coverage_audit.json
       - name: Upload investigation records even if source unavailable
         if: always()
         uses: actions/upload-artifact@v4
@@ -73,7 +79,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for folder in records raw attempts; do
+          for folder in records raw attempts checkpoints; do
             if [ -d "research/v92_margin_recovery/$folder" ]; then
               git add "research/v92_margin_recovery/$folder/"
             fi
