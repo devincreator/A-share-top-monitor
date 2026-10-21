@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "observation_date": "2026-10-21",
+  "first_retrieved_at_utc": "2026-10-21T16:00:10.733326+00:00",
+  "source_url": "https://money-tree.eyunzhu.com/daily_kline/date/20261021.csv",
+  "source_raw_sha256": "0c5d82e99eefdcc0195dc993fc440cf56d99d30183c7a7ff0233f928c43ae7f4",
+  "raw_source_rows": 5568,
+  "traded_sh_sz_records": 5216,
+  "raw_positive_pct_records": 1941,
+  "raw_traded_advance_share": 0.37212423,
+  "source_format_verified": true,
+  "historical_listing_universe_PIT_certified": false,
+  "formal_trading_signals_generated": false,
+  "production_changed": false,
+  "raw_archive_scope": "GitHub Actions run artifact; retention limited"
+}
