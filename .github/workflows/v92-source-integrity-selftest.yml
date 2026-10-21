@@ -1,0 +1,72 @@
+name: V92 archived exchange source integrity audit (zero live market API queries)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v92-source-integrity-selftest.yml'
+      - 'research/v92_margin_recovery/records/**'
+      - 'research/v92_margin_recovery/raw/**'
+      - 'research/v92_margin_recovery/audit_coverage.py'
+      - 'research/v92_margin_recovery/test_audit_coverage.py'
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: v92-archived-sources-integrity-audit
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify fail-closed original source archive contract
+        run: python -m unittest discover -s research/v92_margin_recovery -p 'test_*.py' -v
+      - name: Read source input date and calendar from most recent successful V89 artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          runid="$(gh run list --workflow v89-source-readiness-research.yml --branch main --limit 20 --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId')"
+          if [ -z "$runid" ] || [ "$runid" = "null" ]; then
+            echo 'Source input missing; hard fail without pretending integrity passed'
+            exit 1
+          fi
+          mkdir -p evidence
+          gh run download "$runid" --name "v89-index-financing-source-$runid" --dir evidence
+          test -s evidence/candidate_inputs.json
+          echo "$runid" > evidence/original_run_id.txt
+      - name: Validate saved first source hashes and date/amount schema, not model PIT
+        shell: bash
+        run: |
+          python research/v92_margin_recovery/audit_coverage.py \
+            --candidate evidence/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out evidence/coverage_audit.json
+          python - <<'PY'
+          import json
+          doc=json.load(open('evidence/coverage_audit.json'))
+          assert doc['status']=='RESEARCH_CANDIDATE_EVIDENCE_ONLY',doc['source_integrity_failures']
+          assert not doc['finance_growth63_prior756_rank_certified']
+          assert not doc['formal_signal_allowed']
+          print('Audited source-only days: %d / %d' % (
+            doc['raw_source_both_exchanges_sha_valid_days'],
+            doc['original_source_gap_or_invalid_days']))
+          PY
+      - name: Retain independent raw-file integrity audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v92-archived-source-integrity-${{ github.run_id }}
+          path: evidence/
+          retention-days: 30
+          if-no-files-found: warn
