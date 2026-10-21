@@ -28,7 +28,7 @@ class TradedSampleTests(unittest.TestCase):
         report=m.audit_sample(raw,"2026-10-20",hashlib.sha256(raw).hexdigest())
         self.assertEqual(report["traded_ordinary_sh_sz_rows"],60)
         self.assertEqual(report["excluded_source_rows_by_exchange"],{"BJ":1})
-        self.assertEqual(report["c50_traded_source_sample_pct"],str(50/60*100)[:0] or report["c50_traded_source_sample_pct"])
+        self.assertAlmostEqual(float(report["c50_traded_source_sample_pct"]),100*50/60,places=9)
         self.assertFalse(report["formal_signal_allowed"])
         self.assertFalse(report["C50_prior504_or_756_rank_available"])
 
