@@ -140,7 +140,7 @@ def build():
                     frozen["lead_trading_sessions"]!=gap)):
                 raise ValueError("independent event result mismatch: "+a["id"])
             if status=="FP":
-                next_same=sorted((position[q["date"]]-i,q for q in eligible
+                next_same=sorted(((position[q["date"]]-i,q) for q in eligible
                     if position[q["date"]]>i),key=lambda x:x[0])
                 next_gap=next_same[0][0] if next_same else None
                 if next_gap is None:kind="NO_LATER_SAME_DIRECTION_LABEL_IN_ARCHIVE"
