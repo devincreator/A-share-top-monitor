@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "exchange": "SZSE",
+  "trade_date": "2024-08-08",
+  "source_raw_zero_record": "Jin10/AKShare candidate: 0 CNY",
+  "secondary_rounded_amount_yi_yuan": 6649.54,
+  "precision_yi_yuan": 0.01,
+  "derived_lower_bound_yuan": 664953500000,
+  "derived_upper_bound_yuan_exclusive": 664954500000,
+  "source_date": "2024-08-09",
+  "sources": [
+    "https://www.jiemian.com/article/11535150.html",
+    "https://finance.sina.com.cn/stock/zqgd/2024-08-09/doc-inciaeka5537104.shtml"
+  ],
+  "source_kind": "post-trade secondary news summaries, not official exact balance",
+  "PIT_on_trade_date": false,
+  "usable_as_exact_official_replacement": false,
+  "formal_factor_imputation_allowed": false,
+  "explanatory_note": "This external quoted amount shows historical source zero is implausible, but it cannot repair a precise historical time-available factor."
+}

@@ -34,3 +34,7 @@
 ## 后续研究入口
 
 `research/v90_financing/isolate_window.py`与`research/v90_financing/test_isolate_window.py`分别实现交易日缺口分组、完整63/252/820期验证及逐个历史63期融资增长率有效性审计。所有结果保留GitHub Actions附件，不自动升级质量门禁。
+
+### 增量再审计：严格分位依赖传播（GitHub Actions 39540193090）
+
+2026-10-21的第二次云端实际运行 [39540193090](https://github.com/devincreator/A-share-top-monitor/actions/runs/39540193090) 完成 success，其研究附件 ID 为 `12318818042`。严格按`t-63`融资增长率逐个计算此前756个交易日的候选增长值，有 **267/756 个历史增长观测无法精确取得**（源于182个缺失原始融资日和1个非法融资日向后传播），并非只有183个历史百分位样本失效。拒绝直接`dropna`后缩短窗口；不会用媒体约数替代原始精确融资余额。

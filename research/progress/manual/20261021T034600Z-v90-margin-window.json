@@ -1,0 +1,40 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-21T03:46:00Z",
+  "workflow_name": "V90 actual 000985 aligned SH/SZ financing 63/253/820-session forensic audit",
+  "conclusion": "partial",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39540193090",
+  "source_artifact_id": 12318818042,
+  "source_sha256": "00fde1c9602b02be19b4c061f80041a9eda9d114addd845644c770ea3ceabce9",
+  "verdict": {
+    "research_recent63": "CANDIDATE_WINDOW_ONLY_NOT_PIT",
+    "research_recent253": "CANDIDATE_WINDOW_ONLY_NOT_PIT",
+    "growth63_prior756": "BLOCKED_SOURCE_GAPS_OR_ANOMALIES",
+    "missing_raw_source_days": 182,
+    "invalid_source_balance_days": [
+      "2024-08-08"
+    ],
+    "damaged_historical_growth_points_of_756": 267,
+    "missing_clusters": [
+      [
+        "2023-09-21",
+        "2023-09-27",
+        5
+      ],
+      [
+        "2024-06-14",
+        "2024-07-05",
+        16
+      ],
+      [
+        "2024-10-21",
+        "2025-06-18",
+        161
+      ]
+    ]
+  },
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "dual80_achieved": false,
+  "next_action": "Source independent exact missing SH/SZ financing balance records and official trading calendar; verify release timestamps; preserve production and research-only model gate."
+}
