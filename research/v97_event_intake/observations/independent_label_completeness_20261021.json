@@ -1,0 +1,50 @@
+{
+  "status": "BOUNDED_LABEL_ENUMERATION_MATCHED_NOT_ORIGINAL_ALERTS_OR_PIT",
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "original_formal_start_restored": false,
+  "historical_price_publication_PIT_verified": false,
+  "full_2015_2026_V52_reproduced": false,
+  "comparison_scope": "2022-02-23 through 2026-10-20, 000985.CSI only",
+  "independent_reversal_enumeration_complete_within_bounded_price_series": true,
+  "scale_checks": {
+    "5": {
+      "independently_generated_confirmed_reversals": 39,
+      "original_archived_candidate_labels": 39,
+      "missing_labels": 0,
+      "extra_labels": 0,
+      "mismatched_fields": 0,
+      "left_censored_initial": 1,
+      "unconfirmed_trailing_candidate": {
+        "status": "UNCONFIRMED_TRAILING_EXTREME",
+        "candidate_direction": "BOTTOM",
+        "candidate_date": "2026-10-15",
+        "candidate_close": "5282.71",
+        "not_an_objective_confirmed_pivot": true
+      },
+      "original_formal_alerts_recovered": false
+    },
+    "9": {
+      "independently_generated_confirmed_reversals": 19,
+      "original_archived_candidate_labels": 19,
+      "missing_labels": 0,
+      "extra_labels": 0,
+      "mismatched_fields": 0,
+      "left_censored_initial": 1,
+      "unconfirmed_trailing_candidate": {
+        "status": "UNCONFIRMED_TRAILING_EXTREME",
+        "candidate_direction": "BOTTOM",
+        "candidate_date": "2026-10-15",
+        "candidate_close": "5282.71",
+        "not_an_objective_confirmed_pivot": true
+      },
+      "original_formal_alerts_recovered": false
+    }
+  },
+  "discrepancies": [],
+  "source_index": "000985.CSI",
+  "observed_price_sessions": 1128,
+  "frozen_price_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+  "frozen_labels_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1",
+  "manifest_sha256": "37301acd2dc231d92b62e6c13c3d5e40bf26b8f955fd049d3d906d1deec56432"
+}
