@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-21T07:50:50+00:00",
-  "entry_count": 134,
+  "updated_at_utc": "2026-10-21T07:54:09+00:00",
+  "entry_count": 135,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T07:50:50+00:00",
-    "run_id": 39564809312,
+    "recorded_at_utc": "2026-10-21T07:54:09+00:00",
+    "run_id": 39565220333,
     "run_attempt": 1,
-    "workflow_name": "V97 preopen event reconstruction and no-future-data audit (research only)",
-    "workflow_path": ".github/workflows/v97-preopen-event-replay.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "981ba0039e5e967ab4e47532e957ddb33bfe8c8e",
+    "commit_sha": "21f60eff0a396f996166e6b14f8250d984005ac3",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-21T07:50:19Z",
-    "run_started_at": "2026-10-21T07:50:19Z",
-    "updated_at": "2026-10-21T07:50:32Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809312",
+    "created_at": "2026-10-21T07:53:44Z",
+    "run_started_at": "2026-10-21T07:53:44Z",
+    "updated_at": "2026-10-21T07:53:59Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39565220333",
     "jobs": [
       {
-        "id": 119104433371,
-        "name": "gate",
+        "id": 119105756795,
+        "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-21T07:50:22Z",
-        "completed_at": "2026-10-21T07:50:31Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809312/job/119104433371"
+        "started_at": "2026-10-21T07:53:47Z",
+        "completed_at": "2026-10-21T07:53:59Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39565220333/job/119105756795"
       }
     ],
     "artifacts": [
       {
-        "id": 12329242507,
-        "name": "v97-preopen-event-evidence-39564809312",
-        "size_in_bytes": 726,
+        "id": 12328644735,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2026-11-20T07:50:27Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12329242507/zip"
+        "expires_at": "2026-11-20T07:53:53Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12328644735/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
