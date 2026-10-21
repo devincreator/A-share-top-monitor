@@ -1,0 +1,73 @@
+name: V102 independent fresh-alert error and warmup audit (research only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v102_fresh_forensics/*.py'
+      - 'research/v102_fresh_forensics/README.md'
+      - '.github/workflows/v102-independent-fresh-forensics.yml'
+permissions:
+  contents: write
+concurrency:
+  group: v102-immutable-fresh-research
+  cancel-in-progress: false
+jobs:
+  independently-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify all 59 frozen new signals and all outcomes independently
+        run: python -m unittest discover -s research/v102_fresh_forensics -p 'test_*.py' -v
+      - name: Recreate immutable real FP/FN and full forecast-window eligibility audit
+        run: python research/v102_fresh_forensics/independent_audit.py
+      - name: Assert frozen V101 remains unchanged and revised denominator is not new success
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("research/v102_fresh_forensics/observations")
+          j=json.loads((root/"independent_replay_and_warmup_audit.json").read_text())
+          assert j["independent_new_formal_starts_reproduced"]==59
+          assert j["independent_event_outcomes_reproduced"]==59
+          assert j["total_mature_FP"]==32 and j["total_original_mature_FN"]==28
+          assert j["newly_identified_unforecastable_warmup_FN"]==5
+          assert j["formal_signal_allowed"] is False
+          assert j["source_asof_PIT_verified"] is False
+          assert j["blind_sample"] is False
+          expected={"5_TOP":(1,8,11,7,15),"5_BOTTOM":(2,6,12,8,14),
+                    "9_TOP":(1,2,7,4,6),"9_BOTTOM":(1,2,2,4,6)}
+          for k,t in expected.items():
+              x=j["full_lead_window_eligible_metrics"][k]["full_forecast_opportunity_sensitivity"]
+              assert (x["excluded_insufficient_history"],x["tp"],x["fp"],x["fn"],x["eligible_mature_pivots"])==t,(k,x)
+          print("V102 data-scoped pass. Five unforecastable early FN excluded in separate sensitivity; V101 immutable; no model win.")
+          PY
+      - name: Preserve independent first-capture evidence even if Git write fails
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v102-independent-fp-fn-eligibility-${{ github.run_id }}
+          path: research/v102_fresh_forensics/observations/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Archive immutable V102-only evidence without touching V101
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v102_fresh_forensics/observations/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'research(v102): archive independent FP/FN and warmup eligibility sensitivity [skip ci]'
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Research evidence still retained as Actions artifact'
+          exit 1
