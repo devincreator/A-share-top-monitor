@@ -6,6 +6,8 @@ on:
     paths:
       - 'research/v97_event_intake/verify_archived_pivot_chronology.py'
       - 'research/v97_event_intake/test_verify_archived_pivot_chronology.py'
+      - 'research/v97_event_intake/independent_label_completeness.py'
+      - 'research/v97_event_intake/test_independent_label_completeness.py'
       - '.github/workflows/v97-label-chronology-independent.yml'
 permissions:
   contents: write
@@ -25,17 +27,28 @@ jobs:
         run: |
           python -m unittest discover -s research/v97_event_intake \
             -p 'test_verify_archived_pivot_chronology.py' -v
+      - name: Test independent complete reversal enumeration including omitted labels
+        run: |
+          python -m unittest discover -s research/v97_event_intake \
+            -p 'test_independent_label_completeness.py' -v
       - name: Verify immutable archived 1128 CSI prices and 58 ex-post objective labels
         run: |
           python research/v97_event_intake/verify_archived_pivot_chronology.py \
             --observations research/v97_event_intake/observations \
             --output research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+      - name: Independently enumerate ALL reversal labels from frozen 1128-day prices
+        run: |
+          python research/v97_event_intake/independent_label_completeness.py \
+            --observations research/v97_event_intake/observations \
+            --output research/v97_event_intake/observations/independent_label_completeness_20261021.json
       - name: Preserve raw-hashed independent label audit
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: v97-independent-label-chronology-${{ github.run_id }}
-          path: research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+          path: |
+            research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+            research/v97_event_intake/observations/independent_label_completeness_20261021.json
           retention-days: 30
           if-no-files-found: warn
       - name: Save research-only label evidence permanently if new
@@ -46,6 +59,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add research/v97_event_intake/observations/independent_chronology_audit_20261021.json
+          git add research/v97_event_intake/observations/independent_label_completeness_20261021.json
           if git diff --cached --quiet; then
             echo "Same independent objective-label report retained"
             exit 0
