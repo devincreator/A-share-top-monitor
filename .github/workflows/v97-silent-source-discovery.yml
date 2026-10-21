@@ -1,0 +1,44 @@
+name: V97 silent old alert source inventory
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 11 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'research/v97_event_intake/legacy_source_discovery.py'
+      - 'research/v97_event_intake/test_legacy_source_discovery.py'
+      - '.github/workflows/v97-silent-source-discovery.yml'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: v97-silent-old-source
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s research/v97_event_intake -p 'test_legacy_source_discovery.py' -v
+      - name: Silently scan original candidate names only
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python research/v97_event_intake/legacy_source_discovery.py \
+            --repository "$GITHUB_REPOSITORY" \
+            --output v97_source_inventory/scan.json
+      - name: Save research-only evidence without updating production
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v97-silent-source-inventory-${{ github.run_id }}
+          path: v97_source_inventory/
+          retention-days: 30
+          if-no-files-found: warn
