@@ -40,6 +40,7 @@ class TestPinnedTradingCalendar(unittest.TestCase):
         self.assertTrue(got["windows"]["finance_recent252"]["window_complete"])
         self.assertFalse(got["windows"]["finance_growth63_prior756_rank"]["window_complete"])
         self.assertEqual(got["windows"]["finance_growth63_prior756_rank"]["invalid_balance_count"], 1)
+        self.assertEqual(got["windows"]["finance_growth63_prior756_rank"]["prior756_invalid_growth_sessions"], 2)
 
     def test_missing_day_cannot_be_ignored(self):
         dates, index, finance = sample()
