@@ -102,6 +102,32 @@ class PreopenEventTests(unittest.TestCase):
                                ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
         self.assertEqual((result["tasks"]["5_TOP"]["tp"],result["tasks"]["5_TOP"]["fn"]),(0,1))
 
+    def test_old_turning_but_recent_confirmation_stays_unmatured(self):
+        days,prices=inputs()
+        a=alert(days,200,"alert_old")
+        p=pivot(days,205,"pivot_late",confirm_delay=210)
+        # Turning is old enough, but confirmation day has not received
+        # the 140-session maturity buffer at evaluation asof.
+        observed=m.audit_preopen([a],[p],prices,{"alert_old":evidence(days,a)},
+                                 ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        row=observed["tasks"]["5_TOP"]
+        self.assertEqual((row["tp"],row["fn"],row["mature_pivots"]),(0,0,0))
+        self.assertEqual(row["fp"],1)
+        self.assertEqual(row["events"][0]["pivot_id"],None)
+
+    def test_mature_confirmation_requires_full_140_session_buffer(self):
+        days,prices=inputs()
+        a=alert(days,200,"alert_early")
+        # confirm index 400, 139 days of subsequent sessions: not mature.
+        p=pivot(days,205,"pivot_late",confirm_delay=195)
+        observed=m.audit_preopen([a],[p],prices,{"alert_early":evidence(days,a)},
+                                 ["INDEX_CLOSE","FINANCING_BALANCE"],days[-1])
+        self.assertEqual(observed["tasks"]["5_TOP"]["mature_pivots"],0)
+        # After cutting evaluation even shorter it must remain unscored.
+        observed2=m.audit_preopen([a],[p],prices,{"alert_early":evidence(days,a)},
+                                  ["INDEX_CLOSE","FINANCING_BALANCE"],days[-2])
+        self.assertEqual(observed2["tasks"]["5_TOP"]["mature_pivots"],0)
+
     def test_index_missing_confirmation_fails_not_future_labels(self):
         days,prices=inputs()
         a=alert(days,200,"a")
