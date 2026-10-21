@@ -373,7 +373,7 @@
       "preopen_historical_signal_accuracy_computed": false,
       "preopen_clock_code_tests_pending": false,
       "preopen_clock_code_tests_passed": true,
-      "next_gate": "E1 recover dated historical FORMAL_START / per-event inputs, then E2 actual publication clocks",
+      "next_gate": "E1 recover actual historical FORMAL_START events with code+first-observed timestamps, then E2 publication clocks and E3 mature scored replay; do not infer warnings from 58 hindsight turning labels",
       "real_historical_event_replay_executed": false,
       "last_preopen_timestamp_gate_verified_run_id": 39556794398,
       "last_preopen_timestamp_gate_artifact_id": 12325223549,
@@ -387,7 +387,16 @@
       "error_attribution_uses_price_only_before_alert_day": true,
       "last_confirmation_maturity_fix_run_id": 39560791099,
       "label_maturity_origin": "confirmation_date, not turning date",
-      "pending_alert_near_immature_pivot_not_false_positive": true
+      "pending_alert_near_immature_pivot_not_false_positive": true,
+      "last_independent_label_chronology_ci_run_id": 39562922917,
+      "last_independent_label_chronology_artifact_id": 12328058679,
+      "independent_label_chronology_status": "ARCHIVED_OBJECTIVE_LABEL_CHRONOLOGY_VERIFIED_NOT_PIT",
+      "independent_label_chronology_errors": 0,
+      "independent_label_chronology_checked": 58,
+      "independent_label_chronology_source_prices": 1128,
+      "independent_label_chronology_left_censored_labels": 2,
+      "independent_label_chronology_report": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v97_event_intake/observations/independent_chronology_audit_20261021.json",
+      "independent_label_chronology_limits": "Checks structure and first reversal crossing for each existing retrospective label, not whether all possible pivots were recovered, not source publication PIT, and not original alerts."
     }
   },
   "data_quality": {
