@@ -416,7 +416,17 @@
         "direction": "BOTTOM",
         "close": 5282.71,
         "observed_asof": "2026-10-20"
-      }
+      },
+      "daily_silent_autonomous_e1_discovery_enabled": true,
+      "daily_silent_github_research_workflow": ".github/workflows/v97-silent-source-discovery.yml",
+      "daily_silent_source_initial_run_id": 39566608572,
+      "daily_silent_source_initial_artifact_id": 12330710096,
+      "daily_silent_source_initial_run_status": "success_code_execution_only_E1_BLOCKED",
+      "daily_silent_source_first_scan_status": "BLOCKED_NO_NAME_LEADS_IN_SCANNED_SCOPE",
+      "daily_silent_source_reachable_git_change_lines": 1896,
+      "daily_silent_source_releases_examined": 2,
+      "daily_silent_source_artifacts_examined": 247,
+      "daily_silent_source_filename_candidates": 0
     }
   },
   "data_quality": {
@@ -469,7 +479,7 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V97 E1: independent state-machine enumeration found all 39 five-percent and 19 nine-percent retrospectively confirmed pivots in truncated 1128-day actual price sample; original V63/V68 dated FORMAL_START alerts/code still absent. Do not confuse label coverage with precision.",
+    "V97 silent E1 source discovery 39566608572 completed 5 tests and enumerated 1896 Git history pathname log lines, 2 existing Releases and 247 unexpired Actions artifact listings; zero matching original alert candidate names found. Limited to reachable tracked Git history and visible metadata; original FORMAL_START still absent. DO NOT infer events from ex-post pivots.",
     "V97 E2: market-regime attribution now uses evidenced last available INDEX_CLOSE observation date rather than assuming D-1 close was published. Historical original release timestamp/PIT authentication remains absent.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
