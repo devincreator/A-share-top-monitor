@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - 'research/v89_factor_inputs/*.py'
+      - 'research/v90_financing_pit/*.py'
       - '.github/workflows/v89-source-readiness-research.yml'
 
 permissions:
@@ -30,6 +31,7 @@ jobs:
       - name: Run fail-closed source data gate tests
         run: |
           python -m unittest discover -s research/v89_factor_inputs -p 'test_*.py' -v
+          python -m unittest discover -s research/v90_financing_pit -p 'test_*.py' -v
           python -m unittest discover -s research/v88_daily_observations -p 'test_*.py' -v
       - name: Install read-only index and financing provider wrappers
         run: python -m pip install --disable-pip-version-check --no-cache-dir 'akshare>=1.15' pandas requests
@@ -38,6 +40,12 @@ jobs:
           python research/v89_factor_inputs/collect_candidates.py \
             --raw-ledger research/v88_daily_observations/ledger \
             --output-dir v89_source_audit_output
+      - name: Audit missing Shenzhen financing sessions and fixed-window PIT factor damage
+        run: |
+          python research/v90_financing_pit/finance_gap_audit.py \
+            --candidate v89_source_audit_output/candidate_inputs.json \
+            --quote research/v90_financing_pit/rounded_quote_20240808.json \
+            --output v89_source_audit_output/v90_financing_forensics.json
       - name: Generate past-only research price factors where index source checks passed
         run: |
           python research/v89_factor_inputs/price_only_research.py --source-dir v89_source_audit_output
