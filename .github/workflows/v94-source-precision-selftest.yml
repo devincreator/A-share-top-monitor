@@ -1,0 +1,34 @@
+name: V94 archived financing source precision and PIT audit (research only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v94_finance_bounds/*.py'
+      - '.github/workflows/v94-source-precision-selftest.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test interval math and historical publication fail-closed rules
+        run: python -m unittest discover -s research/v94_finance_bounds -p 'test_*.py' -v
+      - name: Reaudit two actually archived original exchange source records
+        run: |
+          python - <<'PY'
+          import sys,json
+          sys.path.insert(0,"research/v94_finance_bounds")
+          from bounds_audit import audit_day
+          for date in ("2024-08-08","2025-01-07"):
+              result=audit_day("research/v92_margin_recovery",date)
+              print(json.dumps(result,ensure_ascii=False))
+              assert result["status"]=="ROUNDED_INTERVAL_ONLY_NOT_PIT",result
+              assert result["formal_signal_allowed"] is False
+              assert result["PIT_certified"] is False
+          PY
