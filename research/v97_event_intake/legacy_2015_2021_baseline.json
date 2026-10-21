@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "research_track": "LONG_CSI300",
+  "source_report": "research/reports/V63_V68_实测报告.md",
+  "source_version": "V66 historical migration test (2015-2021), V63-V68 summary",
+  "source_data_quality": "PRICE_ONLY_RETROSPECTIVE_NOT_ORIGINAL_EVENT_LEVEL",
+  "source_alert_clock_verified_preopen": false,
+  "same_day_features_excluded_certified": false,
+  "market": "CSI300, separate from 000985 CSI All Share V52 main track",
+  "model_thresholds_original_reproduction_not_certified": true,
+  "one_to_one_scoring_reported": true,
+  "objective_label_engine": "LONG_CSI300 frozen historical labels, NOT V52 CSI All Share",
+  "reporting_window": "2015-2021",
+  "tasks": {
+    "5_TOP": {
+      "alerts": 70,
+      "tp": 21,
+      "fp": 49,
+      "mature_pivots": 37,
+      "fn": 16
+    },
+    "5_BOTTOM": {
+      "alerts": 61,
+      "tp": 22,
+      "fp": 39,
+      "mature_pivots": 36,
+      "fn": 14
+    },
+    "9_TOP": {
+      "alerts": 27,
+      "tp": 4,
+      "fp": 23,
+      "mature_pivots": 9,
+      "fn": 5
+    },
+    "9_BOTTOM": {
+      "alerts": 21,
+      "tp": 6,
+      "fp": 15,
+      "mature_pivots": 8,
+      "fn": 2
+    }
+  },
+  "note": "Only counts in original report; no original dated alerts, pivots, publication timestamps or feature source hashes in this record. Never manufacture event dates or treat this as a newly preopen-tested benchmark.",
+  "replay_status": "BLOCKED_ORIGINAL_DATED_EVENTS",
+  "preopen_equivalence_status": "BLOCKED_LEGACY_SAME_DAY_FEATURE_CLOCK_UNKNOWN",
+  "formal_signal_allowed": false,
+  "target_precision_per_task": 0.8,
+  "target_recall_per_task": 0.8,
+  "caution": "A historical aggregate count is not source proof, a trend-regime attribution, or a fresh cross-validated result."
+}
