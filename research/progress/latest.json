@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-21T05:45:57+00:00",
-  "entry_count": 87,
+  "updated_at_utc": "2026-10-21T05:49:35+00:00",
+  "entry_count": 88,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T05:45:57+00:00",
-    "run_id": 39551302405,
+    "recorded_at_utc": "2026-10-21T05:49:35+00:00",
+    "run_id": 39551711833,
     "run_attempt": 1,
-    "workflow_name": "V92 gradual exchange financing source gap recovery (research only)",
-    "workflow_path": ".github/workflows/v92-margin-gap-catchup.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "348d466420e190f443cfd8958bdeb5c0382e6fcc",
+    "commit_sha": "bde5ccc0933ec3f5f58a84fc9a8e67afc0132e42",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-21T05:44:51Z",
-    "run_started_at": "2026-10-21T05:44:51Z",
-    "updated_at": "2026-10-21T05:45:50Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551302405",
+    "created_at": "2026-10-21T05:49:11Z",
+    "run_started_at": "2026-10-21T05:49:11Z",
+    "updated_at": "2026-10-21T05:49:26Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551711833",
     "jobs": [
       {
-        "id": 119060880923,
-        "name": "gap_research",
+        "id": 119062173072,
+        "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-21T05:44:54Z",
-        "completed_at": "2026-10-21T05:45:49Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551302405/job/119060880923"
+        "started_at": "2026-10-21T05:49:14Z",
+        "completed_at": "2026-10-21T05:49:26Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39551711833/job/119062173072"
       }
     ],
     "artifacts": [
       {
-        "id": 12324300069,
-        "name": "v92-exchange-gap-batch-39551302405",
-        "size_in_bytes": 12280,
+        "id": 12323881659,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2026-11-20T05:45:42Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12324300069/zip"
+        "expires_at": "2026-11-20T05:49:21Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12323881659/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
