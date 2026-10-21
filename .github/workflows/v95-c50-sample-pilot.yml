@@ -1,0 +1,65 @@
+name: V95 source-hashed traded-sample C50 pilot (never formal)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v95_c50/*.py'
+      - '.github/workflows/v95-c50-sample-pilot.yml'
+permissions:
+  actions: read
+  contents: write
+concurrency:
+  group: research-v95-sample-c50
+  cancel-in-progress: false
+jobs:
+  c50:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate one-day concentration math and source date/identity
+        run: python -m unittest discover -s research/v95_c50 -p 'test_*.py' -v
+      - name: Recover earlier actual V88 raw source CSV
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p v95_c50_input
+          gh run download 39529268418 --name v84-daily-readiness-39529268418 --dir v95_c50_input
+          test -s v95_c50_input/20261020.csv
+      - name: Recompute exact source-native observed traded-stock concentration
+        run: |
+          python research/v95_c50/traded_sample.py \
+            --csv v95_c50_input/20261020.csv \
+            --asof 2026-10-20 \
+            --sha256 987e23b51fb57fdcffe1fde14bf04882a2062a5c08873711675d95a42f6e85cd \
+            --out research/v95_c50/observations/2026-10-20.json
+      - name: Preserve research computed result and source availability
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v95-one-day-traded-c50-${{ github.run_id }}
+          path: |
+            research/v95_c50/observations/
+            v95_c50_input/probe_recent.json
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Permanently retain first observation without promoting signal
+        if: success()
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v95_c50/observations/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'research(v95): archive real raw-hashed sample C50 ratio [skip ci]'
+          for i in 1 2 3 4 5; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          exit 1
