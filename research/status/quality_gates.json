@@ -36,7 +36,7 @@
     "immature_pivot_matched_alert_must_remain_pending": true,
     "market_regime_price_endpoint_must_be_verified_available_at_decision": true,
     "new_baseline_may_generate_independent_formal_starts_without_old_V63_V68_files": true,
-    "old_V63_V68_perf_not_validated_as_D_open_preopen": false
+    "old_V63_V68_perf_not_validated_as_D_open_preopen": true
   },
   "versions": {
     "V52_V62": {
@@ -547,7 +547,10 @@
       "V101_quality_code_pass": true,
       "formal_signal_allowed": false,
       "four_tasks_double80_achieved": false,
-      "production_updated": false
+      "production_updated": false,
+      "preserved_frozen_baseline_with_original_source_sha": true,
+      "real_replay_result_archived": true,
+      "model_parameter_selection_untuned_but_not_independent_advance_preregistration": true
     }
   },
   "data_quality": {
