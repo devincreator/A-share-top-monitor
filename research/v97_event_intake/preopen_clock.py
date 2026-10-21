@@ -82,8 +82,12 @@ def inspect_prediction(prediction,evidence,required_factors=None):
             pub=aware(row["published_at"])
             if pub>when:
                 raise ValueError("published after historical prediction time")
-            if pub.astimezone(CHINA).date()<observation:
-                raise ValueError("publication before observation trading date")
+            final_session_close=datetime.combine(observation,time(15,0),tzinfo=CHINA)
+            # Do not accept a claimed 10:00 release for that same trading
+            # day's final close/turnover/margin/breadth. Those final values
+            # cannot exist before the trading session has finished.
+            if pub<final_session_close:
+                raise ValueError("daily final indicator allegedly published before its observation-day market close")
             sha=row.get("source_raw_sha256")
             if not isinstance(sha,str) or len(sha)!=64 or any(c not in "0123456789abcdef" for c in sha):
                 raise ValueError("no valid SHA256 for the raw input")
