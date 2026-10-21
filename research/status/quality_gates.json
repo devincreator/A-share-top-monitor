@@ -33,7 +33,8 @@
     "predictor_daily_factor_observation_date_must_be_before_D": true,
     "prior_day_factor_original_publication_must_precede_decision": true,
     "pivot_confirmation_maturity_buffer_trading_sessions": 140,
-    "immature_pivot_matched_alert_must_remain_pending": true
+    "immature_pivot_matched_alert_must_remain_pending": true,
+    "market_regime_price_endpoint_must_be_verified_available_at_decision": true
   },
   "versions": {
     "V52_V62": {
@@ -396,7 +397,26 @@
       "independent_label_chronology_source_prices": 1128,
       "independent_label_chronology_left_censored_labels": 2,
       "independent_label_chronology_report": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v97_event_intake/observations/independent_chronology_audit_20261021.json",
-      "independent_label_chronology_limits": "Checks structure and first reversal crossing for each existing retrospective label, not whether all possible pivots were recovered, not source publication PIT, and not original alerts."
+      "independent_label_chronology_limits": "Checks structure and first reversal crossing for each existing retrospective label, not whether all possible pivots were recovered, not source publication PIT, and not original alerts.",
+      "price_regime_requires_evidenced_index_close_asof": true,
+      "never_assume_previous_trading_close_publicly_available": true,
+      "no_D_minus_1_price_leak_regression_run_id": 39564356031,
+      "independent_complete_reversal_stream_run_id": 39564809325,
+      "independent_complete_reversal_scope": "000985.CSI 2022-02-23 to 2026-10-20, 1128 archived observations only",
+      "independent_complete_reversal_counts": {
+        "5": 39,
+        "9": 19
+      },
+      "independent_complete_reversal_missing": 0,
+      "independent_complete_reversal_extra": 0,
+      "independent_complete_reversal_mismatched_fields": 0,
+      "independent_complete_reversal_report": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v97_event_intake/observations/independent_label_completeness_20261021.json",
+      "right_edge_candidate_not_confirmed_not_predictive": {
+        "date": "2026-10-15",
+        "direction": "BOTTOM",
+        "close": 5282.71,
+        "observed_asof": "2026-10-20"
+      }
     }
   },
   "data_quality": {
@@ -449,8 +469,8 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V97 E1: 2022-2026 independently rederived 58 retrospective objective pivots, including two LEFT_CENSORED initial extrema; original V63-V68 FORMAL_START dated event/source code archive still missing. Do not compute false alarm rates from pivots alone.",
-    "V97 E2: pre-open factor timing unit tests passed but legacy 2015-2021 research has no verified historical original publication times; cannot claim the old model made predictions using prior released day only.",
+    "V97 E1: independent state-machine enumeration found all 39 five-percent and 19 nine-percent retrospectively confirmed pivots in truncated 1128-day actual price sample; original V63/V68 dated FORMAL_START alerts/code still absent. Do not confuse label coverage with precision.",
+    "V97 E2: market-regime attribution now uses evidenced last available INDEX_CLOSE observation date rather than assuming D-1 close was published. Historical original release timestamp/PIT authentication remains absent.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
     "V93 exact Yuan per-security aggregate is NOT equal to market aggregate (2025/2026 deficits 8.198/9.968 billion yuan). Exact SZSE market historical Yuan source needed; do not use per-security sums as replacement.",
