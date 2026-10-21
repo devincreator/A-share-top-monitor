@@ -40,6 +40,7 @@ class TestPinnedTradingCalendar(unittest.TestCase):
         self.assertTrue(got["windows"]["finance_recent252"]["window_complete"])
         self.assertFalse(got["windows"]["finance_growth63_prior756_rank"]["window_complete"])
         self.assertEqual(got["windows"]["finance_growth63_prior756_rank"]["invalid_balance_count"], 1)
+        self.assertEqual(got["windows"]["finance_growth63_prior756_rank"]["prior756_invalid_growth_sessions"], 2)
 
     def test_missing_day_cannot_be_ignored(self):
         dates, index, finance = sample()
@@ -49,6 +50,18 @@ class TestPinnedTradingCalendar(unittest.TestCase):
         self.assertFalse(recent["window_complete"])
         self.assertEqual(recent["missing_session_count"], 1)
         self.assertEqual(got["status"], "BLOCKED_FINANCING_RECENT_WINDOW")
+
+    def test_missing_ranges_count_index_sessions(self):
+        dates, index, finance = sample()
+        absent = {dates[-100], dates[-99], dates[-98], dates[-5]}
+        finance = [row for row in finance if row["date"] not in absent]
+        result = mod.audit_financing(finance, index, dates[-1])
+        observed = result["windows"]["finance_recent252"]["missing_session_ranges"]
+        self.assertEqual(observed, [
+            {"start": dates[-100], "end": dates[-98], "missing_sessions": 3},
+            {"start": dates[-5], "end": dates[-5], "missing_sessions": 1}])
+        self.assertEqual(result["windows"]["finance_recent252"]["missing_session_count"], 4)
+        self.assertFalse(result["windows"]["finance_recent252"]["window_complete"])
 
     def test_asof_financing_zero_blocks_recent(self):
         dates, index, finance = sample()

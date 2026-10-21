@@ -26,6 +26,27 @@ def canonical_date(value):
         return dt.datetime.strptime(s, "%Y%m%d").date().isoformat()
 
 
+def grouped_missing_ranges(expected, absent):
+    """Group consecutive missing *index sessions*, not natural-calendar days."""
+    absent = set(absent)
+    result = []
+    start = end = None
+    count = 0
+    for trading_date in expected:
+        if trading_date in absent:
+            if start is None:
+                start = trading_date
+                count = 0
+            end = trading_date
+            count += 1
+        elif start is not None:
+            result.append({"start": start, "end": end, "missing_sessions": count})
+            start = end = None
+    if start is not None:
+        result.append({"start": start, "end": end, "missing_sessions": count})
+    return result
+
+
 def audit_financing(rows, index_rows, asof, windows=None):
     """Return factual window coverage; use index dates as calendar proxy only.
 
@@ -102,9 +123,23 @@ def audit_financing(rows, index_rows, asof, windows=None):
             "missing_session_count": len(absent),
             "invalid_balance_count": len(invalid),
             "missing_dates_head": absent[:12],
+            "missing_session_ranges": grouped_missing_ranges(expected, absent),
             "invalid_dates": invalid[:12],
             "window_complete": len(expected) == size and not absent and not invalid
         }
+        if name == "finance_growth63_prior756_rank" and len(calendar) >= 820:
+            t = len(calendar) - 1
+            missing_growth = [
+                calendar[i] for i in range(t - 756, t)
+                if finance.get(calendar[i]) is None or
+                   finance.get(calendar[i - 63]) is None
+            ]
+            item["prior756_invalid_growth_sessions"] = len(missing_growth)
+            item["prior756_first_unusable_dates"] = missing_growth[:15]
+            item["prior756_current_growth_valid"] = (
+                finance.get(calendar[t]) is not None and
+                finance.get(calendar[t - 63]) is not None
+            )
         if len(expected) != size:
             item["status"] = "BLOCKED_INSUFFICIENT_INDEX_HISTORY"
         elif absent or invalid:
