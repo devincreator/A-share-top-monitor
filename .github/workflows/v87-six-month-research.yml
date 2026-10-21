@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: research-progress-append-main
+  group: v87-weekly-review-main
   cancel-in-progress: false
 
 jobs:
