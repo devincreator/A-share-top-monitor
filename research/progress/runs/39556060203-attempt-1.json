@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-21T06:32:57+00:00",
+  "run_id": 39556060203,
+  "run_attempt": 1,
+  "workflow_name": "V97 preopen event reconstruction and no-future-data audit (research only)",
+  "workflow_path": ".github/workflows/v97-preopen-event-replay.yml",
+  "branch": "main",
+  "commit_sha": "dcef3d403243f4f8447d28914c22a64cb1fb2005",
+  "status": "completed",
+  "conclusion": "failure",
+  "event": "push",
+  "created_at": "2026-10-21T06:32:40Z",
+  "run_started_at": "2026-10-21T06:32:40Z",
+  "updated_at": "2026-10-21T06:32:49Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556060203",
+  "jobs": [
+    {
+      "id": 119075979810,
+      "name": "gate",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-10-21T06:32:43Z",
+      "completed_at": "2026-10-21T06:32:48Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39556060203/job/119075979810"
+    }
+  ],
+  "artifacts": [],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
