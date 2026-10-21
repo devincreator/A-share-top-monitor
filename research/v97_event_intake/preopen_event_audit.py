@@ -204,7 +204,11 @@ def audit_preopen(alerts,pivots,price_rows,availability,required_factors,asof):
         "evaluation_asof":asof,"maturity_buffer_sessions":MATURITY_BUFFER,
         "clock_verification":"CANDIDATE_SOURCE_METADATA_NOT_INDEPENDENT_PIT_AUDIT",
         "market_regime_clock":"EFFECTIVE_INDEX_CLOSE_SOURCE_OBSERVATION_DATE_NOT_ASSUMED_D_MINUS_1",
-        "market_regime_endpoint_matches_claimed_source_value":not bool(bad),
+        "market_regime_endpoint_matches_claimed_source_value":(
+            False if bad else
+            True if alerts and all(price_asof_idx.get(a["id"]) is not None
+                                   for a in alerts) else None),
+        # None means no applicable index-price source, NOT verified success.
         "market_regime_lookback_vintage_independently_PIT_certified":False,
         "scored_legacy_results_not_portable_to_preopen":True}
     if bad:
