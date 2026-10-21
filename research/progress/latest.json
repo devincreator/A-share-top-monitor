@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-21T04:19:17+00:00",
-  "entry_count": 80,
+  "updated_at_utc": "2026-10-21T04:19:33+00:00",
+  "entry_count": 81,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-21T04:16:14+00:00",
-    "run_id": 39543038695,
+    "recorded_at_utc": "2026-10-21T04:19:33+00:00",
+    "run_id": 39543371063,
     "run_attempt": 1,
-    "workflow_name": "V93 SZSE detail versus market margin balance precision pilot",
-    "workflow_path": ".github/workflows/v93-szse-detail-pilot.yml",
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
     "branch": "main",
-    "commit_sha": "06f683eac221d4488d96b837174d6edb26e9e9b0",
+    "commit_sha": "295d966a587ee09e89c713615afad46ad84e18a7",
     "status": "completed",
     "conclusion": "success",
     "event": "push",
-    "created_at": "2026-10-21T04:15:28Z",
-    "run_started_at": "2026-10-21T04:15:28Z",
-    "updated_at": "2026-10-21T04:16:06Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695",
+    "created_at": "2026-10-21T04:19:09Z",
+    "run_started_at": "2026-10-21T04:19:09Z",
+    "updated_at": "2026-10-21T04:19:23Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543371063",
     "jobs": [
       {
-        "id": 119034884721,
-        "name": "compare",
+        "id": 119035957505,
+        "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-21T04:15:31Z",
-        "completed_at": "2026-10-21T04:16:05Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543038695/job/119034884721"
+        "started_at": "2026-10-21T04:19:13Z",
+        "completed_at": "2026-10-21T04:19:22Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39543371063/job/119035957505"
       }
     ],
     "artifacts": [
       {
-        "id": 12320332156,
-        "name": "v93-szse-margin-detail-39543038695",
-        "size_in_bytes": 123802,
+        "id": 12320660619,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
         "expired": false,
-        "expires_at": "2026-11-20T04:16:01Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12320332156/zip"
+        "expires_at": "2026-11-20T04:19:19Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12320660619/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
