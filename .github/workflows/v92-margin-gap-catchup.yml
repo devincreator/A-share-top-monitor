@@ -10,6 +10,7 @@ on:
     paths:
       - 'research/v92_margin_recovery/*.py'
       - '.github/workflows/v92-margin-gap-catchup.yml'
+      - 'research/v94_finance_bounds/*.py'
 
 permissions:
   actions: read
@@ -32,6 +33,7 @@ jobs:
         run: |
           python -m unittest discover -s research/v91_exchange_margin -p 'test_*.py' -v
           python -m unittest discover -s research/v92_margin_recovery -p 'test_*.py' -v
+          python -m unittest discover -s research/v94_finance_bounds -p 'test_*.py' -v
       - name: Read latest successful V89 source archive with provenance
         env:
           GH_TOKEN: ${{ github.token }}
@@ -62,6 +64,12 @@ jobs:
             --candidate v89_source_audit_output/candidate_inputs.json \
             --ledger research/v92_margin_recovery \
             --out v92_exchange_batch/coverage_audit.json
+      - name: V94 strict exchange raw integrity and conditional Yuan display bounds
+        run: |
+          python research/v94_finance_bounds/bounds_audit.py \
+            --candidate v89_source_audit_output/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v92_exchange_batch/v94_bounds_audit.json
       - name: Upload investigation records even if source unavailable
         if: always()
         uses: actions/upload-artifact@v4
