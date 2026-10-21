@@ -1,0 +1,64 @@
+name: V97 preopen event reconstruction and no-future-data audit (research only)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v97_event_intake/*.py'
+      - 'research/v86_event_models/event_audit.py'
+      - 'research/v86_event_models/test_event_audit.py'
+      - '.github/workflows/v97-preopen-event-replay.yml'
+permissions:
+  contents: read
+concurrency:
+  group: v97-preopen-event-clock-audit
+  cancel-in-progress: false
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test earlier V86 matching with t-1 market attribution
+        run: |
+          python -m unittest discover -s research/v86_event_models -p 'test_*.py' -v
+      - name: Test V97 original source gate and strict per-factor decision time
+        run: |
+          python -m unittest discover -s research/v97_event_intake -p 'test_*.py' -v
+      - name: Verify missing real original event archive is not silently substituted
+        run: |
+          python research/v97_event_intake/bundle_gate.py \
+            --output v97_preopen_audit_output/source_intake_status.json
+      - name: Attempt only authentic preopen historical replay
+        run: |
+          python research/v97_event_intake/preopen_event_audit.py \
+            --alerts research/v97_event_intake/original/alerts.csv \
+            --pivots research/v97_event_intake/original/pivots.csv \
+            --prices research/v97_event_intake/original/prices.csv \
+            --availability-json research/v97_event_intake/original/feature_availability.json \
+            --asof 2026-10-20 \
+            --output v97_preopen_audit_output/event_replay_status.json
+      - name: Assert no unverified historical score or production success
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("v97_preopen_audit_output")
+          items=[json.loads(p.read_text()) for p in root.glob("*.json")]
+          assert len(items)==2, "Missing source status or replay status"
+          assert all(d["formal_signal_allowed"] is False for d in items)
+          if items[0].get("status")=="BLOCKED_BUNDLE_MISSING":
+              assert not any(d.get("tasks") for d in items), "Source missing but pretend event metrics exist"
+          print("RESEARCH_ONLY: passed code gate; source readiness judged separately")
+          PY
+      - name: Archive genuine evidence and blockers, not fabricated dated events
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v97-preopen-event-evidence-${{ github.run_id }}
+          path: v97_preopen_audit_output/
+          retention-days: 30
+          if-no-files-found: warn
