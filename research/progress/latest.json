@@ -1,18 +1,48 @@
 {
-  "updated_at_utc": "2026-10-21T07:55:15+00:00",
-  "entry_count": 136,
+  "updated_at_utc": "2026-10-21T07:55:30+00:00",
+  "entry_count": 137,
   "latest": {
-    "record_type": "manually_reported_research_milestone",
-    "recorded_at_utc": "2026-10-21T07:54:47.873Z",
-    "workflow_name": "V97 only: source-clock-aligned preopen market regime and complete bounded objective label enumeration",
-    "conclusion": "partial",
-    "summary": "GitHub cloud tests succeeded. Historical attribution now uses the last index-close observation whose source metadata is eligible at D preopen (test run 39564356031). Independent Decimal price stream enumeration run 39564809325 found all 39 5% and 19 9% ex-post pivots, 0 omitted, 0 extraneous and 0 different fields in 1128 genuine archived CSI 000985 price observations. Does not reconstruct original old dated FORMAL_START alerts, their actual market-time availability or new accuracy statistics.",
-    "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564809325",
-    "additional_evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39564356031",
-    "data_gate": "E1_PARTIAL_RETROSPECTIVE_LABEL_ENUMERATION_COMPLETE_ORIGINAL_FORMAL_ALERTS_BLOCKED",
-    "dual80_achieved": false,
-    "production_updated": false,
-    "formal_signal_allowed": false,
-    "next_action": "Find actual old V63/V68 dated FORMAL_START source or independently reproduce from original pinned code and PIT preopen inputs; do not invent old alerts from objective pivot dates."
+    "schema_version": 1,
+    "record_type": "github_actions_completion",
+    "progress_source": "GITHUB_API_AUTHORITATIVE",
+    "recorded_at_utc": "2026-10-21T07:55:30+00:00",
+    "run_id": 39565387995,
+    "run_attempt": 1,
+    "workflow_name": "Research handoff - verify 2005 release + metadata",
+    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
+    "branch": "main",
+    "commit_sha": "eff16fc19a2fb79d8d5dd09fa9f0d1ba8033b052",
+    "status": "completed",
+    "conclusion": "success",
+    "event": "push",
+    "created_at": "2026-10-21T07:55:08Z",
+    "run_started_at": "2026-10-21T07:55:08Z",
+    "updated_at": "2026-10-21T07:55:21Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39565387995",
+    "jobs": [
+      {
+        "id": 119106300140,
+        "name": "audit",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-21T07:55:11Z",
+        "completed_at": "2026-10-21T07:55:20Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39565387995/job/119106300140"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12330010074,
+        "name": "research-v82-handoff-selftest",
+        "size_in_bytes": 8086461,
+        "expired": false,
+        "expires_at": "2026-11-20T07:55:17Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12330010074/zip"
+      }
+    ],
+    "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+    "PIT_certified": null,
+    "dual80_achieved": null,
+    "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
   }
 }
