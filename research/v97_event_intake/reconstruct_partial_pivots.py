@@ -63,16 +63,21 @@ def label_one(records,scale,threshold):
     for i in range(1,len(records)):
         p=records[i]["close"]
         if state=="UNKNOWN":
-            if p>high:
-                high=p;hi=i
-            if p<low:
-                low=p;lo=i
-            if hi>lo and p<=high*(1-threshold):
+            # Evaluate reversal against PREVIOUS extrema before letting today's
+            # new low/high overwrite the initial candidate extreme.
+            hit_top=p<=high*(1-threshold)
+            hit_bottom=p>=low*(1+threshold)
+            if hit_top and (not hit_bottom or hi>lo):
                 pivots.append((hi,i,"TOP",True))
                 state="DOWN";low=p;lo=i
-            elif lo>hi and p>=low*(1+threshold):
+            elif hit_bottom:
                 pivots.append((lo,i,"BOTTOM",True))
                 state="UP";high=p;hi=i
+            else:
+                if p>high:
+                    high=p;hi=i
+                if p<low:
+                    low=p;lo=i
         elif state=="UP":
             if p>high:
                 high=p;hi=i
