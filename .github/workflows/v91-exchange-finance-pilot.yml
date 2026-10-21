@@ -1,0 +1,62 @@
+name: V91 independent exchange financing gap source pilot (research only)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/v91-exchange-finance-pilot.yml'
+      - 'research/v91_exchange_margin/**'
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: v91-exchange-finance-pilot
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify official exchange financial units and zero-repair safety
+        run: python -m unittest discover -s research/v91_exchange_margin -p 'test_*.py' -v
+      - name: Select last successful V89 immutable cloud artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          runid="$(gh run list --workflow v89-source-readiness-research.yml --branch main --limit 20 --json databaseId,conclusion --jq '[.[] | select(.conclusion == "success")][0].databaseId')"
+          if [ -z "$runid" ] || [ "$runid" = "null" ]; then
+            echo 'ERROR: no successful full-source V89 cloud artifact'
+            exit 1
+          fi
+          mkdir -p v89_source_audit_output
+          gh run download "$runid" --name "v89-index-financing-source-$runid" --dir v89_source_audit_output
+          test -s v89_source_audit_output/candidate_inputs.json
+          echo "Source V89 GitHub Actions run: $runid"
+          echo "$runid" > v89_source_audit_output/provenance_run_id.txt
+      - name: Install official exchange API wrappers
+        run: python -m pip install --disable-pip-version-check --no-cache-dir 'akshare>=1.15' pandas requests
+      - name: Query 5 bounded pilot dates on SSE and SZSE official market summaries
+        run: |
+          python research/v91_exchange_margin/probe_official.py \
+            --input v89_source_audit_output/candidate_inputs.json \
+            --out v91_exchange_pilot
+      - name: Archive unmodified raw responses, provenance and all failed probes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v91-exchange-financing-pilot-${{ github.run_id }}
+          path: |
+            v91_exchange_pilot/
+            v89_source_audit_output/provenance_run_id.txt
+          retention-days: 30
+          if-no-files-found: warn
