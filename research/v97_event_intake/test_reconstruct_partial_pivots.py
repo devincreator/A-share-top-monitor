@@ -23,7 +23,7 @@ def rows(closes):
 
 class RealSourceLabelRuleTests(unittest.TestCase):
     def test_first_event_is_left_censored_and_next_is_alternating(self):
-        values=rows([100,105,100,94,95,98,104,105,98])
+        values=rows([100,104,103,98,94,95,100,104])
         events=m.label_one(values,"5",.05)
         self.assertGreaterEqual(len(events),2)
         self.assertEqual(events[0]["direction"],"TOP")
@@ -31,12 +31,12 @@ class RealSourceLabelRuleTests(unittest.TestCase):
         self.assertEqual(events[0]["confirmation_date"],values[3]["date"])
         self.assertEqual(events[0]["first_segment_left_censored"],"true")
         self.assertEqual(events[1]["direction"],"BOTTOM")
-        self.assertEqual(events[1]["date"],values[3]["date"])
+        self.assertEqual(events[1]["date"],values[4]["date"])
         self.assertEqual(events[1]["first_segment_left_censored"],"false")
         self.assertEqual(events[0]["earliest_possible_preopen_day_after_confirmation"],values[4]["date"])
 
     def test_equal_extreme_keeps_first_date(self):
-        events=m.label_one(rows([100,110,110,104,100]),"5",.05)
+        events=m.label_one(rows([100,104,104,98,94]),"5",.05)
         self.assertEqual(events[0]["date"],rows([100,110,110,104,100])[1]["date"])
 
     def test_future_prices_cannot_change_previously_confirmed_labels(self):
