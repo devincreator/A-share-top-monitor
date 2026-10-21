@@ -137,6 +137,7 @@ class PreopenEventTests(unittest.TestCase):
         event=result["tasks"]["5_TOP"]["events"][0]
         self.assertEqual(event["regime_using_prior_day"],"NO_INDEX_CLOSE_ASOF_SOURCE")
         self.assertIsNone(event["last_feature_price_date"])
+        self.assertIsNone(result["market_regime_endpoint_matches_claimed_source_value"])
 
     def test_available_index_close_must_exist_in_original_trading_calendar(self):
         days,prices=inputs()
