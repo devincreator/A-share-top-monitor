@@ -50,8 +50,11 @@ jobs:
           items=[json.loads(p.read_text()) for p in root.glob("*.json")]
           assert len(items)==2, "Missing source status or replay status"
           assert all(d["formal_signal_allowed"] is False for d in items)
-          if items[0].get("status")=="BLOCKED_BUNDLE_MISSING":
-              assert not any(d.get("tasks") for d in items), "Source missing but pretend event metrics exist"
+          source=json.loads((root/"source_intake_status.json").read_text())
+          replay=json.loads((root/"event_replay_status.json").read_text())
+          if source["status"]=="BLOCKED_BUNDLE_MISSING":
+              assert replay["status"]=="BLOCKED_ORIGINAL_EVENTS_OR_AVAILABILITY_MISSING"
+              assert not replay.get("tasks"), "Source missing but pretend event metrics exist"
           print("RESEARCH_ONLY: passed code gate; source readiness judged separately")
           PY
       - name: Archive genuine evidence and blockers, not fabricated dated events
