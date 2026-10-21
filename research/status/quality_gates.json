@@ -28,7 +28,12 @@
     "non_overlapping_pivot_matches": true,
     "wave_cycle_bottom_top_bottom_separate": true,
     "train_embargo_days": 140,
-    "new_forward_unseen_validation": false
+    "new_forward_unseen_validation": false,
+    "decision_clock": "D before 09:30 Asia/Shanghai",
+    "predictor_daily_factor_observation_date_must_be_before_D": true,
+    "prior_day_factor_original_publication_must_precede_decision": true,
+    "pivot_confirmation_maturity_buffer_trading_sessions": 140,
+    "immature_pivot_matched_alert_must_remain_pending": true
   },
   "versions": {
     "V52_V62": {
@@ -379,7 +384,10 @@
       "event_replay_required_raw_files_total": 4,
       "real_historical_FP_reconstructed": false,
       "last_preopen_gate_ci_conclusion": "success_code_tests__scientific_events_blocked",
-      "error_attribution_uses_price_only_before_alert_day": true
+      "error_attribution_uses_price_only_before_alert_day": true,
+      "last_confirmation_maturity_fix_run_id": 39560791099,
+      "label_maturity_origin": "confirmation_date, not turning date",
+      "pending_alert_near_immature_pivot_not_false_positive": true
     }
   },
   "data_quality": {
