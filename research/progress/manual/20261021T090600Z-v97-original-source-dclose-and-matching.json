@@ -1,0 +1,61 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "date": "2026-10-21",
+  "lane": "V97_ONLY_E1_EVENT_SOURCE_RECOVERY_AND_E2_EVENT_AUDIT_CODE_GATES",
+  "conclusion": "RESEARCH_CODE_PASS_ORIGINAL_FORMAL_START_SOURCE_BLOCKED",
+  "actions": [
+    {
+      "name": "one_to_one_event_pairing_monotone_max_cardinality",
+      "run_id": 39572307761,
+      "passed_synthetic_exhaustive_cases": 34596,
+      "regression_V86_tests": 14,
+      "regression_V97_tests": 77,
+      "source_events_recovered": false
+    },
+    {
+      "name": "claimed_published_index_close_matches_research_archive",
+      "run_id": 39573086171,
+      "regression_V97_tests": 80,
+      "publication_PIT_verified": false
+    },
+    {
+      "name": "tri_state_index_close_value_evidence",
+      "run_id": 39573521386,
+      "conclusion": "success",
+      "missing_evidence_status": "UNKNOWN_NOT_FALSE_PASS"
+    },
+    {
+      "name": "locally_mounted_archive_names_scan",
+      "archives": 15,
+      "nested_members": 422,
+      "original_alarm_filename_candidates": 0,
+      "negative_evidence_not_exhaustive": true
+    },
+    {
+      "name": "original_code_identity_search",
+      "original_script_names": [
+        "upstream/run_stages.py",
+        "v65_v68_research.py",
+        "v65_v68_extensions.py",
+        "v67_daily_updates.py",
+        "test_v63_v68_live.py"
+      ],
+      "repository_paths_checked": 591,
+      "matched_original_scripts": 0
+    },
+    {
+      "name": "legacy_report_clock_contract",
+      "source": "research/reports/V63_V68_实测报告.md",
+      "reported_feature_clock": "same observation day historical price close in rolling features",
+      "current_frozen_decision_clock": "D open before 09:30 Asia/Shanghai",
+      "old_aggregate_score_not_D_preopen_certified": true
+    }
+  ],
+  "actual_date_level_formal_alerts_recovered": 0,
+  "original_formal_alert_source_certified": false,
+  "actual_false_positive_dates_computed": false,
+  "double80_achieved": false,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "next_action": "E1 recover frozen old V63/V68 code/scripts plus dated FORMAL_START events; then determine D close versus D+1 open execution and independently verified publication clocks. No inference of alarms from retrospective labels."
+}
