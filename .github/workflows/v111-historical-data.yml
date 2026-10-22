@@ -51,6 +51,13 @@ jobs:
             --ledger research/v92_margin_recovery \
             --daily v111_normalized/daily_unified.csv \
             --out v111_normalized
+      - name: Evaluate strict V112 funding coverage acceptance
+        run: |
+          python research/v111_data_inventory/accept_v112.py \
+            --daily v111_normalized/daily_unified.csv \
+            --bridge v111_normalized/v92_financing_gap_candidates.csv \
+            --manifest v111_normalized/data_coverage.json \
+            --out v111_normalized/v112_acceptance.json
       - name: Upload raw source and coverage bundle (research only)
         if: always()
         uses: actions/upload-artifact@v4
