@@ -37,6 +37,16 @@ class DiagnosticsTests(unittest.TestCase):
         ev[0]["last_price_observation_date"]="2026-10-22"
         with self.assertRaisesRegex(ValueError,"MISSING_ASOF_STATE"):
             m.event_state_crosswalk(ev,states)
+    def test_fp_contingency_never_converts_pending_to_tp(self):
+        rows=[{"alert_id":"a","task":"5_TOP","state":"UPTREND"},
+              {"alert_id":"b","task":"5_TOP","state":"UPTREND"}]
+        fp=[{"alert_id":"a"}]
+        result=m.hindsight_error_by_state(rows,fp)[0]
+        self.assertEqual(result["retrospective_fp"],1)
+        self.assertEqual(result["not_identified_as_fp_in_this_file"],1)
+        self.assertTrue(result["non_fp_may_include_pending"])
+        with self.assertRaisesRegex(ValueError,"ORPHAN"):
+            m.hindsight_error_by_state(rows,[{"alert_id":"unknown"}])
     def test_duplicate_dates(self):
         with self.assertRaisesRegex(ValueError,"DUPLICATE_PRICE"):
             m.parse_price_table([{"date":"2026-01-01","close":"10"},{"date":"2026-01-01","close":"11"}])
