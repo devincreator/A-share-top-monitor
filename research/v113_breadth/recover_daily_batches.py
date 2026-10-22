@@ -13,7 +13,8 @@ def run(master,out,begin,end,limit):
     folder=Path(out);folder.mkdir(parents=True,exist_ok=True)
     done=[];fails=[]
     for day in days:
-        response=probe(day,folder)
+        saved=folder/("daily_"+day.replace("-","")+".csv")
+        response={"status":"SOURCE_BYTES_OBSERVED_NOT_YET_VALIDATED"} if saved.is_file() else probe(day,folder)
         for attempt in range(3):
             if "429" not in response.get("error",""):break
             time.sleep(4*(attempt+1))
