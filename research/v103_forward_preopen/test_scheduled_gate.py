@@ -33,6 +33,31 @@ class ScheduledGateTests(unittest.TestCase):
             p.mkdir()
             (p/"first_capture.json").write_text(json.dumps({"decision_date":"2026-10-22"}))
             self.assertEqual(g.check(td,"2026-10-23"),(False,"DATE_MISMATCH"))
+    def test_realistic_pass_with_valid_immutable_archive(self):
+        from datetime import date, datetime, timedelta, timezone
+        from first_capture import archive_once, capture
+        latest = date(2026, 10, 22)
+        days = []
+        d = latest
+        while len(days) < 160:
+            if d.weekday() < 5:
+                days.append(d)
+            d -= timedelta(days=1)
+        rows = [{"indexCode": "000985", "tradeDate": x.strftime("%Y%m%d"), "close": "5000"}
+                for x in reversed(days)]
+        raw = json.dumps({"data": rows}).encode()
+        stamps = iter([datetime(2026,10,23,1,10,tzinfo=timezone.utc),
+                       datetime(2026,10,23,1,11,tzinfo=timezone.utc)])
+        record, returned = capture(now=lambda: next(stamps),
+                                   fetch=lambda url: (raw, {"http_status": 200}))
+        self.assertEqual(record["status"], g.PASS)
+        with tempfile.TemporaryDirectory() as td:
+            archive_once(record, returned, td)
+            self.assertEqual(g.check(td,"2026-10-23"),(True,"PASS_RESEARCH_ONLY"))
+            original = Path(td)/"2026-10-23"/"official_index_raw.json"
+            original.write_bytes(b"tampered")
+            self.assertFalse(g.check(td,"2026-10-23")[0])
+
     def test_fake_pass_without_raw(self):
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/"2026-10-23"
