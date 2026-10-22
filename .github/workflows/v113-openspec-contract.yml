@@ -31,10 +31,24 @@ jobs:
           name: v111-real-sources-assumed-lag-39739950143
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: anchor
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39743177479
+          name: v113-aug2026-repaired-39743177479
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: actual_august
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39750775772
+          name: v113-sep-oct-source-coverage-39750775772
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: actual_sep_oct
       - name: Compute actual acceptance without certifying incomplete research
         run: |
           python research/v113_breadth/openspec_acceptance.py \
             --anchor anchor/v111_normalized/daily_unified.csv \
+            --security-csv actual_august/stock_breadth_reconstructed.csv \
+            --aggregate-csv actual_sep_oct/public_breadth_candidates.csv \
             --out v113_openspec_report/acceptance.json
       - uses: actions/upload-artifact@v4
         with:
