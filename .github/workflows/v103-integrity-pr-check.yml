@@ -1,0 +1,22 @@
+name: V103 research PR integrity tests
+on:
+  push:
+    branches: [research/v103-scheduled-gate-status-20261022]
+  pull_request:
+    paths:
+      - 'research/v103_forward_preopen/**'
+      - '.github/workflows/v103-forward-first-capture.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test complete V103 evidence gate
+        run: python -m unittest discover -s research/v103_forward_preopen -p 'test_*.py' -v
+      - name: Verify worklow matches research template
+        run: cmp .github/workflows/v103-forward-first-capture.yml research/v103_forward_preopen/v103-forward-first-capture.yml
