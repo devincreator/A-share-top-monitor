@@ -12,9 +12,9 @@ def one(day,root):
         s=raw.decode("utf-8","replace")
         # Capture the page and its reported date; reject pages that redirect to another day.
         if day not in s:raise ValueError("DATE_NOT_FOUND")
-        matches=list(re.finditer(r"上涨\\s*([0-9,]{1,6})\\s*家\\s*下跌\\s*([0-9,]{1,6})\\s*家",s))
+        matches=list(re.finditer(r"上涨\s*([0-9,]{1,6})\s*家\s*下跌\s*([0-9,]{1,6})\s*家",s))
         if not matches:
-            matches=list(re.finditer(r"上涨\\s*([0-9,]{1,6})家.{0,100}下跌\\s*([0-9,]{1,6})家",s))
+            matches=list(re.finditer(r"上涨\s*([0-9,]{1,6})家.{0,100}下跌\s*([0-9,]{1,6})家",s))
         if not matches:raise ValueError("NO_MATCH")
         vals=[(int(x.group(1).replace(",","")),int(x.group(2).replace(",",""))) for x in matches]
         vals=[x for x in vals if 3500<=sum(x)<=8000]
