@@ -1,0 +1,62 @@
+name: V103 first-observed official index preopen evidence (research only)
+on:
+  schedule:
+    # 09:10 Asia/Shanghai. GitHub Actions may be delayed; script fails closed at 09:20.
+    - cron: '10 1 * * 1-5'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'research/v103_forward_preopen/*.py'
+      - '.github/workflows/v103-forward-first-capture.yml'
+permissions:
+  contents: write
+concurrency:
+  group: v103-research-first-capture
+  cancel-in-progress: false
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify fail-closed clock, raw identity, and immutable source tests
+        run: python -m unittest discover -s research/v103_forward_preopen -p 'test_*.py' -v
+      - name: Record official 000985 first observed source bytes, never model signals
+        if: github.event_name == 'schedule'
+        run: python research/v103_forward_preopen/first_capture.py
+      - name: Preserve first-capture evidence even when GitHub write fails
+        if: always() && github.event_name == 'schedule'
+        uses: actions/upload-artifact@v4
+        with:
+          name: v103-first-observed-source-${{ github.run_id }}
+          path: research/v103_forward_preopen/observations/
+          retention-days: 90
+          if-no-files-found: warn
+      - name: Archive only immutable research evidence
+        if: success() && github.event_name == 'schedule'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/v103_forward_preopen/observations/
+          if git diff --cached --quiet; then
+            echo 'No new first capture. Never overwrite old evidence.'
+            exit 0
+          fi
+          git commit -m 'research(v103): preserve future preopen source first observation [skip ci]'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo 'Commit failed; raw evidence retained in workflow artifact.'
+          exit 1
