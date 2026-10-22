@@ -13,7 +13,7 @@ class TestBridge(unittest.TestCase):
               ("SSE","信用交易日期,融资余额\n20240620,781683922089\n","781683922089","CNY"),
               ("SZSE","融资余额\n6932.51\n","693251000000.00","100M_CNY")]:
                 p=root/"raw"/exchange/(day+".csv");p.parent.mkdir(parents=True);p.write_text(raw)
-                m=root/"records"/day/(exchange+".json");m.parent.mkdir(parents=True)
+                m=root/"records"/day/(exchange+".json");m.parent.mkdir(parents=True,exist_ok=True)
                 m.write_text(json.dumps({"source_raw_sha256":hashlib.sha256(p.read_bytes()).hexdigest(),
                     "date":day,"exchange":exchange,"PIT_certified":False,
                     "formal_signal_allowed":False,"source_unit":unit,
