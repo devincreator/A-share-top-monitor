@@ -2,7 +2,7 @@
 """V111: strict assumed-release-lag dataset from existing V89 captured sources.
 No interpolation, imputation, inferred provider publication clock, or trading signals.
 """
-import argparse,csv,json,hashlib,math
+import argparse,csv,json,hashlib,math,shutil
 from pathlib import Path
 from datetime import date
 from collections import Counter
@@ -21,8 +21,8 @@ def build(obj):
         for r in rows:
             if str(r.get("code"))!=code:raise ValueError("CODE_MISMATCH_"+code)
             d=date.fromisoformat(str(r["date"]))
-            x={k:float(r[k]) for k in ("close","amount","turnover")}
-            if not all(math.isfinite(v) for v in x.values()) or x["close"]<=0 or x["amount"]<0 or x["turnover"]<0:raise ValueError("INVALID_INDEX_VALUE")
+            x={k:(float(r[k]) if r.get(k) not in ("",None) else "") for k in ("close","amount","turnover")}
+            if x["close"]=="" or x["close"]<=0 or any(not math.isfinite(v) or v<0 for v in x.values() if v!=""):raise ValueError("INVALID_INDEX_VALUE")
             if d.isoformat() in valid:raise ValueError("DUPLICATE_INDEX_DATE")
             valid[d.isoformat()]=x
         byindex[code]=valid
@@ -71,17 +71,54 @@ def build(obj):
             "monthly":"next_month_first_trading_session_after_full_month"},
         "source_status":"RESEARCH_ASSUMED_RELEASE_LAG_NOT_ACTUAL_PIT",
         "imputation_used":False,"production_updated":False,"formal_signal_allowed":False}
+def official_fallback(obj, rawdir):
+    """Use actual official close/amount when Eastmoney history is unavailable.
+    Missing turnover stays absent; never substitute 0 or assume 2026 history complete.
+    """
+    for code in REQUIRED:
+        if obj["indices"].get(code):continue
+        p=Path(rawdir)/("official_csi_"+code+"_raw.json")
+        if not p.is_file():continue
+        doc=json.loads(p.read_text(encoding="utf-8-sig"))
+        if not isinstance(doc.get("data"),list):continue
+        rows=[]
+        for item in doc["data"]:
+            if str(item.get("indexCode"))!=code:continue
+            ds=str(item.get("tradeDate",""))
+            if len(ds)!=8 or not ds.isdigit():continue
+            d=date.fromisoformat(ds[:4]+"-"+ds[4:6]+"-"+ds[6:])
+            if d.weekday()>=5:continue
+            rows.append({"code":code,"date":d.isoformat(),"close":item.get("close"),
+                         "amount":float(item["tradingValue"])*100000000 if item.get("tradingValue") is not None else "",
+                         "turnover":""})
+        obj["indices"][code]=rows
+    return obj
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--input",required=True)
     ap.add_argument("--out",required=True)
+    ap.add_argument("--official-dir")
+    ap.add_argument("--frozen-price-csv")
     a=ap.parse_args()
     source=Path(a.input)
-    rows,report=build(load(source))
+    obj=load(source)
+    if a.official_dir:obj=official_fallback(obj,a.official_dir)
+    rows,report=build(obj)
     dest=Path(a.out);dest.mkdir(parents=True,exist_ok=True)
     out=dest/"daily_unified.csv"
     with out.open("w",newline="",encoding="utf8") as f:
         w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+    if a.frozen_price_csv:
+        frozen=Path(a.frozen_price_csv)
+        with frozen.open(newline="",encoding="utf8") as f:
+            entries=list(csv.DictReader(f))
+        if not entries or set(entries[0])!={"date","close"}:
+            raise ValueError("FROZEN_INDEX_SCHEMA_INVALID")
+        shutil.copyfile(frozen,dest/"frozen_000985_historical_close.csv")
+        report["frozen_000985_close_rows"]=len(entries)
+        report["frozen_000985_close_sha256"]=hashlib.sha256(frozen.read_bytes()).hexdigest()
+        report["frozen_index_price_asof"]=entries[-1]["date"]
     report["source_file_sha256"]=hashlib.sha256(source.read_bytes()).hexdigest()
     report["daily_unified_sha256"]=hashlib.sha256(out.read_bytes()).hexdigest()
     (dest/"data_coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
