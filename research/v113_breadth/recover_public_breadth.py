@@ -6,15 +6,15 @@ from pathlib import Path
 
 def text_of(raw):
     s=unescape(raw.decode("utf-8","replace"))
-    s=re.sub(r"(?is)<(script|style).*?</\\1>"," ",s)
+    s=re.sub(r"(?is)<(script|style).*?</\1>"," ",s)
     s=re.sub(r"(?s)<[^>]*>"," ",s)
-    return re.sub(r"\\s+"," ",s)
+    return re.sub(r"\s+"," ",s)
 
 def parse_counts(text):
     patterns=[
-      (r"上涨\\s*([\\d,]{1,6})\\s*家",r"下跌\\s*([\\d,]{1,6})\\s*家"),
-      (r"([\\d,]{1,6})\\s*只上涨",r"([\\d,]{1,6})\\s*只下跌"),
-      (r"上涨家数\\s*([\\d,]{1,6})",r"下跌家数\\s*([\\d,]{1,6})"),
+      (r"上涨\s*([\d,]{1,6})\s*家",r"下跌\s*([\d,]{1,6})\s*家"),
+      (r"([\d,]{1,6})\s*只上涨",r"([\d,]{1,6})\s*只下跌"),
+      (r"上涨家数\s*([\d,]{1,6})",r"下跌家数\s*([\d,]{1,6})"),
     ]
     for a,b in patterns:
         ups=list(re.finditer(a,text))
