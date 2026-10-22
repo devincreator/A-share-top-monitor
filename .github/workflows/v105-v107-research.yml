@@ -5,11 +5,13 @@ on:
     paths:
       - 'research/v105_v107/**'
       - 'research/v108_v110/**'
+      - 'research/v109_comparison/**'
       - '.github/workflows/v105-v107-research.yml'
   pull_request:
     paths:
       - 'research/v105_v107/**'
       - 'research/v108_v110/**'
+      - 'research/v109_comparison/**'
       - '.github/workflows/v105-v107-research.yml'
 permissions:
   contents: read
@@ -28,10 +30,16 @@ jobs:
         run: python -m unittest discover -s research/v108_v110 -p 'test_*.py' -v
       - name: Run archived-source diagnosis and causal features
         run: python research/v105_v107/diagnose_and_state.py
+      - name: Test descriptive V109 stability audit
+        run: python -m unittest discover -s research/v109_comparison -p 'test_*.py' -v
+      - name: Execute V109 year-by-year stability audit
+        run: python research/v109_comparison/state_stability.py
       - name: Preserve non-PIT research artifacts
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: v105-v107-retrospective-non-pit
-          path: research/v105_v107/observations/
+          path: |
+            research/v105_v107/observations/
+            research/v109_comparison/observations/
           retention-days: 90
