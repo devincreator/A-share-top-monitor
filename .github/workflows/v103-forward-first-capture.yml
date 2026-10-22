@@ -31,6 +31,27 @@ jobs:
       - name: Record official 000985 first observed source bytes, never model signals
         if: github.event_name == 'schedule'
         run: python research/v103_forward_preopen/first_capture.py
+      - name: Verify archived source and decision-time integrity before any publish
+        if: github.event_name == 'schedule'
+        shell: bash
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          sys.path.insert(0, 'research/v103_forward_preopen')
+          from first_capture import verify_first_capture
+          d = datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat()
+          root = Path('research/v103_forward_preopen/observations') / d
+          summary = verify_first_capture(root/'first_capture.json',
+                                         root/'official_index_raw.json')
+          print('FIRST_CAPTURE_READBACK_VERIFIED', summary)
+          if summary['status'] != 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY':
+              print('::warning::V103 true source-evidence gate is BLOCKED for this run; archiving original failure.')
+          else:
+              print('V103 observed real official-index raw response within decision cutoff; not a prediction.')
+          PY
       - name: Preserve first-capture evidence even when GitHub write fails
         if: always() && github.event_name == 'schedule'
         uses: actions/upload-artifact@v4
