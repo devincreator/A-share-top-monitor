@@ -625,7 +625,7 @@
       "fn_rows": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/missed_mature_pivots.csv"
     },
     "V103": {
-      "status": "DEPLOYED_CI_22_OF_22_PASS_REAL_LIVE_0920_SNAPSHOT_NOT_YET_CONFIRMED",
+      "status": "DEPLOYED_22_TESTS_PASS_SCHEDULE_READBACK_HARDENED_NO_LIVE_PREOPEN_EVIDENCE",
       "recorded_at_date": "2026-10-22",
       "primary_official_index": "000985.CSI",
       "first_capture_code": "research/v103_forward_preopen/first_capture.py",
@@ -677,7 +677,17 @@
       "calendar_independently_certified": false,
       "real_preopen_capture_qualified": false,
       "real_forward_signals_generated": 0,
-      "forward_prediction_accuracy_measured": false
+      "forward_prediction_accuracy_measured": false,
+      "last_github_push_ci_run_id": 39709209527,
+      "last_github_push_ci_conclusion": "success",
+      "last_github_push_ci_test_count": 22,
+      "post_schedule_capture_integrity_readback_installed": true,
+      "post_schedule_capture_integrity_readback_ACTUALLY_EXECUTED": false,
+      "deployed_workflow_sha": "3f3117e0dedb6bf35a7405c8f5078801bc6e33c7",
+      "archive_deployment_audit": "research/v103_forward_preopen/CLOUD_INTEGRITY_AUDIT_20261022.md",
+      "historic_original_first_publication_time_certified": false,
+      "valid_real_preopen_snapshot_observed": false,
+      "real_live_data_captured": false
     }
   },
   "data_quality": {
