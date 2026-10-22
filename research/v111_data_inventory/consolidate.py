@@ -2,7 +2,7 @@
 """V111: strict assumed-release-lag dataset from existing V89 captured sources.
 No interpolation, imputation, inferred provider publication clock, or trading signals.
 """
-import argparse,csv,json,hashlib
+import argparse,csv,json,hashlib,math
 from pathlib import Path
 from datetime import date
 from collections import Counter
@@ -22,7 +22,7 @@ def build(obj):
             if str(r.get("code"))!=code:raise ValueError("CODE_MISMATCH_"+code)
             d=date.fromisoformat(str(r["date"]))
             x={k:float(r[k]) for k in ("close","amount","turnover")}
-            if x["close"]<=0 or x["amount"]<0 or x["turnover"]<0:raise ValueError("INVALID_INDEX_VALUE")
+            if not all(math.isfinite(v) for v in x.values()) or x["close"]<=0 or x["amount"]<0 or x["turnover"]<0:raise ValueError("INVALID_INDEX_VALUE")
             if d.isoformat() in valid:raise ValueError("DUPLICATE_INDEX_DATE")
             valid[d.isoformat()]=x
         byindex[code]=valid
@@ -33,7 +33,7 @@ def build(obj):
         if d in raw_fin:raise ValueError("DUPLICATE_FINANCE_DATE")
         try:
             sh=float(r["balance_sh_yuan"]);sz=float(r["balance_sz_yuan"])
-            if not (sh>0 and sz>0):raise ValueError("NONPOSITIVE_FINANCING")
+            if not (math.isfinite(sh) and math.isfinite(sz) and sh>0 and sz>0):raise ValueError("NONPOSITIVE_FINANCING")
             raw_fin[d]=(sh,sz)
         except (TypeError,KeyError,ValueError,OverflowError):
             invalid[d]+=1
