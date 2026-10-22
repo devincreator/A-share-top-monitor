@@ -109,6 +109,21 @@ def event_state_crosswalk(events, states):
         raise ValueError("DUPLICATE_CROSSWALK_IDS")
     return output
 
+def hindsight_error_by_state(crosswalk, false_positives):
+    """Diagnostic contingency only; ex-post FP membership never input to model."""
+    fp_ids={r["alert_id"] for r in false_positives}
+    known={r["alert_id"] for r in crosswalk}
+    if not fp_ids.issubset(known):
+        raise ValueError("ORPHAN_FALSE_POSITIVE")
+    totals=Counter((r["task"],r["state"]) for r in crosswalk)
+    fps=Counter((r["task"],r["state"]) for r in crosswalk if r["alert_id"] in fp_ids)
+    # Other alerts include TP and PENDING: never call the complement TP.
+    return [{"task":t,"state":state,"alerts":n,
+             "retrospective_fp":fps[(t,state)],
+             "not_identified_as_fp_in_this_file":n-fps[(t,state)],
+             "non_fp_may_include_pending":True}
+            for (t,state),n in sorted(totals.items())]
+
 def main():
     for p in (FP,FN,EVENTS,PRICES):
         if not p.is_file(): raise FileNotFoundError(p)
@@ -128,6 +143,10 @@ def main():
         writer.writeheader();writer.writerows(crosswalk)
     aligned=sum(1 for r in crosswalk if (r["task"].endswith("TOP") and r["state"]=="UPTREND") or
                 (r["task"].endswith("BOTTOM") and r["state"]=="DOWNTREND"))
+    error_by_state=hindsight_error_by_state(crosswalk,read(FP))
+    (OUTPUT/"hindsight_error_by_state.json").write_text(
+        json.dumps({"classification":"EXPOST_CONTINGENCY_NOT_MODEL_PERFORMANCE",
+                    "cells":error_by_state},ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
     summary={"crosswalk_events":len(crosswalk),"crosswalk_state_counts":dict(Counter(r["state"] for r in crosswalk)),
         "alert_direction_state_overlap_count":aligned,
         "alert_direction_state_overlap_fraction":round(aligned/len(crosswalk),6),
