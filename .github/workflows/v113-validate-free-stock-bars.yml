@@ -1,0 +1,34 @@
+name: V113 independently reconstructed free A-share breadth spot check
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-validate-free-stock-bars.yml'
+permissions:
+  actions: read
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit tests
+        run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39742520030
+          name: v113-stock-daily-free-source-39742520030
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: pilot_source
+      - name: Derive observed traded stock breadth from three real past trading dates
+        run: |
+          python research/v113_breadth/reconstruct_breadth.py --raw-dir pilot_source --out reconstructed_breadth.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-reconstructed-real-stock-breadth-${{ github.run_id }}
+          path: reconstructed_breadth.csv
+          retention-days: 90
