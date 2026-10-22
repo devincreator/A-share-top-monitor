@@ -1,0 +1,25 @@
+{
+  "version": "V103",
+  "actual_test_status": "PASS_9_LOCAL_SYNTHETIC_TESTS",
+  "test_count": 9,
+  "actual_cli_probe_status": "BLOCKED_OUTSIDE_PREOPEN_WINDOW",
+  "actual_cli_probe_date": "2026-10-22",
+  "actual_cli_probe_raw_response_received": false,
+  "actual_cli_probe_first_capture_sha256": "5f86caa34e9da10f272252025f50d463939fa90355613078321abf1a229c2066",
+  "actual_cli_probe_reason": "OUTSIDE_09_00_TO_09_20_CAPTURE_WINDOW",
+  "actual_source_first_observed_qualified": false,
+  "original_publication_time_certified": false,
+  "future_blind_performance_measured": false,
+  "github_committed": false,
+  "github_cloud_ci_executed": false,
+  "github_write_blocked": "GitHub connector create_file denied by safety checks twice; no external writes attempted after that",
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "file_sha256": {
+    "test_first_capture.py": "5bceb642afacfc11bea1ccc49c51afefbb880564336faaa7c8be986295eba06a",
+    "first_capture.py": "ed41957dfce706c5322de8a9f6476103dfb3654d86a5e32619ff887cca5e8a92",
+    "README.md": "90da60351f5a5aa0d8f10d78f37e3dc115f7c38310993568414655ec6a23ca9b",
+    "v103-forward-first-capture.yml": "5eb5c372f26c674f17e2c5ebd10f9714dc57a8ff2e72425bdc483e245ed41bcd"
+  },
+  "scope": "local research package only, no scheduled live deployment"
+}
