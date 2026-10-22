@@ -1,0 +1,210 @@
+#!/usr/bin/env python3
+"""Research-only forward source evidence, not a trading model.
+
+A successful record means the collector received direct official-source bytes
+before D 09:20 Asia/Shanghai. It does NOT certify the publisher's original
+release time, a Chinese trading calendar, or an investable signal.
+"""
+import argparse
+from datetime import date, datetime, time, timedelta, timezone
+from decimal import Decimal, InvalidOperation
+import hashlib
+import json
+from pathlib import Path
+import urllib.parse
+import urllib.request
+from zoneinfo import ZoneInfo
+
+ZONE = ZoneInfo('Asia/Shanghai')
+START = time(9, 0)
+CUTOFF = time(9, 20)
+CODE = '000985'
+INDEX = '000985.CSI'
+MIN_PRICE_SESSIONS = 127
+BASE_URL = 'https://www.csindex.com.cn/csindex-home/perf/index-perf'
+DEFAULT_LEDGER = Path('research/v103_forward_preopen/observations')
+
+
+def utc_stamp(value):
+    if value.tzinfo is None or value.utcoffset() is None:
+        raise ValueError('naive timestamp forbidden')
+    return value.astimezone(timezone.utc).isoformat(timespec='microseconds')
+
+
+def prev_weekday(d):
+    x = d - timedelta(days=1)
+    while x.weekday() >= 5:
+        x -= timedelta(days=1)
+    return x
+
+
+def source_url(decision):
+    begin = decision - timedelta(days=310)
+    end = decision - timedelta(days=1)
+    return BASE_URL + '?' + urllib.parse.urlencode({
+        'indexCode': CODE,
+        'startDate': begin.strftime('%Y%m%d'),
+        'endDate': end.strftime('%Y%m%d')})
+
+
+def fetch_official(url):
+    request = urllib.request.Request(url, headers={
+        'User-Agent': 'Mozilla/5.0 (research-only first-observation)',
+        'Referer': 'https://www.csindex.com.cn/',
+        'Accept': 'application/json'})
+    with urllib.request.urlopen(request, timeout=12) as response:
+        if response.status != 200:
+            raise ValueError('non-200 official HTTP response')
+        raw = response.read(4_000_001)
+        if len(raw) > 4_000_000:
+            raise ValueError('bounded official raw response exceeded')
+        return raw, {
+            'http_status': response.status,
+            'http_date': response.headers.get('Date'),
+            'http_last_modified': response.headers.get('Last-Modified'),
+            'http_content_type': response.headers.get('Content-Type')}
+
+
+def parse_official(raw, decision):
+    try:
+        doc = json.loads(raw.decode('utf-8-sig'))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError('invalid official JSON') from exc
+    if not isinstance(doc, dict) or not isinstance(doc.get('data'), list):
+        raise ValueError('official data array missing')
+    seen = set()
+    prices = []
+    weekend = []
+    for row in doc['data']:
+        if not isinstance(row, dict) or str(row.get('indexCode')) != CODE:
+            raise ValueError('official index identity missing or inconsistent')
+        ds = str(row.get('tradeDate', ''))
+        if len(ds) != 8 or not ds.isdigit():
+            raise ValueError('official tradeDate format invalid')
+        d = date(int(ds[:4]), int(ds[4:6]), int(ds[6:]))
+        if d in seen:
+            raise ValueError('duplicate official date')
+        seen.add(d)
+        if d >= decision:
+            raise ValueError('future or decision-day price in preopen response')
+        try:
+            close = Decimal(str(row['close']))
+        except (KeyError, InvalidOperation, TypeError) as exc:
+            raise ValueError('invalid official close') from exc
+        if not close.is_finite() or close <= 0:
+            raise ValueError('nonpositive or nonfinite official close')
+        if d.weekday() >= 5:
+            weekend.append(d.isoformat())
+        else:
+            prices.append((d, close))
+    prices.sort()
+    if len(prices) < MIN_PRICE_SESSIONS:
+        raise ValueError('insufficient direct-source lookback: ' + str(len(prices)))
+    if prices[-1][0] != prev_weekday(decision):
+        raise ValueError('latest source day not immediately previous weekday: ' + prices[-1][0].isoformat())
+    return {
+        'observed_last_trade_date': prices[-1][0].isoformat(),
+        'observed_last_close': str(prices[-1][1]),
+        'source_weekday_rows': len(prices),
+        'source_weekend_dates_quarantined': weekend,
+        'min_lookback_127_available': True,
+        'last_127_closes_sha256': hashlib.sha256(
+            ''.join(f'{d.isoformat()},{c}\n' for d, c in prices[-MIN_PRICE_SESSIONS:]).encode()
+        ).hexdigest()}
+
+
+def capture(*, now=lambda: datetime.now(timezone.utc), fetch=fetch_official):
+    started = now()
+    if started.tzinfo is None or started.utcoffset() is None:
+        raise ValueError('unaware system clock')
+    local = started.astimezone(ZONE)
+    d = local.date()
+    record = {
+        'schema': 'V103_FIRST_OBSERVED_DIRECT_SOURCE_V1',
+        'decision_date': d.isoformat(),
+        'decision_cutoff_local': f'{d.isoformat()}T09:20:00+08:00',
+        'request_started_at_utc': utc_stamp(started),
+        'source_url': source_url(d),
+        'source_name': 'CSI official index-perf direct HTTPS',
+        'index': INDEX,
+        'status': 'BLOCKED',
+        'reason': None,
+        'research_only': True,
+        'formal_signal_allowed': False,
+        'production_updated': False,
+        'forward_prediction_generated': False,
+        'historical_publisher_release_timestamp_certified': False,
+        'actual_source_original_publication_time_known': False,
+        'independent_trading_calendar_certified': False,
+        'source_available_before_decision_cutoff_observed': False,
+        'blind_performance_evaluated': False}
+    if local.weekday() >= 5:
+        record['reason'] = 'NON_WEEKDAY'
+        return record, None
+    if not (START <= local.time().replace(tzinfo=None) < CUTOFF):
+        record['reason'] = 'OUTSIDE_09_00_TO_09_20_CAPTURE_WINDOW'
+        return record, None
+    try:
+        raw, headers = fetch(record['source_url'])
+        completed = now()
+        record['response_completed_at_utc'] = utc_stamp(completed)
+        record['http_response_headers'] = headers
+        record['raw_sha256'] = hashlib.sha256(raw).hexdigest()
+        record['raw_bytes'] = len(raw)
+    except Exception as exc:
+        record['reason'] = 'SOURCE_FETCH_FAILED'
+        record['error'] = f'{type(exc).__name__}: {str(exc)[:200]}'
+        record['response_completed_at_utc'] = utc_stamp(now())
+        return record, None
+    ended_local = completed.astimezone(ZONE)
+    if ended_local.date() != d or not (START <= ended_local.time().replace(tzinfo=None) < CUTOFF):
+        record['reason'] = 'RESPONSE_AFTER_PREOPEN_CUTOFF'
+        return record, raw
+    try:
+        record.update(parse_official(raw, d))
+    except Exception as exc:
+        record['reason'] = 'SOURCE_SCHEMA_OR_LOOKBACK_BLOCKED'
+        record['error'] = f'{type(exc).__name__}: {str(exc)[:200]}'
+        return record, raw
+    record['status'] = 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY'
+    record['reason'] = 'SOURCE_BYTES_OBSERVED_BY_CUTOFF_BUT_ORIGINAL_PUBLISH_TIME_AND_CALENDAR_NOT_CERTIFIED'
+    record['source_available_before_decision_cutoff_observed'] = True
+    record['first_observed_at_utc'] = utc_stamp(completed)
+    return record, raw
+
+
+def archive_once(record, raw, ledger):
+    target = Path(ledger) / record['decision_date']
+    manifest = target / 'first_capture.json'
+    source = target / 'official_index_raw.json'
+    if manifest.exists() or source.exists():
+        return {'archive_status': 'EXISTING_FIRST_CAPTURE_LEFT_UNCHANGED',
+                'decision_date': record['decision_date'], 'new_capture_discarded': True}
+    target.mkdir(parents=True, exist_ok=True)
+    if raw is not None:
+        if hashlib.sha256(raw).hexdigest() != record.get('raw_sha256'):
+            raise ValueError('source raw sha mismatch before first capture')
+        with source.open('xb') as f:
+            f.write(raw)
+    payload = (json.dumps(record, ensure_ascii=False, sort_keys=True, indent=2) + '\n').encode()
+    with manifest.open('xb') as f:
+        f.write(payload)
+    return {'archive_status': 'FIRST_CAPTURE_PERSISTED',
+            'decision_date': record['decision_date'],
+            'status': record['status'], 'reason': record['reason'],
+            'manifest_sha256': hashlib.sha256(payload).hexdigest(),
+            'raw_sha256': record.get('raw_sha256'), 'formal_signal_allowed': False}
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ledger', default=str(DEFAULT_LEDGER))
+    args = parser.parse_args()
+    result, raw = capture()
+    saved = archive_once(result, raw, args.ledger)
+    print(json.dumps(saved, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())
