@@ -5,9 +5,24 @@ import tempfile
 import unittest
 from datetime import datetime, timezone
 sys.path.insert(0,str(Path(__file__).parent))
-from prospective_shadow import write_once,build_record
+from prospective_shadow import write_once,build_record,signal_from_raw
 
 class ProspectiveShadowTests(unittest.TestCase):
+    def test_only_past_raw_rows_used(self):
+        from datetime import date,timedelta
+        days=[]
+        d=date(2026,10,22)
+        while len(days)<130:
+            if d.weekday()<5: days.append(d)
+            d-=timedelta(days=1)
+        days.reverse()
+        rows=[{"indexCode":"000985","tradeDate":x.strftime("%Y%m%d"),"close":str(4000+i)}
+              for i,x in enumerate(days)]
+        raw=json.dumps({"data":rows}).encode()
+        state=signal_from_raw(raw,date(2026,10,23))
+        self.assertEqual(state["state"],"UPTREND")
+        rows.append({"indexCode":"000985","tradeDate":"20261023","close":"999999"})
+        self.assertEqual(state,signal_from_raw(json.dumps({"data":rows}).encode(),date(2026,10,23)))
     def test_never_overwrite(self):
         with tempfile.TemporaryDirectory() as td:
             p=Path(td)/"2026-10-23"/"shadow.json"
