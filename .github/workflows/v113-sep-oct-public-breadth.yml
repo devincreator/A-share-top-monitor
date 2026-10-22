@@ -1,0 +1,36 @@
+name: V113 September and October public breadth fallback audit
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-sep-oct-public-breadth.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  retrieve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Retrieve two different free public historical breadth providers for every Sep and Oct session
+        run: |
+          python research/v113_breadth/recover_public_breadth.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --out v113_sepoct_public
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-sep-oct-source-coverage-${{ github.run_id }}
+          path: v113_sepoct_public/
+          retention-days: 90
+          if-no-files-found: warn
