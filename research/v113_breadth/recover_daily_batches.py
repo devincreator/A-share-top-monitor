@@ -14,6 +14,10 @@ def run(master,out,begin,end,limit):
     done=[];fails=[]
     for day in days:
         response=probe(day,folder)
+        for attempt in range(3):
+            if "429" not in response.get("error",""):break
+            time.sleep(4*(attempt+1))
+            response=probe(day,folder)
         if response["status"]!="SOURCE_BYTES_OBSERVED_NOT_YET_VALIDATED":
             fails.append({"date":day,"reason":response.get("error","SOURCE_UNAVAILABLE")})
         else:
@@ -23,7 +27,7 @@ def run(master,out,begin,end,limit):
             except Exception as e:
                 fails.append({"date":day,"reason":"INVALID_RAW_"+str(e)[:120]})
         print(json.dumps({"day":day,"raw_ok":len(done),"failed":len(fails)},ensure_ascii=False),flush=True)
-        time.sleep(0.7)
+        time.sleep(2)
     if done:
         with (folder/"stock_breadth_reconstructed.csv").open("w",newline="",encoding="utf-8") as f:
             w=csv.DictWriter(f,fieldnames=list(done[0]));w.writeheader();w.writerows(done)
