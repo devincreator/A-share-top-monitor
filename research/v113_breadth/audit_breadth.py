@@ -12,7 +12,7 @@ def validate(reference_dates, candidate_rows):
         if day in observed:raise ValueError("DUPLICATE_BREADTH_DAY")
         try:
             up=float(row["up"]);down=float(row["down"])
-            if not (up>=0 and down>=0 and up+down>0 and up.is_integer() and down.is_integer()):
+            if not (up>=0 and down>=0 and up+down>0 and up+down<=6000 and up.is_integer() and down.is_integer()):
                 raise ValueError("INVALID_UP_DOWN")
             observed[day]=dict(row)
         except (TypeError,ValueError,KeyError) as exc:
