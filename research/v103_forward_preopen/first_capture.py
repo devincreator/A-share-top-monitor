@@ -58,11 +58,18 @@ def fetch_official(url):
         raw = response.read(4_000_001)
         if len(raw) > 4_000_000:
             raise ValueError('bounded official raw response exceeded')
+        # Redirects to an unrelated origin, even with JSON-shaped bytes,
+        # are not direct evidence from the intended CSI provider.
+        effective_url = response.geturl()
+        parsed_origin = urllib.parse.urlsplit(effective_url)
+        if parsed_origin.scheme != 'https' or parsed_origin.hostname != 'www.csindex.com.cn':
+            raise ValueError('source redirected outside original HTTPS publisher')
         return raw, {
             'http_status': response.status,
             'http_date': response.headers.get('Date'),
             'http_last_modified': response.headers.get('Last-Modified'),
-            'http_content_type': response.headers.get('Content-Type')}
+            'http_content_type': response.headers.get('Content-Type'),
+            'effective_source_url': effective_url}
 
 
 def parse_official(raw, decision):
@@ -157,6 +164,14 @@ def capture(*, now=lambda: datetime.now(timezone.utc), fetch=fetch_official):
         record['response_completed_at_utc'] = utc_stamp(now())
         return record, None
     ended_local = completed.astimezone(ZONE)
+    # Reject clocks that move backwards or a forged second timestamp. Such
+    # evidence cannot prove an entire source request finished after it began.
+    if completed.astimezone(timezone.utc) < started.astimezone(timezone.utc):
+        record['reason'] = 'INVALID_NON_MONOTONIC_CAPTURE_CLOCK'
+        return record, raw
+    record['request_duration_seconds'] = (
+        completed.astimezone(timezone.utc) - started.astimezone(timezone.utc)
+    ).total_seconds()
     if ended_local.date() != d or not (START <= ended_local.time().replace(tzinfo=None) < CUTOFF):
         record['reason'] = 'RESPONSE_AFTER_PREOPEN_CUTOFF'
         return record, raw
@@ -173,24 +188,84 @@ def capture(*, now=lambda: datetime.now(timezone.utc), fetch=fetch_official):
     return record, raw
 
 
+def verify_first_capture(manifest, source):
+    """Verify previously persisted evidence before reporting it as existing.
+
+    A corrupt/missing raw or an orphaned source is a hard failure, never a
+    silent 'already exists' success. Does not attempt retroactive repairs.
+    """
+    manifest = Path(manifest)
+    source = Path(source)
+    if not manifest.is_file():
+        if source.exists():
+            raise ValueError('ORPHANED_FIRST_CAPTURE_SOURCE_MISSING_MANIFEST')
+        raise ValueError('first capture manifest missing')
+    try:
+        first = json.loads(manifest.read_bytes().decode('utf-8'))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError('INVALID_PREEXISTING_CAPTURE_MANIFEST') from exc
+    if not isinstance(first, dict):
+        raise ValueError('INVALID_PREEXISTING_CAPTURE_MANIFEST')
+    d = first.get('decision_date')
+    try:
+        if date.fromisoformat(d).isoformat() != d or manifest.parent.name != d:
+            raise ValueError('first capture decision path mismatch')
+    except (TypeError, ValueError) as exc:
+        raise ValueError('first capture decision path mismatch') from exc
+    declared = first.get('raw_sha256')
+    if declared is not None:
+        if not isinstance(declared, str) or len(declared) != 64:
+            raise ValueError('invalid preexisting raw SHA256')
+        if not source.is_file():
+            raise ValueError('RAW_EVIDENCE_MISSING_FOR_FIRST_CAPTURE')
+        if hashlib.sha256(source.read_bytes()).hexdigest() != declared:
+            raise ValueError('RAW_EVIDENCE_TAMPERED_OR_TRUNCATED')
+    elif source.exists():
+        raise ValueError('UNDECLARED_RAW_EVIDENCE_IN_FIRST_CAPTURE')
+    if first.get('status') == 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY':
+        if not declared or not first.get('source_available_before_decision_cutoff_observed'):
+            raise ValueError('first capture falsely claims eligible source')
+    return {'decision_date': d,
+            'status': first.get('status'),
+            'manifest_sha256': hashlib.sha256(manifest.read_bytes()).hexdigest(),
+            'raw_sha256': declared}
+
+
 def archive_once(record, raw, ledger):
-    target = Path(ledger) / record['decision_date']
+    try:
+        decision_date = record['decision_date']
+        if date.fromisoformat(decision_date).isoformat() != decision_date:
+            raise ValueError('invalid decision date')
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError('invalid decision date for first capture') from exc
+    target = Path(ledger) / decision_date
     manifest = target / 'first_capture.json'
     source = target / 'official_index_raw.json'
     if manifest.exists() or source.exists():
-        return {'archive_status': 'EXISTING_FIRST_CAPTURE_LEFT_UNCHANGED',
-                'decision_date': record['decision_date'], 'new_capture_discarded': True}
-    target.mkdir(parents=True, exist_ok=True)
+        existing = verify_first_capture(manifest, source)
+        if existing['decision_date'] != decision_date:
+            raise ValueError('first capture target date changed')
+        return {'archive_status': 'EXISTING_FIRST_CAPTURE_VERIFIED_UNCHANGED',
+                'new_capture_discarded': True, **existing}
+
+    if record.get('status') == 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY' and raw is None:
+        raise ValueError('PASS declared without original source bytes')
     if raw is not None:
         if hashlib.sha256(raw).hexdigest() != record.get('raw_sha256'):
             raise ValueError('source raw sha mismatch before first capture')
+    elif record.get('raw_sha256') is not None:
+        raise ValueError('source raw sha declared without raw bytes')
+    target.mkdir(parents=True, exist_ok=True)
+    if raw is not None:
         with source.open('xb') as f:
             f.write(raw)
     payload = (json.dumps(record, ensure_ascii=False, sort_keys=True, indent=2) + '\n').encode()
+    # Manifest is the final durable commit marker, written ONLY after the
+    # complete byte-for-byte raw payload has been placed on disk.
     with manifest.open('xb') as f:
         f.write(payload)
     return {'archive_status': 'FIRST_CAPTURE_PERSISTED',
-            'decision_date': record['decision_date'],
+            'decision_date': decision_date,
             'status': record['status'], 'reason': record['reason'],
             'manifest_sha256': hashlib.sha256(payload).hexdigest(),
             'raw_sha256': record.get('raw_sha256'), 'formal_signal_allowed': False}
