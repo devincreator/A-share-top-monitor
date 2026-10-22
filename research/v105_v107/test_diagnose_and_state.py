@@ -28,6 +28,15 @@ class DiagnosticsTests(unittest.TestCase):
         a=[100+i*.2 for i in range(100)]
         self.assertEqual(m.trailing_features(a)["state"],"UPTREND")
         self.assertEqual(m.trailing_features(list(reversed(a)))["state"],"DOWNTREND")
+    def test_event_state_crosswalk_uses_prior_observation(self):
+        states=[{"asof_close_date":"2026-10-21","state":"UPTREND","ret5":.01,"ret20":.03,"ret63":.06,"position_63":.9}]
+        ev=[{"id":"e1","task":"5_TOP","date":"2026-10-22","last_price_observation_date":"2026-10-21"}]
+        out=m.event_state_crosswalk(ev,states)
+        self.assertEqual(out[0]["state"],"UPTREND")
+        self.assertFalse(out[0]["historical_source_time_certified"])
+        ev[0]["last_price_observation_date"]="2026-10-22"
+        with self.assertRaisesRegex(ValueError,"MISSING_ASOF_STATE"):
+            m.event_state_crosswalk(ev,states)
     def test_duplicate_dates(self):
         with self.assertRaisesRegex(ValueError,"DUPLICATE_PRICE"):
             m.parse_price_table([{"date":"2026-01-01","close":"10"},{"date":"2026-01-01","close":"11"}])
