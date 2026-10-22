@@ -225,6 +225,38 @@ def verify_first_capture(manifest, source):
     if first.get('status') == 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY':
         if not declared or not first.get('source_available_before_decision_cutoff_observed'):
             raise ValueError('first capture falsely claims eligible source')
+        # Independently revalidate the recorded first-observed clock, rather
+        # than merely trusting a PASS label in the JSON. Never retroactively
+        # promote an old BLOCKED record to PASS.
+        try:
+            began = datetime.fromisoformat(first['request_started_at_utc'])
+            ended = datetime.fromisoformat(first['response_completed_at_utc'])
+            if began.utcoffset() is None or ended.utcoffset() is None:
+                raise ValueError('naive first-observation time')
+            local_start = began.astimezone(ZONE)
+            local_end = ended.astimezone(ZONE)
+            if (local_start.date().isoformat() != d
+                    or local_end.date().isoformat() != d
+                    or not (START <= local_start.time().replace(tzinfo=None) < CUTOFF)
+                    or not (START <= local_end.time().replace(tzinfo=None) < CUTOFF)
+                    or ended.astimezone(timezone.utc) < began.astimezone(timezone.utc)
+                    or first.get('first_observed_at_utc') != utc_stamp(ended)):
+                raise ValueError('first-observation clock does not prove preopen source')
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError('INVALID_STORED_FIRST_OBSERVATION_CLOCK') from exc
+        # SHA-preserved data must also reproduce all fields that were claimed
+        # in its original manifest. This is useful for second-run self audits.
+        try:
+            parsed = parse_official(source.read_bytes(), date.fromisoformat(d))
+            for key in ('observed_last_trade_date', 'observed_last_close',
+                        'source_weekday_rows', 'source_weekend_dates_quarantined',
+                        'min_lookback_127_available', 'last_127_closes_sha256'):
+                if first.get(key) != parsed[key]:
+                    raise ValueError('stored source claim differs from original raw bytes: '+key)
+        except (ValueError, TypeError, KeyError) as exc:
+            raise ValueError('INVALID_STORED_SOURCE_CLAIMS') from exc
+    elif first.get('source_available_before_decision_cutoff_observed') is not False:
+        raise ValueError('nonpass record cannot claim preopen source verified')
     return {'decision_date': d,
             'status': first.get('status'),
             'manifest_sha256': hashlib.sha256(manifest.read_bytes()).hexdigest(),
