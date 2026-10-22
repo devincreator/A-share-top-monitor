@@ -1,0 +1,29 @@
+name: V113 independent free daily stock bar source pilot
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-stock-bars-free-pilot.yml'
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Request three fixed historical dates from second free stock-day provider
+        run: |
+          python research/v113_breadth/probe_daily_stock_source.py --out v113_independent_source \
+            --dates 2022-06-20 2025-01-02 2026-08-14
+      - name: Save original observed source bytes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v113-stock-daily-free-source-${{ github.run_id }}
+          path: v113_independent_source/
+          retention-days: 90
+          if-no-files-found: warn
