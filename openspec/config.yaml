@@ -1,0 +1,13 @@
+schema: spec-driven
+context: |
+  A-share TOP/BOTTOM quantitative alert research. Production frozen unless independently accepted.
+  No invented historical observations, no leakage, no silently changed event labels.
+rules:
+  proposal:
+    - Define measurable pass criteria, frozen baseline and scope.
+  design:
+    - Show evidence provenance, retry budgets, source switching and fail-closed behavior.
+  tasks:
+    - Mark complete only with real GitHub Actions evidence.
+  specs:
+    - Include executable scenarios, quality gates and explicit data release assumptions.
