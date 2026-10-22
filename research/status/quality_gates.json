@@ -625,7 +625,7 @@
       "fn_rows": "https://github.com/devincreator/A-share-top-monitor/blob/main/research/v102_fresh_forensics/observations/missed_mature_pivots.csv"
     },
     "V103": {
-      "status": "DEPLOYED_CI_19_OF_19_PASS_LIVE_PREOPEN_EVIDENCE_NOT_YET_VERIFIED",
+      "status": "DEPLOYED_CI_22_OF_22_PASS_REAL_LIVE_0920_SNAPSHOT_NOT_YET_CONFIRMED",
       "recorded_at_date": "2026-10-22",
       "primary_official_index": "000985.CSI",
       "first_capture_code": "research/v103_forward_preopen/first_capture.py",
@@ -640,7 +640,7 @@
       "enhanced_code_test_run_id": 39708640232,
       "enhanced_code_test_run_conclusion": "success",
       "tests_count": 19,
-      "tests_passed": 19,
+      "tests_passed": 22,
       "enhanced_checks": [
         "request complete time cannot precede request start",
         "official HTTPS source redirected to other origin rejected",
@@ -662,7 +662,22 @@
       "retrospective_replayed_accuracy_newly_improved": false,
       "formal_signal_allowed": false,
       "production_updated": false,
-      "link": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39708640232"
+      "link": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39708640232",
+      "last_cloud_ci_run_id": 39709012813,
+      "last_cloud_ci_conclusion": "success",
+      "test_count": 22,
+      "last_22_test_run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39709012813",
+      "raw_file_immutable_integrity_rechecked_on_reuse": true,
+      "stored_preopen_timestamp_rechecked_on_reuse": true,
+      "stored_complete_original_raw_response_reparsed_and_claims_crosschecked": true,
+      "source_off_origin_redirect_rejected": true,
+      "clock_regression_rejected": true,
+      "archive_orphan_corrupt_missing_fails_closed": true,
+      "original_http_publication_timestamp_PIT_certified": false,
+      "calendar_independently_certified": false,
+      "real_preopen_capture_qualified": false,
+      "real_forward_signals_generated": 0,
+      "forward_prediction_accuracy_measured": false
     }
   },
   "data_quality": {
@@ -715,9 +730,9 @@
     "2022-2026 independent blind test"
   ],
   "next_blockers": [
-    "V103 is deployed and 19/19 CI code tests PASS as of 2026-10-22. The actual official scheduled first-capture workflow has NOT yet produced verified D 09:00-09:20 CSI index raw bytes; push/manual CI skipping capture is not source evidence. Next weekday scheduled window: 2026-10-23 09:10 China time; hosted runners can be late and must fail closed.",
-    "V103 historical original publisher first-publication clock and original historical price vintage not certified; live first observation only proves bytes were received by collector at response completion, not publisher's first release.",
-    "V103 shadow predictions must not be fabricated until genuine first-observed source history is received and frozen V101 edge/cooldown continuity and preopen session/cutoff are verifiably implemented. Never use D current daily values or unproven D-1 factors.",
+    "V103 2026-10-22 code deployment and enhanced direct-source first-capture archive re-verification 22/22 cloud tests PASS, run 39709012813. This run was a push build and capture step SKIPPED; no evidence of valid live D 09:20 market data exists yet.",
+    "V103 next scheduled research collection 2026-10-23 at 09:10 Asia/Shanghai weekdays (GitHub Actions may be delayed). A PASS requires actual original CSI response bytes and SHA, consistent recorded before-cutoff timestamps, date/index/127-observation validation; otherwise BLOCKED. No gap interpolation or late backdated capture.",
+    "V103 first-observed timestamp cannot certify first publisher release time, genuine historical original D-1 vintage or a certified Chinese trading calendar. Real first capture and future shadow signal evaluation must be established separately.",
     "V101 historic raw market close is archive acquired 2026-10-21, not original 2022..2026 as-of capture; user D-day preopen goal requires independent source release evidence before PIT certification.",
     "V94/V92 latest archived SHA audit 26/183 both-exchange source days, 157 remaining; all source dates still non-PIT with SZSE displayed amount precision.",
     "V95 2026-10-20 traded-sample C50 17.741934577% is a one-day source subset only; PIT eligible listing episodes, 20-day delta and 504/756 historical percentiles remain unavailable.",
@@ -737,7 +752,7 @@
     "assets/",
     "data/"
   ],
-  "active_research_priority": "SOLE_ACTIVE: V103 first-observed CSI 000985 source at D 09:10 Shanghai, fail-closed before D 09:20, then only after verified real future snapshots start separate frozen V101 shadow forecasting. V101/V102 retrospective research remains immutable; no formal alerts.",
+  "active_research_priority": "SOLE_ACTIVE: V103 immutable future first-observed 000985 CSI preopen source at D 09:10 Beijing, decision cutoff 09:20, then evidence-certified V101 shadow feature calculations; all historical model tuning remains frozen.",
   "prediction_clock_contract": {
     "decision_mode": "BEFORE_OPEN_CHINA_STOCK_MARKET",
     "decision_local_timezone": "Asia/Shanghai",
