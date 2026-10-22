@@ -200,6 +200,38 @@ class ForwardEvidenceTests(unittest.TestCase):
             self.assertEqual(record['status'], 'BLOCKED')
             self.assertEqual(record['reason'], 'SOURCE_SCHEMA_OR_LOOKBACK_BLOCKED')
 
+    def test_reused_manifest_with_forged_early_clock_cannot_pass(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'first_capture.json'
+            wrong = json.loads(p.read_text())
+            wrong['request_started_at_utc'] = '2026-10-22T01:24:00.000000+00:00'
+            p.write_text(json.dumps(wrong))
+            with self.assertRaisesRegex(ValueError, 'INVALID_STORED_FIRST_OBSERVATION_CLOCK'):
+                v.verify_first_capture(p, p.with_name('official_index_raw.json'))
+
+    def test_reused_manifest_with_forged_recorded_close_cannot_pass(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'first_capture.json'
+            wrong = json.loads(p.read_text())
+            wrong['observed_last_close'] = '12345678'
+            p.write_text(json.dumps(wrong))
+            with self.assertRaisesRegex(ValueError, 'INVALID_STORED_SOURCE_CLAIMS'):
+                v.archive_once(record, raw, td)
+
+    def test_reused_manifest_source_clock_sha_and_parse_are_all_consistent(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'first_capture.json'
+            verified = v.verify_first_capture(p, p.with_name('official_index_raw.json'))
+            self.assertEqual(verified['decision_date'], record['decision_date'])
+            self.assertEqual(verified['raw_sha256'], record['raw_sha256'])
+            self.assertEqual(verified['status'], 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY')
+
     def test_monday_requires_friday_and_no_decision_day_data(self):
         self.assertEqual(v.prev_weekday(date(2026, 10, 26)), date(2026, 10, 23))
         self.assertEqual(v.prev_weekday(date(2026, 10, 22)), date(2026, 10, 21))
