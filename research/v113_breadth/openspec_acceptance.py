@@ -28,13 +28,34 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--anchor",required=True)
     p.add_argument("--securities",nargs="*")
+    p.add_argument("--security-csv")
+    p.add_argument("--aggregate-csv")
     p.add_argument("--aggregate",nargs="*")
     p.add_argument("--out",required=True)
     args=p.parse_args()
     with open(args.anchor,newline="",encoding="utf-8") as f:
         days=[r["source_trade_date"] for r in csv.DictReader(f)]
-    d=evaluate(days,args.securities or [],args.aggregate or [])
+    sec=list(args.securities or [])
+    agg=list(args.aggregate or [])
+    if args.security_csv:
+        with open(args.security_csv,newline="",encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if r.get("reconstructed")!="True" or r.get("scope")!="TRADED_BARS_ONLY_NO_CERTIFIED_SUSPENSION_UNIVERSE":
+                    raise ValueError("INVALID_SECURITY_EVIDENCE")
+                if not r.get("raw_sha256") or not r.get("eligible_traded"):
+                    raise ValueError("MISSING_SECURITY_PROVENANCE")
+                sec.append(r["date"])
+    if args.aggregate_csv:
+        with open(args.aggregate_csv,newline="",encoding="utf-8") as f:
+            for r in csv.DictReader(f):
+                if r.get("status") not in ("SINGLE_AGGREGATE_SOURCE_UNVERIFIED","TWO_AGGREGATES_AGREE_NOT_PIT"):
+                    continue
+                if not r.get("raw_sha256") or not r.get("up") or not r.get("down"):
+                    raise ValueError("MISSING_AGGREGATE_PROVENANCE")
+                agg.append(r["date"])
+    d=evaluate(days,sec,agg)
     target=Path(args.out);target.parent.mkdir(parents=True,exist_ok=True)
+    d["actual_data_inputs"]={"security_csv":args.security_csv,"aggregate_csv":args.aggregate_csv}
     d["anchor_sha256"]=hashlib.sha256(Path(args.anchor).read_bytes()).hexdigest()
     target.write_text(json.dumps(d,indent=2)+"\n")
     print(json.dumps(d))
