@@ -126,7 +126,12 @@ def main():
     with (OUTPUT/"event_state_crosswalk.csv").open("w",newline="",encoding="utf-8") as f:
         writer=csv.DictWriter(f,fieldnames=list(crosswalk[0]))
         writer.writeheader();writer.writerows(crosswalk)
+    aligned=sum(1 for r in crosswalk if (r["task"].endswith("TOP") and r["state"]=="UPTREND") or
+                (r["task"].endswith("BOTTOM") and r["state"]=="DOWNTREND"))
     summary={"crosswalk_events":len(crosswalk),"crosswalk_state_counts":dict(Counter(r["state"] for r in crosswalk)),
+        "alert_direction_state_overlap_count":aligned,
+        "alert_direction_state_overlap_fraction":round(aligned/len(crosswalk),6),
+        "overlap_warning":"STATE_REUSES_PRICE_AND_IS_NOT_AN_INDEPENDENT_FEATURE",
         "historical_event_state_join_is_expost":True,"status":"RETROSPECTIVE_DESCRIPTIVE_ONLY_NOT_PIT_NOT_MODEL_VALIDATION",
         "price_sha256":sha(PRICES),"feature_rows":len(states),
         "first_asof":states[0]["asof_close_date"],"last_asof":states[-1]["asof_close_date"],
