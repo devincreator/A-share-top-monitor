@@ -4,10 +4,12 @@ on:
     branches: [research/v105-v107-state-diagnostics]
     paths:
       - 'research/v105_v107/**'
+      - 'research/v108_v110/**'
       - '.github/workflows/v105-v107-research.yml'
   pull_request:
     paths:
       - 'research/v105_v107/**'
+      - 'research/v108_v110/**'
       - '.github/workflows/v105-v107-research.yml'
 permissions:
   contents: read
@@ -22,6 +24,8 @@ jobs:
           python-version: '3.11'
       - name: Execute tests
         run: python -m unittest discover -s research/v105_v107 -p 'test_*.py' -v
+      - name: Test immutable prospective shadow gates
+        run: python -m unittest discover -s research/v108_v110 -p 'test_*.py' -v
       - name: Run archived-source diagnosis and causal features
         run: python research/v105_v107/diagnose_and_state.py
       - name: Preserve non-PIT research artifacts
