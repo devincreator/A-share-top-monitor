@@ -81,3 +81,27 @@ jobs:
           done
           echo 'Commit failed; raw evidence retained in workflow artifact.'
           exit 1
+      - name: Fail scheduled job when first-observation evidence is BLOCKED
+        if: always() && github.event_name == 'schedule'
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+          d = datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat()
+          record_path = Path('research/v103_forward_preopen/observations') / d / 'first_capture.json'
+          if not record_path.is_file():
+              print('::error::V103 capture manifest missing; scheduled evidence gate BLOCKED')
+              raise SystemExit(1)
+          record = json.loads(record_path.read_text(encoding='utf-8'))
+          status = record.get('status', 'BLOCKED')
+          reason = record.get('reason', 'UNKNOWN')
+          with open(__import__('os').environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as out:
+              out.write(f"### V103 source-observation gate\\n\\nDate: {d}  \\nStatus: **{status}**  \\nReason: {reason}\\n")
+          if status != 'PASS_PREOPEN_RAW_SOURCE_OBSERVED_RESEARCH_ONLY':
+              print(f'::error::V103 scheduled source observation BLOCKED: {reason}')
+              raise SystemExit(1)
+          print('V103 source observation PASS (research only; no model signal)')
+          PY
