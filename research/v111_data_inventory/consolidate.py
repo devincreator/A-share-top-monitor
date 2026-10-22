@@ -71,6 +71,29 @@ def build(obj):
             "monthly":"next_month_first_trading_session_after_full_month"},
         "source_status":"RESEARCH_ASSUMED_RELEASE_LAG_NOT_ACTUAL_PIT",
         "imputation_used":False,"production_updated":False,"formal_signal_allowed":False}
+def merge_historical(obj, history):
+    """Restore previously captured long-history *actual* rows.
+    Fresh rows take precedence only if overlap values are identical to
+    the archived observation; otherwise refuse silently reusing revisions.
+    """
+    old=load(history)
+    for code in REQUIRED:
+        merged={r["date"]:r for r in old["indices"].get(code,[])}
+        for r in obj["indices"].get(code,[]):
+            d=r["date"]
+            if d in merged:
+                prior=merged[d]
+                for col in ("close","amount","turnover"):
+                    a,b=prior.get(col),r.get(col)
+                    if a not in ("",None) and b not in ("",None) and abs(float(a)-float(b))>max(0.00001,abs(float(a))*0.000001):
+                        raise ValueError("HISTORICAL_SOURCE_REVISION_CONFLICT_"+code+"_"+d+"_"+col)
+            merged[d]=r
+        obj["indices"][code]=list(merged.values())
+    historic={r["date"]:r for r in old.get("financing",[])}
+    historic.update({r["date"]:r for r in obj.get("financing",[])})
+    obj["financing"]=list(historic.values())
+    return obj
+
 def official_fallback(obj, rawdir):
     """Use actual official close/amount when Eastmoney history is unavailable.
     Missing turnover stays absent; never substitute 0 or assume 2026 history complete.
@@ -98,11 +121,13 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--input",required=True)
     ap.add_argument("--out",required=True)
+    ap.add_argument("--historical-source")
     ap.add_argument("--official-dir")
     ap.add_argument("--frozen-price-csv")
     a=ap.parse_args()
     source=Path(a.input)
     obj=load(source)
+    if a.historical_source:obj=merge_historical(obj,a.historical_source)
     if a.official_dir:obj=official_fallback(obj,a.official_dir)
     rows,report=build(obj)
     dest=Path(a.out);dest.mkdir(parents=True,exist_ok=True)
@@ -119,6 +144,9 @@ def main():
         report["frozen_000985_close_rows"]=len(entries)
         report["frozen_000985_close_sha256"]=hashlib.sha256(frozen.read_bytes()).hexdigest()
         report["frozen_index_price_asof"]=entries[-1]["date"]
+    if a.historical_source:
+        report["historical_source_sha256"]=hashlib.sha256(Path(a.historical_source).read_bytes()).hexdigest()
+        report["historic_archive_reused_not_refetched"]=True
     report["source_file_sha256"]=hashlib.sha256(source.read_bytes()).hexdigest()
     report["daily_unified_sha256"]=hashlib.sha256(out.read_bytes()).hexdigest()
     (dest/"data_coverage.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
