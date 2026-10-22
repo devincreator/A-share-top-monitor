@@ -45,6 +45,12 @@ jobs:
             --historical-source v111_historical_source/candidate_inputs.json \
             --official-dir v111_raw_acquisition \
             --frozen-price-csv research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv
+      - name: Recover audited V92 exchange source gaps as bounded candidates
+        run: |
+          python research/v111_data_inventory/finance_gap_bridge.py \
+            --ledger research/v92_margin_recovery \
+            --daily v111_normalized/daily_unified.csv \
+            --out v111_normalized
       - name: Upload raw source and coverage bundle (research only)
         if: always()
         uses: actions/upload-artifact@v4
