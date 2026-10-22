@@ -11,6 +11,7 @@ on:
       - '.github/workflows/v111-historical-data.yml'
 permissions:
   contents: read
+  actions: read
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -29,11 +30,19 @@ jobs:
           python research/v89_factor_inputs/collect_candidates.py \
             --raw-ledger research/v88_daily_observations/ledger \
             --output-dir v111_raw_acquisition
+      - name: Restore archived real V89 long-history inputs from prior successful run
+        uses: actions/download-artifact@v4
+        with:
+          name: v89-index-financing-source-39539695414
+          run-id: 39539695414
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: v111_historical_source
       - name: Consolidate actual rows, quarantine missing or invalid financing
         run: |
           python research/v111_data_inventory/consolidate.py \
             --input v111_raw_acquisition/candidate_inputs.json \
             --out v111_normalized \
+            --historical-source v111_historical_source/candidate_inputs.json \
             --official-dir v111_raw_acquisition \
             --frozen-price-csv research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv
       - name: Upload raw source and coverage bundle (research only)
