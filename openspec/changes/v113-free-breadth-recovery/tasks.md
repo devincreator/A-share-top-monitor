@@ -4,9 +4,10 @@
   Evidence: 39749170758 (0/21 SECURITY_LEVEL), 39749288836 (0/10).
 - [x] Preserve partial alternative aggregation evidence.
   Evidence: 39750775772 (14/31 AGGREGATE_ONLY, 17 missing).
-- [x] Confirm 8/21? No. August 2026 is 21/21 with actual per-stock bars.
+- [x] Confirm August 2026 has 21/21 sampled market sessions reconstructed from per-stock bars.
   Evidence: 39743177479.
 - [x] Define deterministic V113 acceptance contract and automated tests.
+  Evidence: GitHub Actions 39759812906, 10 tests passed, actual frozen data gate PARTIAL (21 security-level dates, 14 aggregate-only dates).
 - [ ] Acquire source-verified individual security bars for 2026-09 (21 dates).
 - [ ] Acquire source-verified individual security bars for 2026-10 (10 dates).
 - [ ] Establish historical A-share listing/delisting membership and suspension
