@@ -99,7 +99,7 @@ def official_fallback(obj, rawdir):
     Missing turnover stays absent; never substitute 0 or assume 2026 history complete.
     """
     for code in REQUIRED:
-        if obj["indices"].get(code):continue
+        existing={r["date"]:r for r in obj["indices"].get(code,[])}
         p=Path(rawdir)/("official_csi_"+code+"_raw.json")
         if not p.is_file():continue
         doc=json.loads(p.read_text(encoding="utf-8-sig"))
@@ -111,10 +111,15 @@ def official_fallback(obj, rawdir):
             if len(ds)!=8 or not ds.isdigit():continue
             d=date.fromisoformat(ds[:4]+"-"+ds[4:6]+"-"+ds[6:])
             if d.weekday()>=5:continue
-            rows.append({"code":code,"date":d.isoformat(),"close":item.get("close"),
-                         "amount":float(item["tradingValue"])*100000000 if item.get("tradingValue") is not None else "",
-                         "turnover":""})
-        obj["indices"][code]=rows
+            newrow={"code":code,"date":d.isoformat(),"close":item.get("close"),
+                     "amount":float(item["tradingValue"])*100000000 if item.get("tradingValue") is not None else "",
+                     "turnover":""}
+            if d.isoformat() in existing:
+                if abs(float(existing[d.isoformat()]["close"])-float(newrow["close"]))>0.02:
+                    raise ValueError("OFFICIAL_ARCHIVE_CLOSE_CONFLICT_"+code+"_"+d.isoformat())
+            else:
+                existing[d.isoformat()]=newrow
+        obj["indices"][code]=list(existing.values())
     return obj
 
 def main():
