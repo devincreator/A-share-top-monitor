@@ -3,7 +3,7 @@ on:
   push:
     branches: [research/v111-assumed-lag-data-inventory-20261022]
     paths:
-      - '.github/workflows/v113-sep-2026-stock-bars.yml'
+      - '.github/workflows/v113-oct-2026-stock-bars.yml'
 permissions:
   contents: read
   actions: read
