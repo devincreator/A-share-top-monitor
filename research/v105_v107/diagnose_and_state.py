@@ -87,6 +87,28 @@ def states_asof(prices):
             results.append({"asof_close_date":prices[i][0],**features})
     return results
 
+
+def event_state_crosswalk(events, states):
+    """Join by the event's archived D-1 source date, never by later pivot outcome."""
+    by_date = {r["asof_close_date"]: r for r in states}
+    output=[]
+    for event in events:
+        d=event["last_price_observation_date"]
+        row=by_date.get(d)
+        if row is None:
+            raise ValueError("MISSING_ASOF_STATE:"+d)
+        if d >= event["date"]:
+            raise ValueError("SAME_DAY_OR_FUTURE_STATE_FOR_PREOPEN")
+        output.append({"alert_id":event["id"],"task":event["task"],
+            "decision_date":event["date"],"asof_close_date":d,
+            "historical_source_time_certified":False,
+            "retrospective_state_only":True,"state":row["state"],
+            "ret5":row["ret5"],"ret20":row["ret20"],"ret63":row["ret63"],
+            "position_63":row["position_63"]})
+    if len({r["alert_id"] for r in output}) != len(output):
+        raise ValueError("DUPLICATE_CROSSWALK_IDS")
+    return output
+
 def main():
     for p in (FP,FN,EVENTS,PRICES):
         if not p.is_file(): raise FileNotFoundError(p)
@@ -94,13 +116,18 @@ def main():
     diagnostic=diagnose(read(FP),read(FN),read(EVENTS))
     prices=parse_price_table(read(PRICES))
     states=states_asof(prices)
+    crosswalk=event_state_crosswalk(read(EVENTS),states)
     if not states: raise ValueError("NO_ELIGIBLE_STATE_ROWS")
     OUTPUT.mkdir(exist_ok=True)
     (OUTPUT/"diagnosis.json").write_text(json.dumps(diagnostic,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     with (OUTPUT/"causal_states.csv").open("w",newline="",encoding="utf-8") as f:
         writer=csv.DictWriter(f,fieldnames=list(states[0]))
         writer.writeheader();writer.writerows(states)
-    summary={"status":"RETROSPECTIVE_DESCRIPTIVE_ONLY_NOT_PIT_NOT_MODEL_VALIDATION",
+    with (OUTPUT/"event_state_crosswalk.csv").open("w",newline="",encoding="utf-8") as f:
+        writer=csv.DictWriter(f,fieldnames=list(crosswalk[0]))
+        writer.writeheader();writer.writerows(crosswalk)
+    summary={"crosswalk_events":len(crosswalk),"crosswalk_state_counts":dict(Counter(r["state"] for r in crosswalk)),
+        "historical_event_state_join_is_expost":True,"status":"RETROSPECTIVE_DESCRIPTIVE_ONLY_NOT_PIT_NOT_MODEL_VALIDATION",
         "price_sha256":sha(PRICES),"feature_rows":len(states),
         "first_asof":states[0]["asof_close_date"],"last_asof":states[-1]["asof_close_date"],
         "state_counts":dict(Counter(r["state"] for r in states)),
