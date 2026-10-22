@@ -1,4 +1,4 @@
-> **2026-10-22远端状态更新**：V103代码及`.github/workflows/v103-forward-first-capture.yml`已部署到GitHub主分支，9项既有单元测试的云端运行[39707502379](https://github.com/devincreator/A-share-top-monitor/actions/runs/39707502379)已PASS；该次是`push`触发，采集阶段明确**skipped**，不是2026-10-22的盘前真实采集证据。首次预定执行为2026-10-23 09:10北京时间（GitHub可能延迟，代码截止09:20）。本次V103完整性增强在独立研究分支完成，新增时间倒退拒绝、跨站来源重定向拒绝、原始SHA/manifest再次读取完整性核对及损坏/只写了RAW未写manifest的孤儿状态阻塞。以上修正需要远端本轮新CI通过才算代码PASS；即使通过，真实盘前原始数据与预测准确率仍BLOCKED。
+> **2026-10-22远端状态更新**：V103代码及`.github/workflows/v103-forward-first-capture.yml`已部署到GitHub主分支，9项既有单元测试的云端运行[39707502379](https://github.com/devincreator/A-share-top-monitor/actions/runs/39707502379)已PASS；该次是`push`触发，采集阶段明确**skipped**，不是2026-10-22的盘前真实采集证据。首次预定执行为2026-10-23 09:10北京时间（GitHub可能延迟，代码截止09:20）。V103完整性增强已合并至主分支：拒绝时钟倒退、跨站来源重定向、缺损或孤儿原始归档；对再次读取的PASS记录重新检查起止时间、原始响应SHA及实际指数收盘日期/数值。新增云端[39709012813](https://github.com/devincreator/A-share-top-monitor/actions/runs/39709012813)**22/22测试PASS**。但该运行由代码推送触发，真正的盘前采集步骤被跳过。2026-10-23 09:10计划窗口须由实际schedule运行取得合格原始字节，才可宣布首次盘前观察PASS；预测准确率继续BLOCKED。
 
 # V103｜未来开盘前原始价格首次观测
 
