@@ -33,8 +33,8 @@ jobs:
         run: |
           python research/v111_data_inventory/consolidate.py \
             --input v111_raw_acquisition/candidate_inputs.json \
-            --out v111_normalized \\
-            --official-dir v111_raw_acquisition \\
+            --out v111_normalized \
+            --official-dir v111_raw_acquisition \
             --frozen-price-csv research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv
       - name: Upload raw source and coverage bundle (research only)
         if: always()
