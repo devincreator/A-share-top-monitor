@@ -5,6 +5,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 spec = importlib.util.spec_from_file_location('v103', Path(__file__).with_name('first_capture.py'))
 v = importlib.util.module_from_spec(spec)
@@ -100,7 +101,7 @@ class ForwardEvidenceTests(unittest.TestCase):
             altered['status'] = 'BLOCKED'
             second = v.archive_once(altered, b'different', td)
             self.assertEqual(first['archive_status'], 'FIRST_CAPTURE_PERSISTED')
-            self.assertEqual(second['archive_status'], 'EXISTING_FIRST_CAPTURE_LEFT_UNCHANGED')
+            self.assertEqual(second['archive_status'], 'EXISTING_FIRST_CAPTURE_VERIFIED_UNCHANGED')
             self.assertEqual(path.read_bytes(), old_manifest)
             self.assertEqual(rawpath.read_bytes(), old_raw)
 
@@ -109,6 +110,95 @@ class ForwardEvidenceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             with self.assertRaises(ValueError):
                 v.archive_once(record, b'corrupt', td)
+
+    def test_backward_wall_clock_cannot_claim_preopen_pass(self):
+        record, raw = do_capture(official_bytes(), start=clock(9, 12), end=clock(9, 11))
+        self.assertEqual(record['status'], 'BLOCKED')
+        self.assertEqual(record['reason'], 'INVALID_NON_MONOTONIC_CAPTURE_CLOCK')
+        self.assertFalse(record['source_available_before_decision_cutoff_observed'])
+        self.assertEqual(raw, official_bytes())
+
+    def test_positive_capture_duration_is_recorded(self):
+        record, _ = do_capture(official_bytes(), start=clock(9, 10), end=clock(9, 11, 4))
+        self.assertEqual(record['request_duration_seconds'], 64.0)
+
+    def test_existing_archive_is_sha_checked_before_declaring_unchanged(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'official_index_raw.json'
+            p.write_bytes(b'corrupt')
+            with self.assertRaisesRegex(ValueError, 'RAW_EVIDENCE_TAMPERED'):
+                v.archive_once(record, raw, td)
+
+    def test_missing_source_cannot_be_silent_existing_capture(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'official_index_raw.json'
+            p.unlink()
+            with self.assertRaisesRegex(ValueError, 'RAW_EVIDENCE_MISSING'):
+                v.archive_once(record, raw, td)
+
+    def test_orphan_source_after_interrupted_write_stays_blocked(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            folder = Path(td)/record['decision_date']
+            folder.mkdir()
+            (folder/'official_index_raw.json').write_bytes(raw)
+            with self.assertRaisesRegex(ValueError, 'ORPHANED_FIRST_CAPTURE'):
+                v.archive_once(record, raw, td)
+            self.assertFalse((folder/'first_capture.json').exists())
+
+    def test_corrupt_existing_manifest_blocks_reuse(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            v.archive_once(record, raw, td)
+            p = Path(td)/record['decision_date']/'first_capture.json'
+            p.write_text('NOT JSON')
+            with self.assertRaisesRegex(ValueError, 'INVALID_PREEXISTING_CAPTURE_MANIFEST'):
+                v.archive_once(record, raw, td)
+
+    def test_pass_without_raw_source_or_declared_sha_refused(self):
+        record, raw = do_capture(official_bytes())
+        with tempfile.TemporaryDirectory() as td:
+            with self.assertRaisesRegex(ValueError, 'PASS declared without original'):
+                v.archive_once(record, None, td)
+            tampered = dict(record)
+            tampered.pop('raw_sha256')
+            with self.assertRaisesRegex(ValueError, 'source raw sha mismatch'):
+                v.archive_once(tampered, raw, td)
+
+    def test_invalid_archive_date_path_is_not_accepted(self):
+        record, raw = do_capture(official_bytes())
+        for invalid in ('../../other', '2026-10-22/../../../other', '2026-10-22x'):
+            bogus = dict(record, decision_date=invalid)
+            with tempfile.TemporaryDirectory() as td:
+                with self.assertRaisesRegex(ValueError, 'invalid decision date'):
+                    v.archive_once(bogus, raw, td)
+
+    def test_source_cannot_redirect_to_unrelated_origin(self):
+        class FakeResponse:
+            status = 200
+            headers = {'Date': 'Thu, 22 Oct 2026 01:11:00 GMT'}
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def geturl(self): return 'https://third-party.invalid/faked-csi'
+            def read(self, n): return official_bytes()
+        with mock.patch.object(v.urllib.request, 'urlopen', return_value=FakeResponse()):
+            with self.assertRaisesRegex(ValueError, 'redirected outside'):
+                v.fetch_official(v.source_url(date(2026,10,22)))
+
+    def test_invalid_duplicate_and_nonfinite_official_rows_rejected(self):
+        import json as _json
+        valid = _json.loads(official_bytes())
+        duplicates = dict(valid, data=valid['data']+[dict(valid['data'][0])])
+        nonfinite = _json.loads(official_bytes())
+        nonfinite['data'][-1]['close'] = 'NaN'
+        for bad in (duplicates, nonfinite):
+            record, raw = do_capture(_json.dumps(bad).encode())
+            self.assertEqual(record['status'], 'BLOCKED')
+            self.assertEqual(record['reason'], 'SOURCE_SCHEMA_OR_LOOKBACK_BLOCKED')
 
     def test_monday_requires_friday_and_no_decision_day_data(self):
         self.assertEqual(v.prev_weekday(date(2026, 10, 26)), date(2026, 10, 23))
