@@ -1,0 +1,60 @@
+{
+  "record_type": "manual_verified_research_progress",
+  "timestamp_utc": "2026-10-22T02:05:21.461Z",
+  "version": "V103",
+  "status": "CLOUD_DEPLOY_AND_CODE_PASS_LIVE_SOURCE_STILL_BLOCKED",
+  "github_repo": "devincreator/A-share-top-monitor",
+  "workflows": [
+    {
+      "run_id": 39707502379,
+      "event": "push",
+      "tests_passed": 9,
+      "source_capture_step": "skipped",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 39708640232,
+      "event": "push",
+      "tests_passed": 19,
+      "source_capture_step": "skipped",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 39709012813,
+      "event": "push",
+      "tests_passed": 22,
+      "source_capture_step": "skipped",
+      "conclusion": "success"
+    },
+    {
+      "run_id": 39709209527,
+      "event": "push",
+      "tests_passed": 22,
+      "source_capture_step": "skipped",
+      "post_capture_readback_step": "skipped",
+      "conclusion": "success"
+    }
+  ],
+  "verified_changes": [
+    "Reject backwards wall clocks and invalid origin redirects",
+    "Verify existing archived raw bytes and manifest SHA before declaring unchanged",
+    "Reject partial/orphaned source capture and forged preopen timestamps",
+    "Re-parse preserved index response to match reported close, last trading observation and 127-session SHA",
+    "Add post-schedule on-disk raw/time readback before artifact+Git commit",
+    "Keep workflow template synchronized with deployed workflow"
+  ],
+  "official_source_candidate": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000985",
+  "first_scheduled_future_window_beijing": "2026-10-23 09:10",
+  "hard_decision_cutoff_beijing": "09:20",
+  "real_preopen_source_capture_count_verified": 0,
+  "original_publisher_first_release_clock_certified": false,
+  "historic_first_vintage_PIT_certified": false,
+  "source_calendar_certified": false,
+  "prospective_model_signal_issued": false,
+  "prospective_accuracy_computed": false,
+  "double80_certified": false,
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "notes": "Push CI proves synthetic test behavior and deployed schedule configuration, not actual scheduled 2026-10-23 run. Not permitted to backdate today's 09:50 check as a valid 09:20 capture.",
+  "next_action": "After next trading-day schedule, inspect actual schedule event logs and immutable original response before promoting only source-observation gate; keep prediction and performance gate blocked until proven independent prospective snapshots."
+}
