@@ -81,3 +81,6 @@ jobs:
           done
           echo 'Commit failed; raw evidence retained in workflow artifact.'
           exit 1
+      - name: Fail scheduled job when first-observation evidence is BLOCKED
+        if: always() && github.event_name == 'schedule'
+        run: python research/v103_forward_preopen/scheduled_gate.py
