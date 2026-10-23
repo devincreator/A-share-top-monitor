@@ -38,7 +38,7 @@ def inspect():
   for info in entries:
    name=info.filename.replace("\\","/")
    base=name.rsplit("/",1)[-1].lower()
-   key=base[:2] if re.match(r"^(sh|sz|bj)\\d{6}\\.day$",base) else "other"
+   key=base[:2] if re.match(r"^(sh|sz|bj)\d{6}\.day$",base) else "other"
    bymarket[key].append(info)
   result={"source":URL,"zip_sha256":sha,"archive_size_bytes":ARCHIVE.stat().st_size,
        "all_entries":len(entries),"security_file_counts":{k:len(v) for k,v in bymarket.items()},
