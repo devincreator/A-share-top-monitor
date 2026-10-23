@@ -17,7 +17,7 @@ for method in ("HEAD","RANGE"):
   out[method.lower()]={"status":status,"size_header":hd.get("Content-Length",""),
     "content_range":hd.get("Content-Range",""),"content_type":hd.get("Content-Type",""),
     "accept_ranges":hd.get("Accept-Ranges",""),"sample_size":len(content),
-    "zip_signature_ok":content.startswith(b"PK\\x03\\x04") if content else None}
+    "zip_signature_ok":content.startswith(b"PK\x03\x04") if content else None}
   print(json.dumps({"method":method,**out[method.lower()]},ensure_ascii=False),flush=True)
  except Exception as e:
   out[method.lower()]={"error":type(e).__name__+":"+str(e)[:220]}
