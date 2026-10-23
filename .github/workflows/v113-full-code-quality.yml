@@ -24,6 +24,7 @@ jobs:
             research/v113_breadth/build_beijing_registry.py \
             research/v113_breadth/collect_beijing_shard.py \
             research/v113_breadth/merge_beijing_full.py \
-            research/v113_breadth/accept_v113_full.py
+            research/v113_breadth/accept_v113_full.py \
+            research/v113_breadth/rolling_v113_breadth.py
       - name: No future or missing values silently accepted
         run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
