@@ -60,7 +60,7 @@ def compute(args):
      if not filtered:raise ValueError("NO_LISTED_DAY_ROWS")
      for x in filtered:w.writerow(x)
      record.update(status="OBSERVED_TRADING_BARS_ONLY",rows=len(filtered),
-        "original_rows":len(df),"earliest":filtered[0]["date"],"latest":filtered[-1]["date"],
+        original_rows=len(df),earliest=filtered[0]["date"],latest=filtered[-1]["date"],
         "raw_source_sha256":hashlib.sha256(sourcecsv).hexdigest(),
         "suspension_status_certified":False,"attempts":attempt+1)
      break
