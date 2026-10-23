@@ -61,8 +61,8 @@ def compute(args):
      for x in filtered:w.writerow(x)
      record.update(status="OBSERVED_TRADING_BARS_ONLY",rows=len(filtered),
         original_rows=len(df),earliest=filtered[0]["date"],latest=filtered[-1]["date"],
-        "raw_source_sha256":hashlib.sha256(sourcecsv).hexdigest(),
-        "suspension_status_certified":False,"attempts":attempt+1)
+        raw_source_sha256=hashlib.sha256(sourcecsv).hexdigest(),
+        suspension_status_certified=False,attempts=attempt+1)
      break
     except Exception as e:
      record["error"]=type(e).__name__+":"+str(e)[:150]
