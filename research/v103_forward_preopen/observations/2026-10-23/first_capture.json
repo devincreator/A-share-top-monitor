@@ -1,0 +1,20 @@
+{
+  "actual_source_original_publication_time_known": false,
+  "blind_performance_evaluated": false,
+  "decision_cutoff_local": "2026-10-23T09:20:00+08:00",
+  "decision_date": "2026-10-23",
+  "formal_signal_allowed": false,
+  "forward_prediction_generated": false,
+  "historical_publisher_release_timestamp_certified": false,
+  "independent_trading_calendar_certified": false,
+  "index": "000985.CSI",
+  "production_updated": false,
+  "reason": "OUTSIDE_09_00_TO_09_20_CAPTURE_WINDOW",
+  "request_started_at_utc": "2026-10-23T06:01:05.718335+00:00",
+  "research_only": true,
+  "schema": "V103_FIRST_OBSERVED_DIRECT_SOURCE_V1",
+  "source_available_before_decision_cutoff_observed": false,
+  "source_name": "CSI official index-perf direct HTTPS",
+  "source_url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000985&startDate=20251217&endDate=20261022",
+  "status": "BLOCKED"
+}
