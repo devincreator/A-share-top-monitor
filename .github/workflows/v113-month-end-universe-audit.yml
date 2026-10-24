@@ -1,0 +1,32 @@
+name: V113 official company-count historical universe validation
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-month-end-universe-audit.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895931145
+          name: v113-beijing-historical-registry-39895931145
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: bj_registry
+      - run: python research/v113_breadth/audit_official_universe.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-official-universe-compare-${{ github.run_id }}
+          path: v113_month_end_audit/
+          retention-days: 90

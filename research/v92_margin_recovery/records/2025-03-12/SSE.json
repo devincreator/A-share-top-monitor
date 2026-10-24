@@ -1,0 +1,19 @@
+{
+  "date": "2025-03-12",
+  "exchange": "SSE",
+  "source": "AKShare wrapper of original exchange financing summary",
+  "akshare_version": "1.19.1",
+  "source_raw_path": "research/v92_margin_recovery/raw/SSE/2025-03-12.csv",
+  "source_raw_sha256": "3daffff8ca7bd6f00eb3d26bf6a5b9348f25e0f4a83e5b9b52a65b8ee87bc1f0",
+  "first_captured_at_utc": "2026-10-22T07:33:05.867435+00:00",
+  "source_unit": "CNY",
+  "balance_yuan_from_display": "970925278485",
+  "source_response_date_verified": true,
+  "date_provenance": "RESPONSE_DATE_MATCHED",
+  "display_value_not_exact_yuan": false,
+  "Jin10_comparison": {
+    "status": "NO_JIN10_DATE_TO_COMPARE"
+  },
+  "PIT_certified": false,
+  "formal_signal_allowed": false
+}

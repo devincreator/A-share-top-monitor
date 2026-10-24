@@ -1,0 +1,25 @@
+name: V113 AKShare multi-year by-symbol durable archive pilot
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-akshare-multiyear.yml'
+permissions:
+  contents: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install akshare
+      - run: python research/v113_breadth/pilot_akshare_multiyear.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-akshare-multiyear-${{ github.run_id }}
+          path: v113_akshare_multiyear/
+          retention-days: 90

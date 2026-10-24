@@ -1,0 +1,29 @@
+name: V112 preserve fully audited margin originals in research branch
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v112-preserve-originals.yml'
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39740885848
+          name: v112-combined-financing-recovery-39740885848
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .
+      - name: Preserve evidence on research branch only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/v92_margin_recovery/raw/ research/v92_margin_recovery/records/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'research(v112): archive recovered original exchange financing sources [skip ci]'
+          git push origin HEAD:research/v111-assumed-lag-data-inventory-20261022

@@ -1,0 +1,21 @@
+name: V113 alternative free September October daily breadth evidence test
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-alternative-breadth-provider.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: python research/v113_breadth/probe_second_breadth_provider.py --out v113_alt_breadth
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-alt-source-probe-${{ github.run_id }}
+          path: v113_alt_breadth/
+          retention-days: 30

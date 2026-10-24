@@ -1,0 +1,55 @@
+name: V112 complete remaining exchange financing history candidate recovery
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v112-resume-gap-recovery.yml'
+permissions:
+  actions: read
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39539695414
+          name: v89-index-financing-source-39539695414
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archived_input
+      - name: Restore 16 already recovered trading days
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39740593155
+          name: v112-margin-recovery-39740593155
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .
+      - run: python -m pip install --disable-pip-version-check --no-cache-dir 'akshare>=1.15' pandas requests
+      - name: Continue verified exchange backfill in limited batches
+        run: |
+          python research/v111_data_inventory/resume_v112_batches.py \
+            --candidate archived_input/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v112_restored_batches --batches 10
+      - name: Independently audit combined recovered dates
+        run: |
+          python research/v92_margin_recovery/audit_coverage.py \
+            --candidate archived_input/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v112_restored_batches/coverage_audit.json
+      - name: Archive recovered originals for next verification and future reuse
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v112-combined-financing-recovery-${{ github.run_id }}
+          path: |
+            research/v92_margin_recovery/raw/
+            research/v92_margin_recovery/records/
+            v112_restored_batches/
+          retention-days: 90
+          if-no-files-found: warn
