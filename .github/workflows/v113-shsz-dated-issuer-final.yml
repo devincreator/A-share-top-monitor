@@ -1,0 +1,38 @@
+name: V113 SHSZ dated issuer count and publication audit targeted
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-dated-issuer-final.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  issuer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install baostock
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - name: Compare identical-scope exchange A-only issuer month-end measures
+        run: |
+          python research/v113_breadth/audit_shsz_a_issuers.py --basic basic/stock_basic.csv --out v113_targeted/issuer_counts
+      - name: Inspect actual historical lists for five benchmark dates
+        run: |
+          python research/v113_breadth/audit_dated_issuer_differences.py --basic basic/stock_basic.csv --out v113_targeted/dated_snapshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-dated-issuer-targeted-${{ github.run_id }}
+          path: v113_targeted/
+          retention-days: 90
