@@ -21,6 +21,20 @@ jobs:
         run: |
           python -m py_compile research/v113_breadth/reconcile_shsz_dated_membership.py
           python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - name: Bounded wait for all 32 original historical date-list snapshots
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 15); do
+            status=$(gh api repos/${GITHUB_REPOSITORY}/actions/runs/40255562468 --jq '.status')
+            echo "Frozen eight-shard source status: ${status}"
+            if [ "${status}" = "completed" ]; then exit 0; fi
+            sleep 45
+          done
+          echo 'SOURCE_SHARDS_TIMEOUT'
+          exit 1
       - uses: actions/download-artifact@v4
         with:
           run-id: 40255562468
