@@ -8,7 +8,7 @@ def audit(anchor, evidence):
     days=[r["source_trade_date"] for r in anchor]
     if len(days)!=1129 or days!=sorted(set(days)):raise ValueError("BAD_FROZEN_CALENDAR")
     index={day:i for i,day in enumerate(days)}
-    accepted={};rejected=[]
+    accepted={};rejected=[]\n    # A URL and digest supplied by the claimant do not independently certify historical publication.\n    # No source verification adapter is yet implemented; keep the gate fail-closed.
     for r in evidence:
         d=r["observation_date"]
         decision=r["earliest_available_decision_date"]
@@ -21,7 +21,7 @@ def audit(anchor, evidence):
             rejected.append(d);continue
         # User-approved one-session delay is necessary but not sufficient.
         if index[decision]<index[d]+1:rejected.append(d);continue
-        accepted[d]=r
+        rejected.append(d)  # evidence requires third-party timestamp/content verification
     return {"version":"V113-SHSZ","status":"CERTIFIED" if len(accepted)==len(days) and not rejected else "BLOCKED",
       "required_observation_dates":len(days),"historical_publication_dates_certified":len(accepted),
       "dates_rejected":rejected,"assumed_D_minus_1_lag_still_only_assumption":len(accepted)!=len(days),
