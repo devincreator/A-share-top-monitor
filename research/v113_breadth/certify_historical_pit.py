@@ -8,7 +8,9 @@ def audit(anchor, evidence):
     days=[r["source_trade_date"] for r in anchor]
     if len(days)!=1129 or days!=sorted(set(days)):raise ValueError("BAD_FROZEN_CALENDAR")
     index={day:i for i,day in enumerate(days)}
-    accepted={};rejected=[]\n    # A URL and digest supplied by the claimant do not independently certify historical publication.\n    # No source verification adapter is yet implemented; keep the gate fail-closed.
+    accepted={};rejected=[]
+    # A URL and digest supplied by the claimant do not independently certify historical publication.
+    # No source verification adapter is yet implemented; keep the gate fail-closed.
     for r in evidence:
         d=r["observation_date"]
         decision=r["earliest_available_decision_date"]
@@ -39,6 +41,7 @@ def main():
     report=audit(days,entries)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     report["anchor_sha256"]=hashlib.sha256(Path(a.anchor).read_bytes()).hexdigest()
-    (out/"historical_pit_certificate.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n")
+    (out/"historical_pit_certificate.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"
+")
     print(json.dumps(report,ensure_ascii=False))
 if __name__=="__main__":main()
