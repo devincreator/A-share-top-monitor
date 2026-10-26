@@ -19,3 +19,9 @@ coverage alone does not count as full PASS. There may be PARTIAL results.
 ## Out of Scope
 Changes to production alerts, V101 event labels, historical signal backdating,
 invented missing values and automatic trading.
+
+## Approved scope amendment: SH/SZ only (2026-10-26)
+The user deferred BSE. Deliver V113-SHSZ, a separate interim research dataset,
+using the same 1,129 reference dates and >=98% coverage requirement.
+Keep all-A acceptance BLOCKED until the excluded BSE market is explicitly restored.
+No retrospective inference of BSE counts. Historical original archived BSE evidence is retained without further collection.
