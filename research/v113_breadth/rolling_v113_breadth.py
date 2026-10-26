@@ -58,8 +58,9 @@ def iterate_bj(src,shard):
   if current is not None:yield current,rows
 def run(a):
  byday=defaultdict(Counter);seen=set()
- for folder,shards,source in [(Path(a.shsz_shards),range(24),"SHSZ"),
-                               (Path(a.beijing_shards),range(8),"BSE")]:
+ sources=[(Path(a.shsz_shards),range(24),"SHSZ")]
+ if a.beijing_shards:sources.append((Path(a.beijing_shards),range(8),"BSE"))
+ for folder,shards,source in sources:
   for s in shards:
    stream=iterate_shsz(folder,s) if source=="SHSZ" else iterate_bj(folder,s)
    for code,rows in stream:
@@ -78,6 +79,7 @@ def run(a):
   for d in dates:
    w.writerow({"date":d,**{k:byday[d].get(k,"") for k in fields}})
  report={"version":"V113","status":"RESEARCH_FACTORS_ONLY",
+  "source_scope":"SHSZ_ONLY" if not a.beijing_shards else "SHSZ_AND_BSE",
   "strict_asof_windows":True,"no_future_observations_used":True,
   "security_series_processed":len(seen),"calendar_days":len(dates),
   "raw_sha256":hashlib.sha256((out/"breadth_rolling_research.csv").read_bytes()).hexdigest(),
@@ -87,5 +89,6 @@ def run(a):
  print(json.dumps(report,ensure_ascii=False))
 if __name__=="__main__":
  p=argparse.ArgumentParser()
- for key in ("shsz-shards","beijing-shards","anchor","out"):p.add_argument("--"+key,required=True)
+ for key in ("shsz-shards","anchor","out"):p.add_argument("--"+key,required=True)
+ p.add_argument("--beijing-shards")
  run(p.parse_args())
