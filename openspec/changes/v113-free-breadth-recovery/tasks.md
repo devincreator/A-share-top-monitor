@@ -25,8 +25,8 @@
 - [x] Build BJ eight-shard downloader and independent code and suspension gap audit; completion pending source runs.
 - [x] Implement MA20/60/120 and 60/252-day high-low breadth with past-only history; syntax and tests checked (run 39896880333).
 - [ ] Verify SH/SZ all-source shards artifact, count failures and issue list, and publish acceptance.
-- [ ] Verify BSE source shards, repair errors, audit suspended-days vs no-bars, and publish acceptance.
-- [ ] Run combined 1,129-day full-A breadth validator; no formal PASS before all checks.
+- Deferred, not a gate for SHSZ-only V113: BSE stock source shards and suspension audit (user explicitly postponed BSE).
+- Deferred, not a gate for SHSZ-only V113: combined full-A market validator.
 
 ## 2026-10-26 user-directed SH/SZ scope only
 - [x] User deferred BSE. Exclude BJ from current V113 data/features and validation; preserve its original archives.
@@ -36,3 +36,13 @@
 - [ ] Re-evaluate the 1,129-date >=98% scoped coverage threshold against actual merged evidence.
 - [ ] Investigate independent year/month-end exchange universe mismatch before formal scoped membership certification.
 - [ ] Keep V113 all-market acceptance blocked; no Beijing dependence and no production model modification.
+
+## 2026-10-26 dated outDate evidence
+- [x] Inventory exactly 41 BaoStock stock/day misses, all at outDate, over 32 distinct trading days, 41 different stocks (run 40254546648).
+- [x] Independently audit 339 historical delisted codes: 149 have last observed bars dated on outDate, 41 have last bars before outDate and 149 had no bars inside anchor window (run 40255059928).
+- [x] Verify four dated historical listings: delisting-date absent for sample candidates, with control source code tradeStatus=0 (run 40255161569).
+- [x] Abandon immediate TDX full-archive re-download after 2026-10-26 source returned invalid 987-byte content; do not retry same blocked source in a loop (run 40254247712).
+- [ ] Audit all 32 historical date-specific security lists in eight source batches (run 40255562468).
+- [ ] Reconcile all 41 source cases with verifiable ABSENT / SUSPENDED / TRADING statuses and freeze SHSZ-only research daily breadth acceptance (run 40255765013).
+- [ ] Validate SHSZ-only full history moving average/new-high/new-low factors (run 40255873584).
+- [ ] Independently reconcile historic exchange-end security population before production-grade PIT certification.
