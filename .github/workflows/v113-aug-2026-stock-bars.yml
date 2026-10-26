@@ -1,0 +1,36 @@
+name: V113 August 2026 full-market stock-bar batch reconstruction
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-aug-2026-stock-bars.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Reconstruct all August 2026 index-listed trading-day source cross sections
+        run: |
+          python research/v113_breadth/recover_daily_batches.py \
+            --master anchor/v111_normalized/daily_unified.csv \
+            --out v113_aug2026 --begin 2026-08-01 --end 2026-08-31 --limit 25
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-aug2026-stock-bars-${{ github.run_id }}
+          path: v113_aug2026/
+          retention-days: 90
+          if-no-files-found: warn

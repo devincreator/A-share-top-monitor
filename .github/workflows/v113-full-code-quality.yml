@@ -1,0 +1,30 @@
+name: V113 full-stock migration compilation and fail-closed logic tests
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-full-code-quality.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax check all complete V113 source scripts
+        run: |
+          python -m py_compile \
+            research/v113_breadth/baostock_shard.py \
+            research/v113_breadth/merge_baostock_full.py \
+            research/v113_breadth/build_beijing_registry.py \
+            research/v113_breadth/collect_beijing_shard.py \
+            research/v113_breadth/merge_beijing_full.py \
+            research/v113_breadth/accept_v113_full.py \
+            research/v113_breadth/rolling_v113_breadth.py
+      - name: No future or missing values silently accepted
+        run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v

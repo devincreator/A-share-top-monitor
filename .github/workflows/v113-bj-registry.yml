@@ -1,0 +1,26 @@
+name: V113 Beijing historical code migration and delisted universe registry
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-bj-registry.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  registry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895604939
+          name: v113-beijing-historical-39895604939
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: v113_beijing_pilot
+      - run: python research/v113_breadth/build_beijing_registry.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-beijing-historical-registry-${{ github.run_id }}
+          path: v113_beijing_registry/
+          retention-days: 90

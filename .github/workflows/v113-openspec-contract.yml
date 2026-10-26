@@ -1,0 +1,57 @@
+name: V113 OpenSpec frozen quality contract
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - 'openspec/**'
+      - 'research/v113_breadth/openspec_acceptance.py'
+      - 'research/v113_breadth/test_openspec_acceptance.py'
+      - '.github/workflows/v113-openspec-contract.yml'
+  pull_request:
+    paths:
+      - 'openspec/**'
+      - 'research/v113_breadth/openspec_acceptance.py'
+      - 'research/v113_breadth/test_openspec_acceptance.py'
+      - '.github/workflows/v113-openspec-contract.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39743177479
+          name: v113-aug2026-repaired-39743177479
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: actual_august
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39750775772
+          name: v113-sep-oct-source-coverage-39750775772
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: actual_sep_oct
+      - name: Compute actual acceptance without certifying incomplete research
+        run: |
+          python research/v113_breadth/openspec_acceptance.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --security-csv actual_august/stock_breadth_reconstructed.csv \
+            --aggregate-csv actual_sep_oct/public_breadth_candidates.csv \
+            --out v113_openspec_report/acceptance.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-openspec-contract-${{ github.run_id }}
+          path: v113_openspec_report/
+          retention-days: 90

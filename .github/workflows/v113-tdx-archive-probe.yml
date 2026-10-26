@@ -1,0 +1,21 @@
+name: V113 direct TDX full Shanghai Shenzhen Beijing history archive accessibility probe
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-tdx-archive-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - run: python research/v113_breadth/probe_tdx_archive.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-tdx-full-history-probe-${{ github.run_id }}
+          path: v113_tdx_archive_probe/

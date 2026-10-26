@@ -1,0 +1,27 @@
+name: V113 BaoStock historical equity universe and suspension audit
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-baostock-audit.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: v113_baostock_pilot/
+      - run: python research/v113_breadth/audit_baostock_pilot.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-baostock-equity-audit-${{ github.run_id }}
+          path: v113_baostock_audit/
+          retention-days: 90

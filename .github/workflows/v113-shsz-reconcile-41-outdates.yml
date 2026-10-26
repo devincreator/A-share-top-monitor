@@ -1,0 +1,77 @@
+name: V113 SHSZ finalize original bars plus dated universe status; no Beijing
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-reconcile-41-outdates.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test no-fabrication and suspension distinction
+        run: |
+          python -m py_compile research/v113_breadth/reconcile_shsz_dated_membership.py
+          python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - name: Bounded wait for all 32 original historical date-list snapshots
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 15); do
+            status=$(gh api repos/${GITHUB_REPOSITORY}/actions/runs/40255562468 --jq '.status')
+            echo "Frozen eight-shard source status: ${status}"
+            if [ "${status}" = "completed" ]; then exit 0; fi
+            sleep 45
+          done
+          echo 'SOURCE_SHARDS_TIMEOUT'
+          exit 1
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 40255562468
+          pattern: v113-shsz-dated-membership-*-40255562468
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: dated_source
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 40254546648
+          name: v113-shsz-exact-date-gap-audit-40254546648
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: original_gaps
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39897170025
+          name: v113-final-full-research-audit-39897170025
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: original_daily
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Reconcile exact 41 affected original source date/code gaps
+        run: |
+          python research/v113_breadth/reconcile_shsz_dated_membership.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --baseline original_daily/shsz/daily_shsz_breadth.csv \
+            --gaps original_gaps/exact_shsz_missing_stock_days.csv \
+            --source-dir dated_source \
+            --out v113_shsz_dated_acceptance
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-dated-historical-acceptance-${{ github.run_id }}
+          path: v113_shsz_dated_acceptance/
+          retention-days: 90
+          if-no-files-found: warn

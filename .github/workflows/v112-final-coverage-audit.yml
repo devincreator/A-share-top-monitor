@@ -1,0 +1,56 @@
+name: V112 final financing coverage acceptance audit
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v112-final-coverage-audit.yml'
+permissions:
+  actions: read
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test coverage and exchange precision checks
+        run: |
+          python -m unittest discover -s research/v111_data_inventory -p 'test_*.py' -v
+      - name: Restore full 183-day exchange evidence
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39740885848
+          name: v112-combined-financing-recovery-39740885848
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .
+      - name: Restore historic 1129-day research master
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Restore rounded-precision source gaps into separate evidence layer
+        run: |
+          python research/v111_data_inventory/finance_gap_bridge.py \
+            --ledger research/v92_margin_recovery \
+            --daily anchor/v111_normalized/daily_unified.csv \
+            --out final_audit
+      - name: Recompute V112 99-percent gate from actual artifacts
+        run: |
+          python research/v111_data_inventory/accept_v112.py \
+            --daily anchor/v111_normalized/daily_unified.csv \
+            --bridge final_audit/v92_financing_gap_candidates.csv \
+            --manifest anchor/v111_normalized/data_coverage.json \
+            --out final_audit/v112_acceptance.json
+      - name: Archive final independently rechecked V112 coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v112-final-coverage-audit-${{ github.run_id }}
+          path: final_audit/
+          retention-days: 90
+          if-no-files-found: warn

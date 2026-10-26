@@ -1,0 +1,21 @@
+name: V113 free multi-day aggregate breadth archive probe
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-aleek-probe.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - run: python research/v113_breadth/probe_aleek_history.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-aleek-history-${{ github.run_id }}
+          path: v113_aleek_probe/
+          retention-days: 30

@@ -1,0 +1,19 @@
+{
+  "date": "2025-05-16",
+  "exchange": "SZSE",
+  "source": "AKShare wrapper of original exchange financing summary",
+  "akshare_version": "1.19.1",
+  "source_raw_path": "research/v92_margin_recovery/raw/SZSE/2025-05-16.csv",
+  "source_raw_sha256": "56c2c884846c74c4376c4e55bedc4b2881e61f55907eef5424d9b3d19a68dc5e",
+  "first_captured_at_utc": "2026-10-22T07:35:00.184810+00:00",
+  "source_unit": "100M_CNY",
+  "balance_yuan_from_display": "882054000000.00",
+  "source_response_date_verified": false,
+  "date_provenance": "REQUEST_PARAMETER_ONLY",
+  "display_value_not_exact_yuan": true,
+  "Jin10_comparison": {
+    "status": "NO_JIN10_DATE_TO_COMPARE"
+  },
+  "PIT_certified": false,
+  "formal_signal_allowed": false
+}
