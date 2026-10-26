@@ -41,7 +41,6 @@ def main():
     report=audit(days,entries)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     report["anchor_sha256"]=hashlib.sha256(Path(a.anchor).read_bytes()).hexdigest()
-    (out/"historical_pit_certificate.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"
-")
+    (out/"historical_pit_certificate.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+chr(10))
     print(json.dumps(report,ensure_ascii=False))
 if __name__=="__main__":main()
