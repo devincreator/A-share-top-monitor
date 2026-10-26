@@ -33,7 +33,7 @@ def go(a):
  for code in no_bars:
   b=stocks[code]
   active=[d for d in dates if (not b.get("ipoDate") or d>=b["ipoDate"])
-          and (not b.get("outDate") or d<=b["outDate"])]
+          and (not b.get("outDate") or d<b["outDate"])]
   if active:raise ValueError("LISTED_WITHOUT_BAR_"+code)
  out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
  with (out/"exact_shsz_missing_stock_days.csv").open("w",newline="",encoding="utf-8") as f:
