@@ -28,7 +28,13 @@ def go(a):
       gaps.append({"date":d,"code":code,"ipoDate":basic.get("ipoDate"),
        "outDate":basic.get("outDate"),"code_name":basic.get("code_name"),
        "status":"UNKNOWN_NOT_CLASSIFIED_AS_SUSPENDED"})
- if found!=set(stocks):raise ValueError("NOT_ALL_STOCK_CODES_CAPTURED")
+ # Securities whose last day predates 2022-02-23 legitimately have no bar rows.
+ no_bars=set(stocks)-found
+ for code in no_bars:
+  b=stocks[code]
+  active=[d for d in dates if (not b.get("ipoDate") or d>=b["ipoDate"])
+          and (not b.get("outDate") or d<=b["outDate"])]
+  if active:raise ValueError("LISTED_WITHOUT_BAR_"+code)
  out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
  with (out/"exact_shsz_missing_stock_days.csv").open("w",newline="",encoding="utf-8") as f:
   w=csv.DictWriter(f,fieldnames=list(gaps[0]) if gaps else ["date","code"])
@@ -38,6 +44,7 @@ def go(a):
   "missing_stock_day_pairs":len(gaps),"affected_trading_dates":len(count),
   "dates_with_counts":dict(sorted(count.items())),
   "affected_symbols":len(set(x["code"] for x in gaps)),
+  "out_of_window_registry_codes":len(no_bars),
   "missing_pairs":sorted(gaps,key=lambda x:(x["date"],x["code"])),
   "source_quality":"BAOSTOCK_HISTORIC_RAW_GAP_LIST_NOT_PROOF_OF_SUSPENSION",
   "formal_signal_allowed":False}
