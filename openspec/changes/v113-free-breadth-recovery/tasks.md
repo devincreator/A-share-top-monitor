@@ -27,3 +27,12 @@
 - [ ] Verify SH/SZ all-source shards artifact, count failures and issue list, and publish acceptance.
 - [ ] Verify BSE source shards, repair errors, audit suspended-days vs no-bars, and publish acceptance.
 - [ ] Run combined 1,129-day full-A breadth validator; no formal PASS before all checks.
+
+## 2026-10-26 user-directed SH/SZ scope only
+- [x] User deferred BSE. Exclude BJ from current V113 data/features and validation; preserve its original archives.
+- [x] BaoStock 24 stock shards finished: 5,564 symbols, 0 failed symbols; strict SH/SZ audit 1,097/1,129 complete dates and 41 listed-day gaps (run 39897170025).
+- [x] Independently download TDX ZIP and verify header/CRC/whole-archive hash and SH/SZ sample bars (run 39897910188).
+- [ ] Use original TDX .day only to repair verified missing listed SH/SZ stock-days; do not impute suspended stocks.
+- [ ] Re-evaluate the 1,129-date >=98% scoped coverage threshold against actual merged evidence.
+- [ ] Investigate independent year/month-end exchange universe mismatch before formal scoped membership certification.
+- [ ] Keep V113 all-market acceptance blocked; no Beijing dependence and no production model modification.
