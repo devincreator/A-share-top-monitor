@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "record_type": "github_actions_completion",
+  "progress_source": "GITHUB_API_AUTHORITATIVE",
+  "recorded_at_utc": "2026-10-26T08:49:28+00:00",
+  "run_id": 40294841172,
+  "run_attempt": 1,
+  "workflow_name": "V92 gradual exchange financing source gap recovery (research only)",
+  "workflow_path": ".github/workflows/v92-margin-gap-catchup.yml",
+  "branch": "main",
+  "commit_sha": "c19a97db5773c3028d0ee8df21aa0482dcc50b3e",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "schedule",
+  "created_at": "2026-10-26T08:48:28Z",
+  "run_started_at": "2026-10-26T08:48:28Z",
+  "updated_at": "2026-10-26T08:49:20Z",
+  "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40294841172",
+  "jobs": [
+    {
+      "id": 121478265740,
+      "name": "gap_research",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-26T08:48:31Z",
+      "completed_at": "2026-10-26T08:49:19Z",
+      "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40294841172/job/121478265740"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12638040446,
+      "name": "v92-exchange-gap-batch-40294841172",
+      "size_in_bytes": 12697,
+      "expired": false,
+      "expires_at": "2026-11-25T08:49:15Z",
+      "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12638040446/zip"
+    }
+  ],
+  "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
+  "PIT_certified": null,
+  "dual80_achieved": null,
+  "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+}
