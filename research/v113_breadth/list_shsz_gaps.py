@@ -3,7 +3,7 @@
 import argparse,csv,gzip,itertools,json,hashlib
 from collections import Counter
 from pathlib import Path
-from baostock_shard import basic_list
+from baostock_shard import basic_list, listed_on_session
 def go(a):
  with open(a.anchor,newline="",encoding="utf-8") as f:
   dates=[r["source_trade_date"] for r in csv.DictReader(f)]
@@ -32,8 +32,7 @@ def go(a):
  no_bars=set(stocks)-found
  for code in no_bars:
   b=stocks[code]
-  active=[d for d in dates if (not b.get("ipoDate") or d>=b["ipoDate"])
-          and (not b.get("outDate") or d<b["outDate"])]
+  active=[d for d in dates if listed_on_session(b,d)]
   if active:raise ValueError("LISTED_WITHOUT_BAR_"+code)
  out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
  with (out/"exact_shsz_missing_stock_days.csv").open("w",newline="",encoding="utf-8") as f:
