@@ -1,0 +1,48 @@
+name: V113 SHSZ historical issuer metric and point-in-time evidence audit
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-shsz-two-certification-gates.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independently test issuer/stock scope and PIT fail-closed checks
+        run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: real_basics
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Audit exact source population metric definition
+        run: |
+          python research/v113_breadth/audit_official_shsz_scope.py \
+            --basic real_basics/stock_basic.csv --out v113_shsz_certification/
+      - name: Audit actual historical publication-time evidence separately
+        run: |
+          python research/v113_breadth/certify_historical_pit.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --out v113_shsz_certification/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-shsz-two-certifications-${{ github.run_id }}
+          path: v113_shsz_certification/
+          retention-days: 90
