@@ -13,10 +13,10 @@ from pathlib import Path
 FIELDS="date,code,open,high,low,close,preclose,volume,amount,tradestatus,isST"
 COLUMNS=FIELDS.split(",")
 def listed_on_session(stock,day):
-    """Effective trading membership from empirically observed BaoStock date boundaries."""
+    """Conservative historical listing candidate interval, not proof of trade on outDate."""
     ipo=stock.get("ipoDate","")
     out=stock.get("outDate","")
-    return (not ipo or ipo<=day) and (not out or day<out)
+    return (not ipo or ipo<=day) and (not out or day<=out)
 
 def basic_list(path):
     with open(path,newline="",encoding="utf-8-sig") as f:rows=list(csv.DictReader(f))
