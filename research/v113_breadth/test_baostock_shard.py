@@ -1,7 +1,7 @@
 import sys,unittest
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).parent))
-from baostock_shard import validate_one
+from baostock_shard import validate_one, listed_on_session
 class Tests(unittest.TestCase):
  def test_suspend_never_flat(self):
   c,_=validate_one("sh.600000",[{"date":"2026-09-21","code":"sh.600000","tradestatus":"0"}],[])
