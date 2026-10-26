@@ -54,3 +54,11 @@
 - Official exchange issuer-population reconciliation and historic source publication PIT remain **BLOCKED**, not implied by coverage PASS.
 - This is SH/SZ only. The original all-A including Beijing remains out of scope; formal_signal_allowed=false.
 - Immutable audit run: 40255765013; rolling-factor audit run: 40255873584.
+
+## 2026-10-26 SH/SZ-only certification focus
+- [x] Independently compare officially published SSE September 2026 listed company count (2,323) vs listed stock count (2,361); these are different metric types and cannot be compared as equivalent to BaoStock type=1 A-share symbols (2,320). Evidence: run 40266090927.
+- [x] Run strict historical publication-time evidence ledger; 0 of 1,129 dates currently carry independently verifiable original release timestamps; D-1 is an assumed safe lag, not an observed historical provider publication certificate. Evidence: run 40266090927.
+- [x] SH/SZ scoped tests passing: 39 tests, no change to source coverage/production. Evidence: run 40266090927.
+- [ ] Verify precise A-share-only issuer population from official security-level historic dated rosters and resolve code-level differences.
+- [ ] Obtain and audit independently timestamped source-publication evidence, or retain explicit ASSUMED_LAG_NOT_HISTORICAL_PIT_CERTIFIED status.
+- [ ] Do not report full historical issuer / publication certification until both checks are independently verified.
