@@ -4,7 +4,7 @@ import argparse,csv,gzip,hashlib,json
 from collections import Counter
 from datetime import date
 from pathlib import Path
-from baostock_shard import basic_list, COLUMNS
+from baostock_shard import basic_list, COLUMNS, listed_on_session
 
 def main():
     p=argparse.ArgumentParser()
@@ -43,7 +43,7 @@ def main():
                 if code not in stocks or code not in per_code:raise ValueError("UNKNOWN_BAR_SYMBOL")
                 if day not in statuses:raise ValueError("OUTSIDE_ANCHOR_BAR_DATE")
                 b=stocks[code]
-                if (b.get("ipoDate") and day<b["ipoDate"]) or (b.get("outDate") and day>=b["outDate"]):
+                if not listed_on_session(b,day):
                     raise ValueError("BAR_OUTSIDE_LISTING_INTERVAL")
                 st=r["tradestatus"]
                 if st=="0":kind="suspended"
@@ -60,8 +60,7 @@ def main():
         fatal.append("BASIC_CODES_NOT_ALL_ARCHIVED_"+str(len(set(stocks)-set(per_code))))
     expected=Counter()
     for d in days:
-        expected[d]=sum((not b.get("ipoDate") or b["ipoDate"]<=d)
-            and (not b.get("outDate") or b["outDate"]>d) for b in stocks.values())
+        expected[d]=sum(listed_on_session(b,d) for b in stocks.values())
     records=[]
     for d in days:
         o=observed[d];e=expected[d]
