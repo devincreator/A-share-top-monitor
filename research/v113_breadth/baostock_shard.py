@@ -12,6 +12,12 @@ from pathlib import Path
 
 FIELDS="date,code,open,high,low,close,preclose,volume,amount,tradestatus,isST"
 COLUMNS=FIELDS.split(",")
+def listed_on_session(stock,day):
+    """Effective trading membership from empirically observed BaoStock date boundaries."""
+    ipo=stock.get("ipoDate","")
+    out=stock.get("outDate","")
+    return (not ipo or ipo<=day) and (not out or day<out)
+
 def basic_list(path):
     with open(path,newline="",encoding="utf-8-sig") as f:rows=list(csv.DictReader(f))
     stocks={}
@@ -82,8 +88,7 @@ def run(args):
                         rows=[]
                         while r.next():rows.append(dict(zip(r.fields,r.get_row_data())))
                         counts,dates=validate_one(code,rows,anchor_dates)
-                        active_days=[d for d in anchor_dates if (not basic.get("ipoDate") or d>=basic["ipoDate"])
-                           and (not basic.get("outDate") or d<basic["outDate"])]
+                        active_days=[d for d in anchor_dates if listed_on_session(basic,d)]
                         observed_dates=dates.intersection(active_days)
                         # Any missing listed stock/date remains a real gap; never auto-label as suspended.
                         missing_days=len(active_days)-len(observed_dates)
