@@ -1,0 +1,45 @@
+name: V105-V107 independent diagnostic and causal-state research
+on:
+  push:
+    branches: [research/v105-v107-state-diagnostics]
+    paths:
+      - 'research/v105_v107/**'
+      - 'research/v108_v110/**'
+      - 'research/v109_comparison/**'
+      - '.github/workflows/v105-v107-research.yml'
+  pull_request:
+    paths:
+      - 'research/v105_v107/**'
+      - 'research/v108_v110/**'
+      - 'research/v109_comparison/**'
+      - '.github/workflows/v105-v107-research.yml'
+permissions:
+  contents: read
+jobs:
+  forensic-states:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Execute tests
+        run: python -m unittest discover -s research/v105_v107 -p 'test_*.py' -v
+      - name: Test immutable prospective shadow gates
+        run: python -m unittest discover -s research/v108_v110 -p 'test_*.py' -v
+      - name: Run archived-source diagnosis and causal features
+        run: python research/v105_v107/diagnose_and_state.py
+      - name: Test descriptive V109 stability audit
+        run: python -m unittest discover -s research/v109_comparison -p 'test_*.py' -v
+      - name: Execute V109 year-by-year stability audit
+        run: python research/v109_comparison/state_stability.py
+      - name: Preserve non-PIT research artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v105-v107-retrospective-non-pit
+          path: |
+            research/v105_v107/observations/
+            research/v109_comparison/observations/
+          retention-days: 90
