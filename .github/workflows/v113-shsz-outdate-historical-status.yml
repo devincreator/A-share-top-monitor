@@ -1,0 +1,23 @@
+name: V113 SHSZ check historical stock listing status on actual outDate
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-outdate-historical-status.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - run: pip install baostock
+      - run: python research/v113_breadth/probe_outdate_historical_status.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-outdate-listed-day-evidence-${{ github.run_id }}
+          path: v113_delist_effective_probe/
+          retention-days: 90
