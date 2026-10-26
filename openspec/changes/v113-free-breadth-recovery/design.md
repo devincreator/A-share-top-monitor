@@ -16,3 +16,11 @@
 9. Preserve the V112 946 exact plus 183 rounded-bound margin source evidence separately.
 10. Use a frozen, deterministic validator in CI. Tests must include deliberate
     false-success, missing-date, and unverified-universe cases.
+
+## Shanghai/Shenzhen-only original archive recovery
+- BaoStock 24 shards run 39895352257: 5,564 SH/SZ symbols captured, 1,097/1,129 fully observed days, 41 listed-stock-day gaps.
+- TDX historical ZIP source https://data.tdx.com.cn/vipdoc/hsjday.zip verified in run 39897910188 (549,908,719 bytes, ZIP SHA256 07aab2f1166a794cebfa380cda058417499c4f74049a5fe36fe029f5c803d400).
+- Use TDX SHA-audited raw .day per code as a strictly limited alternate source for listed-date gaps, not a blanket replacement of BaoStock suspension status.
+- Recover a gap only when archive code, date, price scale, positive volume/amount and comparison against overlap BaoStock raw close pass.
+- Mark unresolved stock-date gaps explicitly. Preserve source divergence as a blocker.
+- Final scoped status is distinct from all-A status, which remains excluded/BLOCKED.
