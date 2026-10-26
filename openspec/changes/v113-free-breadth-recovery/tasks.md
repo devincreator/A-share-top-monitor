@@ -42,7 +42,15 @@
 - [x] Independently audit 339 historical delisted codes: 149 have last observed bars dated on outDate, 41 have last bars before outDate and 149 had no bars inside anchor window (run 40255059928).
 - [x] Verify four dated historical listings: delisting-date absent for sample candidates, with control source code tradeStatus=0 (run 40255161569).
 - [x] Abandon immediate TDX full-archive re-download after 2026-10-26 source returned invalid 987-byte content; do not retry same blocked source in a loop (run 40254247712).
-- [ ] Audit all 32 historical date-specific security lists in eight source batches (run 40255562468).
-- [ ] Reconcile all 41 source cases with verifiable ABSENT / SUSPENDED / TRADING statuses and freeze SHSZ-only research daily breadth acceptance (run 40255765013).
-- [ ] Validate SHSZ-only full history moving average/new-high/new-low factors (run 40255873584).
+- [x] Audit all 32 historical date-specific security lists in eight source batches (run 40255562468); all 41 dates/codes verified NOT_IN_HISTORICAL_LIST.
+- [x] Reconcile all 41 source cases using dated market membership: 1,129/1,129 historical sessions complete; frozen >=98% SHSZ-source coverage gate PASS; 0 missing; 29 tests PASS; no formal model promotion (run 40255765013).
+- [x] Validate SHSZ-only 20/60/120 MA and 60/252 high-low rolling candidate factors: 1,129 dates, 5,414 in-window stock histories, 29 tests PASS, no BJ (run 40255873584).
 - [ ] Independently reconcile historic exchange-end security population before production-grade PIT certification.
+
+## Source coverage acceptance (2026-10-26)
+- SHSZ_SOURCE_COVERAGE_PASS: 1,129 / 1,129 = 100%; frozen denominator unchanged.
+- 41 missing vendor-bar cases all independently absent from the actual historical query_all_stock listings on the affected dates. Documented in 32 source snapshots with SHA256.
+- Stock bars retain exact source identities; 150 historical delisted registry securities predate the 2022-02-23 anchor and legitimately have zero within-window bars.
+- Official exchange issuer-population reconciliation and historic source publication PIT remain **BLOCKED**, not implied by coverage PASS.
+- This is SH/SZ only. The original all-A including Beijing remains out of scope; formal_signal_allowed=false.
+- Immutable audit run: 40255765013; rolling-factor audit run: 40255873584.
