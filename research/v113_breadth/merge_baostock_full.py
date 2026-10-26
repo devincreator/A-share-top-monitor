@@ -43,7 +43,7 @@ def main():
                 if code not in stocks or code not in per_code:raise ValueError("UNKNOWN_BAR_SYMBOL")
                 if day not in statuses:raise ValueError("OUTSIDE_ANCHOR_BAR_DATE")
                 b=stocks[code]
-                if (b.get("ipoDate") and day<b["ipoDate"]) or (b.get("outDate") and day>b["outDate"]):
+                if (b.get("ipoDate") and day<b["ipoDate"]) or (b.get("outDate") and day>=b["outDate"]):
                     raise ValueError("BAR_OUTSIDE_LISTING_INTERVAL")
                 st=r["tradestatus"]
                 if st=="0":kind="suspended"
@@ -61,7 +61,7 @@ def main():
     expected=Counter()
     for d in days:
         expected[d]=sum((not b.get("ipoDate") or b["ipoDate"]<=d)
-            and (not b.get("outDate") or b["outDate"]>=d) for b in stocks.values())
+            and (not b.get("outDate") or b["outDate"]>d) for b in stocks.values())
     records=[]
     for d in days:
         o=observed[d];e=expected[d]
@@ -88,7 +88,8 @@ def main():
             "shsz_snapshot_differences":snapshot_differences,
             "beijing_security_dates_present":0,
             "all_a_stock_universe_verified":False,
-            "full_v113_pass":False,"formal_signal_allowed":False,
+            "full_v113_pass":False,"scoped_shsz_data_98pct_coverage_pass":full*100>=98*len(days),
+            "scope":"SHSZ_RESEARCH_ONLY_BEIJING_DEFERRED","formal_signal_allowed":False,
             "issues":fatal[:100],"total_issues":len(fatal),"shards":manifests,
             "data_date_start":days[0],"data_date_end":days[-1]}
     with (out/"daily_shsz_breadth.csv").open("w",newline="",encoding="utf-8") as f:
