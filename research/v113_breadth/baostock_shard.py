@@ -83,7 +83,7 @@ def run(args):
                         while r.next():rows.append(dict(zip(r.fields,r.get_row_data())))
                         counts,dates=validate_one(code,rows,anchor_dates)
                         active_days=[d for d in anchor_dates if (not basic.get("ipoDate") or d>=basic["ipoDate"])
-                           and (not basic.get("outDate") or d<=basic["outDate"])]
+                           and (not basic.get("outDate") or d<basic["outDate"])]
                         observed_dates=dates.intersection(active_days)
                         # Any missing listed stock/date remains a real gap; never auto-label as suspended.
                         missing_days=len(active_days)-len(observed_dates)
