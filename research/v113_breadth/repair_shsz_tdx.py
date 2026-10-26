@@ -9,7 +9,7 @@ import argparse,csv,gzip,hashlib,itertools,json,struct,zipfile
 from collections import Counter
 from datetime import date
 from pathlib import Path
-from baostock_shard import basic_list
+from baostock_shard import basic_list, listed_on_session
 
 TDX_SHA="07aab2f1166a794cebfa380cda058417499c4f74049a5fe36fe029f5c803d400"
 TDX_SIZE=549908719
@@ -100,8 +100,7 @@ def run(args):
                         if r["date"] in source_dates:raise ValueError("DUPLICATE_ORIGINAL_BAR")
                         source_dates[r["date"]]=float(r["close"]) if r["close"] else None
                     b=symbols[code]
-                    expected={d for d in cal if (not b.get("ipoDate") or d>=b["ipoDate"])
-                            and (not b.get("outDate") or d<=b["outDate"])}
+                    expected={d for d in cal if listed_on_session(b,d)}
                     gaps=expected-set(source_dates)
                     if not gaps:continue
                     key=code.replace(".","").lower()+".day"
