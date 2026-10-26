@@ -22,8 +22,7 @@ def go(a):
     if len(seen)!=len(rows):raise ValueError("DUPLICATE_SOURCE_DAY")
     basic=stocks[code]
     for d in dates:
-     if basic.get("ipoDate") and d<basic["ipoDate"]:continue
-     if basic.get("outDate") and d>basic["outDate"]:continue
+     if not listed_on_session(basic,d):continue
      if d not in seen:
       gaps.append({"date":d,"code":code,"ipoDate":basic.get("ipoDate"),
        "outDate":basic.get("outDate"),"code_name":basic.get("code_name"),
