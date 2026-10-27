@@ -1,0 +1,741 @@
+{
+  "year": 2026,
+  "verified_import_count": 73,
+  "imported_rows": 378609,
+  "research_only": true,
+  "PIT_certified": false,
+  "full_year_stock_universe_certified": false,
+  "files": [
+    {
+      "date": "2026-02-10",
+      "path": "2026/daily/2026-02-10.csv",
+      "rows": 5257,
+      "upstream_blob_sha": "b0e70c4b15237dff8916066bffa0531939d482ea",
+      "upstream_raw_sha256": "b059191cd3a656364886d6975a3cc2f99625f314140d32f1c9232b1ad7f9d0bf",
+      "filtered_sha256": "4f8ab068a8512d2fb2ee474c37b156faeea5fc7909ad65a8ab0cd008a6406b3e",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_10.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-11",
+      "path": "2026/daily/2026-02-11.csv",
+      "rows": 5257,
+      "upstream_blob_sha": "fce8035269aedcb6acc158be25bf2ce2bcdd4ae4",
+      "upstream_raw_sha256": "52b366eb31e99ed5f9c3cff6c82012e9eb60bda0ad749d42c1009fdf0b240441",
+      "filtered_sha256": "54eaeee2a369deba0893befb217ff10e1fe6f08682c4faa639811cd81e0f1803",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_11.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-12",
+      "path": "2026/daily/2026-02-12.csv",
+      "rows": 5261,
+      "upstream_blob_sha": "86a304692b642cf32cc566245468285a3f3093f6",
+      "upstream_raw_sha256": "35e757945dfbe04cf49bba0202d69c32cd742823fa481c4d3bdcbfd01d69f60d",
+      "filtered_sha256": "95f227c01f8fd14276e1060ec9b55ae3047b5fb3ddd6d35e457ea7df7cab9e5f",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_12.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-13",
+      "path": "2026/daily/2026-02-13.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "b36f645027b88ab67475338807af586c00f8c0fc",
+      "upstream_raw_sha256": "985003468b9980f1e6773cc0a0def5bdf21b8efc0c3c931ec4e382e84d8e3fe9",
+      "filtered_sha256": "8799d1c4d2fb0db3300811d309e3e7c33a925f24a56bc67745d28f29ce99b0bd",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_13.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-24",
+      "path": "2026/daily/2026-02-24.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "8d1d6658323a082458ae9a94a8ed4c649a04fa28",
+      "upstream_raw_sha256": "94c83f66283f4ba2fa3feb3ead0e655cd4451202efe8dfb1b7c13e28c361e36b",
+      "filtered_sha256": "48330e52c075ead05871bbb28d9f0863429fb00e70dfb3155231e324272b66fc",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_24.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-25",
+      "path": "2026/daily/2026-02-25.csv",
+      "rows": 5256,
+      "upstream_blob_sha": "ae539bfba9323a0a4e3d1c51bb8ceefdbe867d66",
+      "upstream_raw_sha256": "8a6ad7ea4161d5b7d5c23b9302247152a2f6e674825d45ccc1149b3ace592388",
+      "filtered_sha256": "999b99bbc2bf664c1221c4b553ca6e3f81e08fa46aa0c002358c4a5e8f7c2b61",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_25.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-26",
+      "path": "2026/daily/2026-02-26.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "e8b122e20eb93c9c7623f6817c08c2dc654ba963",
+      "upstream_raw_sha256": "c90bd666ec9e6dc16831cbac892861349d63867de334fe17a1ae135b05e378dc",
+      "filtered_sha256": "a518944200522f79a66866f8b03728ee589b69b4140861de66d7f5d151c03232",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_26.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-02-27",
+      "path": "2026/daily/2026-02-27.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "458ee733436d0e50037cc7674763a76072dfab9b",
+      "upstream_raw_sha256": "081df79bde5ec095070e297831271735f325109c6e96dec5f62ab1c7dd8c9c8c",
+      "filtered_sha256": "5d0ba766a782fd049879eb7f72151671a365d06f04fcab72835cbc0924c3127c",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/02/stock_price_2026_02_27.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-02",
+      "path": "2026/daily/2026-03-02.csv",
+      "rows": 5253,
+      "upstream_blob_sha": "2a230961fcbffa1e6e816503f07261f7000052bf",
+      "upstream_raw_sha256": "2312528739010a9477a4ef7d898498499d027915bfe15faaf5e5834968de5a30",
+      "filtered_sha256": "952e02374ff8f5abc6b5a658620c1e85b24ac9bc3b31c44f087212aca806a838",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_02.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-03",
+      "path": "2026/daily/2026-03-03.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "fb415b511ac5929da3c4e1f5aa27fa05c443063e",
+      "upstream_raw_sha256": "68271c571cf1db8df166d4d5b0b3ec9fa0a865ccb91cdf009a626518954c3991",
+      "filtered_sha256": "6dcc84400aff5b758eccc4efc041ec284c4261812a51e9fc075ffe85970e3bef",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_03.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-04",
+      "path": "2026/daily/2026-03-04.csv",
+      "rows": 5256,
+      "upstream_blob_sha": "13bc9243d6483f28b6118c14d8b9f040d5eb2b8f",
+      "upstream_raw_sha256": "b2605cd49c75ba0afeea2be486a940769c2d385f4504cf56a44d69a56aa30167",
+      "filtered_sha256": "9593b0b6702bc7e373e6523a45bbb32dc15d8e756b5348fbd787b407fc4eb6d5",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_04.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-05",
+      "path": "2026/daily/2026-03-05.csv",
+      "rows": 5257,
+      "upstream_blob_sha": "bf7aa9c9547e8787e20d00394c3fb54ef5c9a563",
+      "upstream_raw_sha256": "a55e60596be6186095015b0824de75920bcbd9225b1394247aafa3ea7c21e678",
+      "filtered_sha256": "966cdf388f610468cf70d9a1579dcce15732079001eddfb072cc502e3d0caa6d",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_05.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-06",
+      "path": "2026/daily/2026-03-06.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "ec0b696ae8908b1ae8dee2d9dafb28461cfe1bb4",
+      "upstream_raw_sha256": "b64370dffd59b8bbd003bb7cd774b2b4230756f69e244b7db93e8a54a48cfd94",
+      "filtered_sha256": "5fb6bbe517e9ea1888bfb7b722073133a637d1ca2a8f5c8a19db1f810a4e00f2",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_06.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-09",
+      "path": "2026/daily/2026-03-09.csv",
+      "rows": 5261,
+      "upstream_blob_sha": "e5a63f853f7b437373e8828c58e6d344d33c70d1",
+      "upstream_raw_sha256": "618a52621d34356867b1f459a8bdb7990426ecd2f4aebdfb8d04243861c3e4cd",
+      "filtered_sha256": "d26e9b9dd673863b9d32a91f6d3239b806a646ce17bf0457404f9cd43780fcfb",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_09.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-10",
+      "path": "2026/daily/2026-03-10.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "6dcda95c5e3f7b96533eca3b15431d81f016053a",
+      "upstream_raw_sha256": "6ed5ee3a31d083db8c578a71baf2dc3dcd15bdda0efd14ad67ea4ae1d42fdc29",
+      "filtered_sha256": "88a6f88ab449bd31a806bf71c2bec665e7eda8ebaac0481458e5fd5d7d0f6a3e",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_10.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-11",
+      "path": "2026/daily/2026-03-11.csv",
+      "rows": 5262,
+      "upstream_blob_sha": "6de688e12e39d88269b31796bf44e3ee4b55aecf",
+      "upstream_raw_sha256": "8874173480ac442a3981a01216abe4b7f5e408ab8e0cd4fae61f9ad913746968",
+      "filtered_sha256": "f66cebe05207ea286697004700c1780c6e1632930e282fb3b373c882c81ecb34",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_11.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-12",
+      "path": "2026/daily/2026-03-12.csv",
+      "rows": 470,
+      "upstream_blob_sha": "adb19b31e9a0a1a6945e5e9445f609b7f8b48a56",
+      "upstream_raw_sha256": "02b9c591d2b5e5c14c3d88ff393046763d137240bc7cee0d68b9157c07a8c042",
+      "filtered_sha256": "02b9c591d2b5e5c14c3d88ff393046763d137240bc7cee0d68b9157c07a8c042",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_12.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-13",
+      "path": "2026/daily/2026-03-13.csv",
+      "rows": 5261,
+      "upstream_blob_sha": "acb52dde903e1badb357fddfb14c8317530e44f4",
+      "upstream_raw_sha256": "1bdafd09b2a263e0b74b298148ed235820fd496173c81021fca75e875ed33ba5",
+      "filtered_sha256": "b7b608e804b5205dd5a3a7bb0c8d0dec0e1561a5e98e6857cc52edfcb5161aa9",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_13.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-16",
+      "path": "2026/daily/2026-03-16.csv",
+      "rows": 5260,
+      "upstream_blob_sha": "3a0948b4fd062b4ffaa17f4d6a28bef16cd7a87b",
+      "upstream_raw_sha256": "584c602a938da351cefad1e378161df1a5bb6056376df059ef801f664ea5becb",
+      "filtered_sha256": "4f38efcb9497f2d0bfcde1f9f31e91c6019cb6fd4ce9d74ef422ebf1796d0608",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_16.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-17",
+      "path": "2026/daily/2026-03-17.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "2bbde978816874f113493d73947810f74854114d",
+      "upstream_raw_sha256": "e98146e08d97e7fc8ade585ea35d67b3df074f9bff25730484515246d4297f69",
+      "filtered_sha256": "fe0b472bc2e472c0a8e85264df4b967b5c5c4c328f07a6cb8ebe8e62847e2303",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_17.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-18",
+      "path": "2026/daily/2026-03-18.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "e4ff751969e54afeac0b6b8236cec99f49cbc33f",
+      "upstream_raw_sha256": "66ecf62964f5933852b6fa6656bd458396a54f5189fd0039ac043a9a134f3c47",
+      "filtered_sha256": "fc9f5ba3442e9b45a63155e4fdd21276f4e48501432b263e91157356924fcd2a",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_18.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-20",
+      "path": "2026/daily/2026-03-20.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "cf9cdae6d82af3a7ba6c626219e497faf179656a",
+      "upstream_raw_sha256": "095eef00a56e837c7b43b25c7ffca4d349ee8bb7e83fba62257d3805562f1e54",
+      "filtered_sha256": "5668f455065796862608ab76616a8379bc7ace90eddd21a23f22325b0c7f0a81",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_20.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-23",
+      "path": "2026/daily/2026-03-23.csv",
+      "rows": 5261,
+      "upstream_blob_sha": "0525b5d84595864c4071554436d81831b9e12cdb",
+      "upstream_raw_sha256": "9655d5f04bfaeab3554c9ecd1b7876389559ffc67f678482bf67b70d019be6ea",
+      "filtered_sha256": "b8b64942e292c58165fbdf79910a5460dcf5da55f042cf6261ae7c4a05e03260",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_23.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-24",
+      "path": "2026/daily/2026-03-24.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "04a4f8eea24e37ed44f2050e17d3254d51f687c7",
+      "upstream_raw_sha256": "50c24b0bf6533fa6c47e7bbd730fe02a13652894eaa43708bb205d57f1e4099d",
+      "filtered_sha256": "0f2a32fd2e99d83ddfdcde8cc0f2f73525de21ce698fb1bd66bd9018f606082b",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_24.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-25",
+      "path": "2026/daily/2026-03-25.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "12c4eec6617282cae2f8377f3bffcf66aa26eb13",
+      "upstream_raw_sha256": "98fc76bdfacac32e07226d0c4071375ceec8d213184ebffaf8d767afbb16fed0",
+      "filtered_sha256": "ddf46656c59631b74bf8b284f2091eec2c4e350e1a095826433fa7b3263233f2",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_25.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-26",
+      "path": "2026/daily/2026-03-26.csv",
+      "rows": 5257,
+      "upstream_blob_sha": "d8b14beeb8c0b936b47cb277612b46556ec6c77b",
+      "upstream_raw_sha256": "64ce3858ea16c2964d396dcbf2582179e145eb7bf29435b03462612c9f3c66e3",
+      "filtered_sha256": "d48cb2c6daf90cf31dd063e08ea78064802da2da7abab26687606ea56d3dc4ea",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_26.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-27",
+      "path": "2026/daily/2026-03-27.csv",
+      "rows": 5253,
+      "upstream_blob_sha": "b22dedc5fae729f9ce92aac046de3023241051ee",
+      "upstream_raw_sha256": "b73884b5577fb52db0a7e81db3b9c254ca8dbac291a00cd8274ffe6f1eeddbbc",
+      "filtered_sha256": "a34bfae343dd00e15375b2ff932e65e1813c8ea25d38e15ee1e79975de4abced",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_27.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-30",
+      "path": "2026/daily/2026-03-30.csv",
+      "rows": 5250,
+      "upstream_blob_sha": "912b676366d6a0f234da54beff3eee4639e7bce1",
+      "upstream_raw_sha256": "baa5de3ed8b56d2161a18c9309d80da4cea3a4a4023b6fe764a4cf213af15dea",
+      "filtered_sha256": "3687ea8d720e5b09dc71f190689a36b3175441bc670c470acb25edd423c19ff2",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_30.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-03-31",
+      "path": "2026/daily/2026-03-31.csv",
+      "rows": 5253,
+      "upstream_blob_sha": "a6340d63cf69bdb4f8609d99290390ad8f10f714",
+      "upstream_raw_sha256": "138e30f089a63a6ae7ae397a6ef0ae2b8339eebc7828fbd4ef4a084a2d6842f8",
+      "filtered_sha256": "f85be08e306dcf0a8d628ffc6d9f1c952c874a136845cc7d2a273c3a0983f3ff",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/03/stock_price_2026_03_31.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-01",
+      "path": "2026/daily/2026-04-01.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "013804b8ff63d5131bd1008a7c296ceed985049d",
+      "upstream_raw_sha256": "dfcf5d7abab6530070c830591260968fdd7dace19215e7068859b0d10d73107e",
+      "filtered_sha256": "bab9247f243d907e851cf00ab9c2403f754c66eb4d50a87f3846307c8b196609",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_01.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-02",
+      "path": "2026/daily/2026-04-02.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "c8f4f97989cbe994da219704bdcd6b600adc2a9b",
+      "upstream_raw_sha256": "0448e002d1e69ac5d4927b97f82c880f96b7e8c3f2ebf25802975f9656876857",
+      "filtered_sha256": "85a3c8bb99b536202271481297f2c4c4597ad1b7b36a1a9d72bf92700e510f47",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_02.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-03",
+      "path": "2026/daily/2026-04-03.csv",
+      "rows": 5256,
+      "upstream_blob_sha": "879102ca2191fbee0f7366789df3828704f8a543",
+      "upstream_raw_sha256": "0db91c841430ee858dab249fd11c22fd9e3c739ed825cabdbb6cf54a5824368f",
+      "filtered_sha256": "736a198b69e85ebacfaac1d06780056b5a5813384a084718f13b415ffdbc0e82",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_03.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-07",
+      "path": "2026/daily/2026-04-07.csv",
+      "rows": 5254,
+      "upstream_blob_sha": "184eeab616a23e546960ccb7564ca8b33e4c2dff",
+      "upstream_raw_sha256": "0e9a874782b2f27b19bb6837abf6552452f493514fecab3072d4c8a7b1539934",
+      "filtered_sha256": "e911786936756ac75d04d0592c171abb06c414f26595c88f249b96cff4a9dd2f",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_07.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-08",
+      "path": "2026/daily/2026-04-08.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "02e4faea70462bdc3dbec0e86b37f29e6866e692",
+      "upstream_raw_sha256": "de24babe30461886f2b16d79bc08581355a9ebf0ecf1f1a5036ff70cc06b2a5d",
+      "filtered_sha256": "178144593e1523b065c0336ff801f7c1e229b3d99dfecc1e01de01ebd3e49962",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_08.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-09",
+      "path": "2026/daily/2026-04-09.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "ee0daf97a88ce7ef8becde46fc5600ec3b73ba05",
+      "upstream_raw_sha256": "8b3165f940930e126d5c95321d8371c132635d983fe422d785574c7833f9a7f2",
+      "filtered_sha256": "3890ec1ccf2610c406104ce834d24e2a7b89db9ace7ef8a49b5df72a6038a6c9",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_09.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-10",
+      "path": "2026/daily/2026-04-10.csv",
+      "rows": 5260,
+      "upstream_blob_sha": "aa40ff73ca49712afe954a64d220a7e8f2e84c54",
+      "upstream_raw_sha256": "3dae22a4a3d0a10c09dbdfa84b7f5d2d13cbb6149e535af2ebda38130369940a",
+      "filtered_sha256": "b937dc28ecda3373f2dd29e5675ac30a5673298709838d779cd4f7fae8a08569",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_10.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-13",
+      "path": "2026/daily/2026-04-13.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "f8707c0dd7290ec831180c704cb26615cc556ce2",
+      "upstream_raw_sha256": "3a866e8c7c6f3cd394ebbed0fc76f16f5b96186921a4e3571db49b47ff6394ea",
+      "filtered_sha256": "7a0e623f632f3447254b605d9d23cd4b66e9f73d56a2b44d9f82d211c53abb38",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_13.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-14",
+      "path": "2026/daily/2026-04-14.csv",
+      "rows": 5260,
+      "upstream_blob_sha": "450a85cbd762a0de8d493ec1b384aee995afb847",
+      "upstream_raw_sha256": "bf24f6549d526a301c8457f958c26c62dddc11c412e091f575c1a04e9c4e5b2c",
+      "filtered_sha256": "e6a9fce929daeab346f1759985b6ddcd5e19ffc0efa20a6cc3b2346388a63305",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_14.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-15",
+      "path": "2026/daily/2026-04-15.csv",
+      "rows": 5258,
+      "upstream_blob_sha": "12b05407c1e92f314c1a5f7adf67d7e67a8bb71c",
+      "upstream_raw_sha256": "dbe08e966446ac995edfd660ee43135ccd9c602d3c6eb3b91ff4f25a6c2a9611",
+      "filtered_sha256": "074c6bf44f4b80de421d7fc41ca1b2ea7e9ba37f2c031488f7d3cef4ff12b7b5",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_15.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-16",
+      "path": "2026/daily/2026-04-16.csv",
+      "rows": 5259,
+      "upstream_blob_sha": "d9669d85a8d0371a0d964137a486368ef549f600",
+      "upstream_raw_sha256": "5a622b211d4b024ae36a38901ed59e5a158877d980ddf336e2aafee1e4d17795",
+      "filtered_sha256": "7bcf3e22655e78cb746b05f1862e4844c294de3bd95caa5f85b8d6a87bca2517",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_16.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-17",
+      "path": "2026/daily/2026-04-17.csv",
+      "rows": 5257,
+      "upstream_blob_sha": "b7f22cc67b1c3f74896bcc15a46eef500b21d1ba",
+      "upstream_raw_sha256": "772a82833ac265d10c1006bee1d1591f18743394c21424e6501fde0c3e690e4b",
+      "filtered_sha256": "e95e5438a216f1ff466531bfc6e6d6b6976c96596f9e9a6dd930b163fdb21b39",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_17.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-20",
+      "path": "2026/daily/2026-04-20.csv",
+      "rows": 5252,
+      "upstream_blob_sha": "51e4a1a108a5ba6c1c79951f57d4c506ebd4530d",
+      "upstream_raw_sha256": "1c45994c66a5d712655bafd9981f90a5a953c0ff8ceeedceab37a3bc48c6a269",
+      "filtered_sha256": "670a7c010638d4f29d8c1a149db13d9c4cb8d794e8214627752204e3931ae82d",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_20.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-21",
+      "path": "2026/daily/2026-04-21.csv",
+      "rows": 5255,
+      "upstream_blob_sha": "6f864334aebc2761e56377a5939fd18cf4ada9b4",
+      "upstream_raw_sha256": "7409cd80d4ec28b3b71609bafc7c0265d19f1496efbde8c61d501afa57f02146",
+      "filtered_sha256": "2100342bbd46152f13d765ec854e936785fa3889284312a17faa7d3463a808a9",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_21.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-22",
+      "path": "2026/daily/2026-04-22.csv",
+      "rows": 5254,
+      "upstream_blob_sha": "044c026d8d16e631f7fc6b3465c033d7ed38e465",
+      "upstream_raw_sha256": "f7262ebf93863e815023c270d665f80af3874add7a7b5a77e95863585392245c",
+      "filtered_sha256": "b69ef9e27a6f65dac4807812f74611612200888a6e63da17bd14a7ebd06c6663",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_22.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-23",
+      "path": "2026/daily/2026-04-23.csv",
+      "rows": 5252,
+      "upstream_blob_sha": "8006aa25efae1b649cd774414dc9bece13153518",
+      "upstream_raw_sha256": "75e7da83f507e8a30a24caba889d1fe7f7d9cfaf52f460582ed75d52cfb51384",
+      "filtered_sha256": "b9224f3b15ca940997cc402d4c7a80e02564360ea3232adb5a7d939b1670124f",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_23.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-24",
+      "path": "2026/daily/2026-04-24.csv",
+      "rows": 5250,
+      "upstream_blob_sha": "1b819c9dd22cb2f453ceb4e7d707dbd75df5afdb",
+      "upstream_raw_sha256": "35100dd1ce34c70fb5d0a25fe19da5dc83cbecbcf6350652f19c701ac73b3352",
+      "filtered_sha256": "7568a337fd34a85fe1b19612a28cf057b62ec9f2b65d08afb70427a7355cec77",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_24.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-27",
+      "path": "2026/daily/2026-04-27.csv",
+      "rows": 5249,
+      "upstream_blob_sha": "88b1abaec10ed5384120e1bdf70b278362029993",
+      "upstream_raw_sha256": "cf3d1171a373d0ca2ffe9026b22e74214147d07b3468828f515b6118b01d9350",
+      "filtered_sha256": "ed282b1023d3aabfee771934c39669a07f45f8b114e8cf701b451cb272e264b4",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_27.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-28",
+      "path": "2026/daily/2026-04-28.csv",
+      "rows": 5241,
+      "upstream_blob_sha": "a703ec1402274aea43a7951e1368e33a6276722f",
+      "upstream_raw_sha256": "f9b6612823a2c2edf71aa4de1fd9b03867b6698dc161edf8c79001c5924d76ae",
+      "filtered_sha256": "85d508b02a6baddbb98c58752b1b65aaa84db4183b63eff9e9891ef94999cda4",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_28.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-29",
+      "path": "2026/daily/2026-04-29.csv",
+      "rows": 5215,
+      "upstream_blob_sha": "0ca52e34f94c19b1cf5897350231e935f7da8cac",
+      "upstream_raw_sha256": "a0d6ff7fc708df844736edb8bb2c637392b2382448b67a7ed909116c0908424b",
+      "filtered_sha256": "0da0f69242ac2359b6366d708ad7c5a8d15644914653b62ec189bd30f57c4c36",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_29.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-04-30",
+      "path": "2026/daily/2026-04-30.csv",
+      "rows": 5214,
+      "upstream_blob_sha": "6ab767d1c3304900d25355e2bd1b42c61649ecae",
+      "upstream_raw_sha256": "50578ad6a763c50c9dffae0fff00423c2773d40240fa03cd01ebde824f571361",
+      "filtered_sha256": "3a95d0ea3b010212f91d6848beab13ba5f4001812f60cb9c3e962298314c9f38",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/04/stock_price_2026_04_30.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-06",
+      "path": "2026/daily/2026-05-06.csv",
+      "rows": 5243,
+      "upstream_blob_sha": "8c066895f87d7b3e8305f1e71e5249db4ca0ab38",
+      "upstream_raw_sha256": "98b557495015eac9b752badec0f3cb7cbc2e145a0fe47e667ae66c71a74c35b3",
+      "filtered_sha256": "a9a095dec829ea22e384e2afc4964e5d5d789af5ddf3297427d3fad4412783e2",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_06.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-07",
+      "path": "2026/daily/2026-05-07.csv",
+      "rows": 5245,
+      "upstream_blob_sha": "792c8bd4ff3fdf32165cbce44129453eb3aecd45",
+      "upstream_raw_sha256": "00d16160c4569f9e6a3cf7234ce9b11cf61a6abd90febe05ca37a56cbb6b8970",
+      "filtered_sha256": "e28bdc1f594c65cb34dbbd1113ddad16b0df96c169d3542941e4a5ba7459b268",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_07.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-08",
+      "path": "2026/daily/2026-05-08.csv",
+      "rows": 5243,
+      "upstream_blob_sha": "c6e4a971ad99a32ecb194a8d5f3588dc7f11dd4b",
+      "upstream_raw_sha256": "ff48cac60fd7c7620a8a2cec2cd346a1fbc333520d91a8bafe737a309d58d137",
+      "filtered_sha256": "fadfffa7235acfa8ad5ed470143b5894d1801a4e8702e0c322f4818eb5f8a340",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_08.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-11",
+      "path": "2026/daily/2026-05-11.csv",
+      "rows": 5241,
+      "upstream_blob_sha": "b1666a5f3ae3d27896026d3e531de6c02067f76c",
+      "upstream_raw_sha256": "79e4e9c46d1acf57d50c01316f7988efc5ae68a382d19b20b21035e2a60c2ebb",
+      "filtered_sha256": "321b5c4f528409a77f7605f16fb608a68bcdaf5c55af804f68b439f8399c55b7",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_11.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-12",
+      "path": "2026/daily/2026-05-12.csv",
+      "rows": 5240,
+      "upstream_blob_sha": "eebb3d2432fac64cdb79233edeea877a19bf6ca0",
+      "upstream_raw_sha256": "f6f3a4a8d3ef7a74a6b61a8a67c31bee2b2cb8209308167db2879389a0200475",
+      "filtered_sha256": "a31cd977e0c167a3ae640733eb8d7db50c3cac19d0395523d1703a5c2604f7d0",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_12.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-13",
+      "path": "2026/daily/2026-05-13.csv",
+      "rows": 5244,
+      "upstream_blob_sha": "515c65e7d9d1811dd8fd05969531f5b53fb53673",
+      "upstream_raw_sha256": "8ef6097c70baedf851d5730ac7d231bebd65d24799dec46ffd38d4509523399e",
+      "filtered_sha256": "b712b99e211b4304ef002c279c91de9c4d2eb120485228584a2fcad9c52466be",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_13.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-14",
+      "path": "2026/daily/2026-05-14.csv",
+      "rows": 5244,
+      "upstream_blob_sha": "f8dbe631f17645f3097e1e1da225a011ad26d8bc",
+      "upstream_raw_sha256": "c126d49601093b74975061a30a6ae72f18ada9bab4be2c077945f294c3daba57",
+      "filtered_sha256": "dbc4aee36445248d79a316b9684c20d5134f04d19c99fa077b1588896e2b0887",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_14.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-15",
+      "path": "2026/daily/2026-05-15.csv",
+      "rows": 5244,
+      "upstream_blob_sha": "ef039091ebafbd611c1219e8e12c71b19a7f1a3d",
+      "upstream_raw_sha256": "9354c931309a72c76d4061cf126694fbe6169a056d9aafe37864ec8d8de742d5",
+      "filtered_sha256": "88bac92436fef194a6e8145ffb8ea7c06c265fe6ba9618dda444113b8e4ca9f5",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_15.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-18",
+      "path": "2026/daily/2026-05-18.csv",
+      "rows": 5246,
+      "upstream_blob_sha": "7d165bf2d9ebc22bf98d616a92737aad6b760537",
+      "upstream_raw_sha256": "080dbf581a60df3663f5b4f4060de0c2ba6b5ee505e348ed3a40667e304a1f8c",
+      "filtered_sha256": "aa1b5c41f67afc5bed6ed34ddfbcb64a956ca3db411bdc50f9e04afb5976aa16",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_18.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-19",
+      "path": "2026/daily/2026-05-19.csv",
+      "rows": 5242,
+      "upstream_blob_sha": "b2eaf2523ad627afa7801c89efb6756962622a28",
+      "upstream_raw_sha256": "f14869c087c3b2c709c1577b5dd25ebf01c765b30de2c7b71f17d3841e236c3b",
+      "filtered_sha256": "d58125cce639be65f1192971a03277e4d71f7aba21033c4532baf94d54149260",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_19.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-20",
+      "path": "2026/daily/2026-05-20.csv",
+      "rows": 5246,
+      "upstream_blob_sha": "728001f8f558c00f8ee07d0eb6903f644038e103",
+      "upstream_raw_sha256": "a07b1c328934be4e68d76911d8247cbc6fae95d56ac883d54bf5373fc418119e",
+      "filtered_sha256": "9013bd7be3c8f1811a2c603ccd22f3d88b538cf1901b13722c3f861d6e455fcd",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_20.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-21",
+      "path": "2026/daily/2026-05-21.csv",
+      "rows": 5249,
+      "upstream_blob_sha": "707ea292df2fd63a340424258c885a7241ca30d6",
+      "upstream_raw_sha256": "372bc53b2a15cfbc6d701719611a0b74f6322dc7809a947dc544f00c49b5bda1",
+      "filtered_sha256": "3873fc0d2866613d30e1b219a79b3a4449befeaf89eed320be1e7cddfa3263f8",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_21.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-22",
+      "path": "2026/daily/2026-05-22.csv",
+      "rows": 5248,
+      "upstream_blob_sha": "234f988744b789e88827239ad90a93a31e980877",
+      "upstream_raw_sha256": "03678507eb626a79564ffc2485a5ca2d6b13786da4e614536bcb6baa3b3abb9e",
+      "filtered_sha256": "b474792ec80fa08507319be04e60624a07cfd25a63e985e0a220195d5a59a8b0",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_22.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-25",
+      "path": "2026/daily/2026-05-25.csv",
+      "rows": 5248,
+      "upstream_blob_sha": "86c2bb5a8cc9d59f0910c74c0db16a2849c0c858",
+      "upstream_raw_sha256": "2291550d7bd85a67888bb5af239de39805b6019f7de7884537ddd5aed1dd8af7",
+      "filtered_sha256": "ff32c7a86b4980c23eb1bfafee26e068f3ce1280717a3b54ae92e96451ba7694",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_25.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-26",
+      "path": "2026/daily/2026-05-26.csv",
+      "rows": 5248,
+      "upstream_blob_sha": "3d8db7116fd6da332bd920a0c0caaa2754432d26",
+      "upstream_raw_sha256": "d3554c5fdb021db71fd75479629dddc247b5169026a0dd114a479e7f62257e6b",
+      "filtered_sha256": "af9653296ca5647a8ea7c73667f186c41e7aa6c1e93ec8ced77ca66db67cb329",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_26.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-27",
+      "path": "2026/daily/2026-05-27.csv",
+      "rows": 5247,
+      "upstream_blob_sha": "b519c4a7799cc63df71a9f2439b1ae7287a7af88",
+      "upstream_raw_sha256": "0edb7dcd8507333e9eac32eb0c523881848cfc8de58240f8af33cabfeea972bf",
+      "filtered_sha256": "38fa2061a05f410bf94724388af8063a81afa02d26df17c50c7b0c0c4cf998a5",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_27.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-28",
+      "path": "2026/daily/2026-05-28.csv",
+      "rows": 5247,
+      "upstream_blob_sha": "d6752e10d0577fb003a47f0418e4944960c3e44b",
+      "upstream_raw_sha256": "f27932e31b4136d907f0e80944db400ea611a8dead196be68ffa42e9bdbf34ec",
+      "filtered_sha256": "1de020fbfde7a1b784aaf0c5cca2ccce8e3ba0985268165050e2e1a325ba8941",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_28.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-05-29",
+      "path": "2026/daily/2026-05-29.csv",
+      "rows": 5246,
+      "upstream_blob_sha": "63880459247ef5674adb65ff80fb29d3e65e213a",
+      "upstream_raw_sha256": "58f3b3f06ca3cf23c9bfed743d89fb4ca0aac030f28b6424ef2625026d8bdd93",
+      "filtered_sha256": "50e4b77f8d0d382d7d46308fd4b0ef387677f20fc91ad8cbec25b90b08e10b92",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/05/stock_price_2026_05_29.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-06-01",
+      "path": "2026/daily/2026-06-01.csv",
+      "rows": 5248,
+      "upstream_blob_sha": "31073e45dacf17d54a75a6f85e576b0471e76e71",
+      "upstream_raw_sha256": "01acaf67159c11a0a97ef7a8818e99cb0a70802f9bc9098f479c8a55c747ef9b",
+      "filtered_sha256": "5119b46f5e43372450bd513a4c31e4047959be27bf32639903e31ce5a0818d7b",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/06/stock_price_2026_06_01.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-06-02",
+      "path": "2026/daily/2026-06-02.csv",
+      "rows": 5247,
+      "upstream_blob_sha": "0469f6ef59fc67cec3915ee81bf74ac280bf7903",
+      "upstream_raw_sha256": "c8aa3ca7a804923a8a0a352fe0c313f4e825adeb8f4a6d2bbab5e2420d862745",
+      "filtered_sha256": "f5752078fd42fb1ca1b3e49a831f43b08bcdcc4c31f658e493f50d26075e540f",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/06/stock_price_2026_06_02.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-06-03",
+      "path": "2026/daily/2026-06-03.csv",
+      "rows": 5251,
+      "upstream_blob_sha": "44909d277ca1c7ab9772db69bff4aa1166ea0abc",
+      "upstream_raw_sha256": "2403f9189759c79e2744adde9e1e64297664cc49418bbcec26a9b00f835763c1",
+      "filtered_sha256": "8b745fd9817633431131e74ebfb0b57c2e49662383793e4f73708d1076ef2e9e",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/06/stock_price_2026_06_03.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-06-04",
+      "path": "2026/daily/2026-06-04.csv",
+      "rows": 5251,
+      "upstream_blob_sha": "39971442c016333bc20a887ec871afe8e7d24696",
+      "upstream_raw_sha256": "23967d8f2c1efddef0247de99188a5b55cb1d7f5fcdfa10693e3b44fb31599d8",
+      "filtered_sha256": "a64333fd9eae14e4656ff2207789d82fc457c727b8b9b045ae3ea50b5b655c98",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/06/stock_price_2026_06_04.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    },
+    {
+      "date": "2026-06-05",
+      "path": "2026/daily/2026-06-05.csv",
+      "rows": 5253,
+      "upstream_blob_sha": "603e5e51d8b1b9512d817fb883756254655fdf5a",
+      "upstream_raw_sha256": "b37f080739a36b1f0116294a715052ccae4b61b9d12fd67ec68267263458e306",
+      "filtered_sha256": "556b993e0586e0999cf16ab056dfe8984c600e8cc6d5cb9811779748cb85d5e6",
+      "source_url": "https://raw.githubusercontent.com/guidebee/china-stock-data/main/data/price/2026/06/stock_price_2026_06_05.csv",
+      "schema": "symbol,date,open,close,high,low,volume,amount (upstream column order; independent verification required)"
+    }
+  ],
+  "missing_or_unchecked_dates_not_implied_closed": true
+}

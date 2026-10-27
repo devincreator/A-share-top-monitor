@@ -1,0 +1,177 @@
+{
+  "source": "https://money-tree.eyunzhu.com/daily_kline/date/YYYYMMDD.csv",
+  "status": "PILOT_RESEARCH_ONLY_NOT_PIT",
+  "results": [
+    {
+      "date": "20070104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20070104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 1251,
+      "hs_rows": 1251,
+      "sha256": "2570f12eebfe4179e7b457b0ba34581e27f2fb2b8a29e10c18f664a853d24d93",
+      "relative_path": "research/historical_data/2007/pilot/20070104.csv"
+    },
+    {
+      "date": "20080102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20080102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 1371,
+      "hs_rows": 1371,
+      "sha256": "a8ad28662843d19965256e64c3c450f8e1bd5a715ccd8bdea610c9dcf7e86453",
+      "relative_path": "research/historical_data/2008/pilot/20080102.csv"
+    },
+    {
+      "date": "20090105",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20090105.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 1529,
+      "hs_rows": 1529,
+      "sha256": "444401f49b349476bfc8bcdba5d12142e1dafe6372b3e5893f988b5bf07426bb",
+      "relative_path": "research/historical_data/2009/pilot/20090105.csv"
+    },
+    {
+      "date": "20100104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20100104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 1632,
+      "hs_rows": 1632,
+      "sha256": "dd01d42aa9605e6d8f2a88c6819e774a0f487a9e33c2d8f7f93743690fad329d",
+      "relative_path": "research/historical_data/2010/pilot/20100104.csv"
+    },
+    {
+      "date": "20110104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20110104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 1970,
+      "hs_rows": 1970,
+      "sha256": "2dc14f9e7be8f498a94137a8411ec92c30ed7b2a26addef20b3c7fb0ef642661",
+      "relative_path": "research/historical_data/2011/pilot/20110104.csv"
+    },
+    {
+      "date": "20120104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20120104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2228,
+      "hs_rows": 2228,
+      "sha256": "6a1292dec3a5c68ea4c205eda78022b341cea94800d24503f44a86f22140c90f",
+      "relative_path": "research/historical_data/2012/pilot/20120104.csv"
+    },
+    {
+      "date": "20130104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20130104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2406,
+      "hs_rows": 2406,
+      "sha256": "3438f64ef5945bc7e7d70ff6f8ad832d81982c4c062bea4f89b2f2590a18f381",
+      "relative_path": "research/historical_data/2013/pilot/20130104.csv"
+    },
+    {
+      "date": "20140102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20140102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2354,
+      "hs_rows": 2354,
+      "sha256": "81ab511dd6178728d6338759663237d66db0b7aedc72c28f462a8f3c936dad4f",
+      "relative_path": "research/historical_data/2014/pilot/20140102.csv"
+    },
+    {
+      "date": "20150105",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20150105.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2347,
+      "hs_rows": 2342,
+      "sha256": "0a2b7844be5021b612005b510b3aa5f671847c20fa0d6ca5cac6f20dc6911316",
+      "relative_path": "research/historical_data/2015/pilot/20150105.csv"
+    },
+    {
+      "date": "20160104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20160104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2592,
+      "hs_rows": 2549,
+      "sha256": "8fea29c313e05c0fb4c0052cd9bc926869568b80ff91ae70c58bb22808c297ec",
+      "relative_path": "research/historical_data/2016/pilot/20160104.csv"
+    },
+    {
+      "date": "20170103",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20170103.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 2877,
+      "hs_rows": 2832,
+      "sha256": "625082c818deeebb786c5d852026b4a7bf44e292df8f241c7a2b738590ab0136",
+      "relative_path": "research/historical_data/2017/pilot/20170103.csv"
+    },
+    {
+      "date": "20180102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20180102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 3282,
+      "hs_rows": 3252,
+      "sha256": "d65174a81292f695153e60545e81a661847828fcbf4401080ea5588b2332288d",
+      "relative_path": "research/historical_data/2018/pilot/20180102.csv"
+    },
+    {
+      "date": "20190102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20190102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 3579,
+      "hs_rows": 3555,
+      "sha256": "34225278d408b003b3ca36041f09e4cc7a2ee3cb144be64b3864dc1858e3d9fc",
+      "relative_path": "research/historical_data/2019/pilot/20190102.csv"
+    },
+    {
+      "date": "20200102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20200102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 3797,
+      "hs_rows": 3741,
+      "sha256": "c2121a01f3459c85f519d94daa41810ee4cc6b645486d048645f316d7edba579",
+      "relative_path": "research/historical_data/2020/pilot/20200102.csv"
+    },
+    {
+      "date": "20210104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20210104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 4208,
+      "hs_rows": 4121,
+      "sha256": "b53cc04c13a5edc0df5c017b4afc5d0ba3979581ef106418f20eac7a9003e6fa",
+      "relative_path": "research/historical_data/2021/pilot/20210104.csv"
+    },
+    {
+      "date": "20220104",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20220104.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 4737,
+      "hs_rows": 4593,
+      "sha256": "debeadd79418eac8e0dd32373afaa398f89d0308ce1e067627bd1b2981489bf6",
+      "relative_path": "research/historical_data/2022/pilot/20220104.csv"
+    },
+    {
+      "date": "20230103",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20230103.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 5062,
+      "hs_rows": 4900,
+      "sha256": "f8cb8985ab9c99898e07114098922d01b3f68c824e2967bc83eb4600f53268c1",
+      "relative_path": "research/historical_data/2023/pilot/20230103.csv"
+    },
+    {
+      "date": "20240102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20240102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 5329,
+      "hs_rows": 5090,
+      "sha256": "1279710e417b5a6ff4aa8a863728ec59dd79412f42021de7ff73491e874fff8b",
+      "relative_path": "research/historical_data/2024/pilot/20240102.csv"
+    },
+    {
+      "date": "20250102",
+      "url": "https://money-tree.eyunzhu.com/daily_kline/date/20250102.csv",
+      "status": "RAW_SAMPLE_DOWNLOADED",
+      "rows": 5369,
+      "hs_rows": 5106,
+      "sha256": "d8cf09d25291b645c1f3f65286bf7634f74b4b68fcbc4bb5598bd7a777241b7f",
+      "relative_path": "research/historical_data/2025/pilot/20250102.csv"
+    }
+  ]
+}

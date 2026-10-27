@@ -1,0 +1,12 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-27T06:21:18.619Z",
+  "workflow_name": "GitHub public stock history discovery and yearly archive integration",
+  "conclusion": "partial",
+  "summary": "Verified existing releases: 2006 241-session raw ZIP (7.8 MB) and 2005 archive; identified public GitHub daily source guidebee/china-stock-data currently showing 2026 dated CSV, and alternative 2016+ repositories whose actual Git tree did not independently establish long date coverage. Created research-only importer to segregate SSE/SZSE and exclude BSE, record source SHA and filtered SHA, populate annual 2006–2026 folder manifests with 2006 release pointer. Automatic GitHub Actions archival started; final source write must be checked by run log, no claim 2007–2025 individual stock files obtained, no PIT certification.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40460536466",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": null,
+  "production_updated": false,
+  "next_action": "Verify workflow success, count actual annual files/rows and check source hash; independently source 2007–2025 full-market delisted-inclusive history."
+}

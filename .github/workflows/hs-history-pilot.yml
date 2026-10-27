@@ -1,0 +1,28 @@
+name: Research historical 2007-2025 source pilot (not PIT)
+on:
+  push:
+    branches: [research/hs-pit-audit-20261027]
+    paths:
+      - '.github/workflows/hs-history-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python research/hs_pit_audit/probe_long_history.py
+      - name: Commit verified pilot samples and missing years report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/historical_data
+          if ! git diff --cached --quiet; then
+            git commit -m "research: independently probe 2007-2025 raw history per year"
+            git push origin HEAD:research/hs-pit-audit-20261027
+          fi
