@@ -19,3 +19,4 @@ jobs:
         run: |
           cd research/hs_pit_audit
           python -m unittest discover -v -p 'test_*.py'
+          python -m py_compile backfill_year.py probe_long_history.py import_public_yearly.py annual_evidence.py
