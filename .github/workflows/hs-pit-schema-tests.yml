@@ -1,0 +1,21 @@
+name: Research HS universe PIT schema tests (no production)
+on:
+  pull_request:
+    paths:
+      - 'research/hs_pit_audit/**'
+      - '.github/workflows/hs-pit-schema-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Historical identity and release schema regressions
+        run: |
+          cd research/hs_pit_audit
+          python -m unittest discover -v -p 'test_*.py'
