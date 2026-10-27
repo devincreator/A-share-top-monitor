@@ -42,5 +42,7 @@ jobs:
           git add research/historical_data
           if ! git diff --cached --quiet; then
             git commit -m "research: archive bounded historical daily source batch (not PIT)"
+            git fetch origin research/hs-pit-audit-20261027
+            git rebase origin/research/hs-pit-audit-20261027
             git push origin HEAD:research/hs-pit-audit-20261027
           fi
