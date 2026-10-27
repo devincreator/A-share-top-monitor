@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Bounded daily backfill using pinned historical index calendar; not PIT-certified."""
-import argparse,csv,hashlib,io,json,urllib.request
+import argparse,csv,hashlib,io,json,urllib.request,urllib.error,time
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import Counter
@@ -30,7 +30,7 @@ def run(year,max_days=35):
   else:
    try:b=fetch(report["data_source"].replace("{yyyymmdd}",day))
    except Exception as ex:
-    report["failures"].append({"date":day,"error":str(ex)});continue
+    report["failures"].append({"date":day,"error":str(ex)})\n    if isinstance(ex,urllib.error.HTTPError) and ex.code==429:\n     report["rate_limit_stopped_at"]=day\n     break\n    continue
   try:
    rows=list(csv.DictReader(io.StringIO(b.decode("utf-8-sig"))))
    if not rows or len(rows)<100 or not {"symbol","trade_date","open","close","vol"}.issubset(rows[0]):raise ValueError("invalid header/row_count")
