@@ -30,7 +30,11 @@ def run(year,max_days=35):
   else:
    try:b=fetch(report["data_source"].replace("{yyyymmdd}",day))
    except Exception as ex:
-    report["failures"].append({"date":day,"error":str(ex)})\n    if isinstance(ex,urllib.error.HTTPError) and ex.code==429:\n     report["rate_limit_stopped_at"]=day\n     break\n    continue
+    report["failures"].append({"date":day,"error":str(ex)})
+    if isinstance(ex,urllib.error.HTTPError) and ex.code==429:
+     report["rate_limit_stopped_at"]=day
+     break
+    continue
   try:
    rows=list(csv.DictReader(io.StringIO(b.decode("utf-8-sig"))))
    if not rows or len(rows)<100 or not {"symbol","trade_date","open","close","vol"}.issubset(rows[0]):raise ValueError("invalid header/row_count")
@@ -47,7 +51,8 @@ def run(year,max_days=35):
  done={r["date"] for r in report["files"]}
  report["remaining_calendar_dates"]=[d for d in sessions if d not in done]
  report["all_days_raw_archived"]=not report["remaining_calendar_dates"] and not report["failures"]
- (ROOT/str(year)/"backfill_report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf8")
+ (ROOT/str(year)/"backfill_report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2)+"
+",encoding="utf8")
  print(json.dumps({"year":year,"done":len(done),"remaining":len(report["remaining_calendar_dates"]),"failures":len(report["failures"])}),flush=True)
  return report
 if __name__=="__main__":
