@@ -1,0 +1,12 @@
+{
+  "year": 2006,
+  "verified_import_count": 0,
+  "imported_rows": 0,
+  "research_only": true,
+  "PIT_certified": false,
+  "full_year_stock_universe_certified": false,
+  "files": [],
+  "missing_or_unchecked_dates_not_implied_closed": true,
+  "existing_original_archive": "https://github.com/devincreator/A-share-top-monitor/releases/download/research-v85-2006-20261020/v85_2006_raw_241days.zip",
+  "archive_status": "RAW_241_241_VERIFIED_NOT_PIT; stored in Release, not duplicated in git"
+}
