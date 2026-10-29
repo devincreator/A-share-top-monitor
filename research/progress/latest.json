@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-29T09:52:23+00:00",
-  "entry_count": 225,
+  "updated_at_utc": "2026-10-29T17:29:07+00:00",
+  "entry_count": 226,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-29T09:52:23+00:00",
-    "run_id": 40852956550,
+    "recorded_at_utc": "2026-10-29T17:29:07+00:00",
+    "run_id": 40921680006,
     "run_attempt": 1,
-    "workflow_name": "V92 gradual exchange financing source gap recovery (research only)",
-    "workflow_path": ".github/workflows/v92-margin-gap-catchup.yml",
+    "workflow_name": "V84 research daily source readiness (never formal alerts)",
+    "workflow_path": ".github/workflows/v84-readiness-research.yml",
     "branch": "main",
-    "commit_sha": "e12c33d6b8fa021ad22edd297f178157d78250d0",
+    "commit_sha": "03d79ef7e78c015b4a394c6f0538117622d85f38",
     "status": "completed",
-    "conclusion": "failure",
+    "conclusion": "success",
     "event": "schedule",
-    "created_at": "2026-10-29T09:51:51Z",
-    "run_started_at": "2026-10-29T09:51:51Z",
-    "updated_at": "2026-10-29T09:52:13Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40852956550",
+    "created_at": "2026-10-29T17:28:36Z",
+    "run_started_at": "2026-10-29T17:28:36Z",
+    "updated_at": "2026-10-29T17:28:56Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40921680006",
     "jobs": [
       {
-        "id": 123376737492,
-        "name": "gap_research",
+        "id": 123616291744,
+        "name": "audit",
         "status": "completed",
-        "conclusion": "failure",
-        "started_at": "2026-10-29T09:51:54Z",
-        "completed_at": "2026-10-29T09:52:12Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40852956550/job/123376737492"
+        "conclusion": "success",
+        "started_at": "2026-10-29T17:28:40Z",
+        "completed_at": "2026-10-29T17:28:55Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40921680006/job/123616291744"
       }
     ],
     "artifacts": [
       {
-        "id": 12887219657,
-        "name": "v92-exchange-gap-batch-40852956550",
-        "size_in_bytes": 218,
+        "id": 12918153047,
+        "name": "v84-daily-readiness-40921680006",
+        "size_in_bytes": 169448,
         "expired": false,
-        "expires_at": "2026-11-28T09:52:09Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12887219657/zip"
+        "expires_at": "2026-11-28T17:28:49Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12918153047/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
