@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-10-29T02:51:26+00:00",
-  "entry_count": 222,
+  "updated_at_utc": "2026-10-29T06:06:06+00:00",
+  "entry_count": 223,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-29T02:51:26+00:00",
-    "run_id": 40808773962,
+    "recorded_at_utc": "2026-10-29T06:06:06+00:00",
+    "run_id": 40827089087,
     "run_attempt": 1,
-    "workflow_name": "V84 research daily source readiness (never formal alerts)",
-    "workflow_path": ".github/workflows/v84-readiness-research.yml",
+    "workflow_name": "V89 independent index and financing source research (no alerts)",
+    "workflow_path": ".github/workflows/v89-source-readiness-research.yml",
     "branch": "main",
-    "commit_sha": "78f313965cd5f2989ab71b43aa820a1a8da80717",
+    "commit_sha": "b6dacac7be7e20e3e1258bf93c71762e74953b37",
     "status": "completed",
     "conclusion": "success",
     "event": "schedule",
-    "created_at": "2026-10-29T02:51:00Z",
-    "run_started_at": "2026-10-29T02:51:00Z",
-    "updated_at": "2026-10-29T02:51:17Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40808773962",
+    "created_at": "2026-10-29T06:05:05Z",
+    "run_started_at": "2026-10-29T06:05:05Z",
+    "updated_at": "2026-10-29T06:05:58Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40827089087",
     "jobs": [
       {
-        "id": 123233892256,
-        "name": "audit",
+        "id": 123292494311,
+        "name": "probe",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-10-29T02:51:03Z",
-        "completed_at": "2026-10-29T02:51:17Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40808773962/job/123233892256"
+        "started_at": "2026-10-29T06:05:09Z",
+        "completed_at": "2026-10-29T06:05:57Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40827089087/job/123292494311"
       }
     ],
     "artifacts": [
       {
-        "id": 12869163090,
-        "name": "v84-daily-readiness-40808773962",
-        "size_in_bytes": 167985,
+        "id": 12877435883,
+        "name": "v89-index-financing-source-40827089087",
+        "size_in_bytes": 371189,
         "expired": false,
-        "expires_at": "2026-11-28T02:51:13Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12869163090/zip"
+        "expires_at": "2026-11-28T06:05:53Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12877435883/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
