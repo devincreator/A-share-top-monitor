@@ -1,0 +1,44 @@
+[
+  {
+    "year": "2011",
+    "n": 103,
+    "median_relative_pct": -0.06380724282705197,
+    "within_0.005pct_points": 103,
+    "max_abs_pct_points": 0.004980262099635702
+  },
+  {
+    "year": "2015",
+    "n": 244,
+    "median_relative_pct": -0.04856750408479549,
+    "within_0.005pct_points": 205,
+    "max_abs_pct_points": 0.01030837488430425
+  },
+  {
+    "year": "2018",
+    "n": 243,
+    "median_relative_pct": -0.06968826804066852,
+    "within_0.005pct_points": 231,
+    "max_abs_pct_points": 0.00587332032081922
+  },
+  {
+    "year": "2019",
+    "n": 244,
+    "median_relative_pct": 0.0006966484444759224,
+    "within_0.005pct_points": 233,
+    "max_abs_pct_points": 0.005629983940615313
+  },
+  {
+    "year": "2025",
+    "n": 238,
+    "median_relative_pct": 0.014238245758901868,
+    "within_0.005pct_points": 217,
+    "max_abs_pct_points": 0.009346241311285253
+  },
+  {
+    "year": "2026",
+    "n": 140,
+    "median_relative_pct": 0.047289043341347536,
+    "within_0.005pct_points": 139,
+    "max_abs_pct_points": 0.007742515129990135
+  }
+]

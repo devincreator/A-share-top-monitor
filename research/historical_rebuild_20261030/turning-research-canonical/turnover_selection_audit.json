@@ -1,0 +1,128 @@
+{
+  "rows": 3659,
+  "start": "2011-08-02",
+  "end": "2026-08-25",
+  "missing": 0,
+  "conflicts": 0,
+  "invalid": 0,
+  "official_volume_matched_to_provider_at_display_precision_days": 3658,
+  "official_volume_disagreement_dates": [
+    "2012-12-07"
+  ],
+  "denominator_distinct_values": 3298,
+  "denominator_jumps_over_3pct": [
+    {
+      "date": "2013-07-16",
+      "previous_date": "2013-07-15",
+      "change_pct": "10.19597040768141035731150640",
+      "previous_shares": "2541200000000.0000",
+      "current_shares": "2800300000000.0000"
+    }
+  ],
+  "annual_native_vs_recomputed": [
+    {
+      "year": "2011",
+      "days": 103,
+      "native_minus_recomputed_median_relative_pct": 1.358952172791028,
+      "max_abs_difference_pct_points": 0.06167959623401564
+    },
+    {
+      "year": "2012",
+      "days": 243,
+      "native_minus_recomputed_median_relative_pct": 1.0619760040269766,
+      "max_abs_difference_pct_points": 0.12191034751870725
+    },
+    {
+      "year": "2013",
+      "days": 238,
+      "native_minus_recomputed_median_relative_pct": 1.4427658913294006,
+      "max_abs_difference_pct_points": 0.05994946872141299
+    },
+    {
+      "year": "2014",
+      "days": 245,
+      "native_minus_recomputed_median_relative_pct": 2.6576082794429245,
+      "max_abs_difference_pct_points": 0.16166764367080508
+    },
+    {
+      "year": "2015",
+      "days": 244,
+      "native_minus_recomputed_median_relative_pct": 6.032100913856775,
+      "max_abs_difference_pct_points": 0.7293460987539303
+    },
+    {
+      "year": "2016",
+      "days": 244,
+      "native_minus_recomputed_median_relative_pct": 4.292410881734843,
+      "max_abs_difference_pct_points": 0.08227502986209143
+    },
+    {
+      "year": "2017",
+      "days": 244,
+      "native_minus_recomputed_median_relative_pct": 4.1353193024015305,
+      "max_abs_difference_pct_points": 0.07340186107427056
+    },
+    {
+      "year": "2018",
+      "days": 243,
+      "native_minus_recomputed_median_relative_pct": 4.313312606742481,
+      "max_abs_difference_pct_points": 0.06511951251527633
+    },
+    {
+      "year": "2019",
+      "days": 244,
+      "native_minus_recomputed_median_relative_pct": 0.15568865547400668,
+      "max_abs_difference_pct_points": 0.010966069427828885
+    },
+    {
+      "year": "2020",
+      "days": 243,
+      "native_minus_recomputed_median_relative_pct": 0.15970612571387655,
+      "max_abs_difference_pct_points": 0.00899881334649021
+    },
+    {
+      "year": "2021",
+      "days": 243,
+      "native_minus_recomputed_median_relative_pct": 0.09071774453657255,
+      "max_abs_difference_pct_points": 0.007252781318994373
+    },
+    {
+      "year": "2022",
+      "days": 242,
+      "native_minus_recomputed_median_relative_pct": 0.08653523512421879,
+      "max_abs_difference_pct_points": 0.008406496203867629
+    },
+    {
+      "year": "2023",
+      "days": 242,
+      "native_minus_recomputed_median_relative_pct": 0.01765768388691802,
+      "max_abs_difference_pct_points": 0.013967741492917397
+    },
+    {
+      "year": "2024",
+      "days": 242,
+      "native_minus_recomputed_median_relative_pct": 0.09328550285166992,
+      "max_abs_difference_pct_points": 0.014968990561129691
+    },
+    {
+      "year": "2025",
+      "days": 243,
+      "native_minus_recomputed_median_relative_pct": 0.11685552284526057,
+      "max_abs_difference_pct_points": 1.1532895422896352
+    },
+    {
+      "year": "2026",
+      "days": 156,
+      "native_minus_recomputed_median_relative_pct": 0.06731395474763868,
+      "max_abs_difference_pct_points": 0.01219107784701909
+    }
+  ],
+  "definition_is_project_authored": true,
+  "vendor_native_formula_verified": false,
+  "historical_constituents_independently_verified": false,
+  "historical_publication_times_certified": false,
+  "denominator_source": "iFinD MCP index_data, table field 流通A股（单位：股）, 000985.CSI",
+  "rounding_interval_assumes_provider_rounds_to_nearest": true,
+  "scope_assumption": "Provider historical index float A shares and official volume refer to the same date/index universe; not independently summed stock by stock",
+  "rejected_response_or_row_count": 13
+}

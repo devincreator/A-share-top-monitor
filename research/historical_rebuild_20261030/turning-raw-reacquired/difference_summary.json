@@ -1,0 +1,399 @@
+{
+  "all_a_close": {
+    "compared_days": 3644,
+    "median_abs_relative_pct": 4.7967908745061294e-05,
+    "days_over_1pct": 1,
+    "days_over_5pct": 0,
+    "fresh_higher_days": 1452,
+    "old_zero_days": [],
+    "largest_absolute_differences": [
+      {
+        "date": "2014-12-09",
+        "field": "all_a_close",
+        "old": "4030.09",
+        "fresh": "3935.365",
+        "difference": "-94.725",
+        "old_value": 4030.09,
+        "fresh_value": 3935.365,
+        "delta": -94.72500000000036,
+        "relative_pct": -2.3504437866151973
+      },
+      {
+        "date": "2014-12-05",
+        "field": "all_a_close",
+        "old": "4022.13",
+        "fresh": "4018.927",
+        "difference": "-3.203",
+        "old_value": 4022.13,
+        "fresh_value": 4018.927,
+        "delta": -3.2029999999999745,
+        "relative_pct": -0.07963442255720654
+      },
+      {
+        "date": "2013-08-06",
+        "field": "all_a_close",
+        "old": "2770.69",
+        "fresh": "2770.214",
+        "difference": "-0.476",
+        "old_value": 2770.69,
+        "fresh_value": 2770.214,
+        "delta": -0.4760000000001128,
+        "relative_pct": -0.017179836069725063
+      },
+      {
+        "date": "2016-06-20",
+        "field": "all_a_close",
+        "old": "4548.54",
+        "fresh": "4548.53",
+        "difference": "-0.01",
+        "old_value": 4548.54,
+        "fresh_value": 4548.53,
+        "delta": -0.010000000000218279,
+        "relative_pct": -0.00021985076530395276
+      },
+      {
+        "date": "2011-08-26",
+        "field": "all_a_close",
+        "old": "3400.34",
+        "fresh": "3400.35",
+        "difference": "0.01",
+        "old_value": 3400.34,
+        "fresh_value": 3400.35,
+        "delta": 0.009999999999763531,
+        "relative_pct": 0.00029408823822851815
+      }
+    ]
+  },
+  "hs300_close": {
+    "compared_days": 3644,
+    "median_abs_relative_pct": 0.0,
+    "days_over_1pct": 0,
+    "days_over_5pct": 0,
+    "fresh_higher_days": 8,
+    "old_zero_days": [],
+    "largest_absolute_differences": [
+      {
+        "date": "2018-08-07",
+        "field": "hs300_close",
+        "old": "3368.8695",
+        "fresh": "3368.87",
+        "difference": "0.0005",
+        "old_value": 3368.8695,
+        "fresh_value": 3368.87,
+        "delta": 0.0005000000001018634,
+        "relative_pct": 1.4841774076401748e-05
+      },
+      {
+        "date": "2018-08-08",
+        "field": "hs300_close",
+        "old": "3314.5075",
+        "fresh": "3314.508",
+        "difference": "0.0005",
+        "old_value": 3314.5075,
+        "fresh_value": 3314.508,
+        "delta": 0.0004999999996471161,
+        "relative_pct": 1.5085197402342487e-05
+      },
+      {
+        "date": "2018-08-16",
+        "field": "hs300_close",
+        "old": "3276.7276",
+        "fresh": "3276.728",
+        "difference": "0.0004",
+        "old_value": 3276.7276,
+        "fresh_value": 3276.728,
+        "delta": 0.0003999999998995918,
+        "relative_pct": 1.2207300970068502e-05
+      },
+      {
+        "date": "2018-08-14",
+        "field": "hs300_close",
+        "old": "3372.9137",
+        "fresh": "3372.914",
+        "difference": "0.0003",
+        "old_value": 3372.9137,
+        "fresh_value": 3372.914,
+        "delta": 0.0003000000001520675,
+        "relative_pct": 8.894387071300969e-06
+      },
+      {
+        "date": "2018-08-09",
+        "field": "hs300_close",
+        "old": "3397.5298",
+        "fresh": "3397.53",
+        "difference": "0.0002",
+        "old_value": 3397.5298,
+        "fresh_value": 3397.53,
+        "delta": 0.00020000000040454324,
+        "relative_pct": 5.886629761420181e-06
+      }
+    ]
+  },
+  "zz1000_close": {
+    "compared_days": 2869,
+    "median_abs_relative_pct": 0.0,
+    "days_over_1pct": 0,
+    "days_over_5pct": 0,
+    "fresh_higher_days": 0,
+    "old_zero_days": [],
+    "largest_absolute_differences": [
+      {
+        "date": "2014-10-17",
+        "field": "zz1000_close",
+        "old": "6058.668",
+        "fresh": "6058.668",
+        "difference": "0.000",
+        "old_value": 6058.668,
+        "fresh_value": 6058.668,
+        "delta": 0.0,
+        "relative_pct": 0.0
+      },
+      {
+        "date": "2014-10-20",
+        "field": "zz1000_close",
+        "old": "6154.52",
+        "fresh": "6154.52",
+        "difference": "0.00",
+        "old_value": 6154.52,
+        "fresh_value": 6154.52,
+        "delta": 0.0,
+        "relative_pct": 0.0
+      },
+      {
+        "date": "2014-10-21",
+        "field": "zz1000_close",
+        "old": "6103.008",
+        "fresh": "6103.008",
+        "difference": "0.000",
+        "old_value": 6103.008,
+        "fresh_value": 6103.008,
+        "delta": 0.0,
+        "relative_pct": 0.0
+      },
+      {
+        "date": "2014-10-22",
+        "field": "zz1000_close",
+        "old": "6027.51",
+        "fresh": "6027.51",
+        "difference": "0.00",
+        "old_value": 6027.51,
+        "fresh_value": 6027.51,
+        "delta": 0.0,
+        "relative_pct": 0.0
+      },
+      {
+        "date": "2014-10-23",
+        "field": "zz1000_close",
+        "old": "5930.483",
+        "fresh": "5930.483",
+        "difference": "0.000",
+        "old_value": 5930.483,
+        "fresh_value": 5930.483,
+        "delta": 0.0,
+        "relative_pct": 0.0
+      }
+    ]
+  },
+  "turnover": {
+    "compared_days": 3644,
+    "median_abs_relative_pct": 7.191226392144756e-07,
+    "days_over_1pct": 1,
+    "days_over_5pct": 1,
+    "fresh_higher_days": 1855,
+    "old_zero_days": [],
+    "largest_absolute_differences": [
+      {
+        "date": "2015-03-17",
+        "field": "turnover",
+        "old": "999999999999.0",
+        "fresh": "1065500000000.0000",
+        "difference": "65500000001.0000",
+        "old_value": 999999999999.0,
+        "fresh_value": 1065500000000.0,
+        "delta": 65500000001.0,
+        "relative_pct": 6.550000000106548
+      },
+      {
+        "date": "2015-05-25",
+        "field": "turnover",
+        "old": "1894204380301.0",
+        "fresh": "1882400000000.0000",
+        "difference": "-11804380301.0000",
+        "old_value": 1894204380301.0,
+        "fresh_value": 1882400000000.0,
+        "delta": -11804380301.0,
+        "relative_pct": -0.623184088462736
+      },
+      {
+        "date": "2015-05-29",
+        "field": "turnover",
+        "old": "1705704283893.0",
+        "fresh": "1697000000000.000",
+        "difference": "-8704283893.000",
+        "old_value": 1705704283893.0,
+        "fresh_value": 1697000000000.0,
+        "delta": -8704283893.0,
+        "relative_pct": -0.5103043930413165
+      },
+      {
+        "date": "2012-12-07",
+        "field": "turnover",
+        "old": "133615062934.0",
+        "fresh": "132670860000.0000",
+        "difference": "-944202934.0000",
+        "old_value": 133615062934.0,
+        "fresh_value": 132670860000.0,
+        "delta": -944202934.0,
+        "relative_pct": -0.7066590497108782
+      },
+      {
+        "date": "2015-06-02",
+        "field": "turnover",
+        "old": "1821628999117.0",
+        "fresh": "1821500000000.0000",
+        "difference": "-128999117.0000",
+        "old_value": 1821628999117.0,
+        "fresh_value": 1821500000000.0,
+        "delta": -128999117.0,
+        "relative_pct": -0.007081525220697937
+      }
+    ]
+  },
+  "turnover_rate": {
+    "compared_days": 3644,
+    "median_abs_relative_pct": 0.5714285714285783,
+    "days_over_1pct": 1594,
+    "days_over_5pct": 358,
+    "fresh_higher_days": 2901,
+    "old_zero_days": [
+      "2025-02-05",
+      "2025-05-06",
+      "2025-06-03",
+      "2025-10-09",
+      "2025-10-13",
+      "2026-07-20"
+    ],
+    "largest_absolute_differences": [
+      {
+        "date": "2025-10-09",
+        "field": "turnover_rate",
+        "old": "0.0",
+        "fresh": "2.127",
+        "difference": "2.127",
+        "old_value": 0.0,
+        "fresh_value": 2.127,
+        "delta": 2.127,
+        "relative_pct": null
+      },
+      {
+        "date": "2025-10-13",
+        "field": "turnover_rate",
+        "old": "0.0",
+        "fresh": "2.0312",
+        "difference": "2.0312",
+        "old_value": 0.0,
+        "fresh_value": 2.0312,
+        "delta": 2.0312,
+        "relative_pct": null
+      },
+      {
+        "date": "2026-07-20",
+        "field": "turnover_rate",
+        "old": "0.0",
+        "fresh": "2.0269",
+        "difference": "2.0269",
+        "old_value": 0.0,
+        "fresh_value": 2.0269,
+        "delta": 2.0269,
+        "relative_pct": null
+      },
+      {
+        "date": "2025-05-06",
+        "field": "turnover_rate",
+        "old": "0.0",
+        "fresh": "1.565",
+        "difference": "1.565",
+        "old_value": 0.0,
+        "fresh_value": 1.565,
+        "delta": 1.565,
+        "relative_pct": null
+      },
+      {
+        "date": "2025-02-05",
+        "field": "turnover_rate",
+        "old": "0.0",
+        "fresh": "1.4163",
+        "difference": "1.4163",
+        "old_value": 0.0,
+        "fresh_value": 1.4163,
+        "delta": 1.4163,
+        "relative_pct": null
+      }
+    ]
+  },
+  "financing_balance": {
+    "compared_days": 3644,
+    "median_abs_relative_pct": 8.587648040300511,
+    "days_over_1pct": 3422,
+    "days_over_5pct": 3115,
+    "fresh_higher_days": 3598,
+    "old_zero_days": [],
+    "largest_absolute_differences": [
+      {
+        "date": "2021-09-13",
+        "field": "financing_balance",
+        "old": "1523904263774.0",
+        "fresh": "1752738180000.0000",
+        "difference": "228833916226.0000",
+        "old_value": 1523904263774.0,
+        "fresh_value": 1752738180000.0,
+        "delta": 228833916226.0,
+        "relative_pct": 15.016292142872878
+      },
+      {
+        "date": "2021-09-14",
+        "field": "financing_balance",
+        "old": "1525641820498.0",
+        "fresh": "1754174890000.0000",
+        "difference": "228533069502.0000",
+        "old_value": 1525641820498.0,
+        "fresh_value": 1754174890000.0,
+        "delta": 228533069502.0,
+        "relative_pct": 14.97947070088852
+      },
+      {
+        "date": "2021-09-15",
+        "field": "financing_balance",
+        "old": "1529971783228.0",
+        "fresh": "1758379220000.0000",
+        "difference": "228407436772.0000",
+        "old_value": 1529971783228.0,
+        "fresh_value": 1758379220000.0,
+        "delta": 228407436772.0,
+        "relative_pct": 14.928865961834692
+      },
+      {
+        "date": "2021-09-08",
+        "field": "financing_balance",
+        "old": "1502461559470.0",
+        "fresh": "1730846180000.0000",
+        "difference": "228384620530.0000",
+        "old_value": 1502461559470.0,
+        "fresh_value": 1730846180000.0,
+        "delta": 228384620530.0,
+        "relative_pct": 15.200696423179295
+      },
+      {
+        "date": "2021-08-30",
+        "field": "financing_balance",
+        "old": "1480111475981.0",
+        "fresh": "1708490240000.0000",
+        "difference": "228378764019.0000",
+        "old_value": 1480111475981.0,
+        "fresh_value": 1708490240000.0,
+        "delta": 228378764019.0,
+        "relative_pct": 15.429835368828094
+      }
+    ]
+  }
+}

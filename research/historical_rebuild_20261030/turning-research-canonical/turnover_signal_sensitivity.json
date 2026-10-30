@@ -1,0 +1,89 @@
+{
+  "period": {
+    "start": "2015-01-05",
+    "end": "2026-08-25"
+  },
+  "experiment": "Only turnover_rate changes; all five other raw fields and all model rules held fixed",
+  "native_vs_recomputed": {
+    "top5Formal": {
+      "before_count": 64,
+      "after_count": 64,
+      "removed": [],
+      "added": []
+    },
+    "top9Formal": {
+      "before_count": 36,
+      "after_count": 36,
+      "removed": [],
+      "added": []
+    },
+    "bottom5Formal": {
+      "before_count": 56,
+      "after_count": 56,
+      "removed": [],
+      "added": []
+    },
+    "bottom9Formal": {
+      "before_count": 37,
+      "after_count": 37,
+      "removed": [],
+      "added": []
+    }
+  },
+  "precision_lower_scenario": {
+    "top5Formal": {
+      "before_count": 64,
+      "after_count": 64,
+      "removed": [],
+      "added": []
+    },
+    "top9Formal": {
+      "before_count": 36,
+      "after_count": 36,
+      "removed": [],
+      "added": []
+    },
+    "bottom5Formal": {
+      "before_count": 56,
+      "after_count": 56,
+      "removed": [],
+      "added": []
+    },
+    "bottom9Formal": {
+      "before_count": 37,
+      "after_count": 37,
+      "removed": [],
+      "added": []
+    }
+  },
+  "precision_upper_scenario": {
+    "top5Formal": {
+      "before_count": 64,
+      "after_count": 64,
+      "removed": [],
+      "added": []
+    },
+    "top9Formal": {
+      "before_count": 36,
+      "after_count": 36,
+      "removed": [],
+      "added": []
+    },
+    "bottom5Formal": {
+      "before_count": 56,
+      "after_count": 56,
+      "removed": [],
+      "added": []
+    },
+    "bottom9Formal": {
+      "before_count": 37,
+      "after_count": 37,
+      "removed": [],
+      "added": []
+    }
+  },
+  "precision_75pct_boundary_ambiguous_days": [],
+  "precision_ambiguous_top5_candidates": [],
+  "is_performance_backtest": false,
+  "is_source_truth_proof": false
+}

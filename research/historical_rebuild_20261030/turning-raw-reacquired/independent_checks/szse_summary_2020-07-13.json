@@ -1,0 +1,435 @@
+{
+  "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1837_xxpl&txtDate=2020-07-13&tab1PAGENO=1",
+  "retrieved_at": "2026-10-30T07:23:16.907362+00:00",
+  "http_status": 200,
+  "raw": [
+    {
+      "metadata": {
+        "catalogid": "1837_xxpl",
+        "name": "融资融券交易总量",
+        "excel": "xlsx",
+        "pagetype": "vertical",
+        "subname": "2020-07-13",
+        "tabkey": "tab1",
+        "pagesize": -1,
+        "pageno": 0,
+        "pagecount": 0,
+        "recordcount": 0,
+        "showrecordcount": false,
+        "header": "",
+        "footer": "<table>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>说明：1. 本报表基于证券公司报送的融资融券余额数据汇总生成，其中：</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融资余额(元)=前日融资余额＋本日融资买入-本日融资偿还额</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融券余量(股)=前日融券余量＋本日融券卖出量-本日融券买入量-本日现券偿还量</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融券余额(元)=本日融券余量×本日收盘价</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融资融券余额(元)=本日融资余额＋本日融券余额；</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>2. 2014年9月22日起，“融资融券交易总量”数据包含调出标的证券名单的证券的融资融券余额。</font></td></tr>\n\t\t\t\t\t</table>",
+        "reporttype": null,
+        "tabcss": null,
+        "conditions": [
+          {
+            "label": "查询日期",
+            "name": "txtDate",
+            "hidden": "0",
+            "defaultValue": "2020-07-13",
+            "labelstyle": "1",
+            "required": "true",
+            "inputType": "date",
+            "typeAhead": "",
+            "options": null,
+            "property": null,
+            "maxlength": null,
+            "otherProperties": null,
+            "clientvalidate": ""
+          },
+          {
+            "label": "证券代码",
+            "name": "txtZqdm",
+            "hidden": "0",
+            "defaultValue": "",
+            "labelstyle": "1",
+            "required": "false",
+            "inputType": "text",
+            "typeAhead": "/shortname/gethangqing?dataType=XA%7c%7cDM%7c%7cZA%7c%7cEB%7c%7cCY%7c%7cJJ&input=",
+            "options": null,
+            "property": null,
+            "maxlength": null,
+            "otherProperties": null,
+            "clientvalidate": ""
+          }
+        ],
+        "colStyle": {
+          "jrrzmr": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrzye": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjmc": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjyl": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjye": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrzrjye": {
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          }
+        },
+        "cols": {
+          "jrrzmr": "融资买入额<br>(亿元)",
+          "jrrzye": "融资余额<br>(亿元)",
+          "jrrjmc": "融券卖出量<br>(亿股/亿份)",
+          "jrrjyl": "融券余量<br>(亿股/亿份)",
+          "jrrjye": "融券余额<br>(亿元)",
+          "jrrzrjye": "融资融券余额<br>(亿元)"
+        },
+        "colspan": 0,
+        "notes": null,
+        "topHeader": "",
+        "hidden": "0",
+        "tablestyle": "",
+        "refreshCondition": false
+      },
+      "data": [
+        {
+          "jrrzmr": "1,076.81",
+          "jrrzye": "6,379.46",
+          "jrrjmc": "1.51",
+          "jrrjyl": "9.16",
+          "jrrjye": "136.67",
+          "jrrzrjye": "6,516.13"
+        }
+      ],
+      "error": null
+    },
+    {
+      "metadata": {
+        "catalogid": "1837_xxpl",
+        "name": "融资融券交易明细",
+        "excel": "xlsx",
+        "pagetype": "vertical",
+        "subname": "2020-07-13",
+        "tabkey": "tab2",
+        "pagesize": 20,
+        "pageno": 1,
+        "pagecount": 42,
+        "recordcount": 834,
+        "showrecordcount": false,
+        "header": "",
+        "footer": "<table>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>说明：1. 本报表基于证券公司报送的融资融券余额数据汇总生成，其中：</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融资余额(元)=前日融资余额＋本日融资买入-本日融资偿还额</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融券余量(股)=前日融券余量＋本日融券卖出量-本日融券买入量-本日现券偿还量</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融券余额(元)=本日融券余量×本日收盘价</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>本日融资融券余额(元)=本日融资余额＋本日融券余额；</font></td></tr>\n\t\t\t\t\t\t<tr><td class=\"link1\"><font color='red'>2. 2014年9月22日起，“融资融券交易总量”数据包含调出标的证券名单的证券的融资融券余额。</font></td></tr>\n\t\t\t\t\t</table>",
+        "reporttype": null,
+        "tabcss": null,
+        "conditions": [
+          {
+            "label": "",
+            "name": "txtDate",
+            "hidden": "1",
+            "defaultValue": "2020-07-13",
+            "labelstyle": "1",
+            "required": "false",
+            "inputType": "text",
+            "typeAhead": "",
+            "options": null,
+            "property": null,
+            "maxlength": null,
+            "otherProperties": null,
+            "clientvalidate": ""
+          },
+          {
+            "label": "",
+            "name": "txtZqdm",
+            "hidden": "1",
+            "defaultValue": "",
+            "labelstyle": "1",
+            "required": "false",
+            "inputType": "text",
+            "typeAhead": "/shortname/gethangqing?dataType=XA%7c%7cDM%7c%7cZA%7c%7cEB%7c%7cCY%7c%7cJJ&input=",
+            "options": null,
+            "property": null,
+            "maxlength": null,
+            "otherProperties": null,
+            "clientvalidate": ""
+          }
+        ],
+        "colStyle": {
+          "zqdm": {
+            "width": "10",
+            "align": "center",
+            "group": "false",
+            "hidden": "0"
+          },
+          "zqjc": {
+            "width": "10",
+            "align": "center",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrzmr": {
+            "width": "13",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrzye": {
+            "width": "13",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjmc": {
+            "width": "13",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjyl": {
+            "width": "13",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrjye": {
+            "width": "13",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          },
+          "jrrzrjye": {
+            "width": "15",
+            "align": "right",
+            "group": "false",
+            "hidden": "0"
+          }
+        },
+        "cols": {
+          "zqdm": "证券代码",
+          "zqjc": "证券简称",
+          "jrrzmr": "融资买入额<br>(亿元)",
+          "jrrzye": "融资余额<br>(亿元)",
+          "jrrjmc": "融券卖出量<br>(万股/万份)",
+          "jrrjyl": "融券余量<br>(万股/万份)",
+          "jrrjye": "融券余额<br>(万元)",
+          "jrrzrjye": "融资融券余额<br>(亿元)"
+        },
+        "colspan": 0,
+        "notes": null,
+        "topHeader": "",
+        "hidden": "0",
+        "tablestyle": "",
+        "refreshCondition": false
+      },
+      "data": [
+        {
+          "zqdm": "000001",
+          "zqjc": "平安银行",
+          "jrrzmr": "3.83",
+          "jrrzye": "40.88",
+          "jrrjmc": "78.42",
+          "jrrjyl": "608.40",
+          "jrrjye": "9,059.14",
+          "jrrzrjye": "41.78"
+        },
+        {
+          "zqdm": "000002",
+          "zqjc": "万&nbsp;&nbsp;科Ａ",
+          "jrrzmr": "6.49",
+          "jrrzye": "59.30",
+          "jrrjmc": "48.52",
+          "jrrjyl": "583.94",
+          "jrrjye": "17,051.12",
+          "jrrzrjye": "61.00"
+        },
+        {
+          "zqdm": "000006",
+          "zqjc": "深振业Ａ",
+          "jrrzmr": "1.89",
+          "jrrzye": "6.97",
+          "jrrjmc": "15.14",
+          "jrrjyl": "41.45",
+          "jrrjye": "378.48",
+          "jrrzrjye": "7.01"
+        },
+        {
+          "zqdm": "000008",
+          "zqjc": "神州高铁",
+          "jrrzmr": "0.24",
+          "jrrzye": "3.67",
+          "jrrjmc": "18.66",
+          "jrrjyl": "306.02",
+          "jrrjye": "1,003.76",
+          "jrrzrjye": "3.77"
+        },
+        {
+          "zqdm": "000009",
+          "zqjc": "中国宝安",
+          "jrrzmr": "5.87",
+          "jrrzye": "16.97",
+          "jrrjmc": "115.66",
+          "jrrjyl": "421.00",
+          "jrrjye": "4,690.00",
+          "jrrzrjye": "17.44"
+        },
+        {
+          "zqdm": "000012",
+          "zqjc": "南&nbsp;&nbsp;玻Ａ",
+          "jrrzmr": "0.78",
+          "jrrzye": "5.71",
+          "jrrjmc": "13.00",
+          "jrrjyl": "289.63",
+          "jrrjye": "1,714.65",
+          "jrrzrjye": "5.88"
+        },
+        {
+          "zqdm": "000016",
+          "zqjc": "深康佳Ａ",
+          "jrrzmr": "2.03",
+          "jrrzye": "11.25",
+          "jrrjmc": "8.50",
+          "jrrjyl": "14.31",
+          "jrrjye": "127.07",
+          "jrrzrjye": "11.26"
+        },
+        {
+          "zqdm": "000021",
+          "zqjc": "深科技",
+          "jrrzmr": "4.94",
+          "jrrzye": "24.33",
+          "jrrjmc": "31.29",
+          "jrrjyl": "136.31",
+          "jrrjye": "3,886.24",
+          "jrrzrjye": "24.72"
+        },
+        {
+          "zqdm": "000025",
+          "zqjc": "特&nbsp;&nbsp;力Ａ",
+          "jrrzmr": "1.40",
+          "jrrzye": "1.88",
+          "jrrjmc": "11.49",
+          "jrrjyl": "23.55",
+          "jrrjye": "564.93",
+          "jrrzrjye": "1.93"
+        },
+        {
+          "zqdm": "000027",
+          "zqjc": "深圳能源",
+          "jrrzmr": "0.62",
+          "jrrzye": "4.47",
+          "jrrjmc": "21.64",
+          "jrrjyl": "232.31",
+          "jrrjye": "1,417.10",
+          "jrrzrjye": "4.61"
+        },
+        {
+          "zqdm": "000028",
+          "zqjc": "国药一致",
+          "jrrzmr": "0.40",
+          "jrrzye": "2.49",
+          "jrrjmc": "7.63",
+          "jrrjyl": "46.81",
+          "jrrjye": "2,300.54",
+          "jrrzrjye": "2.72"
+        },
+        {
+          "zqdm": "000030",
+          "zqjc": "富奥股份",
+          "jrrzmr": "0.19",
+          "jrrzye": "0.91",
+          "jrrjmc": "0.00",
+          "jrrjyl": "1.50",
+          "jrrjye": "12.87",
+          "jrrzrjye": "0.91"
+        },
+        {
+          "zqdm": "000031",
+          "zqjc": "大悦城",
+          "jrrzmr": "0.96",
+          "jrrzye": "4.24",
+          "jrrjmc": "35.11",
+          "jrrjyl": "218.80",
+          "jrrjye": "1,376.29",
+          "jrrzrjye": "4.38"
+        },
+        {
+          "zqdm": "000034",
+          "zqjc": "神州数码",
+          "jrrzmr": "1.47",
+          "jrrzye": "7.87",
+          "jrrjmc": "0.00",
+          "jrrjyl": "0.32",
+          "jrrjye": "8.89",
+          "jrrzrjye": "7.87"
+        },
+        {
+          "zqdm": "000035",
+          "zqjc": "中国天楹",
+          "jrrzmr": "0.46",
+          "jrrzye": "3.50",
+          "jrrjmc": "0.10",
+          "jrrjyl": "0.10",
+          "jrrjye": "0.57",
+          "jrrzrjye": "3.50"
+        },
+        {
+          "zqdm": "000036",
+          "zqjc": "华联控股",
+          "jrrzmr": "0.21",
+          "jrrzye": "2.82",
+          "jrrjmc": "6.26",
+          "jrrjyl": "7.11",
+          "jrrjye": "33.70",
+          "jrrzrjye": "2.82"
+        },
+        {
+          "zqdm": "000039",
+          "zqjc": "中集集团",
+          "jrrzmr": "0.53",
+          "jrrzye": "5.16",
+          "jrrjmc": "19.06",
+          "jrrjyl": "182.60",
+          "jrrjye": "1,601.48",
+          "jrrzrjye": "5.32"
+        },
+        {
+          "zqdm": "000040",
+          "zqjc": "东旭蓝天",
+          "jrrzmr": "0.21",
+          "jrrzye": "2.20",
+          "jrrjmc": "0.00",
+          "jrrjyl": "0.00",
+          "jrrjye": "0.00",
+          "jrrzrjye": "2.20"
+        },
+        {
+          "zqdm": "000046",
+          "zqjc": "泛海控股",
+          "jrrzmr": "0.40",
+          "jrrzye": "5.54",
+          "jrrjmc": "18.67",
+          "jrrjyl": "232.96",
+          "jrrjye": "1,134.51",
+          "jrrzrjye": "5.65"
+        },
+        {
+          "zqdm": "000049",
+          "zqjc": "德赛电池",
+          "jrrzmr": "0.45",
+          "jrrzye": "2.69",
+          "jrrjmc": "0.27",
+          "jrrjyl": "0.91",
+          "jrrjye": "50.49",
+          "jrrzrjye": "2.69"
+        }
+      ],
+      "error": null
+    }
+  ]
+}

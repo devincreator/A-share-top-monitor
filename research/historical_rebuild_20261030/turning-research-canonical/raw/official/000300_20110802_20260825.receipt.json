@@ -1,0 +1,12 @@
+{
+  "source_url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000300&startDate=20110802&endDate=20260825",
+  "request_started_at_utc": "2026-10-30T08:05:39.314049+00:00",
+  "parameters": {
+    "indexCode": "000300",
+    "startDate": "20110802",
+    "endDate": "20260825"
+  },
+  "http_status": 200,
+  "response_completed_at_utc": "2026-10-30T08:05:41.322073+00:00",
+  "raw_file": "000300_20110802_20260825.response.json"
+}

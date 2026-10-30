@@ -1,0 +1,21 @@
+{
+  "accepted_fields": {
+    "all_a_close": "CSI official 000985 close",
+    "hs300_close": "CSI official 000300 close",
+    "zz1000_close": "CSI official 000852 close",
+    "turnover": "CSI official 000985 tradingValue, 100m CNY converted to CNY",
+    "financing_balance": "New independently reacquired iFinD SH+SZ financing balance, CNY"
+  },
+  "turnover_rate": {
+    "selected": "PROJECT_RECOMPUTED_FLOAT_A_SHARE_TURNOVER",
+    "formula": "Official CSI 000985 daily tradingVol (shares) / iFinD 000985.CSI historical 流通A股 (shares) * 100",
+    "unit": "percent, 2 means 2%",
+    "native_vendor_rate": "retained separately; exact vendor formula unresolved",
+    "assumption": "Provider historical index float A shares and official volume refer to the same date/index universe; not independently summed stock by stock",
+    "use": "research baseline, not certified reproduction of legacy turnover"
+  },
+  "tradingValue_precision": "Official display precision 0.01 hundred million CNY; conversion does not add precision",
+  "pit_certified": false,
+  "full_model_ready": true,
+  "full_model_ready_scope": "local research replay only; production and backtest performance not validated"
+}

@@ -1,0 +1,15 @@
+{
+  "hs300": [
+    "000300.SH",
+    "399300.SZ"
+  ],
+  "zz1000": [
+    "000852.SH",
+    "399852.SZ"
+  ],
+  "sources": [
+    "https://big5.sse.com.cn/site/cht/www.sse.com.cn/market/sseindex/diclosure/c/c_20150911_3984891.shtml",
+    "https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/20231208175402-000852_Index_Methodology_cn.pdf"
+  ],
+  "policy": "Both dissemination codes identify the same index. Preserve actual returned code in field lineage. Conflicting same-day values block completeness."
+}

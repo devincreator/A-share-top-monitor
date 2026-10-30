@@ -1,0 +1,68 @@
+{
+  "official_dates": 3659,
+  "accepted": 3659,
+  "missing": [],
+  "conflicts": [],
+  "rejected": [
+    {
+      "file": "2012-01-01_2012-03-31.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2012-04-01_2012-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2012-10-01_2012-12-31.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2015-04-01_2015-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2016-04-01_2016-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2017-04-01_2017-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2018-04-01_2018-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2020-07-01_2020-09-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2021-07-01_2021-09-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2022-04-01_2022-06-30.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "2025-01-01_2025-03-31.json",
+      "reason": "NO_ACCEPTED_ROWS"
+    },
+    {
+      "file": "repair_2012-12-03_2012-12-31.json",
+      "reason": "VOLUME_NOT_MATCH_OFFICIAL_AT_DISPLAY_PRECISION",
+      "date": "2012-12-07",
+      "official_volume": "17355286400.0",
+      "provider_volume": "17239090000.0000",
+      "quantum": "10000.0000"
+    },
+    {
+      "file": "repair_2012-12-07_2012-12-07.json",
+      "reason": "VOLUME_NOT_MATCH_OFFICIAL_AT_DISPLAY_PRECISION",
+      "date": "2012-12-07",
+      "official_volume": "17355286400.0",
+      "provider_volume": "17239090000.0000",
+      "quantum": "10000.0000"
+    }
+  ]
+}

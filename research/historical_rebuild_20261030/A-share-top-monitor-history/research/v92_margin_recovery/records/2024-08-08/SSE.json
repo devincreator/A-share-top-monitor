@@ -1,0 +1,22 @@
+{
+  "date": "2024-08-08",
+  "exchange": "SSE",
+  "source": "AKShare wrapper of original exchange financing summary",
+  "akshare_version": "1.19.1",
+  "source_raw_path": "research/v92_margin_recovery/raw/SSE/2024-08-08.csv",
+  "source_raw_sha256": "6207aef651b93ecdc9262969187e5bd5de4bd82ac991044d70ac8cf7a2a98936",
+  "original_source_run_id": 39541248787,
+  "original_source_run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/39541248787",
+  "original_source_artifact_id": 12319013043,
+  "source_run_started_at_utc": "2026-10-21T03:55:49Z",
+  "source_unit": "CNY",
+  "balance_yuan_from_display": "740311931631",
+  "source_response_date_verified": true,
+  "date_provenance": "RESPONSE_DATE_MATCHED",
+  "display_value_not_exact_yuan": false,
+  "Jin10_comparison": {
+    "status": "CONSISTENT_WITH_SOURCE_ROUNDING"
+  },
+  "PIT_certified": false,
+  "formal_signal_allowed": false
+}

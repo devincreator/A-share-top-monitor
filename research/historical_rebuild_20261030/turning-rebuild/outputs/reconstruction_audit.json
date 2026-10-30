@@ -1,0 +1,76 @@
+{
+  "historical_signal_replay": {
+    "modules": {
+      "Top-5": {
+        "target_count": 63,
+        "calculated_count": 63,
+        "missed": [],
+        "extra": [],
+        "pass": true
+      },
+      "Top-9": {
+        "target_count": 34,
+        "calculated_count": 34,
+        "missed": [],
+        "extra": [],
+        "pass": true
+      },
+      "Bottom-5": {
+        "target_count": 56,
+        "calculated_count": 56,
+        "missed": [],
+        "extra": [],
+        "pass": true
+      },
+      "Bottom-9": {
+        "target_count": 37,
+        "calculated_count": 37,
+        "missed": [],
+        "extra": [],
+        "pass": true
+      }
+    },
+    "pass": true
+  },
+  "frozen_nav_inference": {
+    "freeze_position": 0,
+    "historical_changes": 55,
+    "expected_changes": 55,
+    "max_nav_inference_error": 2.220446049250313e-16,
+    "pass": true
+  },
+  "objective_dates_replay": {
+    "top5": {
+      "target": 53,
+      "calculated": 53,
+      "missing": [],
+      "extra": []
+    },
+    "top9": {
+      "target": 25,
+      "calculated": 25,
+      "missing": [],
+      "extra": []
+    },
+    "bottom5": {
+      "target": 53,
+      "calculated": 53,
+      "missing": [],
+      "extra": []
+    },
+    "bottom9": {
+      "target": 25,
+      "calculated": 25,
+      "missing": [],
+      "extra": []
+    }
+  },
+  "future_perturbation_does_not_change_past_signals": true,
+  "score_mapping_recovered": false,
+  "score_mapping_note": "V30 score curves retained only as original archive; not generated from reconstructed factors",
+  "new_financing_spliced_with_old": false,
+  "historical_publication_certified": false,
+  "production_updated": false,
+  "decision_clock": "AFTER_CLOSE_REPLAY_NOT_PREOPEN",
+  "asof": "2026-10-20"
+}

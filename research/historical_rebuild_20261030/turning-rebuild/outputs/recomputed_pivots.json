@@ -1,0 +1,1116 @@
+{
+  "top5": [
+    {
+      "date": "2015-01-16",
+      "price": 4349.65,
+      "index": 838,
+      "direction": "TOP",
+      "confirmed_at": "2015-01-19"
+    },
+    {
+      "date": "2015-01-26",
+      "price": 4435.87,
+      "index": 844,
+      "direction": "TOP",
+      "confirmed_at": "2015-02-06"
+    },
+    {
+      "date": "2015-05-04",
+      "price": 6307.57,
+      "index": 907,
+      "direction": "TOP",
+      "confirmed_at": "2015-05-07"
+    },
+    {
+      "date": "2015-05-27",
+      "price": 7451.34,
+      "index": 924,
+      "direction": "TOP",
+      "confirmed_at": "2015-05-28"
+    },
+    {
+      "date": "2015-06-12",
+      "price": 7984.43,
+      "index": 936,
+      "direction": "TOP",
+      "confirmed_at": "2015-06-16"
+    },
+    {
+      "date": "2015-06-30",
+      "price": 6374.83,
+      "index": 947,
+      "direction": "TOP",
+      "confirmed_at": "2015-07-01"
+    },
+    {
+      "date": "2015-07-23",
+      "price": 6026.95,
+      "index": 964,
+      "direction": "TOP",
+      "confirmed_at": "2015-07-27"
+    },
+    {
+      "date": "2015-08-17",
+      "price": 5963.36,
+      "index": 981,
+      "direction": "TOP",
+      "confirmed_at": "2015-08-18"
+    },
+    {
+      "date": "2015-08-28",
+      "price": 4764.94,
+      "index": 990,
+      "direction": "TOP",
+      "confirmed_at": "2015-09-02"
+    },
+    {
+      "date": "2015-09-09",
+      "price": 4701.48,
+      "index": 996,
+      "direction": "TOP",
+      "confirmed_at": "2015-09-14"
+    },
+    {
+      "date": "2015-11-25",
+      "price": 5668.74,
+      "index": 1046,
+      "direction": "TOP",
+      "confirmed_at": "2015-11-27"
+    },
+    {
+      "date": "2015-12-22",
+      "price": 5760.29,
+      "index": 1065,
+      "direction": "TOP",
+      "confirmed_at": "2016-01-04"
+    },
+    {
+      "date": "2016-02-22",
+      "price": 4561.69,
+      "index": 1103,
+      "direction": "TOP",
+      "confirmed_at": "2016-02-25"
+    },
+    {
+      "date": "2016-04-14",
+      "price": 4802.24,
+      "index": 1140,
+      "direction": "TOP",
+      "confirmed_at": "2016-04-21"
+    },
+    {
+      "date": "2016-07-26",
+      "price": 4840.17,
+      "index": 1210,
+      "direction": "TOP",
+      "confirmed_at": "2016-08-01"
+    },
+    {
+      "date": "2016-11-28",
+      "price": 5107.02,
+      "index": 1292,
+      "direction": "TOP",
+      "confirmed_at": "2016-12-12"
+    },
+    {
+      "date": "2017-04-11",
+      "price": 4972.47,
+      "index": 1380,
+      "direction": "TOP",
+      "confirmed_at": "2017-04-24"
+    },
+    {
+      "date": "2017-11-13",
+      "price": 5159.42,
+      "index": 1526,
+      "direction": "TOP",
+      "confirmed_at": "2017-12-05"
+    },
+    {
+      "date": "2018-01-24",
+      "price": 5139.49,
+      "index": 1577,
+      "direction": "TOP",
+      "confirmed_at": "2018-02-01"
+    },
+    {
+      "date": "2018-03-12",
+      "price": 4923.43,
+      "index": 1605,
+      "direction": "TOP",
+      "confirmed_at": "2018-03-23"
+    },
+    {
+      "date": "2018-07-25",
+      "price": 4196.99,
+      "index": 1697,
+      "direction": "TOP",
+      "confirmed_at": "2018-08-02"
+    },
+    {
+      "date": "2018-09-28",
+      "price": 3890.83,
+      "index": 1743,
+      "direction": "TOP",
+      "confirmed_at": "2018-10-11"
+    },
+    {
+      "date": "2018-11-19",
+      "price": 3790.92,
+      "index": 1774,
+      "direction": "TOP",
+      "confirmed_at": "2018-11-23"
+    },
+    {
+      "date": "2019-04-19",
+      "price": 4756.54,
+      "index": 1875,
+      "direction": "TOP",
+      "confirmed_at": "2019-04-25"
+    },
+    {
+      "date": "2019-07-01",
+      "price": 4367.71,
+      "index": 1922,
+      "direction": "TOP",
+      "confirmed_at": "2019-07-22"
+    },
+    {
+      "date": "2019-09-09",
+      "price": 4436.61,
+      "index": 1972,
+      "direction": "TOP",
+      "confirmed_at": "2019-09-30"
+    },
+    {
+      "date": "2020-01-13",
+      "price": 4685.46,
+      "index": 2055,
+      "direction": "TOP",
+      "confirmed_at": "2020-02-03"
+    },
+    {
+      "date": "2020-02-25",
+      "price": 4784.12,
+      "index": 2080,
+      "direction": "TOP",
+      "confirmed_at": "2020-02-28"
+    },
+    {
+      "date": "2020-03-05",
+      "price": 4812.55,
+      "index": 2087,
+      "direction": "TOP",
+      "confirmed_at": "2020-03-12"
+    },
+    {
+      "date": "2020-07-13",
+      "price": 5604.01,
+      "index": 2173,
+      "direction": "TOP",
+      "confirmed_at": "2020-07-16"
+    },
+    {
+      "date": "2020-08-18",
+      "price": 5568.39,
+      "index": 2199,
+      "direction": "TOP",
+      "confirmed_at": "2020-09-09"
+    },
+    {
+      "date": "2021-02-19",
+      "price": 5977.42,
+      "index": 2320,
+      "direction": "TOP",
+      "confirmed_at": "2021-02-26"
+    },
+    {
+      "date": "2021-07-22",
+      "price": 5898.53,
+      "index": 2424,
+      "direction": "TOP",
+      "confirmed_at": "2021-07-27"
+    },
+    {
+      "date": "2021-09-13",
+      "price": 5981.76,
+      "index": 2461,
+      "direction": "TOP",
+      "confirmed_at": "2021-09-29"
+    },
+    {
+      "date": "2021-12-13",
+      "price": 6043.28,
+      "index": 2519,
+      "direction": "TOP",
+      "confirmed_at": "2022-01-21"
+    },
+    {
+      "date": "2022-03-23",
+      "price": 5216.87,
+      "index": 2585,
+      "direction": "TOP",
+      "confirmed_at": "2022-04-11"
+    },
+    {
+      "date": "2022-06-28",
+      "price": 5386.11,
+      "index": 2648,
+      "direction": "TOP",
+      "confirmed_at": "2022-08-02"
+    },
+    {
+      "date": "2022-08-17",
+      "price": 5284.56,
+      "index": 2684,
+      "direction": "TOP",
+      "confirmed_at": "2022-08-31"
+    },
+    {
+      "date": "2022-10-18",
+      "price": 4795.51,
+      "index": 2722,
+      "direction": "TOP",
+      "confirmed_at": "2022-10-28"
+    },
+    {
+      "date": "2022-12-09",
+      "price": 4973.35,
+      "index": 2760,
+      "direction": "TOP",
+      "confirmed_at": "2022-12-22"
+    },
+    {
+      "date": "2023-02-14",
+      "price": 5192.17,
+      "index": 2801,
+      "direction": "TOP",
+      "confirmed_at": "2023-04-25"
+    },
+    {
+      "date": "2023-11-15",
+      "price": 4629.33,
+      "index": 2985,
+      "direction": "TOP",
+      "confirmed_at": "2023-12-15"
+    },
+    {
+      "date": "2024-03-18",
+      "price": 4430.66,
+      "index": 3066,
+      "direction": "TOP",
+      "confirmed_at": "2024-04-16"
+    },
+    {
+      "date": "2024-05-20",
+      "price": 4444.14,
+      "index": 3106,
+      "direction": "TOP",
+      "confirmed_at": "2024-06-06"
+    },
+    {
+      "date": "2024-10-08",
+      "price": 5037.01,
+      "index": 3199,
+      "direction": "TOP",
+      "confirmed_at": "2024-10-09"
+    },
+    {
+      "date": "2024-11-11",
+      "price": 5118.28,
+      "index": 3223,
+      "direction": "TOP",
+      "confirmed_at": "2024-11-15"
+    },
+    {
+      "date": "2024-12-12",
+      "price": 5053.03,
+      "index": 3246,
+      "direction": "TOP",
+      "confirmed_at": "2024-12-31"
+    },
+    {
+      "date": "2025-03-18",
+      "price": 5060.94,
+      "index": 3307,
+      "direction": "TOP",
+      "confirmed_at": "2025-04-07"
+    },
+    {
+      "date": "2025-10-09",
+      "price": 5952.85,
+      "index": 3443,
+      "direction": "TOP",
+      "confirmed_at": "2025-10-17"
+    },
+    {
+      "date": "2025-10-29",
+      "price": 5961.19,
+      "index": 3457,
+      "direction": "TOP",
+      "confirmed_at": "2025-11-21"
+    },
+    {
+      "date": "2026-02-27",
+      "price": 6398.4583,
+      "index": 3536,
+      "direction": "TOP",
+      "confirmed_at": "2026-03-19"
+    },
+    {
+      "date": "2026-05-13",
+      "price": 6686.865,
+      "index": 3585,
+      "direction": "TOP",
+      "confirmed_at": "2026-06-01"
+    },
+    {
+      "date": "2026-06-22",
+      "price": 6624.0099,
+      "index": 3612,
+      "direction": "TOP",
+      "confirmed_at": "2026-07-07"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 6112.6986,
+      "index": 3652,
+      "direction": "TOP",
+      "confirmed_at": "2026-09-11"
+    }
+  ],
+  "bottom5": [
+    {
+      "date": "2015-01-19",
+      "price": 4102.1,
+      "index": 839,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-01-21"
+    },
+    {
+      "date": "2015-02-06",
+      "price": 4184.68,
+      "index": 853,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-02-16"
+    },
+    {
+      "date": "2015-05-07",
+      "price": 5912.67,
+      "index": 910,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-05-11"
+    },
+    {
+      "date": "2015-05-28",
+      "price": 6993.6,
+      "index": 925,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-06-01"
+    },
+    {
+      "date": "2015-06-29",
+      "price": 6044.16,
+      "index": 946,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-06-30"
+    },
+    {
+      "date": "2015-07-08",
+      "price": 4900.42,
+      "index": 953,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-07-10"
+    },
+    {
+      "date": "2015-08-03",
+      "price": 5270.29,
+      "index": 971,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-08-07"
+    },
+    {
+      "date": "2015-08-26",
+      "price": 4334.14,
+      "index": 988,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-08-28"
+    },
+    {
+      "date": "2015-09-07",
+      "price": 4421.33,
+      "index": 994,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-09-09"
+    },
+    {
+      "date": "2015-09-15",
+      "price": 4245.27,
+      "index": 1000,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-09-16"
+    },
+    {
+      "date": "2015-11-27",
+      "price": 5306.07,
+      "index": 1048,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-12-17"
+    },
+    {
+      "date": "2016-01-28",
+      "price": 4013.12,
+      "index": 1091,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-02-02"
+    },
+    {
+      "date": "2016-02-29",
+      "price": 4056.61,
+      "index": 1108,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-03-02"
+    },
+    {
+      "date": "2016-05-18",
+      "price": 4325.8,
+      "index": 1163,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-06-01"
+    },
+    {
+      "date": "2016-08-01",
+      "price": 4595.01,
+      "index": 1214,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-08-15"
+    },
+    {
+      "date": "2017-01-16",
+      "price": 4645.33,
+      "index": 1326,
+      "direction": "BOTTOM",
+      "confirmed_at": "2017-02-20"
+    },
+    {
+      "date": "2017-05-23",
+      "price": 4505.6,
+      "index": 1409,
+      "direction": "BOTTOM",
+      "confirmed_at": "2017-06-26"
+    },
+    {
+      "date": "2017-12-07",
+      "price": 4845.48,
+      "index": 1544,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-01-22"
+    },
+    {
+      "date": "2018-02-09",
+      "price": 4457.46,
+      "index": 1589,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-02-22"
+    },
+    {
+      "date": "2018-07-05",
+      "price": 3936.3,
+      "index": 1683,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-07-24"
+    },
+    {
+      "date": "2018-09-17",
+      "price": 3688.77,
+      "index": 1735,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-09-21"
+    },
+    {
+      "date": "2018-10-18",
+      "price": 3365.19,
+      "index": 1752,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-10-22"
+    },
+    {
+      "date": "2019-01-03",
+      "price": 3387.13,
+      "index": 1805,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-01-15"
+    },
+    {
+      "date": "2019-06-06",
+      "price": 3980.94,
+      "index": 1906,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-06-20"
+    },
+    {
+      "date": "2019-08-09",
+      "price": 3971.53,
+      "index": 1951,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-08-19"
+    },
+    {
+      "date": "2019-11-29",
+      "price": 4186.18,
+      "index": 2025,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-12-16"
+    },
+    {
+      "date": "2020-02-03",
+      "price": 4121.6,
+      "index": 2064,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-02-06"
+    },
+    {
+      "date": "2020-02-28",
+      "price": 4493,
+      "index": 2083,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-03-04"
+    },
+    {
+      "date": "2020-03-23",
+      "price": 4095.34,
+      "index": 2099,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-04-07"
+    },
+    {
+      "date": "2020-07-24",
+      "price": 5169.07,
+      "index": 2182,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-08-03"
+    },
+    {
+      "date": "2020-09-28",
+      "price": 5165.06,
+      "index": 2228,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-10-12"
+    },
+    {
+      "date": "2021-03-09",
+      "price": 5317.15,
+      "index": 2332,
+      "direction": "BOTTOM",
+      "confirmed_at": "2021-05-17"
+    },
+    {
+      "date": "2021-07-28",
+      "price": 5481.89,
+      "index": 2428,
+      "direction": "BOTTOM",
+      "confirmed_at": "2021-08-04"
+    },
+    {
+      "date": "2021-09-29",
+      "price": 5639.47,
+      "index": 2471,
+      "direction": "BOTTOM",
+      "confirmed_at": "2021-12-03"
+    },
+    {
+      "date": "2022-03-15",
+      "price": 4854.05,
+      "index": 2579,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-03-17"
+    },
+    {
+      "date": "2022-04-26",
+      "price": 4351.27,
+      "index": 2607,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-04-29"
+    },
+    {
+      "date": "2022-08-03",
+      "price": 5026.75,
+      "index": 2674,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-08-17"
+    },
+    {
+      "date": "2022-10-10",
+      "price": 4537.69,
+      "index": 2716,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-10-17"
+    },
+    {
+      "date": "2022-10-31",
+      "price": 4500.13,
+      "index": 2731,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-11-04"
+    },
+    {
+      "date": "2022-12-23",
+      "price": 4689.82,
+      "index": 2770,
+      "direction": "BOTTOM",
+      "confirmed_at": "2023-01-09"
+    },
+    {
+      "date": "2023-10-23",
+      "price": 4327.13,
+      "index": 2968,
+      "direction": "BOTTOM",
+      "confirmed_at": "2023-11-06"
+    },
+    {
+      "date": "2024-02-05",
+      "price": 3666.37,
+      "index": 3042,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-02-07"
+    },
+    {
+      "date": "2024-04-16",
+      "price": 4126.45,
+      "index": 3085,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-04-29"
+    },
+    {
+      "date": "2024-09-13",
+      "price": 3681.44,
+      "index": 3189,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-09-24"
+    },
+    {
+      "date": "2024-10-17",
+      "price": 4480.87,
+      "index": 3206,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-10-22"
+    },
+    {
+      "date": "2024-11-26",
+      "price": 4718.85,
+      "index": 3234,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-12-06"
+    },
+    {
+      "date": "2025-01-13",
+      "price": 4472.6,
+      "index": 3267,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-02-06"
+    },
+    {
+      "date": "2025-04-07",
+      "price": 4365.18,
+      "index": 3320,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-04-11"
+    },
+    {
+      "date": "2025-10-17",
+      "price": 5652.46,
+      "index": 3449,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-10-29"
+    },
+    {
+      "date": "2025-11-21",
+      "price": 5575.48,
+      "index": 3474,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-12-24"
+    },
+    {
+      "date": "2026-03-23",
+      "price": 5723.4126,
+      "index": 3552,
+      "direction": "BOTTOM",
+      "confirmed_at": "2026-04-08"
+    },
+    {
+      "date": "2026-06-08",
+      "price": 6119.2445,
+      "index": 3603,
+      "direction": "BOTTOM",
+      "confirmed_at": "2026-06-17"
+    },
+    {
+      "date": "2026-07-30",
+      "price": 5581.3673,
+      "index": 3640,
+      "direction": "BOTTOM",
+      "confirmed_at": "2026-08-05"
+    }
+  ],
+  "top9": [
+    {
+      "date": "2015-06-12",
+      "price": 7984.43,
+      "index": 936,
+      "direction": "TOP",
+      "confirmed_at": "2015-06-19"
+    },
+    {
+      "date": "2015-07-23",
+      "price": 6026.95,
+      "index": 964,
+      "direction": "TOP",
+      "confirmed_at": "2015-07-27"
+    },
+    {
+      "date": "2015-08-17",
+      "price": 5963.36,
+      "index": 981,
+      "direction": "TOP",
+      "confirmed_at": "2015-08-21"
+    },
+    {
+      "date": "2015-08-28",
+      "price": 4764.94,
+      "index": 990,
+      "direction": "TOP",
+      "confirmed_at": "2015-09-15"
+    },
+    {
+      "date": "2015-12-22",
+      "price": 5760.29,
+      "index": 1065,
+      "direction": "TOP",
+      "confirmed_at": "2016-01-04"
+    },
+    {
+      "date": "2016-02-22",
+      "price": 4561.69,
+      "index": 1103,
+      "direction": "TOP",
+      "confirmed_at": "2016-02-29"
+    },
+    {
+      "date": "2016-04-14",
+      "price": 4802.24,
+      "index": 1140,
+      "direction": "TOP",
+      "confirmed_at": "2016-05-13"
+    },
+    {
+      "date": "2016-11-28",
+      "price": 5107.02,
+      "index": 1292,
+      "direction": "TOP",
+      "confirmed_at": "2017-01-16"
+    },
+    {
+      "date": "2017-11-13",
+      "price": 5159.42,
+      "index": 1526,
+      "direction": "TOP",
+      "confirmed_at": "2018-02-06"
+    },
+    {
+      "date": "2018-03-12",
+      "price": 4923.43,
+      "index": 1605,
+      "direction": "TOP",
+      "confirmed_at": "2018-05-30"
+    },
+    {
+      "date": "2018-11-19",
+      "price": 3790.92,
+      "index": 1774,
+      "direction": "TOP",
+      "confirmed_at": "2018-12-26"
+    },
+    {
+      "date": "2019-04-19",
+      "price": 4756.54,
+      "index": 1875,
+      "direction": "TOP",
+      "confirmed_at": "2019-05-06"
+    },
+    {
+      "date": "2019-07-01",
+      "price": 4367.71,
+      "index": 1922,
+      "direction": "TOP",
+      "confirmed_at": "2019-08-07"
+    },
+    {
+      "date": "2020-01-13",
+      "price": 4685.46,
+      "index": 2055,
+      "direction": "TOP",
+      "confirmed_at": "2020-02-03"
+    },
+    {
+      "date": "2020-03-05",
+      "price": 4812.55,
+      "index": 2087,
+      "direction": "TOP",
+      "confirmed_at": "2020-03-16"
+    },
+    {
+      "date": "2021-02-19",
+      "price": 5977.42,
+      "index": 2320,
+      "direction": "TOP",
+      "confirmed_at": "2021-03-09"
+    },
+    {
+      "date": "2021-12-13",
+      "price": 6043.28,
+      "index": 2519,
+      "direction": "TOP",
+      "confirmed_at": "2022-01-27"
+    },
+    {
+      "date": "2022-06-28",
+      "price": 5386.11,
+      "index": 2648,
+      "direction": "TOP",
+      "confirmed_at": "2022-09-16"
+    },
+    {
+      "date": "2023-02-14",
+      "price": 5192.17,
+      "index": 2801,
+      "direction": "TOP",
+      "confirmed_at": "2023-08-16"
+    },
+    {
+      "date": "2024-05-20",
+      "price": 4444.14,
+      "index": 3106,
+      "direction": "TOP",
+      "confirmed_at": "2024-06-25"
+    },
+    {
+      "date": "2024-10-08",
+      "price": 5037.01,
+      "index": 3199,
+      "direction": "TOP",
+      "confirmed_at": "2024-10-11"
+    },
+    {
+      "date": "2024-11-11",
+      "price": 5118.28,
+      "index": 3223,
+      "direction": "TOP",
+      "confirmed_at": "2025-01-02"
+    },
+    {
+      "date": "2025-03-18",
+      "price": 5060.94,
+      "index": 3307,
+      "direction": "TOP",
+      "confirmed_at": "2025-04-07"
+    },
+    {
+      "date": "2026-02-27",
+      "price": 6398.4583,
+      "index": 3536,
+      "direction": "TOP",
+      "confirmed_at": "2026-03-23"
+    },
+    {
+      "date": "2026-05-13",
+      "price": 6686.865,
+      "index": 3585,
+      "direction": "TOP",
+      "confirmed_at": "2026-07-13"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 6112.6986,
+      "index": 3652,
+      "direction": "TOP",
+      "confirmed_at": "2026-10-08"
+    }
+  ],
+  "bottom9": [
+    {
+      "date": "2015-07-08",
+      "price": 4900.42,
+      "index": 953,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-07-10"
+    },
+    {
+      "date": "2015-08-03",
+      "price": 5270.29,
+      "index": 971,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-08-10"
+    },
+    {
+      "date": "2015-08-26",
+      "price": 4334.14,
+      "index": 988,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-08-28"
+    },
+    {
+      "date": "2015-09-15",
+      "price": 4245.27,
+      "index": 1000,
+      "direction": "BOTTOM",
+      "confirmed_at": "2015-10-09"
+    },
+    {
+      "date": "2016-01-28",
+      "price": 4013.12,
+      "index": 1091,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-02-16"
+    },
+    {
+      "date": "2016-02-29",
+      "price": 4056.61,
+      "index": 1108,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-03-18"
+    },
+    {
+      "date": "2016-05-18",
+      "price": 4325.8,
+      "index": 1163,
+      "direction": "BOTTOM",
+      "confirmed_at": "2016-07-04"
+    },
+    {
+      "date": "2017-05-23",
+      "price": 4505.6,
+      "index": 1409,
+      "direction": "BOTTOM",
+      "confirmed_at": "2017-08-28"
+    },
+    {
+      "date": "2018-02-09",
+      "price": 4457.46,
+      "index": 1589,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-03-09"
+    },
+    {
+      "date": "2018-10-18",
+      "price": 3365.19,
+      "index": 1752,
+      "direction": "BOTTOM",
+      "confirmed_at": "2018-11-13"
+    },
+    {
+      "date": "2019-01-03",
+      "price": 3387.13,
+      "index": 1805,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-02-12"
+    },
+    {
+      "date": "2019-06-06",
+      "price": 3980.94,
+      "index": 1906,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-07-01"
+    },
+    {
+      "date": "2019-08-09",
+      "price": 3971.53,
+      "index": 1951,
+      "direction": "BOTTOM",
+      "confirmed_at": "2019-09-05"
+    },
+    {
+      "date": "2020-02-03",
+      "price": 4121.6,
+      "index": 2064,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-02-12"
+    },
+    {
+      "date": "2020-03-23",
+      "price": 4095.34,
+      "index": 2099,
+      "direction": "BOTTOM",
+      "confirmed_at": "2020-05-06"
+    },
+    {
+      "date": "2021-03-09",
+      "price": 5317.15,
+      "index": 2332,
+      "direction": "BOTTOM",
+      "confirmed_at": "2021-05-31"
+    },
+    {
+      "date": "2022-04-26",
+      "price": 4351.27,
+      "index": 2607,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-05-17"
+    },
+    {
+      "date": "2022-10-31",
+      "price": 4500.13,
+      "index": 2731,
+      "direction": "BOTTOM",
+      "confirmed_at": "2022-11-15"
+    },
+    {
+      "date": "2024-02-05",
+      "price": 3666.37,
+      "index": 3042,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-02-19"
+    },
+    {
+      "date": "2024-09-13",
+      "price": 3681.44,
+      "index": 3189,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-09-26"
+    },
+    {
+      "date": "2024-10-17",
+      "price": 4480.87,
+      "index": 3206,
+      "direction": "BOTTOM",
+      "confirmed_at": "2024-11-05"
+    },
+    {
+      "date": "2025-01-13",
+      "price": 4472.6,
+      "index": 3267,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-02-12"
+    },
+    {
+      "date": "2025-04-07",
+      "price": 4365.18,
+      "index": 3320,
+      "direction": "BOTTOM",
+      "confirmed_at": "2025-05-07"
+    },
+    {
+      "date": "2026-03-23",
+      "price": 5723.4126,
+      "index": 3552,
+      "direction": "BOTTOM",
+      "confirmed_at": "2026-04-16"
+    },
+    {
+      "date": "2026-07-30",
+      "price": 5581.3673,
+      "index": 3640,
+      "direction": "BOTTOM",
+      "confirmed_at": "2026-08-17"
+    }
+  ]
+}

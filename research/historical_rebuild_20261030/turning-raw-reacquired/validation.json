@@ -1,0 +1,11 @@
+{
+  "rows": 3659,
+  "fields": 6,
+  "lineage_rows": 21954,
+  "raw_receipts_hash_verified": 342,
+  "finance_sum_all_rows_verified": true,
+  "alias_precision_differences_logged": 394,
+  "legacy_values_used_as_input": false,
+  "numeric_completeness": true,
+  "same_scope_as_legacy_certified": false
+}
