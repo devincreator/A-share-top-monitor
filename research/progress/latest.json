@@ -1,48 +1,24 @@
 {
-  "updated_at_utc": "2026-10-30T07:03:44+00:00",
-  "entry_count": 229,
+  "updated_at_utc": "2026-10-30T09:47:30+00:00",
+  "entry_count": 230,
   "latest": {
-    "schema_version": 1,
-    "record_type": "github_actions_completion",
-    "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-10-30T07:03:44+00:00",
-    "run_id": 41017720643,
-    "run_attempt": 1,
-    "workflow_name": "V103 first-observed official index preopen evidence (research only)",
-    "workflow_path": ".github/workflows/v103-forward-first-capture.yml",
-    "branch": "main",
-    "commit_sha": "d23197f085a30ba2321be1e02061e5b646381e51",
-    "status": "completed",
-    "conclusion": "failure",
-    "event": "schedule",
-    "created_at": "2026-10-30T07:03:24Z",
-    "run_started_at": "2026-10-30T07:03:24Z",
-    "updated_at": "2026-10-30T07:03:36Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41017720643",
-    "jobs": [
-      {
-        "id": 123937727599,
-        "name": "capture",
-        "status": "completed",
-        "conclusion": "failure",
-        "started_at": "2026-10-30T07:03:27Z",
-        "completed_at": "2026-10-30T07:03:36Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41017720643/job/123937727599"
-      }
-    ],
-    "artifacts": [
-      {
-        "id": 12959748364,
-        "name": "v103-first-observed-source-41017720643",
-        "size_in_bytes": 3948,
-        "expired": false,
-        "expires_at": "2027-01-28T07:03:24Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/12959748364/zip"
-      }
-    ],
-    "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
-    "PIT_certified": null,
+    "record_type": "manually_reported_research_milestone",
+    "recorded_at_utc": "2026-10-30T09:46:32.807729+00:00",
+    "workflow_name": "Historical research six-input archive and source selection, 2026-10-30",
+    "conclusion": "success",
+    "summary": "Upload 860 locally archived data/evidence/source/reconstruction files; canonical six-field research table has 3659 dates, 2011-08-02..2026-08-25. Official CSI closes/amount; newly reacquired financing; explicitly recomputed float-A share turnover. Not PIT certified or a new performance backtest.",
+    "evidence_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/historical_rebuild_20261030",
+    "data_gate": "RESEARCH_ONLY",
     "dual80_achieved": null,
-    "warning": "An Actions success only means the process exited successfully. Read raw artifacts and research/status/quality_gates.json before declaring scientific or PIT validation."
+    "PIT_certified": false,
+    "production_updated": false,
+    "files_manifest": "research/historical_rebuild_20261030/upload_manifest.json",
+    "validation": "All original archived file SHA256 values checked; six numeric inputs positive/nonmissing; exact controlled signal-date comparison and display precision sensitivity checked.",
+    "remaining_issues": [
+      "Original publisher release timestamps unverified",
+      "Historical constituent scope not independently summed security by security",
+      "2012-12-07 official/provider volume discrepancy retained"
+    ],
+    "next_action": "Use archived evidence for separately authorized research; maintain PIT and production isolation."
   }
 }
