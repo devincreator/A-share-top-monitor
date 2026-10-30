@@ -1,0 +1,13 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-30T10:03:58.045774+00:00",
+  "workflow_name": "User-confirmed preopen 1-7 trading session one-to-one evaluation contract",
+  "conclusion": "success",
+  "summary": "User confirmed preopen only. Freeze four-task precision/recall >=80% goal; rescore existing 59 V101 alerts with seven-session lead, no threshold/cooldown tuning. Metrics P/R: 5TOP 42.1%/50.0%; 5BOTTOM 22.2%/25.0%; 9TOP 22.2%/28.6%; 9BOTTOM 0%/0%. None passes. Five tests pass, including 250 exhaustive-search comparisons.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/tree/main/research/seven_day_preopen_20261030",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": false,
+  "source_asof_PIT_verified": false,
+  "production_updated": false,
+  "next_action": "Diagnose early warnings versus unmatched directions and missed pivots under the fixed seven-session contract; certify source availability before future formal evaluation."
+}

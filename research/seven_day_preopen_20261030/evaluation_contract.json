@@ -1,0 +1,32 @@
+{
+  "lead_min": 1,
+  "lead_max": 7,
+  "decision_clock": "09:20 Asia/Shanghai before open",
+  "same_day_extreme_counts": false,
+  "tasks": [
+    "5_TOP",
+    "5_BOTTOM",
+    "9_TOP",
+    "9_BOTTOM"
+  ],
+  "index": "000985.CSI",
+  "objective_labels": "Frozen alternating close-reversal 5% and 9% labels; exact extreme date, not later confirmation date",
+  "one_to_one": "One formal-start alert to at most one same-direction same-scale pivot, and conversely. No cross-task pooling. Earliest lexicographic maximum-cardinality assignment.",
+  "precision": "TP/(TP+FP)",
+  "recall": "TP/(TP+FN)",
+  "required_each_task": {
+    "precision": 0.8,
+    "recall": 0.8
+  },
+  "zero_denominator": "UNDEFINED_NOT_PASS",
+  "daily_status_updates_are_alerts": false,
+  "duplicates_against_used_pivot": "Unmatched, never counted as another hit",
+  "latest_incomplete_events": "PENDING with explicit count, never silently deleted",
+  "maturity_buffer_after_confirmation_sessions": 140,
+  "maturity_policy": "Preserved from existing frozen baseline, not optimized for the 7-day score",
+  "historical_PIT_certified": false,
+  "source_release_time_requirement": "Every used raw datum must have certified publication/first availability no later than actual decision time; simply shifting to D-1 is insufficient",
+  "model_training_labels": "May enter training only after their confirmation/availability cutoff; exclude split-boundary overlapping outcomes",
+  "blind_validation": "Freeze rules first, evaluate subsequently unseen prospective evidence separately; no claim on repeatedly studied history",
+  "top_bottom_alert_alternation": "Not imposed: user requested one-to-one matching. Suppressing a previously issued same-side alert retrospectively is forbidden."
+}

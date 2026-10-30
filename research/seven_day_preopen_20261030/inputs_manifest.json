@@ -1,0 +1,18 @@
+[
+  {
+    "path": "inputs/index_000985_prices_20220223_20261020.csv",
+    "sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41"
+  },
+  {
+    "path": "inputs/partial_v52_derived_objective_pivots.csv",
+    "sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1"
+  },
+  {
+    "path": "inputs/v101_frozen.py",
+    "sha256": "d59826de9372146d65fc639b233cba6e261395f2e7333e5d60dbc0c381378710"
+  },
+  {
+    "path": "inputs/v102_frozen.py",
+    "sha256": "7a7c89835a496e739ebaaf47dda7c54e01f1d06aa707970b02ca89f62cb10af6"
+  }
+]
