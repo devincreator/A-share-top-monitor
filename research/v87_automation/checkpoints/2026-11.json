@@ -1,0 +1,75 @@
+{
+  "asof": "2026-11-03",
+  "event_input_issues": [
+    "alerts: source file missing",
+    "pivots: source file missing",
+    "prices: source file missing"
+  ],
+  "formal_signals_generated": false,
+  "gates": {
+    "2005_listing_suspension_PIT": {
+      "passed": false
+    },
+    "2006_raw_integrity": {
+      "PIT_certified": false,
+      "passed": true
+    },
+    "V86_event_inputs": {
+      "passed": false,
+      "status": "BLOCKED"
+    },
+    "current_full_model": {
+      "passed": false,
+      "status": "DATA_PENDING"
+    },
+    "formal_double80": {
+      "passed": false,
+      "status": "NOT_VALIDATED"
+    },
+    "prospective_frozen_sample": {
+      "passed": false
+    }
+  },
+  "next_task": "Restore independently verified current index/volume/turnover/financing feeds",
+  "production_changed": false,
+  "readiness_channels": {
+    "full_four_module_model": {
+      "asof": "2026-08-04",
+      "calendar_age_days": 91,
+      "status": "STALE_OR_UNVERIFIED"
+    },
+    "market_snapshot": {
+      "asof": "2026-10-08",
+      "calendar_age_days": 26,
+      "status": "HISTORICAL_SNAPSHOT_ONLY"
+    },
+    "price_core": {
+      "asof": "2026-09-21",
+      "calendar_age_days": 43,
+      "status": "HISTORICAL_VERIFIED_ONLY"
+    }
+  },
+  "research_observed_raw_market": {
+    "PIT_certified": false,
+    "asof": "2026-11-02",
+    "calendar_age_days": 1,
+    "is_formal_model_input": false,
+    "raw_traded_advance_share": 0.83994633,
+    "source_raw_sha256": "63f64b06707a89288bcabb281ff376c7f2989b6b51b6dd2b53b83297b386f330",
+    "status": "SOURCE_RAW_RESEARCH_ONLY",
+    "traded_sh_sz_records": 5217
+  },
+  "research_only": true,
+  "schema_version": 1,
+  "source_sha256": {
+    "latest_state": "c4f3fdeb98e57c790144baa2c9fe8a1d261e1bbec8e371785afe5e97ee2e63ab",
+    "latest_verified_market": "9130b0d65b65bc02d95e6d2e166024f845939ea58edbe50ae9d72b85c81629c5",
+    "quality_gates": "8eee8974b66bbb22ce2600ffb27e0014a06d46d21e987e2a6793e5202bf82dbc"
+  },
+  "warning": "Passing an Actions job never means PIT, forecast quality, dual80 or signal deployment passed.",
+  "window": {
+    "end": "2027-04-20",
+    "start": "2026-10-20",
+    "status": "RESEARCH_RUNNING"
+  }
+}
