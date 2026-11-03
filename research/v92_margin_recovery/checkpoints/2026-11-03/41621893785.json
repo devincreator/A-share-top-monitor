@@ -1,0 +1,16 @@
+{
+  "status": "RESEARCH_CANDIDATE_EVIDENCE_ONLY",
+  "asof": "2026-11-02",
+  "original_source_gap_or_invalid_days": 183,
+  "raw_source_both_exchanges_sha_valid_days": 42,
+  "raw_source_one_exchange_only_days": 0,
+  "raw_source_not_both_observed_days": 141,
+  "source_integrity_failures": [],
+  "source_PIT_certified_days": 0,
+  "finance_growth63_prior756_rank_certified": false,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "purpose": "Number of immutable, source-consistent observations only; not PIT/date/precision proof.",
+  "source_candidate_sha256": "2b368d3d06a15f6595c4ddac16f930519f87fa2ab8d546c50013fadf1fc8b4dc",
+  "audit_created_at_utc": "2026-11-03T10:46:17.803101+00:00"
+}

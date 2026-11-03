@@ -1,0 +1,17 @@
+{
+  "date": "2024-11-08",
+  "attempt_utc": "2026-11-03T10:45:48.128950+00:00",
+  "run_id": "41621893785",
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "sources": {
+    "SSE": {
+      "status": "FIRST_SOURCE_CAPTURED",
+      "sha256": "47ccd133e06120e412b74ac507842435f5be1a91f9bdc4cf170cae5eb7e098da"
+    },
+    "SZSE": {
+      "status": "FIRST_SOURCE_CAPTURED",
+      "sha256": "714a950c2d1656d3412a07315b332c7cc665e471b93520ad99e2448fe8f273db"
+    }
+  }
+}
