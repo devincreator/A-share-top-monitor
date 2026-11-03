@@ -1,0 +1,16 @@
+{
+  "PIT_certified": false,
+  "candidate_input_sha256": "2b368d3d06a15f6595c4ddac16f930519f87fa2ab8d546c50013fadf1fc8b4dc",
+  "close": 5034.54,
+  "cross_provider_status": "RESEARCH_PRICE_AMOUNT_CROSS_PROVIDER_PASS",
+  "date": "2026-11-02",
+  "first_saved_at_utc": "2026-11-03T07:03:41.024052+00:00",
+  "formal_signal_allowed": false,
+  "four_module_recalculated": false,
+  "index": "000985.CSI",
+  "ret5_pct": -3.4415168450972144,
+  "ret63_pct": -10.872747937139627,
+  "ret63_percentile_prior756": 7.142857142857143,
+  "rv_ratio_percentile_prior756": 49.47089947089947,
+  "source_scope": "Independent-source-checked price and amount, historical research only"
+}
