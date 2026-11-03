@@ -1,43 +1,43 @@
 {
-  "updated_at_utc": "2026-11-03T02:58:19+00:00",
-  "entry_count": 243,
+  "updated_at_utc": "2026-11-03T04:02:04+00:00",
+  "entry_count": 244,
   "latest": {
     "schema_version": 1,
     "record_type": "github_actions_completion",
     "progress_source": "GITHUB_API_AUTHORITATIVE",
-    "recorded_at_utc": "2026-11-03T02:58:19+00:00",
-    "run_id": 41569293478,
+    "recorded_at_utc": "2026-11-03T04:02:04+00:00",
+    "run_id": 41575640372,
     "run_attempt": 1,
-    "workflow_name": "Research handoff - verify 2005 release + metadata",
-    "workflow_path": ".github/workflows/research-handoff-selftest.yml",
+    "workflow_name": "V84 research daily source readiness (never formal alerts)",
+    "workflow_path": ".github/workflows/v84-readiness-research.yml",
     "branch": "main",
-    "commit_sha": "c132f7ed43e4a17e8cd97453ba3b8294af16a381",
+    "commit_sha": "a9ca2ff5bf5e9c8d2e0f1f08da3c2d1f2a8d8f7a",
     "status": "completed",
     "conclusion": "success",
-    "event": "push",
-    "created_at": "2026-11-03T02:57:49Z",
-    "run_started_at": "2026-11-03T02:57:49Z",
-    "updated_at": "2026-11-03T02:58:02Z",
-    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41569293478",
+    "event": "schedule",
+    "created_at": "2026-11-03T04:01:35Z",
+    "run_started_at": "2026-11-03T04:01:35Z",
+    "updated_at": "2026-11-03T04:01:52Z",
+    "run_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41575640372",
     "jobs": [
       {
-        "id": 125698195763,
+        "id": 125718357051,
         "name": "audit",
         "status": "completed",
         "conclusion": "success",
-        "started_at": "2026-11-03T02:57:52Z",
-        "completed_at": "2026-11-03T02:58:02Z",
-        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41569293478/job/125698195763"
+        "started_at": "2026-11-03T04:01:39Z",
+        "completed_at": "2026-11-03T04:01:51Z",
+        "url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/41575640372/job/125718357051"
       }
     ],
     "artifacts": [
       {
-        "id": 13200546890,
-        "name": "research-v82-handoff-selftest",
-        "size_in_bytes": 8086461,
+        "id": 13203123109,
+        "name": "v84-daily-readiness-41575640372",
+        "size_in_bytes": 169468,
         "expired": false,
-        "expires_at": "2026-12-03T02:57:58Z",
-        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/13200546890/zip"
+        "expires_at": "2026-12-03T04:01:47Z",
+        "url": "https://api.github.com/repos/devincreator/A-share-top-monitor/actions/artifacts/13203123109/zip"
       }
     ],
     "data_gate": "NOT_ASSESSED_BY_AUTOMATIC_JOURNAL",
