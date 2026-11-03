@@ -1,0 +1,88 @@
+{
+  "records": [
+    {
+      "training_for_year": 2018,
+      "task": "5_BOTTOM",
+      "candidate": "deceleration",
+      "alert_date": "2017-05-12",
+      "training_cutoff": "2017-12-29",
+      "pivot_date": "2017-05-23",
+      "confirmation_date": "2017-06-26",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2018,
+      "task": "5_BOTTOM",
+      "candidate": "participation",
+      "alert_date": "2017-05-19",
+      "training_cutoff": "2017-12-29",
+      "pivot_date": "2017-05-23",
+      "confirmation_date": "2017-06-26",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2018,
+      "task": "5_BOTTOM",
+      "candidate": "deceleration_participation",
+      "alert_date": "2017-05-12",
+      "training_cutoff": "2017-12-29",
+      "pivot_date": "2017-05-23",
+      "confirmation_date": "2017-06-26",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2025,
+      "task": "9_TOP",
+      "candidate": "participation",
+      "alert_date": "2024-05-09",
+      "training_cutoff": "2024-12-31",
+      "pivot_date": "2024-05-20",
+      "confirmation_date": "2024-06-25",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2025,
+      "task": "9_TOP",
+      "candidate": "deceleration_participation",
+      "alert_date": "2024-05-09",
+      "training_cutoff": "2024-12-31",
+      "pivot_date": "2024-05-20",
+      "confirmation_date": "2024-06-25",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2017,
+      "task": "9_BOTTOM",
+      "candidate": "deceleration",
+      "alert_date": "2016-05-13",
+      "training_cutoff": "2016-12-30",
+      "pivot_date": "2016-05-18",
+      "confirmation_date": "2016-07-04",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2017,
+      "task": "9_BOTTOM",
+      "candidate": "participation",
+      "alert_date": "2016-05-13",
+      "training_cutoff": "2016-12-30",
+      "pivot_date": "2016-05-18",
+      "confirmation_date": "2016-07-04",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    },
+    {
+      "training_for_year": 2017,
+      "task": "9_BOTTOM",
+      "candidate": "deceleration_participation",
+      "alert_date": "2016-05-13",
+      "training_cutoff": "2016-12-30",
+      "pivot_date": "2016-05-18",
+      "confirmation_date": "2016-07-04",
+      "reason": "Confirmed by cutoff, but 140-session policy still pending; old score counted FP"
+    }
+  ],
+  "candidate_rows": 8,
+  "unique_alerts": 4,
+  "unique_pivots": 3,
+  "true_future_label_leakage_demonstrated": false
+}

@@ -1,0 +1,42 @@
+{
+  "modules": {
+    "Top-5": {
+      "target_count": 63,
+      "calculated_count": 63,
+      "missed": [
+        "2016-03-17"
+      ],
+      "extra": [
+        "2016-03-03"
+      ],
+      "pass": false
+    },
+    "Top-9": {
+      "target_count": 34,
+      "calculated_count": 35,
+      "missed": [
+        "2016-03-17"
+      ],
+      "extra": [
+        "2015-01-21",
+        "2016-03-03"
+      ],
+      "pass": false
+    },
+    "Bottom-5": {
+      "target_count": 56,
+      "calculated_count": 56,
+      "missed": [],
+      "extra": [],
+      "pass": true
+    },
+    "Bottom-9": {
+      "target_count": 37,
+      "calculated_count": 37,
+      "missed": [],
+      "extra": [],
+      "pass": true
+    }
+  },
+  "pass": false
+}

@@ -1,0 +1,198 @@
+{
+  "review_date": "2026-11-02",
+  "sources_sha256": {
+    "run.py": "b6e8ed22b9a66e4d6a9a9f660a3bed89c097df888fc91c07665ed8a74a7423c0",
+    "phase2/run.py": "32a11012a5878f8311fde66d54c0a20c5fb70533a3835699c7e395cfca72a332",
+    "result.json": "f202245f94bc06d0433998b81de9cb31109eab63b39d6fa43a7dbfaed5f4d178",
+    "diagnostic_result.json": "c9b587752558d0b26dbbe53bbde0c82eed05914644d2af07629258982cb34a63"
+  },
+  "late_alerts": {
+    "5_TOP": {
+      "counts": {
+        "late_1_to_7": 8
+      },
+      "examples": [
+        {
+          "alert": "2016-04-15",
+          "pivot": "2016-04-14",
+          "lag": 1
+        },
+        {
+          "alert": "2016-07-27",
+          "pivot": "2016-07-26",
+          "lag": 1
+        },
+        {
+          "alert": "2017-04-12",
+          "pivot": "2017-04-11",
+          "lag": 1
+        }
+      ]
+    },
+    "5_BOTTOM": {
+      "counts": {
+        "late_1_to_7": 9,
+        "same_day": 2
+      },
+      "examples": [
+        {
+          "alert": "2016-03-01",
+          "pivot": "2016-02-29",
+          "lag": 1
+        },
+        {
+          "alert": "2017-01-17",
+          "pivot": "2017-01-16",
+          "lag": 1
+        },
+        {
+          "alert": "2019-12-02",
+          "pivot": "2019-11-29",
+          "lag": 1
+        }
+      ]
+    },
+    "9_TOP": {
+      "counts": {
+        "late_1_to_7": 1,
+        "same_day": 1
+      },
+      "examples": [
+        {
+          "alert": "2016-12-02",
+          "pivot": "2016-11-28",
+          "lag": 4
+        }
+      ]
+    },
+    "9_BOTTOM": {
+      "counts": {
+        "same_day": 1,
+        "late_1_to_7": 1
+      },
+      "examples": [
+        {
+          "alert": "2020-03-24",
+          "pivot": "2020-03-23",
+          "lag": 1
+        }
+      ]
+    }
+  },
+  "FN_gate_failures": {
+    "5_TOP": {
+      "misses_with_no_eligible_day": 18,
+      "never_meets_location": 14,
+      "never_meets_momentum": 9
+    },
+    "5_BOTTOM": {
+      "misses_with_no_eligible_day": 21,
+      "never_meets_location": 20,
+      "never_meets_momentum": 10
+    },
+    "9_TOP": {
+      "misses_with_no_eligible_day": 12,
+      "never_meets_location": 10,
+      "never_meets_momentum": 9
+    },
+    "9_BOTTOM": {
+      "misses_with_no_eligible_day": 11,
+      "never_meets_location": 11,
+      "never_meets_momentum": 6
+    }
+  },
+  "concrete_examples": [
+    {
+      "pivot_date": "2016-02-22",
+      "task": "5_TOP",
+      "last_7_forecast_dates": [
+        "2016-02-04",
+        "2016-02-19"
+      ],
+      "prior_input_dates": [
+        "2016-02-03",
+        "2016-02-18"
+      ],
+      "location_min": 0.12099566727908591,
+      "location_max": 0.2587326934413939,
+      "momentum_min": -0.19067552267228116,
+      "momentum_max": 0.004160416671351808
+    },
+    {
+      "pivot_date": "2018-03-12",
+      "task": "5_TOP",
+      "last_7_forecast_dates": [
+        "2018-03-01",
+        "2018-03-09"
+      ],
+      "prior_input_dates": [
+        "2018-02-28",
+        "2018-03-08"
+      ],
+      "location_min": 0.41289972581851203,
+      "location_max": 0.5354896412181288,
+      "momentum_min": -0.07791045415011999,
+      "momentum_max": -0.008588825892288043
+    },
+    {
+      "pivot_date": "2020-07-24",
+      "task": "5_BOTTOM",
+      "last_7_forecast_dates": [
+        "2020-07-15",
+        "2020-07-23"
+      ],
+      "prior_input_dates": [
+        "2020-07-14",
+        "2020-07-22"
+      ],
+      "location_min": 0.6620161694211921,
+      "location_max": 0.9590250068532786,
+      "momentum_min": 0.11535744591038122,
+      "momentum_max": 0.20736312693606207
+    }
+  ],
+  "alarm_count_necessary_conditions_not_live_budget": {
+    "5_TOP": {
+      "alerts": 50,
+      "pivots": 38,
+      "required_hits_for_dual80": 40,
+      "possible_hits_at_most": 38,
+      "alarm_count_feasible_band_given_hindsight_pivot_count": [
+        31,
+        47
+      ]
+    },
+    "5_BOTTOM": {
+      "alerts": 47,
+      "pivots": 38,
+      "required_hits_for_dual80": 38,
+      "possible_hits_at_most": 38,
+      "alarm_count_feasible_band_given_hindsight_pivot_count": [
+        31,
+        47
+      ]
+    },
+    "9_TOP": {
+      "alerts": 24,
+      "pivots": 18,
+      "required_hits_for_dual80": 20,
+      "possible_hits_at_most": 18,
+      "alarm_count_feasible_band_given_hindsight_pivot_count": [
+        15,
+        22
+      ]
+    },
+    "9_BOTTOM": {
+      "alerts": 17,
+      "pivots": 18,
+      "required_hits_for_dual80": 15,
+      "possible_hits_at_most": 17,
+      "alarm_count_feasible_band_given_hindsight_pivot_count": [
+        15,
+        22
+      ]
+    }
+  },
+  "prior_claim_correction": "No future same-direction pivot within20 does not distinguish late signals from unrelated signals. 23/104 FP are on or 1..7 sessions after a same-direction pivot.",
+  "production_updated": false
+}

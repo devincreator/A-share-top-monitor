@@ -1,0 +1,14 @@
+[
+  {
+    "prefix_rows": 1500,
+    "daily_scores_checked": 1220,
+    "issued_alerts_checked": 25,
+    "scores_thresholds_and_issue_dates_unchanged": true
+  },
+  {
+    "prefix_rows": 2500,
+    "daily_scores_checked": 4734,
+    "issued_alerts_checked": 89,
+    "scores_thresholds_and_issue_dates_unchanged": true
+  }
+]

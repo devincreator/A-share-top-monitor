@@ -1,3 +1,5 @@
+> **2026-11-03 全量数据与方法归档：** [当前完整研究档案入口](CURRENT_RESEARCH_ARCHIVE.md)，含原始回执、所有实验、标签审计与图表。双80未达标，非PIT认证，未更新生产。
+
 # 量化研究资料索引：V52—V82（2026-10-20）
 
 **先读仓库根目录 [AI_RESEARCH_HANDOFF.md](../AI_RESEARCH_HANDOFF.md)。**

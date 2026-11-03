@@ -1,0 +1,1219 @@
+{
+  "daily_rank_diagnostics": [
+    {
+      "task": "5_TOP",
+      "feature_group": "price",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6716662487595221
+    },
+    {
+      "task": "5_TOP",
+      "feature_group": "price_amount",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6401342717997436
+    },
+    {
+      "task": "5_TOP",
+      "feature_group": "price_style",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6459119852237452
+    },
+    {
+      "task": "5_TOP",
+      "feature_group": "price_amount_style",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6218935078419393
+    },
+    {
+      "task": "5_TOP",
+      "feature_group": "price_interactions",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6544708412647401
+    },
+    {
+      "task": "5_TOP",
+      "feature_group": "price_swing",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 266,
+      "positive_day_rate": 0.11106471816283925,
+      "daily_AUC_not_event_accuracy": 0.6829603364917696
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.6854548590577567
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price_amount",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.6750355523640562
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price_style",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.6967823350511109,
+      "top_decile_days": 240,
+      "top_decile_positive_fraction": 0.30833333333333335,
+      "top_decile_daily_positive_recall": 0.27715355805243447
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price_amount_style",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.685771662301822
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price_interactions",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.6844674889470869
+    },
+    {
+      "task": "5_BOTTOM",
+      "feature_group": "price_swing",
+      "first": "2016-01-04",
+      "last": "2025-11-12",
+      "days": 2395,
+      "positive_days": 267,
+      "positive_day_rate": 0.11148225469728601,
+      "daily_AUC_not_event_accuracy": 0.6935632620878038
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6834252692408721
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price_amount",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6739427370633044
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price_style",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6738264099966228
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price_amount_style",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6646816015610342
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price_interactions",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6836166460279935
+    },
+    {
+      "task": "9_TOP",
+      "feature_group": "price_swing",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 126,
+      "positive_day_rate": 0.05622489959839357,
+      "daily_AUC_not_event_accuracy": 0.6874479342564449
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7397812856174435
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price_amount",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7317098607707149
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price_style",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7414536759064058
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price_amount_style",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7341942356543181
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price_interactions",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7351291353481477
+    },
+    {
+      "task": "9_BOTTOM",
+      "feature_group": "price_swing",
+      "first": "2016-01-04",
+      "last": "2025-03-26",
+      "days": 2241,
+      "positive_days": 127,
+      "positive_day_rate": 0.05667112896028559,
+      "daily_AUC_not_event_accuracy": 0.7351105118482706
+    }
+  ],
+  "five_bottom_style_annual_auc": [
+    {
+      "year": "2016",
+      "AUC": 0.6636904761904762,
+      "days": 244,
+      "positive_days": 28
+    },
+    {
+      "year": "2017",
+      "AUC": 0.8639760837070254,
+      "days": 244,
+      "positive_days": 21
+    },
+    {
+      "year": "2018",
+      "AUC": 0.8601182099634112,
+      "days": 243,
+      "positive_days": 34
+    },
+    {
+      "year": "2019",
+      "AUC": 0.8237100737100738,
+      "days": 244,
+      "positive_days": 22
+    },
+    {
+      "year": "2020",
+      "AUC": 0.5475274725274726,
+      "days": 243,
+      "positive_days": 35
+    },
+    {
+      "year": "2021",
+      "AUC": 0.6497211497211497,
+      "days": 243,
+      "positive_days": 21
+    },
+    {
+      "year": "2022",
+      "AUC": 0.7323809523809524,
+      "days": 242,
+      "positive_days": 42
+    },
+    {
+      "year": "2023",
+      "AUC": 0.7696048632218845,
+      "days": 242,
+      "positive_days": 7
+    },
+    {
+      "year": "2024",
+      "AUC": 0.567287784679089,
+      "days": 242,
+      "positive_days": 35
+    },
+    {
+      "year": "2025",
+      "AUC": 0.7790811339198436,
+      "days": 208,
+      "positive_days": 22
+    }
+  ],
+  "training_age": [
+    {
+      "task": "5_TOP",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 3
+    },
+    {
+      "task": "5_TOP",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-04-02",
+      "lag_sessions": 185,
+      "independent_positive_events": 8
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "cutoff": "2015-12-31",
+      "latest_training_day": "2015-05-19",
+      "lag_sessions": 154,
+      "independent_positive_events": 12
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "cutoff": "2016-12-30",
+      "latest_training_day": "2016-05-09",
+      "lag_sessions": 160,
+      "independent_positive_events": 22
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "cutoff": "2017-12-29",
+      "latest_training_day": "2017-03-29",
+      "lag_sessions": 187,
+      "independent_positive_events": 25
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "cutoff": "2018-12-28",
+      "latest_training_day": "2018-03-01",
+      "lag_sessions": 205,
+      "independent_positive_events": 28
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "cutoff": "2019-12-31",
+      "latest_training_day": "2019-04-10",
+      "lag_sessions": 179,
+      "independent_positive_events": 32
+    },
+    {
+      "task": "5_TOP",
+      "year": 2021,
+      "cutoff": "2020-12-31",
+      "latest_training_day": "2020-03-12",
+      "lag_sessions": 198,
+      "independent_positive_events": 37
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "cutoff": "2021-12-31",
+      "latest_training_day": "2021-02-26",
+      "lag_sessions": 208,
+      "independent_positive_events": 40
+    },
+    {
+      "task": "5_TOP",
+      "year": 2023,
+      "cutoff": "2022-12-30",
+      "latest_training_day": "2022-04-15",
+      "lag_sessions": 175,
+      "independent_positive_events": 44
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "cutoff": "2023-12-29",
+      "latest_training_day": "2023-02-03",
+      "lag_sessions": 223,
+      "independent_positive_events": 49
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "cutoff": "2024-12-31",
+      "latest_training_day": "2024-05-09",
+      "lag_sessions": 160,
+      "independent_positive_events": 52
+    },
+    {
+      "task": "5_TOP",
+      "year": 2026,
+      "cutoff": "2025-12-31",
+      "latest_training_day": "2025-03-26",
+      "lag_sessions": 189,
+      "independent_positive_events": 56
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-04-02",
+      "lag_sessions": 185,
+      "independent_positive_events": 8
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "cutoff": "2015-12-31",
+      "latest_training_day": "2015-05-19",
+      "lag_sessions": 154,
+      "independent_positive_events": 13
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "cutoff": "2016-12-30",
+      "latest_training_day": "2016-05-09",
+      "lag_sessions": 160,
+      "independent_positive_events": 23
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2018,
+      "cutoff": "2017-12-29",
+      "latest_training_day": "2017-03-29",
+      "lag_sessions": 187,
+      "independent_positive_events": 25
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2019,
+      "cutoff": "2018-12-28",
+      "latest_training_day": "2018-03-01",
+      "lag_sessions": 205,
+      "independent_positive_events": 28
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "cutoff": "2019-12-31",
+      "latest_training_day": "2019-04-10",
+      "lag_sessions": 179,
+      "independent_positive_events": 32
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "cutoff": "2020-12-31",
+      "latest_training_day": "2020-03-12",
+      "lag_sessions": 198,
+      "independent_positive_events": 38
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "cutoff": "2021-12-31",
+      "latest_training_day": "2021-02-26",
+      "lag_sessions": 208,
+      "independent_positive_events": 41
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "cutoff": "2022-12-30",
+      "latest_training_day": "2022-04-15",
+      "lag_sessions": 175,
+      "independent_positive_events": 45
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "cutoff": "2023-12-29",
+      "latest_training_day": "2023-02-03",
+      "lag_sessions": 223,
+      "independent_positive_events": 49
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "cutoff": "2024-12-31",
+      "latest_training_day": "2024-05-09",
+      "lag_sessions": 160,
+      "independent_positive_events": 52
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2026,
+      "cutoff": "2025-12-31",
+      "latest_training_day": "2025-03-26",
+      "lag_sessions": 189,
+      "independent_positive_events": 57
+    },
+    {
+      "task": "9_TOP",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-01-30",
+      "lag_sessions": 224,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "cutoff": "2015-12-31",
+      "latest_training_day": "2014-05-08",
+      "lag_sessions": 406,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "cutoff": "2016-12-30",
+      "latest_training_day": "2016-04-05",
+      "lag_sessions": 183,
+      "independent_positive_events": 11
+    },
+    {
+      "task": "9_TOP",
+      "year": 2018,
+      "cutoff": "2017-12-29",
+      "latest_training_day": "2016-11-17",
+      "lag_sessions": 275,
+      "independent_positive_events": 12
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "cutoff": "2018-12-28",
+      "latest_training_day": "2018-03-01",
+      "lag_sessions": 205,
+      "independent_positive_events": 14
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "cutoff": "2019-12-31",
+      "latest_training_day": "2019-04-10",
+      "lag_sessions": 179,
+      "independent_positive_events": 16
+    },
+    {
+      "task": "9_TOP",
+      "year": 2021,
+      "cutoff": "2020-12-31",
+      "latest_training_day": "2020-03-12",
+      "lag_sessions": 198,
+      "independent_positive_events": 19
+    },
+    {
+      "task": "9_TOP",
+      "year": 2022,
+      "cutoff": "2021-12-31",
+      "latest_training_day": "2021-02-26",
+      "lag_sessions": 208,
+      "independent_positive_events": 20
+    },
+    {
+      "task": "9_TOP",
+      "year": 2023,
+      "cutoff": "2022-12-30",
+      "latest_training_day": "2022-04-15",
+      "lag_sessions": 175,
+      "independent_positive_events": 21
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "cutoff": "2023-12-29",
+      "latest_training_day": "2022-10-20",
+      "lag_sessions": 293,
+      "independent_positive_events": 22
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "cutoff": "2024-12-31",
+      "latest_training_day": "2024-01-25",
+      "lag_sessions": 224,
+      "independent_positive_events": 23
+    },
+    {
+      "task": "9_TOP",
+      "year": 2026,
+      "cutoff": "2025-12-31",
+      "latest_training_day": "2025-03-26",
+      "lag_sessions": 189,
+      "independent_positive_events": 27
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 2
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-01-30",
+      "lag_sessions": 224,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "cutoff": "2015-12-31",
+      "latest_training_day": "2014-05-08",
+      "lag_sessions": 406,
+      "independent_positive_events": 5
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2017,
+      "cutoff": "2016-12-30",
+      "latest_training_day": "2016-04-05",
+      "lag_sessions": 183,
+      "independent_positive_events": 11
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "cutoff": "2017-12-29",
+      "latest_training_day": "2016-11-17",
+      "lag_sessions": 275,
+      "independent_positive_events": 12
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2019,
+      "cutoff": "2018-12-28",
+      "latest_training_day": "2018-03-01",
+      "lag_sessions": 205,
+      "independent_positive_events": 14
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2020,
+      "cutoff": "2019-12-31",
+      "latest_training_day": "2019-04-10",
+      "lag_sessions": 179,
+      "independent_positive_events": 16
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2021,
+      "cutoff": "2020-12-31",
+      "latest_training_day": "2020-03-12",
+      "lag_sessions": 198,
+      "independent_positive_events": 20
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "cutoff": "2021-12-31",
+      "latest_training_day": "2021-02-26",
+      "lag_sessions": 208,
+      "independent_positive_events": 21
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2023,
+      "cutoff": "2022-12-30",
+      "latest_training_day": "2022-04-15",
+      "lag_sessions": 175,
+      "independent_positive_events": 22
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "cutoff": "2023-12-29",
+      "latest_training_day": "2022-10-20",
+      "lag_sessions": 293,
+      "independent_positive_events": 23
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2025,
+      "cutoff": "2024-12-31",
+      "latest_training_day": "2024-01-25",
+      "lag_sessions": 224,
+      "independent_positive_events": 24
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2026,
+      "cutoff": "2025-12-31",
+      "latest_training_day": "2025-03-26",
+      "lag_sessions": 189,
+      "independent_positive_events": 28
+    }
+  ],
+  "median_training_frontier_lag_sessions": 189.0,
+  "max_training_frontier_lag_sessions": 406,
+  "small_independent_event_training": [
+    {
+      "task": "5_TOP",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 3
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_TOP",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-01-30",
+      "lag_sessions": 224,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "cutoff": "2015-12-31",
+      "latest_training_day": "2014-05-08",
+      "lag_sessions": 406,
+      "independent_positive_events": 4
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2014,
+      "cutoff": "2013-12-31",
+      "latest_training_day": "2013-04-02",
+      "lag_sessions": 180,
+      "independent_positive_events": 2
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2015,
+      "cutoff": "2014-12-31",
+      "latest_training_day": "2014-01-30",
+      "lag_sessions": 224,
+      "independent_positive_events": 4
+    }
+  ],
+  "truncated_latest_event_windows": [
+    {
+      "task": "5_TOP",
+      "year": 2015,
+      "latest_event": "2014-04-14",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "latest_event": "2015-05-27",
+      "training_positive_days_for_this_event": 2
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "latest_event": "2017-04-11",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "latest_event": "2018-03-12",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "latest_event": "2019-04-19",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "latest_event": "2023-02-14",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "latest_event": "2024-05-20",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2014,
+      "latest_event": "2013-04-15",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "latest_event": "2015-05-28",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "latest_event": "2016-05-18",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "latest_event": "2020-03-23",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "latest_event": "2021-03-09",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "latest_event": "2022-04-26",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2026,
+      "latest_event": "2025-04-07",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2015,
+      "latest_event": "2014-02-17",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "latest_event": "2016-04-14",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2018,
+      "latest_event": "2016-11-28",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "latest_event": "2018-03-12",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "latest_event": "2019-04-19",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2014,
+      "latest_event": "2013-04-15",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "latest_event": "2014-05-19",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2021,
+      "latest_event": "2020-03-23",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "latest_event": "2021-03-09",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2023,
+      "latest_event": "2022-04-26",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "latest_event": "2022-10-31",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2025,
+      "latest_event": "2024-02-05",
+      "training_positive_days_for_this_event": 1
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2026,
+      "latest_event": "2025-04-07",
+      "training_positive_days_for_this_event": 1
+    }
+  ],
+  "selected_validation_support": [
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "validation_pivots": 6,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "validation_pivots": 16,
+      "validation_alerts": 17
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "validation_pivots": 17,
+      "validation_alerts": 12
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "validation_pivots": 8,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "validation_pivots": 8,
+      "validation_alerts": 5
+    },
+    {
+      "task": "5_TOP",
+      "year": 2021,
+      "validation_pivots": 11,
+      "validation_alerts": 6
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "validation_pivots": 9,
+      "validation_alerts": 5
+    },
+    {
+      "task": "5_TOP",
+      "year": 2023,
+      "validation_pivots": 10,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "validation_pivots": 10,
+      "validation_alerts": 10
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "validation_pivots": 9,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_TOP",
+      "year": 2026,
+      "validation_pivots": 8,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "validation_pivots": 7,
+      "validation_alerts": 5
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "validation_pivots": 17,
+      "validation_alerts": 19
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2018,
+      "validation_pivots": 16,
+      "validation_alerts": 18
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2019,
+      "validation_pivots": 8,
+      "validation_alerts": 10
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "validation_pivots": 8,
+      "validation_alerts": 9
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "validation_pivots": 11,
+      "validation_alerts": 14
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "validation_pivots": 10,
+      "validation_alerts": 14
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "validation_pivots": 10,
+      "validation_alerts": 16
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "validation_pivots": 9,
+      "validation_alerts": 10
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "validation_pivots": 9,
+      "validation_alerts": 11
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2026,
+      "validation_pivots": 8,
+      "validation_alerts": 9
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "validation_pivots": 1,
+      "validation_alerts": 0
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "validation_pivots": 8,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_TOP",
+      "year": 2018,
+      "validation_pivots": 8,
+      "validation_alerts": 12
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "validation_pivots": 5,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "validation_pivots": 4,
+      "validation_alerts": 15
+    },
+    {
+      "task": "9_TOP",
+      "year": 2021,
+      "validation_pivots": 6,
+      "validation_alerts": 9
+    },
+    {
+      "task": "9_TOP",
+      "year": 2022,
+      "validation_pivots": 5,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_TOP",
+      "year": 2023,
+      "validation_pivots": 4,
+      "validation_alerts": 8
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "validation_pivots": 3,
+      "validation_alerts": 7
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "validation_pivots": 2,
+      "validation_alerts": 0
+    },
+    {
+      "task": "9_TOP",
+      "year": 2026,
+      "validation_pivots": 5,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "validation_pivots": 2,
+      "validation_alerts": 0
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2017,
+      "validation_pivots": 8,
+      "validation_alerts": 5
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "validation_pivots": 7,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2019,
+      "validation_pivots": 5,
+      "validation_alerts": 8
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2020,
+      "validation_pivots": 4,
+      "validation_alerts": 9
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2021,
+      "validation_pivots": 7,
+      "validation_alerts": 9
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "validation_pivots": 6,
+      "validation_alerts": 6
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2023,
+      "validation_pivots": 4,
+      "validation_alerts": 10
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "validation_pivots": 3,
+      "validation_alerts": 5
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2025,
+      "validation_pivots": 3,
+      "validation_alerts": 13
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2026,
+      "validation_pivots": 5,
+      "validation_alerts": 6
+    }
+  ],
+  "selected_validation_rows_with_at_most_5_pivots": 15,
+  "note": "Daily ranking uses overlapping positive windows and is not event precision/recall or a blind-test significance result."
+}

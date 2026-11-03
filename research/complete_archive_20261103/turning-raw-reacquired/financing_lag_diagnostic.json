@@ -1,0 +1,30 @@
+{
+  "descriptive_only_not_proof_of_correct_date": true,
+  "best": [
+    {
+      "lag_sessions": -13,
+      "mean_absolute_relative_difference": 0.04889101786724182,
+      "rows": 384
+    },
+    {
+      "lag_sessions": -12,
+      "mean_absolute_relative_difference": 0.04892392585931049,
+      "rows": 384
+    },
+    {
+      "lag_sessions": -14,
+      "mean_absolute_relative_difference": 0.0489781888997914,
+      "rows": 384
+    },
+    {
+      "lag_sessions": -15,
+      "mean_absolute_relative_difference": 0.049093721517280864,
+      "rows": 384
+    },
+    {
+      "lag_sessions": -11,
+      "mean_absolute_relative_difference": 0.04918364629224585,
+      "rows": 384
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "url": "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do?isPagination=true&beginDate=20210913&endDate=20210913&tabType=&stockCode=&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=5",
+  "retrieved_at": "2026-10-30T07:23:16.905486+00:00",
+  "http_status": 200,
+  "raw": {
+    "actionErrors": [],
+    "actionMessages": [],
+    "beginDate": "20210913",
+    "detailsDate": "",
+    "endDate": "20210913",
+    "fieldErrors": {},
+    "isPagination": "true",
+    "jsonCallBack": null,
+    "locale": "en_CN",
+    "pageHelp": {
+      "beginPage": 1,
+      "cacheSize": 1,
+      "data": [
+        {
+          "ROWNUM_": null,
+          "opDate": "20210913",
+          "rqchl": null,
+          "rqmcl": 298055524,
+          "rqyl": 8630741888,
+          "rqylje": 108239179285,
+          "rw": null,
+          "rzche": 67507064977,
+          "rzmre": 74688081068,
+          "rzrqjyzl": 1039003309045,
+          "rzye": 930764129760,
+          "securityAbbr": null,
+          "stockCode": null
+        }
+      ],
+      "endDate": null,
+      "endPage": 5,
+      "objectResult": null,
+      "pageCount": 1,
+      "pageNo": 1,
+      "pageSize": 2000,
+      "pageSizeWithOutLimit": 5000,
+      "searchDate": null,
+      "sort": null,
+      "startDate": null,
+      "total": 1
+    },
+    "pageNo": null,
+    "pageSize": null,
+    "queryDate": "",
+    "result": [
+      {
+        "ROWNUM_": null,
+        "opDate": "20210913",
+        "rqchl": null,
+        "rqmcl": 298055524,
+        "rqyl": 8630741888,
+        "rqylje": 108239179285,
+        "rw": null,
+        "rzche": 67507064977,
+        "rzmre": 74688081068,
+        "rzrqjyzl": 1039003309045,
+        "rzye": 930764129760,
+        "securityAbbr": null,
+        "stockCode": null
+      }
+    ],
+    "securityCode": "",
+    "stockCode": "",
+    "tabType": "",
+    "texts": null,
+    "type": "",
+    "validateCode": ""
+  }
+}

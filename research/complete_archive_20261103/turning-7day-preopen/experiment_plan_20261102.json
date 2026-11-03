@@ -1,0 +1,13 @@
+{
+  "candidates": [
+    "baseline",
+    "armed_1day",
+    "armed_3day"
+  ],
+  "candidate_lifetime_sessions": 7,
+  "threshold_search": false,
+  "scoring_window": 7,
+  "cooldown": "unchanged",
+  "sample_unseen": false,
+  "PIT_certified": false
+}

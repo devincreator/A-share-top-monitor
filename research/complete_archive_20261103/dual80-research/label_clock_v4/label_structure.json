@@ -1,0 +1,34 @@
+{
+  "5_close": {
+    "targets": 135,
+    "median_confirmation_lag": 6,
+    "same_day_confirmation": 0,
+    "median_pivot_gap": 17.0,
+    "pivot_gap_le_2": 6,
+    "min_pivot_gap": 1
+  },
+  "5_intraday_extrema_close_confirm": {
+    "targets": 171,
+    "median_confirmation_lag": 4,
+    "same_day_confirmation": 17,
+    "median_pivot_gap": 13.5,
+    "pivot_gap_le_2": 16,
+    "min_pivot_gap": 1
+  },
+  "9_close": {
+    "targets": 65,
+    "median_confirmation_lag": 16,
+    "same_day_confirmation": 0,
+    "median_pivot_gap": 31.5,
+    "pivot_gap_le_2": 1,
+    "min_pivot_gap": 2
+  },
+  "9_intraday_extrema_close_confirm": {
+    "targets": 72,
+    "median_confirmation_lag": 12.5,
+    "same_day_confirmation": 1,
+    "median_pivot_gap": 30,
+    "pivot_gap_le_2": 4,
+    "min_pivot_gap": 1
+  }
+}

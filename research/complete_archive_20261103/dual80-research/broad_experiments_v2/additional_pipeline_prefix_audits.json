@@ -1,0 +1,22 @@
+[
+  {
+    "family": "gaussian",
+    "prefix_rows": 2500,
+    "scores_checked": 45984,
+    "annual_choice_rows_checked": 384,
+    "alarm_rows_checked": 2239,
+    "maximum_score_delta": 0,
+    "score_tolerance": 1e-12,
+    "exact_threshold_and_alarm_dates_unchanged": true
+  },
+  {
+    "family": "knn50",
+    "prefix_rows": 2500,
+    "scores_checked": 45984,
+    "annual_choice_rows_checked": 384,
+    "alarm_rows_checked": 2276,
+    "maximum_score_delta": 0,
+    "score_tolerance": 1e-12,
+    "exact_threshold_and_alarm_dates_unchanged": true
+  }
+]

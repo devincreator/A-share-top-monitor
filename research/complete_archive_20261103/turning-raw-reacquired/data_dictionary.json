@@ -1,0 +1,83 @@
+{
+  "all_a_close": {
+    "provider_identifier": "000985.CSI",
+    "unit": "指数点",
+    "source": "iFinD index/index_data",
+    "definition": "当日收盘，不使用复权股价",
+    "label": "中证全指收盘价",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "94.725"
+    }
+  },
+  "hs300_close": {
+    "provider_identifier": [
+      "000300.SH",
+      "399300.SZ"
+    ],
+    "unit": "指数点",
+    "source": "iFinD index/index_data",
+    "definition": "沪深300收盘；优先SH发布代码，缺时采用同指数SZ代码，实际代码逐行留存",
+    "label": "沪深300收盘价",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "0.0005"
+    }
+  },
+  "zz1000_close": {
+    "provider_identifier": [
+      "000852.SH",
+      "399852.SZ"
+    ],
+    "unit": "指数点",
+    "source": "iFinD index/index_data",
+    "definition": "中证1000历史收盘；双发布代码属于同一指数，发布前追溯序列不证明当时已知",
+    "label": "中证1000收盘价",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 2869,
+      "max_abs_difference": "0.000"
+    }
+  },
+  "turnover": {
+    "provider_identifier": "000985.CSI",
+    "unit": "元（按回执显示量纲换算）",
+    "source": "iFinD index/index_data",
+    "definition": "指数成交金额。部分回执仅有亿/万亿缩写，非元级精度认证",
+    "label": "中证全指成交额",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "65500000001.0000"
+    }
+  },
+  "turnover_rate": {
+    "provider_identifier": "000985.CSI",
+    "unit": "百分数，例如1.2表示1.2%",
+    "source": "iFinD index/index_data",
+    "definition": "供应商指数换手率；与旧表分母/证券范围一致性尚未认证",
+    "label": "中证全指换手率",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "2.127"
+    }
+  },
+  "financing_balance": {
+    "provider_identifier": [
+      "S004273896",
+      "S004273905"
+    ],
+    "unit": "元（从亿元换算）",
+    "source": "iFinD edb/get_edb_data; 回执标注沪深交易所",
+    "definition": "上交所融资余额加深交所融资余额，不含北交所，不是融资融券余额；是否等同旧融资字段尚未认证",
+    "label": "沪深两市融资余额合计",
+    "coverage": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "228833916226.0000"
+    }
+  }
+}

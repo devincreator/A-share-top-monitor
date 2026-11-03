@@ -1,0 +1,575 @@
+{
+  "summary": {
+    "5": {
+      "confirmed_pivots_after_initial_exclusion": 135,
+      "exact_decimal_reconstruction_matches": true,
+      "alternation_and_confirmation_order_pass": true,
+      "confirmation_lag_median": 6,
+      "confirmation_lag_max": 49,
+      "confirmation_more_than_7_sessions": 62,
+      "equal_close_tie_pivots": 0,
+      "same_segment_intraday_extreme_on_different_date": 85,
+      "intraday_examples": [
+        {
+          "scale": 5,
+          "side": "TOP",
+          "pivot_date": "2011-08-15",
+          "pivot_close": "3419.9",
+          "confirmation_date": "2011-09-05",
+          "confirmation_lag_sessions": 15,
+          "same_segment_intraday_extreme_date": "2011-08-16",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 5,
+          "side": "BOTTOM",
+          "pivot_date": "2011-10-21",
+          "pivot_close": "2871.39",
+          "confirmation_date": "2011-10-26",
+          "confirmation_lag_sessions": 3,
+          "same_segment_intraday_extreme_date": "2011-10-24",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 5,
+          "side": "TOP",
+          "pivot_date": "2011-11-15",
+          "pivot_close": "3199.47",
+          "confirmation_date": "2011-11-18",
+          "confirmation_lag_sessions": 3,
+          "same_segment_intraday_extreme_date": "2011-11-03",
+          "intraday_date_shift_sessions": -8,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 5,
+          "side": "BOTTOM",
+          "pivot_date": "2012-01-05",
+          "pivot_close": "2513.7",
+          "confirmation_date": "2012-01-10",
+          "confirmation_lag_sessions": 3,
+          "same_segment_intraday_extreme_date": "2012-01-06",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 5,
+          "side": "TOP",
+          "pivot_date": "2012-01-10",
+          "pivot_close": "2713.53",
+          "confirmation_date": "2012-01-16",
+          "confirmation_lag_sessions": 4,
+          "same_segment_intraday_extreme_date": "2012-01-12",
+          "intraday_date_shift_sessions": 2,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        }
+      ]
+    },
+    "9": {
+      "confirmed_pivots_after_initial_exclusion": 65,
+      "exact_decimal_reconstruction_matches": true,
+      "alternation_and_confirmation_order_pass": true,
+      "confirmation_lag_median": 16,
+      "confirmation_lag_max": 125,
+      "confirmation_more_than_7_sessions": 53,
+      "equal_close_tie_pivots": 0,
+      "same_segment_intraday_extreme_on_different_date": 40,
+      "intraday_examples": [
+        {
+          "scale": 9,
+          "side": "BOTTOM",
+          "pivot_date": "2011-10-21",
+          "pivot_close": "2871.39",
+          "confirmation_date": "2011-11-02",
+          "confirmation_lag_sessions": 8,
+          "same_segment_intraday_extreme_date": "2011-10-24",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 9,
+          "side": "TOP",
+          "pivot_date": "2011-11-15",
+          "pivot_close": "3199.47",
+          "confirmation_date": "2011-12-05",
+          "confirmation_lag_sessions": 14,
+          "same_segment_intraday_extreme_date": "2011-11-03",
+          "intraday_date_shift_sessions": -8,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 9,
+          "side": "BOTTOM",
+          "pivot_date": "2012-01-05",
+          "pivot_close": "2513.7",
+          "confirmation_date": "2012-02-03",
+          "confirmation_lag_sessions": 16,
+          "same_segment_intraday_extreme_date": "2012-01-06",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 9,
+          "side": "TOP",
+          "pivot_date": "2012-03-13",
+          "pivot_close": "3047.04",
+          "confirmation_date": "2012-03-29",
+          "confirmation_lag_sessions": 12,
+          "same_segment_intraday_extreme_date": "2012-03-14",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        },
+        {
+          "scale": 9,
+          "side": "TOP",
+          "pivot_date": "2012-05-07",
+          "pivot_close": "3026.91",
+          "confirmation_date": "2012-06-28",
+          "confirmation_lag_sessions": 37,
+          "same_segment_intraday_extreme_date": "2012-05-08",
+          "intraday_date_shift_sessions": 1,
+          "last_tie_selection": false,
+          "is_2016_plus": false
+        }
+      ]
+    }
+  },
+  "same_day_false_alert_examples": [
+    {
+      "task": "5_BOTTOM",
+      "preopen_alert_date": "2017-05-23",
+      "close_pivot_date": "2017-05-23",
+      "current_status": "FP",
+      "note": "Same day excluded by existing D+1..D+7 contract; close happens after preopen alert in real time."
+    },
+    {
+      "task": "5_BOTTOM",
+      "preopen_alert_date": "2019-01-03",
+      "close_pivot_date": "2019-01-03",
+      "current_status": "FP",
+      "note": "Same day excluded by existing D+1..D+7 contract; close happens after preopen alert in real time."
+    },
+    {
+      "task": "9_TOP",
+      "preopen_alert_date": "2024-10-08",
+      "close_pivot_date": "2024-10-08",
+      "current_status": "FP",
+      "note": "Same day excluded by existing D+1..D+7 contract; close happens after preopen alert in real time."
+    },
+    {
+      "task": "9_BOTTOM",
+      "preopen_alert_date": "2019-01-03",
+      "close_pivot_date": "2019-01-03",
+      "current_status": "FP",
+      "note": "Same day excluded by existing D+1..D+7 contract; close happens after preopen alert in real time."
+    }
+  ],
+  "cross_scale_date_differences": [
+    {
+      "9_pivot": "2011-10-21",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2011-10-21",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2011-11-15",
+      "direction": "TOP",
+      "nearest_5_pivot": "2011-11-15",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2012-01-05",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2012-01-05",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2012-03-13",
+      "direction": "TOP",
+      "nearest_5_pivot": "2012-03-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2012-03-29",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2012-03-29",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2012-05-07",
+      "direction": "TOP",
+      "nearest_5_pivot": "2012-05-07",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2012-12-03",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2012-12-03",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2013-02-08",
+      "direction": "TOP",
+      "nearest_5_pivot": "2013-02-08",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2013-04-15",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2013-04-15",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2013-05-29",
+      "direction": "TOP",
+      "nearest_5_pivot": "2013-05-29",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2013-06-25",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2013-06-25",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2013-10-21",
+      "direction": "TOP",
+      "nearest_5_pivot": "2013-10-21",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2014-01-20",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2014-01-20",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2014-02-17",
+      "direction": "TOP",
+      "nearest_5_pivot": "2014-02-17",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2014-05-19",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2014-05-19",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-06-12",
+      "direction": "TOP",
+      "nearest_5_pivot": "2015-06-12",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-07-08",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2015-07-08",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-07-23",
+      "direction": "TOP",
+      "nearest_5_pivot": "2015-07-23",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-08-03",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2015-08-03",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-08-17",
+      "direction": "TOP",
+      "nearest_5_pivot": "2015-08-17",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-08-26",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2015-08-26",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-08-28",
+      "direction": "TOP",
+      "nearest_5_pivot": "2015-08-28",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-09-15",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2015-09-15",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2015-12-22",
+      "direction": "TOP",
+      "nearest_5_pivot": "2015-12-22",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-01-28",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2016-01-28",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-02-22",
+      "direction": "TOP",
+      "nearest_5_pivot": "2016-02-22",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-02-29",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2016-02-29",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-04-14",
+      "direction": "TOP",
+      "nearest_5_pivot": "2016-04-14",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-05-18",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2016-05-18",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2016-11-28",
+      "direction": "TOP",
+      "nearest_5_pivot": "2016-11-28",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2017-05-23",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2017-05-23",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2017-11-13",
+      "direction": "TOP",
+      "nearest_5_pivot": "2017-11-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2018-02-09",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2018-02-09",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2018-03-12",
+      "direction": "TOP",
+      "nearest_5_pivot": "2018-03-12",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2018-10-18",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2018-10-18",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2018-11-19",
+      "direction": "TOP",
+      "nearest_5_pivot": "2018-11-19",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2019-01-03",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2019-01-03",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2019-04-19",
+      "direction": "TOP",
+      "nearest_5_pivot": "2019-04-19",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2019-06-06",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2019-06-06",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2019-07-01",
+      "direction": "TOP",
+      "nearest_5_pivot": "2019-07-01",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2019-08-09",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2019-08-09",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2020-01-13",
+      "direction": "TOP",
+      "nearest_5_pivot": "2020-01-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2020-02-03",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2020-02-03",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2020-03-05",
+      "direction": "TOP",
+      "nearest_5_pivot": "2020-03-05",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2020-03-23",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2020-03-23",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2021-02-19",
+      "direction": "TOP",
+      "nearest_5_pivot": "2021-02-19",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2021-03-09",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2021-03-09",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2021-12-13",
+      "direction": "TOP",
+      "nearest_5_pivot": "2021-12-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2022-04-26",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2022-04-26",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2022-06-28",
+      "direction": "TOP",
+      "nearest_5_pivot": "2022-06-28",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2022-10-31",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2022-10-31",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2023-02-14",
+      "direction": "TOP",
+      "nearest_5_pivot": "2023-02-14",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-02-05",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2024-02-05",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-05-20",
+      "direction": "TOP",
+      "nearest_5_pivot": "2024-05-20",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-09-13",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2024-09-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-10-08",
+      "direction": "TOP",
+      "nearest_5_pivot": "2024-10-08",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-10-17",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2024-10-17",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2024-11-11",
+      "direction": "TOP",
+      "nearest_5_pivot": "2024-11-11",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2025-01-13",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2025-01-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2025-03-18",
+      "direction": "TOP",
+      "nearest_5_pivot": "2025-03-18",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2025-04-07",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2025-04-07",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2026-02-27",
+      "direction": "TOP",
+      "nearest_5_pivot": "2026-02-27",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2026-03-23",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2026-03-23",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2026-05-13",
+      "direction": "TOP",
+      "nearest_5_pivot": "2026-05-13",
+      "gap": 0
+    },
+    {
+      "9_pivot": "2026-07-30",
+      "direction": "BOTTOM",
+      "nearest_5_pivot": "2026-07-30",
+      "gap": 0
+    }
+  ],
+  "raw_prices_sha256": "e2091ae8517c1a260f49e879ded0846e720489b62a789ed5fb22cf33e46d842a",
+  "definition": "Alternating 5%/9% reversal of daily closing price; pivot is prior close extreme, confirmation later; final unconfirmed segment omitted",
+  "business_definition_certified": false,
+  "old_labels_or_scores_modified": false,
+  "note": "Intraday comparison uses the same close-defined segment only, not a rebuilt OHLC pivot series. OHLC sequence cannot generally resolve intraday high/low order."
+}

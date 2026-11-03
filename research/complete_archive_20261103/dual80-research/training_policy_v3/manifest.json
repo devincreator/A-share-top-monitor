@@ -1,0 +1,37 @@
+{
+  "files": [
+    {
+      "path": "events.csv",
+      "sha256": "7c1fbdd080a04338084dc3763dd1f9c72db1c83e325875c77c3666e79123af54"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "33641747c8ec52be77863d94d23b138d968e7b6654c33425c216b894165166bd"
+    },
+    {
+      "path": "ranking_diagnostic.json",
+      "sha256": "3aba9d9ad060baf4616bcae1645fb6f7f6260b14ba207c1acb32e081678911b0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "ce6ec6d08748f22960ecd81f4b7e86eff1a9f061e67a72d6d21e98f1e60bd590"
+    },
+    {
+      "path": "result.json",
+      "sha256": "5abeb6342e8f01f69288e9daaae36f988d5864ecdfbf337cb8e9ea42659a3f0c"
+    },
+    {
+      "path": "run.py",
+      "sha256": "81020f76469d68d5e29e9e33d46627da98d94c6ea96f60e43f86006fa5e666f3"
+    },
+    {
+      "path": "scores.csv",
+      "sha256": "aeff05dcd0ee83e20f2ced55f24bababd971e65eccbf8982ef46f929815af6a1"
+    },
+    {
+      "path": "training_log.csv",
+      "sha256": "a63055146783c81a67c40362c698804971a888a7013a18a8752b48742a2150e7"
+    }
+  ],
+  "production_changed": false
+}

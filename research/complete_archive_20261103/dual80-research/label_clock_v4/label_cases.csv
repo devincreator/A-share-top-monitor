@@ -1,0 +1,11 @@
+﻿scale,direction,close_pivot,intraday_nearest,shift_sessions,close_confirm,intraday_confirm,interpretation,plot_start,plot_end
+5,TOP,2019-04-19,2019-04-08,-9,2019-04-25,2019-04-25,Nearest same-direction dates only; not a claim of identical wave identity,2019-03-08,2019-05-29
+5,TOP,2020-08-18,2020-08-31,9,2020-09-09,2020-09-09,Nearest same-direction dates only; not a claim of identical wave identity,2020-07-21,2020-10-13
+9,TOP,2019-04-19,2019-04-08,-9,2019-05-06,2019-05-06,Nearest same-direction dates only; not a claim of identical wave identity,2019-03-08,2019-05-29
+5,TOP,2011-11-15,2011-11-03,-8,2011-11-18,2011-11-18,Nearest same-direction dates only; not a claim of identical wave identity,2011-09-29,2011-12-20
+9,TOP,2011-11-15,2011-11-03,-8,2011-12-05,2011-12-05,Nearest same-direction dates only; not a claim of identical wave identity,2011-09-29,2011-12-20
+5,BOTTOM,2026-07-30,2026-07-21,-7,2026-08-05,2026-07-21,Nearest same-direction dates only; not a claim of identical wave identity,2026-06-23,2026-08-25
+5,TOP,2015-06-12,2015-06-15,1,2015-06-16,2015-06-16,Nearest same-direction dates only; not a claim of identical wave identity,2015-05-15,2015-07-21
+5,BOTTOM,2020-07-24,2020-07-17,-5,2020-08-03,2020-07-22,Nearest same-direction dates only; not a claim of identical wave identity,2020-06-17,2020-08-28
+5,BOTTOM,2024-02-05,2024-02-05,0,2024-02-07,2024-02-06,Nearest same-direction dates only; not a claim of identical wave identity,2024-01-08,2024-03-19
+5,BOTTOM,2024-09-13,2024-09-18,1,2024-09-24,2024-09-24,Nearest same-direction dates only; not a claim of identical wave identity,2024-08-16,2024-10-30

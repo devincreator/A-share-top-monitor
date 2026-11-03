@@ -1,0 +1,19 @@
+{
+  "review_date": "2026-11-02",
+  "files": [
+    {
+      "path": "diagnose_failure.py",
+      "sha256": "14f7b98d8f23eb6e810106f85e20f6345d6635aa8e20fd8e9fa5a220487229cb"
+    },
+    {
+      "path": "failure_diagnostics.json",
+      "sha256": "72270505ec69bd97ea588b8bafc025496a13b65d479610fee41bb0404a019378"
+    },
+    {
+      "path": "失败原因与优化建议_20261102.md",
+      "sha256": "985aec95a2d76ba55d9b9a0bfe5e2e9c4d8ccbb314fdd47e030747ad1a605e71"
+    }
+  ],
+  "new_candidate_models_tested": 0,
+  "production_changed": false
+}

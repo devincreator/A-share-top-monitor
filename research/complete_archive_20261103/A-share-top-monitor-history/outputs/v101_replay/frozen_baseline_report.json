@@ -1,0 +1,137 @@
+{
+  "experiment": "V101_FRESH_UNTUNED_PREOPEN_PRICE_ONLY_BENCHMARK",
+  "index": "000985.CSI",
+  "schema_version": 1,
+  "frozen_original_source": {
+    "price_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+    "pivots_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1"
+  },
+  "source_dates": {
+    "first": "2022-02-23",
+    "last": "2026-10-20",
+    "trading_sessions": 1128
+  },
+  "last_decision_day": "2026-10-20",
+  "prediction_time": "09:20 Asia/Shanghai",
+  "max_feature_observation_index_offset": -1,
+  "candidate_publication_clock": "Previous official-trading-day close assumed available before next day 09:20; actual historical release times NOT independently certified",
+  "historical_PIT_certified": false,
+  "source_originally_captured_at_forecast_date": false,
+  "label_truth": "2026-10-20 ex-post frozen 5/9% alternating close-reversal labels used for scoring only",
+  "pre_registered_without_optimizing_against_labels": true,
+  "older_V63_V68_FORMAL_START_required": false,
+  "old_V63_V68_summary_used_for_selection": false,
+  "sample_out_of_sample": false,
+  "research_only": true,
+  "formal_signal_allowed": false,
+  "production_updated": false,
+  "maturity_buffer_after_pivot_confirmation_sessions": 140,
+  "rules": {
+    "5_TOP": {
+      "window": 63,
+      "momentum": 20,
+      "limit": "0.90",
+      "minimum_momentum": "0.015",
+      "cooldown": 10,
+      "lead": 10,
+      "direction": "TOP",
+      "scale": "5"
+    },
+    "5_BOTTOM": {
+      "window": 63,
+      "momentum": 20,
+      "limit": "0.10",
+      "minimum_momentum": "0.015",
+      "cooldown": 10,
+      "lead": 10,
+      "direction": "BOTTOM",
+      "scale": "5"
+    },
+    "9_TOP": {
+      "window": 126,
+      "momentum": 60,
+      "limit": "0.95",
+      "minimum_momentum": "0.055",
+      "cooldown": 20,
+      "lead": 20,
+      "direction": "TOP",
+      "scale": "9"
+    },
+    "9_BOTTOM": {
+      "window": 126,
+      "momentum": 60,
+      "limit": "0.05",
+      "minimum_momentum": "0.055",
+      "cooldown": 20,
+      "lead": 20,
+      "direction": "BOTTOM",
+      "scale": "9"
+    }
+  },
+  "task_metrics": {
+    "5_TOP": {
+      "generated_formal_starts": 21,
+      "tp": 8,
+      "fp": 11,
+      "fn": 8,
+      "pending": 2,
+      "excluded_alerts_left_boundary": 0,
+      "mature_pivots": 16,
+      "excluded_pivots_left_boundary": 1,
+      "immature_pivots": 3,
+      "precision": 0.42105263157894735,
+      "recall": 0.5,
+      "goal_precision_ge_0_8": false,
+      "goal_recall_ge_0_8": false
+    },
+    "5_BOTTOM": {
+      "generated_formal_starts": 22,
+      "tp": 6,
+      "fp": 12,
+      "fn": 10,
+      "pending": 4,
+      "excluded_alerts_left_boundary": 0,
+      "mature_pivots": 16,
+      "excluded_pivots_left_boundary": 0,
+      "immature_pivots": 3,
+      "precision": 0.3333333333333333,
+      "recall": 0.375,
+      "goal_precision_ge_0_8": false,
+      "goal_recall_ge_0_8": false
+    },
+    "9_TOP": {
+      "generated_formal_starts": 10,
+      "tp": 2,
+      "fp": 7,
+      "fn": 5,
+      "pending": 1,
+      "excluded_alerts_left_boundary": 0,
+      "mature_pivots": 7,
+      "excluded_pivots_left_boundary": 1,
+      "immature_pivots": 2,
+      "precision": 0.2222222222222222,
+      "recall": 0.2857142857142857,
+      "goal_precision_ge_0_8": false,
+      "goal_recall_ge_0_8": false
+    },
+    "9_BOTTOM": {
+      "generated_formal_starts": 6,
+      "tp": 2,
+      "fp": 2,
+      "fn": 5,
+      "pending": 2,
+      "excluded_alerts_left_boundary": 0,
+      "mature_pivots": 7,
+      "excluded_pivots_left_boundary": 0,
+      "immature_pivots": 2,
+      "precision": 0.5,
+      "recall": 0.2857142857142857,
+      "goal_precision_ge_0_8": false,
+      "goal_recall_ge_0_8": false
+    }
+  },
+  "all_four_tasks_precision_and_recall_ge_0_8": false,
+  "warning": "Retrospective, repeatedly studied data; no authentic historical publication-time proof or true prospective event predictions. No trading or production recommendations.",
+  "signals_count": 59,
+  "event_rows_sha256": "e180e3254e100d9ab352aa6ed74e7156c54f01350afad188fd5a00cc5ea578cc"
+}

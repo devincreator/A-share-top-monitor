@@ -1,0 +1,36 @@
+{
+  "000985_labels_exactly_match_previous_comparison": true,
+  "all_three_indices_alternation_and_date_order_pass": true,
+  "dates": 3659,
+  "range": [
+    "2011-08-02",
+    "2026-08-25"
+  ],
+  "total_labels": 1395,
+  "by_index": {
+    "000985": {
+      "5_close": 135,
+      "5_intraday_extrema_close_confirm": 171,
+      "9_close": 65,
+      "9_intraday_extrema_close_confirm": 72
+    },
+    "000300": {
+      "5_close": 124,
+      "5_intraday_extrema_close_confirm": 165,
+      "9_close": 38,
+      "9_intraday_extrema_close_confirm": 54
+    },
+    "000852": {
+      "5_close": 166,
+      "5_intraday_extrema_close_confirm": 232,
+      "9_close": 77,
+      "9_intraday_extrema_close_confirm": 96
+    }
+  },
+  "source_sha256": {
+    "000985": "e2091ae8517c1a260f49e879ded0846e720489b62a789ed5fb22cf33e46d842a",
+    "000300": "f9e156997d1592f2767cb5c624b5248754882be52583516af78940ef54e22377",
+    "000852": "3a1f74c226fac8a4c10bf7cd8d12701b734746fab0a948869161dbe54b8ebc3a"
+  },
+  "production_modified": false
+}

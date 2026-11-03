@@ -1,0 +1,16 @@
+{
+  "additional_models": [
+    "shrinkage_gaussian",
+    "knn50"
+  ],
+  "reason": "Test nonlinear distribution and historical-shape similarity separately from linear logistic; same feature families, clock, validation and alert policies",
+  "fixed_parameters": {
+    "gaussian_covariance": "diagonal, 50% shrinkage to global variance, variance floor0.05",
+    "nearest_neighbors": 50,
+    "nearest_neighbors_distance": "training-standardized squared Euclidean, stable tie ordering"
+  },
+  "new_configurations": 24,
+  "total_configurations_including_logistic": 36,
+  "hyperparameter_search": false,
+  "final_model_selection_by_test_result_allowed": false
+}

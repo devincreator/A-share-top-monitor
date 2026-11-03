@@ -1,0 +1,32 @@
+{
+  "decision": "intraday_extrema_close_confirm primary; close robustness",
+  "made_before_v4_training": true,
+  "business_rationale": "Preopen warnings concern the price extreme reached during the session, not just the last closing print; chosen by target semantics and OHLC case audit, not optimized alert score",
+  "case_selection": "six largest nearest same-direction date disagreements plus four fixed market episodes; no alert outcomes used for case selection",
+  "caveats": [
+    "Not pure intraday reversal confirmation",
+    "Nearest same-direction dates do not establish same-wave identity",
+    "5% intraday labels have more short waves and 17 same-day confirmations; not filtered to improve scores",
+    "Final unconfirmed segment omitted; labels known only at confirmation close",
+    "All historical data previously inspected; no untouched holdout claimed"
+  ],
+  "contract": {
+    "effective_date": "2026-11-02",
+    "user_confirmed_window": {
+      "decision": "D preopen",
+      "minimum_lead_sessions": 0,
+      "maximum_lead_sessions": 6,
+      "count_sessions_inclusive": 7
+    },
+    "labels": "Primary research: INTRADAY_EXTREMA_CLOSE_CONFIRMED; CLOSE retained as robustness control",
+    "matching": "same scale, same direction, one alert at most one pivot, one pivot at most one alert",
+    "target": "Each 5_TOP/5_BOTTOM/9_TOP/9_BOTTOM precision>=.8 and recall>=.8",
+    "old_window": "D+1..D+7 historical only",
+    "warning": "Existing earlier experiment scripts retain historical settings and must not be used as the active contract without migration",
+    "production_updated": false,
+    "label_choice_basis": "Preopen warnings concern the price extreme reached during the session, not just the last closing print; chosen by target semantics and OHLC case audit, not optimized alert score",
+    "primary_index": "000985.CSI, whole-market research; 000300/000852 style controls, not substituted by retrospective scores",
+    "training_policy": "label_clock_v4: quarterly fit, confirmation visible by D-1, no extra 140-day training delay; historical publication timing remains uncertified",
+    "research_label_freeze": "label_clock_v4/label_decision.json; historical comparisons and original labels preserved"
+  }
+}

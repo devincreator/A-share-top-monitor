@@ -1,0 +1,40 @@
+{
+  "original_rows": 3644,
+  "appended_candidate_rows": 49,
+  "last_date": "2026-10-20",
+  "source_boundary": "2026-08-04",
+  "candidate_amount_display_rounded": true,
+  "old_turnover_definition_equal_to_new_not_certified": true,
+  "old_financing_market_scope_not_certified": true,
+  "historical_publication_certified": false,
+  "calendar_source": "Pinned V101 observed index session sequence; not independently exchange-certified",
+  "overlap": {
+    "all_a_close": {
+      "rows": 25,
+      "max_abs_difference": 0.0
+    },
+    "hs300_close": {
+      "rows": 25,
+      "max_abs_difference": 0.0
+    },
+    "zz1000_close": {
+      "rows": 25,
+      "max_abs_difference": 0.0
+    },
+    "turnover": {
+      "rows": 25,
+      "max_abs_difference": 48243800.0
+    },
+    "turnover_rate": {
+      "rows": 25,
+      "max_abs_difference": 2.0269
+    },
+    "financing_balance": {
+      "rows": 25,
+      "max_abs_difference": 157228592123.0
+    }
+  },
+  "excluded_provider_non_session_rows": 114,
+  "model_clock": "AFTER_CLOSE: uses same-day close; NOT D-day preopen",
+  "production_updated": false
+}

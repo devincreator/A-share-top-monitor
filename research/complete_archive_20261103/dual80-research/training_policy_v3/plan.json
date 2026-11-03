@@ -1,0 +1,32 @@
+{
+  "policies": [
+    [
+      140,
+      "annual"
+    ],
+    [
+      140,
+      "quarterly"
+    ],
+    [
+      0,
+      "annual"
+    ],
+    [
+      0,
+      "quarterly"
+    ]
+  ],
+  "estimator": "Fixed price-only six-feature logistic regression L2=10",
+  "threshold": 0.1,
+  "minimum_independent_positive_events": 10,
+  "training_clock": "Only pivot confirmation+policy buffer no later than previous observation",
+  "positive_samples": "Complete known positive windows, overlap event weights accumulated",
+  "negative_samples": "Only windows ending no later than latest known eligible pivot",
+  "evaluation": "Same continuous 2016+ cohort and confirmation+140 maturity frontier for all four policies",
+  "threshold_search": false,
+  "PIT_certified": false,
+  "blind_sample": false,
+  "production_changed": false,
+  "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538"
+}

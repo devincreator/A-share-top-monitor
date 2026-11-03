@@ -1,0 +1,225 @@
+{
+  "plan": {
+    "policies": [
+      [
+        140,
+        "annual"
+      ],
+      [
+        140,
+        "quarterly"
+      ],
+      [
+        0,
+        "annual"
+      ],
+      [
+        0,
+        "quarterly"
+      ]
+    ],
+    "estimator": "Fixed price-only six-feature logistic regression L2=10",
+    "threshold": 0.1,
+    "minimum_independent_positive_events": 10,
+    "training_clock": "Only pivot confirmation+policy buffer no later than previous observation",
+    "positive_samples": "Complete known positive windows, overlap event weights accumulated",
+    "negative_samples": "Only windows ending no later than latest known eligible pivot",
+    "evaluation": "Same continuous 2016+ cohort and confirmation+140 maturity frontier for all four policies",
+    "threshold_search": false,
+    "PIT_certified": false,
+    "blind_sample": false,
+    "production_changed": false,
+    "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538"
+  },
+  "results": {
+    "buffer140_annual": {
+      "5_TOP": {
+        "tp": 6,
+        "fp": 74,
+        "fn": 32,
+        "precision": 0.075,
+        "recall": 0.15789473684210525,
+        "pending": 9,
+        "targets": 38,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "5_BOTTOM": {
+        "tp": 9,
+        "fp": 87,
+        "fn": 30,
+        "precision": 0.09375,
+        "recall": 0.23076923076923078,
+        "pending": 8,
+        "targets": 39,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "9_TOP": {
+        "tp": 5,
+        "fp": 22,
+        "fn": 13,
+        "precision": 0.18518518518518517,
+        "recall": 0.2777777777777778,
+        "pending": 9,
+        "targets": 18,
+        "frontier": "2025-04-07",
+        "double80": false
+      },
+      "9_BOTTOM": {
+        "tp": 8,
+        "fp": 63,
+        "fn": 11,
+        "precision": 0.11267605633802817,
+        "recall": 0.42105263157894735,
+        "pending": 6,
+        "targets": 19,
+        "frontier": "2025-04-07",
+        "double80": false
+      }
+    },
+    "buffer140_quarterly": {
+      "5_TOP": {
+        "tp": 6,
+        "fp": 77,
+        "fn": 32,
+        "precision": 0.07228915662650602,
+        "recall": 0.15789473684210525,
+        "pending": 9,
+        "targets": 38,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "5_BOTTOM": {
+        "tp": 10,
+        "fp": 93,
+        "fn": 29,
+        "precision": 0.0970873786407767,
+        "recall": 0.2564102564102564,
+        "pending": 8,
+        "targets": 39,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "9_TOP": {
+        "tp": 2,
+        "fp": 25,
+        "fn": 16,
+        "precision": 0.07407407407407407,
+        "recall": 0.1111111111111111,
+        "pending": 10,
+        "targets": 18,
+        "frontier": "2025-04-07",
+        "double80": false
+      },
+      "9_BOTTOM": {
+        "tp": 7,
+        "fp": 65,
+        "fn": 12,
+        "precision": 0.09722222222222222,
+        "recall": 0.3684210526315789,
+        "pending": 6,
+        "targets": 19,
+        "frontier": "2025-04-07",
+        "double80": false
+      }
+    },
+    "buffer0_annual": {
+      "5_TOP": {
+        "tp": 6,
+        "fp": 75,
+        "fn": 32,
+        "precision": 0.07407407407407407,
+        "recall": 0.15789473684210525,
+        "pending": 9,
+        "targets": 38,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "5_BOTTOM": {
+        "tp": 10,
+        "fp": 94,
+        "fn": 29,
+        "precision": 0.09615384615384616,
+        "recall": 0.2564102564102564,
+        "pending": 7,
+        "targets": 39,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "9_TOP": {
+        "tp": 6,
+        "fp": 24,
+        "fn": 12,
+        "precision": 0.2,
+        "recall": 0.3333333333333333,
+        "pending": 11,
+        "targets": 18,
+        "frontier": "2025-04-07",
+        "double80": false
+      },
+      "9_BOTTOM": {
+        "tp": 8,
+        "fp": 64,
+        "fn": 11,
+        "precision": 0.1111111111111111,
+        "recall": 0.42105263157894735,
+        "pending": 6,
+        "targets": 19,
+        "frontier": "2025-04-07",
+        "double80": false
+      }
+    },
+    "buffer0_quarterly": {
+      "5_TOP": {
+        "tp": 5,
+        "fp": 82,
+        "fn": 33,
+        "precision": 0.05747126436781609,
+        "recall": 0.13157894736842105,
+        "pending": 9,
+        "targets": 38,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "5_BOTTOM": {
+        "tp": 10,
+        "fp": 93,
+        "fn": 29,
+        "precision": 0.0970873786407767,
+        "recall": 0.2564102564102564,
+        "pending": 8,
+        "targets": 39,
+        "frontier": "2025-11-21",
+        "double80": false
+      },
+      "9_TOP": {
+        "tp": 3,
+        "fp": 23,
+        "fn": 15,
+        "precision": 0.11538461538461539,
+        "recall": 0.16666666666666666,
+        "pending": 12,
+        "targets": 18,
+        "frontier": "2025-04-07",
+        "double80": false
+      },
+      "9_BOTTOM": {
+        "tp": 10,
+        "fp": 69,
+        "fn": 9,
+        "precision": 0.12658227848101267,
+        "recall": 0.5263157894736842,
+        "pending": 6,
+        "targets": 19,
+        "frontier": "2025-04-07",
+        "double80": false
+      }
+    }
+  },
+  "prefix_scores_checked": 21866,
+  "prefix_alarms_checked": 659,
+  "prefix_pass": true,
+  "new_training_construction_applied_to_all_4_arms": true,
+  "note": "Threshold intentionally fixed to isolate training policy. No claim of calibrated probabilities or PIT certification."
+}

@@ -1,0 +1,51 @@
+{
+  "requested_start": "2011-08-02",
+  "requested_end": "2026-08-25",
+  "first_observed_market_day": "2011-08-02",
+  "last_observed_market_day": "2026-08-25",
+  "market_days_received": 3659,
+  "provider_batches_completed": 322,
+  "failed_batches": [],
+  "missing_field_count": 0,
+  "invalid_field_count": 0,
+  "conflicts": 0,
+  "old_market_dates_absent_from_new_source": [],
+  "fields": {
+    "all_a_close": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "94.725"
+    },
+    "hs300_close": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "0.0005"
+    },
+    "zz1000_close": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 2869,
+      "max_abs_difference": "0.000"
+    },
+    "turnover": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "65500000001.0000"
+    },
+    "turnover_rate": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "2.127"
+    },
+    "financing_balance": {
+      "received_nonmissing_days": 3659,
+      "overlap_days": 3644,
+      "max_abs_difference": "228833916226.0000"
+    }
+  },
+  "legacy_values_used_as_input": false,
+  "calendar_is_officially_certified": false,
+  "source_scope_identical_to_legacy": false,
+  "historical_original_publication_certified": false,
+  "all_six_fields_complete": true,
+  "note": "numeric completeness is separate from source-definition equivalence and historical as-of certification"
+}

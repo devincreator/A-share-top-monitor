@@ -1,0 +1,32 @@
+[
+  {
+    "original_path": "D:\\edge下载\\a_share_5_9_daily_reconstruction.csv",
+    "copy": "sources/a_share_5_9_daily_reconstruction.csv",
+    "sha256": "10f38086191dd9ab194f6bf478fc26fc2eba7fb59f0883c6d84019ef64e6e621"
+  },
+  {
+    "original_path": "D:\\edge下载\\calculate_new_signals.py",
+    "copy": "sources/calculate_new_signals.py",
+    "sha256": "75b5fbeb6ebb9f4df5559069993c42d74a8e73b25b5e9ce775f139d75eb5d2fc"
+  },
+  {
+    "original_path": "D:\\edge下载\\verify_signal_reproduction_fixed.py",
+    "copy": "sources/verify_signal_reproduction_fixed.py",
+    "sha256": "0ca1d4505952ca84f083cfff51a3bbd7faeaedc8d4035ada667060d7b44a513d"
+  },
+  {
+    "original_path": "D:\\edge下载\\calculate_position_fixed.py",
+    "copy": "sources/calculate_position_fixed.py",
+    "sha256": "0a8ac2a1be7634b3b98fc8b3270358e65248f429e19f00b48dee6f3ca08ba9f0"
+  },
+  {
+    "original_path": "D:\\edge下载\\recompute_rolling_and_check.py",
+    "copy": "sources/recompute_rolling_and_check.py",
+    "sha256": "b795fc95496b5fb3772d6d67199f64bbb4fb6d2f2b44eebdf8e5ab628b7a5789"
+  },
+  {
+    "original_path": "D:\\edge下载\\a_share_turning_complete_v30_online_poc_same_ui.html",
+    "copy": "sources/a_share_turning_complete_v30_online_poc_same_ui.html",
+    "sha256": "b0d24321971f676d8866cda5f24c191105a7da5714ddc2ca4f05767046f165cd"
+  }
+]

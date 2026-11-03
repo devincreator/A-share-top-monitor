@@ -1,0 +1,27 @@
+{
+  "model": "L2 logistic regression, penalty 10, fixed; six continuous price features",
+  "features": [
+    "return3_scaled",
+    "return20_scaled",
+    "change_in_return3_scaled",
+    "distance_to_20day_high_scaled",
+    "distance_to_20day_low_scaled",
+    "position63_continuous"
+  ],
+  "thresholds": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "training": "Annual refit; fit data available at previous calendar year start; preceding year validation for threshold; test year strictly later",
+  "label_policy": "Confirmation+140 by cutoff; negative windows end no later than latest mature pivot of either direction for this scale",
+  "alert_policy": "One live ledger per task, no year reset; valid seven sessions, rearm after below threshold and expiry; never rescind",
+  "score": "Continuous global same-direction same-scale one-to-one; unresolved tail PENDING",
+  "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+  "PIT_certified": false,
+  "blind_sample": false,
+  "production_changed": false
+}

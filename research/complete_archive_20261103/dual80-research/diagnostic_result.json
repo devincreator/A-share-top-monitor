@@ -1,0 +1,1612 @@
+{
+  "diagnostics": {
+    "5_TOP": {
+      "fn_reasons": {
+        "NO_ELIGIBLE_DAY_IN_WINDOW": 18,
+        "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED": 5
+      },
+      "fp_reasons": {
+        "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS": 24,
+        "NEXT_PIVOT_8_TO_20_SESSIONS": 11
+      },
+      "scored_pivots": 38,
+      "maximum_matched_pivots_if_alert_on_every_baseline_eligible_day": 20,
+      "gate_recall_upper_bound": 0.5263157894736842,
+      "oracle_is_hindsight_diagnostic_only": true
+    },
+    "5_BOTTOM": {
+      "fn_reasons": {
+        "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED": 5,
+        "NO_ELIGIBLE_DAY_IN_WINDOW": 21
+      },
+      "fp_reasons": {
+        "NEXT_PIVOT_8_TO_20_SESSIONS": 9,
+        "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS": 26
+      },
+      "scored_pivots": 38,
+      "maximum_matched_pivots_if_alert_on_every_baseline_eligible_day": 17,
+      "gate_recall_upper_bound": 0.4473684210526316,
+      "oracle_is_hindsight_diagnostic_only": true
+    },
+    "9_TOP": {
+      "fn_reasons": {
+        "NO_ELIGIBLE_DAY_IN_WINDOW": 12,
+        "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED": 3
+      },
+      "fp_reasons": {
+        "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS": 18,
+        "NEXT_PIVOT_8_TO_20_SESSIONS": 3
+      },
+      "scored_pivots": 18,
+      "maximum_matched_pivots_if_alert_on_every_baseline_eligible_day": 6,
+      "gate_recall_upper_bound": 0.3333333333333333,
+      "oracle_is_hindsight_diagnostic_only": true
+    },
+    "9_BOTTOM": {
+      "fn_reasons": {
+        "NO_ELIGIBLE_DAY_IN_WINDOW": 11,
+        "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED": 3
+      },
+      "fp_reasons": {
+        "NEXT_PIVOT_8_TO_20_SESSIONS": 3,
+        "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS": 10
+      },
+      "scored_pivots": 18,
+      "maximum_matched_pivots_if_alert_on_every_baseline_eligible_day": 7,
+      "gate_recall_upper_bound": 0.3888888888888889,
+      "oracle_is_hindsight_diagnostic_only": true
+    }
+  },
+  "details": [
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-02-22",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-04-14",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-07-26",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2016-07-15",
+        "2016-07-18",
+        "2016-07-19",
+        "2016-07-20",
+        "2016-07-21",
+        "2016-07-22"
+      ]
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-11-28",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2016-11-17",
+        "2016-11-18",
+        "2016-11-21",
+        "2016-11-22",
+        "2016-11-23",
+        "2016-11-24",
+        "2016-11-25"
+      ]
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-04-15",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 69
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-07-07",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 13
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-07-27",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 81
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-08-18",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 65
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-09-07",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 51
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-10-20",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 27
+    },
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-11-04",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 16
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FN",
+      "date": "2017-04-11",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FN",
+      "date": "2017-11-13",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-03-17",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 15
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-04-12",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 145
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-08-02",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 68
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-08-28",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 50
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-10-11",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 23
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-10-27",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 11
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-11-14",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 50
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-01-24",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-03-12",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-07-25",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-09-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-11-19",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-01-25",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 27
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-07-01",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-02-14",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 45
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-03-12",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 27
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-04-01",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 13
+    },
+    {
+      "task": "5_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-12-18",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 17
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-03-05",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2020-02-25",
+        "2020-02-26"
+      ]
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-07-13",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2020-07-02",
+        "2020-07-03",
+        "2020-07-06",
+        "2020-07-07",
+        "2020-07-08",
+        "2020-07-09",
+        "2020-07-10"
+      ]
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-08-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-06-12",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 19
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-08-04",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 10
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-08-25",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 116
+    },
+    {
+      "task": "5_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-11-24",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 57
+    },
+    {
+      "task": "5_TOP",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-01-05",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 28
+    },
+    {
+      "task": "5_TOP",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-01-21",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 16
+    },
+    {
+      "task": "5_TOP",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-05-28",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 38
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-03-23",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-08-17",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-10-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-12-09",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2023,
+      "event": "FN",
+      "date": "2023-11-15",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-01-17",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 15
+    },
+    {
+      "task": "5_TOP",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-04-10",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 146
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-03-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-05-20",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2024-05-10",
+        "2024-05-13",
+        "2024-05-14",
+        "2024-05-15",
+        "2024-05-16",
+        "2024-05-17"
+      ]
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-12-12",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-03-19",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 39
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-04-30",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 11
+    },
+    {
+      "task": "5_TOP",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-12-13",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 60
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-06-26",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 69
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-08-06",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 40
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-08-29",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 23
+    },
+    {
+      "task": "5_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-11-14",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 67
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-01-28",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2016-01-19",
+        "2016-01-22",
+        "2016-01-25",
+        "2016-01-26",
+        "2016-01-27"
+      ]
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-02-29",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-05-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-08-01",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-01-08",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 14
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-03-01",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 54
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FN",
+      "date": "2017-01-16",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FN",
+      "date": "2017-05-23",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2017-05-12",
+        "2017-05-15",
+        "2017-05-16"
+      ]
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-01-17",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 82
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-04-25",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 19
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-05-23",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 135
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-12-19",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 37
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-05-31",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 24
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-08-06",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 30
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-10-30",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 45
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-11-29",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-01-03",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 101
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-12-02",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 38
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-02-03",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-02-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-03-23",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-07-24",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-09-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-02-04",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 18
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-03-24",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 82
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-10-09",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 101
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FN",
+      "date": "2021-03-09",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FN",
+      "date": "2021-07-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FN",
+      "date": "2021-09-29",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-03-10",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 95
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-03-25",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 84
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-04-13",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 72
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-07-29",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 42
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-04-26",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2022-04-20",
+        "2022-04-21",
+        "2022-04-22",
+        "2022-04-25"
+      ]
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-08-03",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-12-23",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-01-24",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 31
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-02-15",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 20
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-04-12",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 10
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-09-02",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 20
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FN",
+      "date": "2023-10-23",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2023-10-17",
+        "2023-10-18",
+        "2023-10-19",
+        "2023-10-20"
+      ]
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-04-25",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 118
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-05-15",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 107
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-05-30",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 96
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-07-21",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 60
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-08-15",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 43
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-10-11",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 8
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-12-19",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 33
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-04-16",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-09-13",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2024-09-04",
+        "2024-09-05",
+        "2024-09-06",
+        "2024-09-09",
+        "2024-09-10",
+        "2024-09-11",
+        "2024-09-12"
+      ]
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-10-17",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-11-26",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-01-08",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 20
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-06-21",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 60
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-07-11",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 46
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-08-07",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 27
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-09-03",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 8
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-04-07",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-10-17",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-11-21",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-04-08",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 128
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-02-22",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-04-14",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-11-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-07-20",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 86
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-09-07",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 51
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-11-02",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 18
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "event": "FP",
+      "date": "2016-12-02",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 230
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-09-04",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 45
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-10-10",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 24
+    },
+    {
+      "task": "9_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-03-12",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2018,
+      "event": "FN",
+      "date": "2018-11-19",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-04-19",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2019-04-10",
+        "2019-04-11",
+        "2019-04-17",
+        "2019-04-18"
+      ]
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-07-01",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-02-25",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 38
+    },
+    {
+      "task": "9_TOP",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-04-01",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 13
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-01-13",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2020-01-02",
+        "2020-01-03",
+        "2020-01-06",
+        "2020-01-07",
+        "2020-01-08",
+        "2020-01-10"
+      ]
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-03-05",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2020-02-25",
+        "2020-02-26"
+      ]
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-02-21",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 9
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-07-01",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 155
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-08-04",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 131
+    },
+    {
+      "task": "9_TOP",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-09-02",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 110
+    },
+    {
+      "task": "9_TOP",
+      "year": 2021,
+      "event": "FN",
+      "date": "2021-12-13",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-01-04",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 29
+    },
+    {
+      "task": "9_TOP",
+      "year": 2021,
+      "event": "FP",
+      "date": "2021-09-09",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 60
+    },
+    {
+      "task": "9_TOP",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-06-28",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2023,
+      "event": "FN",
+      "date": "2023-02-14",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-04-10",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 267
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-05-20",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-10-08",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-10-08",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 24
+    },
+    {
+      "task": "9_TOP",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-12-13",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 60
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-03-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-07-11",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 151
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-08-29",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 116
+    },
+    {
+      "task": "9_TOP",
+      "year": 2025,
+      "event": "FP",
+      "date": "2025-10-28",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 80
+    },
+    {
+      "task": "9_TOP",
+      "year": 2026,
+      "event": "FP",
+      "date": "2026-01-09",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 29
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-02-29",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "event": "FN",
+      "date": "2016-05-18",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2017,
+      "event": "FN",
+      "date": "2017-05-23",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2017-05-12",
+        "2017-05-15"
+      ]
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2017,
+      "event": "FP",
+      "date": "2017-05-11",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 8
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-05-31",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 93
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-07-03",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 71
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-08-03",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 48
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2018,
+      "event": "FP",
+      "date": "2018-09-04",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 26
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-06-06",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2019,
+      "event": "FN",
+      "date": "2019-08-09",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2019,
+      "event": "FP",
+      "date": "2019-01-03",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 101
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-02-03",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2020,
+      "event": "FN",
+      "date": "2020-03-23",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2020,
+      "event": "FP",
+      "date": "2020-03-24",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 232
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2021,
+      "event": "FN",
+      "date": "2021-03-09",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "event": "FN",
+      "date": "2022-10-31",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-02-07",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 54
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2022,
+      "event": "FP",
+      "date": "2022-03-08",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 33
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-10-17",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 78
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2023,
+      "event": "FP",
+      "date": "2023-12-19",
+      "reason": "NO_SAME_DIRECTION_PIVOT_WITHIN_20_SESSIONS",
+      "next_pivot_gap": 33
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-02-05",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2024-01-31",
+        "2024-02-01",
+        "2024-02-02"
+      ]
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-09-13",
+      "reason": "ELIGIBLE_BUT_EDGE_OR_COOLDOWN_OR_MATCHING_BLOCKED",
+      "eligible_dates": [
+        "2024-09-05",
+        "2024-09-06",
+        "2024-09-09",
+        "2024-09-10",
+        "2024-09-11",
+        "2024-09-12"
+      ]
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "event": "FN",
+      "date": "2024-10-17",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-01-18",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 12
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2024,
+      "event": "FP",
+      "date": "2024-08-19",
+      "reason": "NEXT_PIVOT_8_TO_20_SESSIONS",
+      "next_pivot_gap": 19
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-01-13",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2025,
+      "event": "FN",
+      "date": "2025-04-07",
+      "reason": "NO_ELIGIBLE_DAY_IN_WINDOW",
+      "eligible_dates": []
+    }
+  ],
+  "exhaustive_match_checks_passed": 500,
+  "PIT_certified": false,
+  "unseen_sample": false,
+  "interpretation": "Upper bound applies only to candidates restricted to current baseline eligibility gate under the same scored opportunities. It is not a deployable model or a universal predictability bound."
+}

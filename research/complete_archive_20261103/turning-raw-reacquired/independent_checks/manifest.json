@@ -1,0 +1,50 @@
+[
+  {
+    "file": "amount_20150317.json",
+    "sha256": "28b8cd523638978edd9b51373c7051b7bc8177c3da92556c2bed90353e21e5f5"
+  },
+  {
+    "file": "csi_amount_20150317.json",
+    "sha256": "c3a8759775f9fc89799d8d2e6ba1c5474ef1aa93de87aa430de28f45fb6d4945"
+  },
+  {
+    "file": "csi_price_20141209.json",
+    "sha256": "f96c0646bf19f4c3d200a16d17b6990ec7369680a6b34271a185c69f130ae1e8"
+  },
+  {
+    "file": "price_20141209.json",
+    "sha256": "d15173dc96684e6254cc70650fcb27bb6a63a3791a1d2ff90d31f32346dea50b"
+  },
+  {
+    "file": "sse_finance_20210913.json",
+    "sha256": "d226e8a8da13b704525305668eeb783be95f62acba9a85824583ed1726259888"
+  },
+  {
+    "file": "sse_summary_2020-07-13.json",
+    "sha256": "1db65783e64a78e0b162fa34d1af2dd80b6b246236710454a75b0d1364b567df"
+  },
+  {
+    "file": "sse_summary_2021-09-13.json",
+    "sha256": "41fc53d8ef3294c87c841ab1992de23eb2bf5018e6719d7be42aaf04f0b335d4"
+  },
+  {
+    "file": "szse_summary_2020-07-13.json",
+    "sha256": "512ba61fa5b33dfb854e94eb8f29495a0c3f67784e14df558112e37e630f84f1"
+  },
+  {
+    "file": "szse_summary_2021-09-13.json",
+    "sha256": "1c06f533ae5c7f78e9fc0738680024d112634371adb4c374fc29747535486c71"
+  },
+  {
+    "file": "szse_summary_20210913_original_bytes.bin",
+    "sha256": "26e4fa87fa22efee14289f2481fb52e878e29c8b26039df3e148960cfbd83ae1"
+  },
+  {
+    "file": "szse_summary_decoded.json",
+    "sha256": "30de33fe535333eefa5732a666ef06087ebb3356217e85f4bb288c28f3441471"
+  },
+  {
+    "file": "turnover_20251009.json",
+    "sha256": "eeb6cdd90bc6ab9c42ebfb2ec89677983df43bac085e40321e42cf26bb2e4a9c"
+  }
+]

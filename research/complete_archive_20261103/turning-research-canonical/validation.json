@@ -1,0 +1,16 @@
+{
+  "rows": 3659,
+  "start": "2011-08-02",
+  "end": "2026-08-25",
+  "unique_dates": 3659,
+  "accepted_fields": 6,
+  "turnover_rate_blank": 0,
+  "official_rows_quarantined": 2,
+  "date_sets_equal_after_quarantine": true,
+  "missing_accepted_values": 0,
+  "full_model_ready": true,
+  "reason": "Six positive numeric inputs complete. Recomputed turnover is a new research definition, not certified legacy equivalence.",
+  "full_model_ready_scope": "local research replay only",
+  "turnover_native_formula_verified": false,
+  "turnover_derived_definition_explicit": true
+}

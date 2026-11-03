@@ -1,0 +1,19 @@
+{
+  "hypothesis": "Fixed 0.10 fails to rearm when almost every day is above it; compare causal rank threshold without refitting",
+  "decision_before_replay": true,
+  "attempt_informed_by_previous_results": true,
+  "blind_test": false,
+  "lookback": 252,
+  "minimum_previous_scores": 126,
+  "quantile": 0.9,
+  "threshold_source": "Strictly prior out-of-time emitted scores; current score excluded",
+  "threshold_search": false,
+  "lead": [
+    0,
+    6
+  ],
+  "policy": "crossing with D..D+6 lock; rearm below that days historical threshold after lock",
+  "same_inputs_models_labels_cohort": true,
+  "all_candidates_reported": true,
+  "production_changed": false
+}

@@ -1,0 +1,180 @@
+{
+  "plan": {
+    "model": "L2 logistic regression, penalty 10, fixed; six continuous price features",
+    "features": [
+      "return3_scaled",
+      "return20_scaled",
+      "change_in_return3_scaled",
+      "distance_to_20day_high_scaled",
+      "distance_to_20day_low_scaled",
+      "position63_continuous"
+    ],
+    "thresholds": [
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "training": "Annual refit; fit data available at previous calendar year start; preceding year validation for threshold; test year strictly later",
+    "label_policy": "Confirmation+140 by cutoff; negative windows end no later than latest mature pivot of either direction for this scale",
+    "alert_policy": "One live ledger per task, no year reset; valid seven sessions, rearm after below threshold and expiry; never rescind",
+    "score": "Continuous global same-direction same-scale one-to-one; unresolved tail PENDING",
+    "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "PIT_certified": false,
+    "blind_sample": false,
+    "production_changed": false
+  },
+  "metrics": {
+    "5_TOP": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 4,
+      "precision": null,
+      "recall": 0.0,
+      "pending_alerts": 5,
+      "frontier": "2017-01-16",
+      "alerts_total": 5,
+      "baseline_same_opportunities": {
+        "tp": 0,
+        "fp": 7,
+        "fn": 4,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "5_BOTTOM": {
+      "tp": 2,
+      "fp": 8,
+      "fn": 3,
+      "precision": 0.2,
+      "recall": 0.4,
+      "pending_alerts": 7,
+      "frontier": "2017-01-16",
+      "alerts_total": 17,
+      "baseline_same_opportunities": {
+        "tp": 0,
+        "fp": 2,
+        "fn": 5,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "9_TOP": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": null,
+      "recall": 0.0,
+      "pending_alerts": 0,
+      "frontier": "2016-11-28",
+      "alerts_total": 0,
+      "baseline_same_opportunities": {
+        "tp": 0,
+        "fp": 3,
+        "fn": 3,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    },
+    "9_BOTTOM": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 3,
+      "precision": null,
+      "recall": 0.0,
+      "pending_alerts": 3,
+      "frontier": "2016-11-28",
+      "alerts_total": 3,
+      "baseline_same_opportunities": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 2,
+        "precision": 1.0,
+        "recall": 0.3333333333333333
+      }
+    }
+  },
+  "folds": [
+    {
+      "task": "5_TOP",
+      "year": 2016,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 667,
+      "positive_days": 78,
+      "latest_training_decision": "2015-05-19",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    },
+    {
+      "task": "5_TOP",
+      "year": 2017,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 905,
+      "positive_days": 152,
+      "latest_training_decision": "2016-05-09",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2016,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 667,
+      "positive_days": 85,
+      "latest_training_decision": "2015-05-19",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "year": 2017,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 905,
+      "positive_days": 153,
+      "latest_training_decision": "2016-05-09",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    },
+    {
+      "task": "9_TOP",
+      "year": 2016,
+      "state": "INSUFFICIENT_MATURE_TRAINING"
+    },
+    {
+      "task": "9_TOP",
+      "year": 2017,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 882,
+      "positive_days": 71,
+      "latest_training_decision": "2016-04-05",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2016,
+      "state": "INSUFFICIENT_MATURE_TRAINING"
+    },
+    {
+      "task": "9_BOTTOM",
+      "year": 2017,
+      "state": "RESEARCH_PREDICTIONS",
+      "training_samples": 882,
+      "positive_days": 77,
+      "latest_training_decision": "2016-04-05",
+      "validation_selected_threshold": 0.2,
+      "validation_objective": -1,
+      "test_labels_used_for_selection": false
+    }
+  ],
+  "feature_prefix_tests": 3,
+  "double80": false,
+  "warning": "Research only. Scores not certified calibrated probabilities. Mature-frontier scoring differs from old annual exclusions; do not compare old headline metrics directly."
+}

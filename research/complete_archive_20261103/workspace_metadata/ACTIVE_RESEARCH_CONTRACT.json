@@ -1,0 +1,20 @@
+{
+  "effective_date": "2026-11-02",
+  "user_confirmed_window": {
+    "decision": "D preopen",
+    "minimum_lead_sessions": 0,
+    "maximum_lead_sessions": 6,
+    "count_sessions_inclusive": 7
+  },
+  "labels": "CLOSE provisional reproducible research baseline; INTRADAY_EXTREMA_CLOSE_CONFIRMED remains experimental sensitivity control, not certified actual intraday extrema",
+  "matching": "same scale, same direction, one alert at most one pivot, one pivot at most one alert",
+  "target": "Each 5_TOP/5_BOTTOM/9_TOP/9_BOTTOM precision>=.8 and recall>=.8",
+  "old_window": "D+1..D+7 historical only",
+  "warning": "Existing earlier experiment scripts retain historical settings and must not be used as the active contract without migration",
+  "production_updated": false,
+  "label_choice_basis": "Subsequent full local-extreme audit found 14/169 interior 5% hybrid labels and 6/70 interior 9% hybrid labels differ from hindsight high/low between adjacent opposite pivots; CLOSE 0/133 and 0/63 on its own close-price extrema test. Do not relabel after looking at scores.",
+  "primary_index": "000985.CSI, whole-market research; 000300/000852 style controls, not substituted by retrospective scores",
+  "training_policy": "label_clock_v4: quarterly fit, confirmation visible by D-1, no extra 140-day training delay; historical publication timing remains uncertified",
+  "research_label_freeze": "label_clock_v4/label_decision_final.json supersedes the interim label_decision.json; preserve both decisions and all trial outcomes",
+  "forecast_policy": "No new model promoted. Fixed 0.10 and causal past-score rank90 are research comparisons only."
+}

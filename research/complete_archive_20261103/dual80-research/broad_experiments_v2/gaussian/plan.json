@@ -1,0 +1,46 @@
+{
+  "model": "Shrinkage diagonal Gaussian; 50% covariance shrinkage, fixed",
+  "feature_families": [
+    "price",
+    "price_amount",
+    "price_style",
+    "price_amount_style",
+    "price_interactions",
+    "price_swing"
+  ],
+  "policies": [
+    "crossing",
+    "hysteresis"
+  ],
+  "configurations": 12,
+  "thresholds": [
+    0.02,
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "validation": "Last three years of historically generated out-of-fold scores, only labels mature by selection time",
+  "minimum_validation_support": {
+    "alerts": 5,
+    "pivots": 3
+  },
+  "fallback": "threshold0.10; price/crossing for live selector if no adequately supported validation",
+  "training": "Annual expanding fit on mature-frontier samples; feature standardization on training only",
+  "evaluation_start": "2016-01-01",
+  "maturity_buffer": 140,
+  "lead": [
+    1,
+    7
+  ],
+  "negative_label_policy": "Window ends no later than latest pivot mature at training cutoff",
+  "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+  "sample_unseen": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "prefix_limit": 3659,
+  "warning": "All candidates and thresholds are research attempts, including failures. Historical scores are not future evidence."
+}

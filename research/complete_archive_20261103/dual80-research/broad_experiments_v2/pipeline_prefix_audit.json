@@ -1,0 +1,15 @@
+{
+  "prefix_rows": 2500,
+  "scores_checked": 45984,
+  "annual_model_threshold_selection_rows_checked": 384,
+  "issued_alarm_rows_checked": 1451,
+  "full_run_event_accounting_rows": 2736,
+  "feature_prefix_checks": 24,
+  "all_equal_with_numerical_tolerance": true,
+  "score_absolute_tolerance": 1e-12,
+  "maximum_score_delta": 5.551115123125783e-17,
+  "threshold_choices_and_issuance_exactly_equal": true,
+  "corrected_test_harness_issue": "Original-rule control initially retained indices beyond requested prefix; filtered to actual prefix. Full-data result SHA unchanged. This was a truncation-harness bug, not evidence the model read future prices.",
+  "historical_publication_time_certified": false,
+  "independent_blind_test": false
+}

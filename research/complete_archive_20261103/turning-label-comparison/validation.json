@@ -1,0 +1,8 @@
+{
+  "exhaustive_matching_comparisons": 1000,
+  "clock_boundary_checks_passed": true,
+  "new_window_cases": 320,
+  "new_window_double80_cases": 0,
+  "alerts_retrained": false,
+  "production_changed": false
+}

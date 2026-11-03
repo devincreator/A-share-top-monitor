@@ -1,0 +1,528 @@
+{
+  "plan": {
+    "candidates": [
+      "baseline",
+      "armed_1day",
+      "armed_3day"
+    ],
+    "candidate_lifetime_sessions": 7,
+    "threshold_search": false,
+    "scoring_window": 7,
+    "cooldown": "unchanged",
+    "sample_unseen": false,
+    "PIT_certified": false
+  },
+  "source_hashes": {
+    "price_sha256": "f18bb93b38e6648fbd72bad53dc7fa06333cd63a01858063e1dfa50b14e7fc41",
+    "pivots_sha256": "39648f066b515c6ddc5b5853f9d1f691e3439fa04393a81e36b4c19e649262b1"
+  },
+  "results": {
+    "baseline": {
+      "metrics": {
+        "5_TOP": {
+          "generated_formal_starts": 21,
+          "tp": 8,
+          "fp": 11,
+          "fn": 8,
+          "pending": 2,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 3,
+          "precision": 0.42105263157894735,
+          "recall": 0.5,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "5_BOTTOM": {
+          "generated_formal_starts": 22,
+          "tp": 4,
+          "fp": 14,
+          "fn": 12,
+          "pending": 4,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 3,
+          "precision": 0.2222222222222222,
+          "recall": 0.25,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_TOP": {
+          "generated_formal_starts": 10,
+          "tp": 2,
+          "fp": 7,
+          "fn": 5,
+          "pending": 1,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 2,
+          "precision": 0.2222222222222222,
+          "recall": 0.2857142857142857,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_BOTTOM": {
+          "generated_formal_starts": 6,
+          "tp": 0,
+          "fp": 4,
+          "fn": 7,
+          "pending": 2,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        }
+      },
+      "chronological_diagnostics_not_blind_validation": {
+        "2022-2023": {
+          "5_TOP": {
+            "tp_alert_year": 2,
+            "fp": 2,
+            "precision": 0.5,
+            "hit_pivot_year": 2,
+            "mature_pivots": 7,
+            "recall": 0.2857142857142857
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 2,
+            "fp": 8,
+            "precision": 0.2,
+            "hit_pivot_year": 2,
+            "mature_pivots": 7,
+            "recall": 0.2857142857142857
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 1,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 2,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        },
+        "2024": {
+          "5_TOP": {
+            "tp_alert_year": 2,
+            "fp": 3,
+            "precision": 0.4,
+            "hit_pivot_year": 2,
+            "mature_pivots": 5,
+            "recall": 0.4
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 5,
+            "precision": 0.16666666666666666,
+            "hit_pivot_year": 1,
+            "mature_pivots": 5,
+            "recall": 0.2
+          },
+          "9_TOP": {
+            "tp_alert_year": 1,
+            "fp": 2,
+            "precision": 0.3333333333333333,
+            "hit_pivot_year": 1,
+            "mature_pivots": 3,
+            "recall": 0.3333333333333333
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 2,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 3,
+            "recall": 0.0
+          }
+        },
+        "2025-2026": {
+          "5_TOP": {
+            "tp_alert_year": 4,
+            "fp": 6,
+            "precision": 0.4,
+            "hit_pivot_year": 4,
+            "mature_pivots": 4,
+            "recall": 1.0
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 1,
+            "precision": 0.5,
+            "hit_pivot_year": 1,
+            "mature_pivots": 4,
+            "recall": 0.25
+          },
+          "9_TOP": {
+            "tp_alert_year": 1,
+            "fp": 4,
+            "precision": 0.2,
+            "hit_pivot_year": 1,
+            "mature_pivots": 2,
+            "recall": 0.5
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 0,
+            "precision": null,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        }
+      }
+    },
+    "armed_1day": {
+      "metrics": {
+        "5_TOP": {
+          "generated_formal_starts": 27,
+          "tp": 2,
+          "fp": 22,
+          "fn": 14,
+          "pending": 3,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 3,
+          "precision": 0.08333333333333333,
+          "recall": 0.125,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "5_BOTTOM": {
+          "generated_formal_starts": 24,
+          "tp": 3,
+          "fp": 17,
+          "fn": 13,
+          "pending": 4,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 3,
+          "precision": 0.15,
+          "recall": 0.1875,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_TOP": {
+          "generated_formal_starts": 11,
+          "tp": 0,
+          "fp": 10,
+          "fn": 7,
+          "pending": 1,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_BOTTOM": {
+          "generated_formal_starts": 6,
+          "tp": 0,
+          "fp": 4,
+          "fn": 7,
+          "pending": 2,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        }
+      },
+      "chronological_diagnostics_not_blind_validation": {
+        "2022-2023": {
+          "5_TOP": {
+            "tp_alert_year": 2,
+            "fp": 5,
+            "precision": 0.2857142857142857,
+            "hit_pivot_year": 2,
+            "mature_pivots": 7,
+            "recall": 0.2857142857142857
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 10,
+            "precision": 0.09090909090909091,
+            "hit_pivot_year": 1,
+            "mature_pivots": 7,
+            "recall": 0.14285714285714285
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 1,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 2,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        },
+        "2024": {
+          "5_TOP": {
+            "tp_alert_year": 0,
+            "fp": 6,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 5,
+            "recall": 0.0
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 6,
+            "precision": 0.14285714285714285,
+            "hit_pivot_year": 1,
+            "mature_pivots": 5,
+            "recall": 0.2
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 3,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 3,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 2,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 3,
+            "recall": 0.0
+          }
+        },
+        "2025-2026": {
+          "5_TOP": {
+            "tp_alert_year": 0,
+            "fp": 11,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 4,
+            "recall": 0.0
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 1,
+            "precision": 0.5,
+            "hit_pivot_year": 1,
+            "mature_pivots": 4,
+            "recall": 0.25
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 6,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 0,
+            "precision": null,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        }
+      }
+    },
+    "armed_3day": {
+      "metrics": {
+        "5_TOP": {
+          "generated_formal_starts": 23,
+          "tp": 3,
+          "fp": 17,
+          "fn": 13,
+          "pending": 3,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 3,
+          "precision": 0.15,
+          "recall": 0.1875,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "5_BOTTOM": {
+          "generated_formal_starts": 22,
+          "tp": 3,
+          "fp": 16,
+          "fn": 13,
+          "pending": 3,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 16,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 3,
+          "precision": 0.15789473684210525,
+          "recall": 0.1875,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_TOP": {
+          "generated_formal_starts": 11,
+          "tp": 0,
+          "fp": 10,
+          "fn": 7,
+          "pending": 1,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 1,
+          "immature_pivots": 2,
+          "precision": 0.0,
+          "recall": 0.0,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        },
+        "9_BOTTOM": {
+          "generated_formal_starts": 5,
+          "tp": 1,
+          "fp": 3,
+          "fn": 6,
+          "pending": 1,
+          "excluded_alerts_left_boundary": 0,
+          "mature_pivots": 7,
+          "excluded_pivots_left_boundary": 0,
+          "immature_pivots": 2,
+          "precision": 0.25,
+          "recall": 0.14285714285714285,
+          "goal_precision_ge_0_8": false,
+          "goal_recall_ge_0_8": false
+        }
+      },
+      "chronological_diagnostics_not_blind_validation": {
+        "2022-2023": {
+          "5_TOP": {
+            "tp_alert_year": 1,
+            "fp": 4,
+            "precision": 0.2,
+            "hit_pivot_year": 1,
+            "mature_pivots": 7,
+            "recall": 0.14285714285714285
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 2,
+            "fp": 8,
+            "precision": 0.2,
+            "hit_pivot_year": 2,
+            "mature_pivots": 7,
+            "recall": 0.2857142857142857
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 1,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 2,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        },
+        "2024": {
+          "5_TOP": {
+            "tp_alert_year": 1,
+            "fp": 5,
+            "precision": 0.16666666666666666,
+            "hit_pivot_year": 1,
+            "mature_pivots": 5,
+            "recall": 0.2
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 7,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 5,
+            "recall": 0.0
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 3,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 3,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 1,
+            "precision": 0.5,
+            "hit_pivot_year": 1,
+            "mature_pivots": 3,
+            "recall": 0.3333333333333333
+          }
+        },
+        "2025-2026": {
+          "5_TOP": {
+            "tp_alert_year": 1,
+            "fp": 8,
+            "precision": 0.1111111111111111,
+            "hit_pivot_year": 1,
+            "mature_pivots": 4,
+            "recall": 0.25
+          },
+          "5_BOTTOM": {
+            "tp_alert_year": 1,
+            "fp": 1,
+            "precision": 0.5,
+            "hit_pivot_year": 1,
+            "mature_pivots": 4,
+            "recall": 0.25
+          },
+          "9_TOP": {
+            "tp_alert_year": 0,
+            "fp": 6,
+            "precision": 0.0,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          },
+          "9_BOTTOM": {
+            "tp_alert_year": 0,
+            "fp": 0,
+            "precision": null,
+            "hit_pivot_year": 0,
+            "mature_pivots": 2,
+            "recall": 0.0
+          }
+        }
+      }
+    }
+  },
+  "future_prefix_checks_passed": 6,
+  "production_changed": false,
+  "note": "Fixed structural probes, no fitted parameters. Historical period diagnostics are not independent out-of-sample results. Existing 140-session maturity buffer retained."
+}

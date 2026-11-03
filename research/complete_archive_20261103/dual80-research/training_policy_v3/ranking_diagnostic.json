@@ -1,0 +1,114 @@
+[
+  {
+    "configuration": "buffer140_annual",
+    "task": "5_TOP",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.670898123655781,
+    "actual_daily_positive_rate": 0.11106471816283925
+  },
+  {
+    "configuration": "buffer140_annual",
+    "task": "5_BOTTOM",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6859828644645322,
+    "actual_daily_positive_rate": 0.11148225469728601
+  },
+  {
+    "configuration": "buffer140_annual",
+    "task": "9_TOP",
+    "scored_days": 1997,
+    "daily_AUC_not_event_accuracy": 0.6942816873049431,
+    "actual_daily_positive_rate": 0.05257886830245368
+  },
+  {
+    "configuration": "buffer140_annual",
+    "task": "9_BOTTOM",
+    "scored_days": 1997,
+    "daily_AUC_not_event_accuracy": 0.7312044141564311,
+    "actual_daily_positive_rate": 0.053079619429143715
+  },
+  {
+    "configuration": "buffer140_quarterly",
+    "task": "5_TOP",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6632698467634563,
+    "actual_daily_positive_rate": 0.11106471816283925
+  },
+  {
+    "configuration": "buffer140_quarterly",
+    "task": "5_BOTTOM",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6822463462025851,
+    "actual_daily_positive_rate": 0.11148225469728601
+  },
+  {
+    "configuration": "buffer140_quarterly",
+    "task": "9_TOP",
+    "scored_days": 2057,
+    "daily_AUC_not_event_accuracy": 0.6921226588321704,
+    "actual_daily_positive_rate": 0.05444822557122023
+  },
+  {
+    "configuration": "buffer140_quarterly",
+    "task": "9_BOTTOM",
+    "scored_days": 2057,
+    "daily_AUC_not_event_accuracy": 0.727788362039786,
+    "actual_daily_positive_rate": 0.051531356344190565
+  },
+  {
+    "configuration": "buffer0_annual",
+    "task": "5_TOP",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6641315595235152,
+    "actual_daily_positive_rate": 0.11106471816283925
+  },
+  {
+    "configuration": "buffer0_annual",
+    "task": "5_BOTTOM",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6855903804454958,
+    "actual_daily_positive_rate": 0.11148225469728601
+  },
+  {
+    "configuration": "buffer0_annual",
+    "task": "9_TOP",
+    "scored_days": 1997,
+    "daily_AUC_not_event_accuracy": 0.7044296788482834,
+    "actual_daily_positive_rate": 0.05257886830245368
+  },
+  {
+    "configuration": "buffer0_annual",
+    "task": "9_BOTTOM",
+    "scored_days": 1997,
+    "daily_AUC_not_event_accuracy": 0.7248984763976333,
+    "actual_daily_positive_rate": 0.053079619429143715
+  },
+  {
+    "configuration": "buffer0_quarterly",
+    "task": "5_TOP",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6672022941336432,
+    "actual_daily_positive_rate": 0.11106471816283925
+  },
+  {
+    "configuration": "buffer0_quarterly",
+    "task": "5_BOTTOM",
+    "scored_days": 2395,
+    "daily_AUC_not_event_accuracy": 0.6851257356875334,
+    "actual_daily_positive_rate": 0.11148225469728601
+  },
+  {
+    "configuration": "buffer0_quarterly",
+    "task": "9_TOP",
+    "scored_days": 2182,
+    "daily_AUC_not_event_accuracy": 0.6866071683157025,
+    "actual_daily_positive_rate": 0.05453712190650779
+  },
+  {
+    "configuration": "buffer0_quarterly",
+    "task": "9_BOTTOM",
+    "scored_days": 2182,
+    "daily_AUC_not_event_accuracy": 0.7370239994525165,
+    "actual_daily_positive_rate": 0.05178735105407883
+  }
+]

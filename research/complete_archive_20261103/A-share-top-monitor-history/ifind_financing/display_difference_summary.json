@@ -1,0 +1,10 @@
+{
+  "SSE": {
+    "records": 34,
+    "max_abs_difference_yuan": "4854.0000"
+  },
+  "SZSE": {
+    "records": 34,
+    "max_abs_difference_yuan": "990000.0000"
+  }
+}

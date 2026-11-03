@@ -1,0 +1,33 @@
+{
+  "candidates": [
+    "baseline",
+    "deceleration",
+    "participation",
+    "deceleration_participation"
+  ],
+  "test_years": [
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "selection": "per task maximize min(precision,recall) on prior matured events; ties precision then fixed candidate order",
+  "lead": [
+    1,
+    7
+  ],
+  "maturity_buffer": 140,
+  "min_train_alerts": 10,
+  "min_train_pivots": 10,
+  "data_asof_certified": false,
+  "unseen_test": false,
+  "reason": "All history has previously been inspected; walk-forward simulates selection timing only",
+  "source_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538"
+}

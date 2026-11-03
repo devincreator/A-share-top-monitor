@@ -1,0 +1,30 @@
+{
+  "primary_label": "intraday_extrema_close_confirm",
+  "control_label": "close",
+  "lead": [
+    0,
+    6
+  ],
+  "estimator": "Logistic L2=10; six price features, or same price plus three amount and three style features",
+  "groups": [
+    "price",
+    "price_amount_style"
+  ],
+  "training": "quarterly expanding fit; labels confirmed by previous close; >=10 independent positive events; full 7-decision positive windows, overlapping weights accumulated",
+  "safe_negative_end": "latest confirmed pivot minus6",
+  "threshold": 0.1,
+  "threshold_calibrated": false,
+  "notification": "one initial upward crossing; lock through D+6; rearm only on a subsequent below-threshold observation after lock",
+  "test_start": "2016-01-01",
+  "initial_target_boundary": "start+7, retained for exact historical cohort comparison",
+  "evaluation_maturity": "confirmation+140 common frontier across both labels; retained only as historical evaluation buffer, not training wait",
+  "baseline": "unchanged historical original price rule, rescored on same cohort",
+  "new_model_cases": 16,
+  "all_history_previously_inspected": true,
+  "blind_sample": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "input_sha256": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+  "labels_sha256": "1a74144826996281ac846bff81f7f646269eb64a8f890d2de5dc6f803e33f2ee",
+  "label_decision_sha256": "6945abffe713eaa2e10219238623d7669a21814e07a814a4490e8986b27b3809"
+}

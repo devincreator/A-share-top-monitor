@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quant Learning Coach"
+  short_description: "Daily China-market quant learning coach"
+  default_prompt: "进入量化学习模式。今天我有 30 分钟，你来安排。"

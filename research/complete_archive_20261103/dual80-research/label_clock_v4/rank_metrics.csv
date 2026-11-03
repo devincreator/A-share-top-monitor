@@ -1,0 +1,17 @@
+﻿label,task,group,TP,FP,FN,precision,recall,alerts,targets,pending,same_day_hits,frontier,dual80,right_boundary_targets_last6
+close,5_TOP,price__past_rank90,17,55,21,0.2361111111111111,0.4473684210526316,72,38,2,3,2025-11-21,False,0
+close,5_TOP,price_amount_style__past_rank90,15,67,23,0.18292682926829268,0.39473684210526316,82,38,1,1,2025-11-21,False,0
+close,5_BOTTOM,price__past_rank90,20,39,19,0.3389830508474576,0.5128205128205128,59,39,9,3,2025-11-21,False,1
+close,5_BOTTOM,price_amount_style__past_rank90,19,42,20,0.3114754098360656,0.48717948717948717,61,39,9,2,2025-11-21,False,1
+close,9_TOP,price__past_rank90,7,39,11,0.15217391304347827,0.3888888888888889,46,18,9,2,2025-04-07,False,0
+close,9_TOP,price_amount_style__past_rank90,9,35,9,0.20454545454545456,0.5,44,18,6,2,2025-04-07,False,0
+close,9_BOTTOM,price__past_rank90,8,43,11,0.1568627450980392,0.42105263157894735,51,19,11,2,2025-04-07,False,1
+close,9_BOTTOM,price_amount_style__past_rank90,9,43,10,0.17307692307692307,0.47368421052631576,52,19,9,1,2025-04-07,False,1
+intraday_extrema_close_confirm,5_TOP,price__past_rank90,16,51,30,0.23880597014925373,0.34782608695652173,67,46,2,4,2025-11-21,False,0
+intraday_extrema_close_confirm,5_TOP,price_amount_style__past_rank90,16,57,30,0.2191780821917808,0.34782608695652173,73,46,1,3,2025-11-21,False,0
+intraday_extrema_close_confirm,5_BOTTOM,price__past_rank90,28,37,18,0.4307692307692308,0.6086956521739131,65,46,9,7,2025-11-21,False,0
+intraday_extrema_close_confirm,5_BOTTOM,price_amount_style__past_rank90,26,37,20,0.4126984126984127,0.5652173913043478,63,46,9,8,2025-11-21,False,0
+intraday_extrema_close_confirm,9_TOP,price__past_rank90,9,39,10,0.1875,0.47368421052631576,48,19,8,2,2025-04-07,False,0
+intraday_extrema_close_confirm,9_TOP,price_amount_style__past_rank90,6,48,13,0.1111111111111111,0.3157894736842105,54,19,6,1,2025-04-07,False,0
+intraday_extrema_close_confirm,9_BOTTOM,price__past_rank90,11,45,8,0.19642857142857142,0.5789473684210527,56,19,11,2,2025-04-07,False,0
+intraday_extrema_close_confirm,9_BOTTOM,price_amount_style__past_rank90,11,43,8,0.2037037037037037,0.5789473684210527,54,19,10,2,2025-04-07,False,0
