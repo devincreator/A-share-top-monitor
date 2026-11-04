@@ -1,87 +1,44 @@
-# A-share-top-monitor
+# A股波段顶底研究
 
-A股 5% / 9% 双尺度拐点监测与执行策略可视化项目。
+中证全指5%与9%波段顶底的开盘前预警研究。**当前未达到精确率、覆盖率双80，历史时点可得性尚未全部认证。**
 
-## 最新状态
+## 直接查看
 
-**已核验连续价格核心状态至 2026-09-21；最新收盘行情快照至 2026-10-08。**
+|内容|入口|
+|---|---|
+|全部顶底图，切换三指数与两种口径|[交互图 index.html](index.html)，下载后用浏览器打开|
+|全部顶底静态图|[全景图](turning-label-comparison/charts/all_pivots_preview.png)|
+|最新方法、结果与失败分析|[当前研究报告](dual80-research/label_clock_v4/README.md)|
+|采用的规则|[ACTIVE_RESEARCH_CONTRACT.json](ACTIVE_RESEARCH_CONTRACT.json)|
+|研究主表：3659日、六项输入|[research_inputs.csv](turning-research-canonical/tables/research_inputs.csv)|
+|数据来源与换手率口径|[数据说明](turning-research-canonical/README.md)|
+|顶底标签、警报一一匹配结果|[标签比较](turning-label-comparison/README.md)|
+|盘中标签问题的逐条证据|[极值审计](dual80-research/label_clock_v4/local_extreme_audit.json)|
 
-- 2026-09-21短周期方向：**寻找底部**，中周期：**寻找顶部**（仅已核验价格波段）
-- 5% 波段：**DOWN**（9月11日确认8月17日客观顶部）
-- 9% 波段：**UP**
-- 当前执行仓位：**0% / 空仓**
-- 最新 Top-5：**2026-08-05，Route B**
-- 最新 Top-9：**2026-08-05，Route B**
-- Top-9 价格转弱确认：**2026-08-19**
-- T+1 退出执行：**2026-08-20**
-- 2026-09-21中证全指收盘：**5921.92**
+## 当前约定
 
-最新价格核心状态文件：`data/latest_state.json`
+开盘前D日发报，只用当时已公布的数据。命中窗口为D至D+6，共7个交易日；同幅度、同方向警报与拐点一一对应。5%顶、5%底、9%顶、9%底分别要求精确率及覆盖率达到80%。
 
-增量日度数据：`data/incremental_20260805_20260910.csv` + `data/price_core_20260911_20260921.csv`
+中证全指作主标准，沪深300和中证1000作大小盘对照。收盘标签暂作可复算研究基准；盘中极值、收盘确认的混合标签只作实验对照，因为它不能保证每个标记都是相邻反向拐点间的实际最高或最低点。
 
-## 一键查看
+同一价格模型的新研究策略在收盘5%底部上达到精确率33.9%、覆盖率51.3%；其他任务仍有取舍，没有整体升级依据。历史已经反复研究，不称独立盲测。图表是截至2026-08-25的历史研究图，不是实时交易信号。
 
-### [▶ 一键打开可视化网页](https://devincreator.github.io/A-share-top-monitor/)
+## 数据与方法放在哪里
 
-打开网页后，右下角有 **「微信分享」** 按钮，可直接：
+|目录|内容|
+|---|---|
+|turning-research-canonical|当前数据基线、官方原始回执、换手率复算|
+|turning-raw-reacquired|供应商独立重取数据和字段差异核验|
+|A-share-top-monitor-history|融资分项与补数来源证据|
+|html-data-audit / turning-rebuild / original_user_material|原始页面、输入提取、原规则恢复和对照|
+|turning-7day-preopen|最初7日窗基线与优化尝试，保留旧窗口说明|
+|dual80-research|本轮模型实验、全部失败记录、最新标签/时钟迁移|
+|turning-label-audit / turning-label-comparison|两种标签核验、三指数标签和图表|
 
-- 复制微信摘要
-- 生成微信竖版分享图
-- 单独打开完整网页
+保留影响结论的原始数据、方法和失败结果。旧V系列目录、旧网页/采集器、重复归档、旧门禁/交接和定时研究工作流已从当前分支清掉；第三方教材与其他无关策略不再放在本项目里。清理前内容可从Git历史恢复，见[整理记录](CLEANUP.md)。
 
-## 数据更新状态
+## 核验与复算
 
-- **最新核对收盘行情：2026-10-08**（中证全指 000985.CSI：5,560.01，日跌1.56%）
-- **四模块完整模型计算：截至2026-08-04**，尚未完成逐日行情、融资余额、换手率和信号规则的同口径续算
-- 首页将这两种日期分开展示；**不能将10月8日行情理解成10月8日的正式模型信号**
-- 最新核验原始快照：`data/latest_verified_market.json`
+运行 `python -B verify_repository.py` 核对文件SHA256、主表、标签、当前合同及目录一致性。这个命令不联网、不重训。GitHub仅保留一个只读完整性检查工作流，无定时取数、自动回写或旧版本研发任务。
 
-## 当前内容
-
-- `index.html`：网页入口 + 微信分享工具
-- `app.html`：完整可视化静态页
-- `data/latest_state.json`：最新市场方向、客观拐点、正式信号和执行状态
-- `data/incremental_20260805_20260910.csv`：2026-08-05 至 2026-09-10 增量计算数据
-- 页面展示当前市场方向、四模块状态、三层信号图、执行策略与最新历史回测指标
-
-> 注：当前增量更新已覆盖中证全指与价格派生的核心状态；四模块完整全字段条件分数仍以最近一次完整字段快照为准，不用旧分数冒充最新值。
-
-## 中国大陆访问：EdgeOne Pages
-
-本项目是纯静态 HTML，可直接从 GitHub 仓库部署到腾讯 EdgeOne Pages。
-
-[![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://console.cloud.tencent.com/edgeone/pages/new?repository-url=https%3A%2F%2Fgithub.com%2Fdevincreator%2FA-share-top-monitor&project-name=a-share-top-monitor&root-directory=.%2F&output-directory=.%2F)
-
-部署时建议：
-
-- GitHub 仓库：`devincreator/A-share-top-monitor`
-- 分支：`main`
-- 根目录：`./`
-- 输出目录：`./`
-- 构建命令：留空
-- 安装命令：留空
-
-项目创建完成后，后续只要向 `main` 分支提交代码，EdgeOne Pages 即可自动触发新的部署。
-
-## GitHub Pages
-
-发布源：
-
-- Source: `Deploy from a branch`
-- Branch: `main`
-- Folder: `/ (root)`
-
-正式网页入口：
-
-https://devincreator.github.io/A-share-top-monitor/
-
-## 说明
-
-历史表现用于说明模型特征，不代表未来一定重复。模型分数为规则完成度，不是预测概率。
-
-## AI 研究交接（V52—V82）
-
-量化顶底预测长期研究、可复算数据、失败门禁和后续执行说明已单独归档，请先读 **[AI_RESEARCH_HANDOFF.md](AI_RESEARCH_HANDOFF.md)**，再按 **[research/NEXT_AI_RUNBOOK.md](research/NEXT_AI_RUNBOOK.md)** 操作。
-
-该研究目录不代表正式策略更新；2005年历史市场广度尚未完成停牌与历史股票池 PIT 认证，四任务双80亦未通过。原有生产网页和采集策略与研究资料隔离。
+最新模型入口：`dual80-research/label_clock_v4/run.py`，后续阈值对照：`dual80-research/label_clock_v4/rank_replay.py`。模型研究需要Python 3与NumPy；原规则恢复另有Node.js脚本。方法原样保留，一些旧辅助脚本仍引用原E盘工作路径，迁移时需调整；历史脚本会重写结果，不要批量运行。历史freeze_labels.py保留已撤回的中间决定，当前口径以根目录合同和最终决定为准。
