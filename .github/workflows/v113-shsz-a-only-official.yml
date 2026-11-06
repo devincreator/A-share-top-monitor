@@ -1,0 +1,31 @@
+name: V113 SHSZ A-only official historical stock count reconciliation
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-a-only-official.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: \${{ secrets.GITHUB_TOKEN }}
+          path: archived_basic
+      - run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - run: python research/v113_breadth/audit_shsz_a_issuers.py --basic archived_basic/stock_basic.csv --out v113_shsz_a_only
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-a-only-audit-\${{ github.run_id }}
+          path: v113_shsz_a_only/
+          retention-days: 90

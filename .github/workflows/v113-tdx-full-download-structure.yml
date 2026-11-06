@@ -1,0 +1,23 @@
+name: V113 download and inspect real TDX full three-exchange multi-year original daily archive
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-tdx-full-download-structure.yml']
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 28
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - run: python research/v113_breadth/inspect_tdx_full.py
+      - name: Archive source hashes and exact manifest without reuploading the 550MB source file
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-tdx-full-archive-structure-${{ github.run_id }}
+          path: v113_tdx_pilot/structure_audit.json
+          retention-days: 90

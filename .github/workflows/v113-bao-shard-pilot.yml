@@ -1,0 +1,45 @@
+name: V113 BaoStock historical stock-shard 24-symbol end-to-end pilot
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-bao-shard-pilot.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit gate
+        run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - run: pip install baostock
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Download 24 real individual multi-year stock histories
+        run: |
+          python research/v113_breadth/baostock_shard.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --stock-basic basic/stock_basic.csv \
+            --shards 1 --shard 0 --limit 24 --out v113_bao_pilot --delay 0.2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-bao-shard-pilot-${{ github.run_id }}
+          path: v113_bao_pilot/
+          retention-days: 90

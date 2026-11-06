@@ -1,0 +1,17 @@
+name: V113 SHSZ raw TDX gap repair static safety tests
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-tdx-unit.yml']
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - run: |
+          python -m py_compile research/v113_breadth/repair_shsz_tdx.py
+          python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v

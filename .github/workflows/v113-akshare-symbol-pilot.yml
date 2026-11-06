@@ -1,0 +1,25 @@
+name: V113 independent stock-by-symbol AKShare history probe
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-akshare-symbol-pilot.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install akshare
+      - run: python research/v113_breadth/pilot_akshare_symbol.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-akshare-symbol-${{ github.run_id }}
+          path: v113_akshare_symbol_pilot/
+          retention-days: 90

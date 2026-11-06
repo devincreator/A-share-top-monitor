@@ -1,0 +1,73 @@
+name: V113 SHSZ-only original TDX archive gap repair and audit
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-tdx-gap-repair.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Static source & source-safety checks
+        run: |
+          python -m py_compile research/v113_breadth/repair_shsz_tdx.py
+          python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - name: Download archived original BaoStock SH/SZ stock bars, 24 parts
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39895352257
+          pattern: v113-bao-stock-full-shard-*-39895352257
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: shsz_original
+      - name: Download independent full SH/SZ bar count audit
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39897170025
+          name: v113-final-full-research-audit-39897170025
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: previous_audit
+      - name: Download historic stock basic identities and actual listed date history
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: stock_basic
+      - name: Download frozen 1129-day reference calendar
+        uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Fetch SHA-verified raw TDX ZIP original, Shanghai Shenzhen only for processing
+        run: python research/v113_breadth/inspect_tdx_full.py
+      - name: Restore exact historical SH/SZ stock-day gaps from TDX and compute coverage
+        run: |
+          python research/v113_breadth/repair_shsz_tdx.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --basic stock_basic/stock_basic.csv \
+            --baseline-daily previous_audit/shsz/daily_shsz_breadth.csv \
+            --shard-dir shsz_original \
+            --archive v113_tdx_pilot/hsjday.zip \
+            --out v113_shsz_repaired
+      - name: Archive repaired research-only daily breadth, exact provenance, missing observations and acceptance
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-source-recovery-${{ github.run_id }}
+          path: |
+            v113_shsz_repaired/
+            v113_tdx_pilot/structure_audit.json
+          retention-days: 90
+          if-no-files-found: warn

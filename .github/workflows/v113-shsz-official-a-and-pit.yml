@@ -1,0 +1,39 @@
+name: V113 SHSZ official A-only issuer and actual PIT evidence gates
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-official-a-and-pit.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install baostock
+      - name: Execute source-quality and release-lag unit tests
+        run: python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - name: Capture real stock basic and verify issuer A-only counts
+        run: |
+          python research/v113_breadth/capture_basic_fresh.py --out v113_evidence/basic
+          python research/v113_breadth/audit_shsz_a_issuers.py \
+            --basic v113_evidence/basic/stock_basic.csv --out v113_evidence/official_a
+      - name: Identify exact dated membership differences on five historic dates
+        run: |
+          python research/v113_breadth/audit_dated_issuer_differences.py \
+            --basic v113_evidence/basic/stock_basic.csv --out v113_evidence/dated_membership
+      - name: Check lagged decision policy and actual publication evidence gates
+        run: |
+          python research/v113_breadth/audit_shsz_pit_lag.py --out v113_evidence/lag_policy
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-issuer-pit-evidence-\${{ github.run_id }}
+          path: v113_evidence/
+          retention-days: 90

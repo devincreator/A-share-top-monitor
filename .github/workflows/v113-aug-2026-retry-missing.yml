@@ -1,0 +1,42 @@
+name: V113 August free-source 429 gap repair and merge
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-aug-2026-retry-missing.yml'
+permissions:
+  actions: read
+  contents: read
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39742880043
+          name: v113-aug2026-stock-bars-39742880043
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: v113_aug2026
+      - name: Reuse 19 original daily files and retry two failed dates
+        run: |
+          python research/v113_breadth/recover_daily_batches.py \
+            --master anchor/v111_normalized/daily_unified.csv \
+            --out v113_aug2026 --begin 2026-08-01 --end 2026-08-31 --limit 25
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-aug2026-repaired-${{ github.run_id }}
+          path: v113_aug2026/
+          retention-days: 90
+          if-no-files-found: warn

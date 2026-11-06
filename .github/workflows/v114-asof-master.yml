@@ -1,0 +1,39 @@
+name: V114 historical multi-frequency assumed-lag master tests
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - 'research/v114_asof_master/**'
+      - '.github/workflows/v114-asof-master.yml'
+  pull_request:
+    paths:
+      - 'research/v114_asof_master/**'
+      - '.github/workflows/v114-asof-master.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest discover -s research/v114_asof_master -p 'test_*.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Build historically lagged multi-frequency date master with no current-day features
+        run: |
+          python research/v114_asof_master/build_asof.py \
+            --daily anchor/v111_normalized/daily_unified.csv \
+            --out v114_asof_output
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v114-asof-research-${{ github.run_id }}
+          path: v114_asof_output/
+          retention-days: 90

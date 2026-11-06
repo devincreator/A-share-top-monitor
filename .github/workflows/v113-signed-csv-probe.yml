@@ -1,0 +1,21 @@
+name: V113 test official signed CSV endpoint for September October
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-signed-csv-probe.yml'
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - run: python research/v113_breadth/probe_signed_link.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-signed-link-probe-${{ github.run_id }}
+          path: v113_signed_link_probe/
+          retention-days: 30

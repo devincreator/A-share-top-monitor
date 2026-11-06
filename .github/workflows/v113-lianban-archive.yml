@@ -1,0 +1,28 @@
+name: V113 alternate independent archived breadth research
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-lianban-archive.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - run: python research/v113_breadth/recover_lianban_archive.py --daily anchor/v111_normalized/daily_unified.csv --out v113_lianban
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-lianban-archive-${{ github.run_id }}
+          path: v113_lianban/
+          retention-days: 90

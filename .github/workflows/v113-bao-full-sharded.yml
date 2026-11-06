@@ -1,0 +1,89 @@
+name: V113 full Shanghai Shenzhen 2022-2026 BaoStock historical stock bars
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-bao-full-sharded.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bars:
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install baostock
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Acquire true historical unadjusted per-stock rows
+        run: |
+          python research/v113_breadth/baostock_shard.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --stock-basic basic/stock_basic.csv \
+            --shards 24 --shard ${{ matrix.shard }} \
+            --out v113_shard/ --delay 0.25
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-bao-stock-full-shard-${{ matrix.shard }}-${{ github.run_id }}
+          path: v113_shard/
+          retention-days: 90
+  aggregate:
+    needs: [bars]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: v113-bao-stock-full-shard-*-${{ github.run_id }}
+          merge-multiple: true
+          path: complete_shards
+      - name: Produce real full-market-date coverage report with Beijing explicitly missing
+        run: |
+          python research/v113_breadth/merge_baostock_full.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --stock-basic basic/stock_basic.csv \
+            --source-dir complete_shards \
+            --out v113_full_shsz/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-bao-full-daily-coverage-${{ github.run_id }}
+          path: v113_full_shsz/
+          retention-days: 90

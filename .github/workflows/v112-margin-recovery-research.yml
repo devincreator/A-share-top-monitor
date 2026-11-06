@@ -1,0 +1,48 @@
+name: V112 exchange margin gap recovery experiment
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v112-margin-recovery-research.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39539695414
+          name: v89-index-financing-source-39539695414
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: archived_input
+      - run: python -m pip install --disable-pip-version-check --no-cache-dir 'akshare>=1.15' pandas requests
+      - name: Recover next sixteen actual exchange financing records
+        run: |
+          python research/v92_margin_recovery/recover_batch.py \
+            --candidate archived_input/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v112_recovery_output \
+            --max-dates 16 --retry-days 0
+      - name: Audit source bytes and dates
+        run: |
+          python research/v92_margin_recovery/audit_coverage.py \
+            --candidate archived_input/candidate_inputs.json \
+            --ledger research/v92_margin_recovery \
+            --out v112_recovery_output/coverage_audit.json
+      - name: Preserve raw source evidence and reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v112-margin-recovery-${{ github.run_id }}
+          path: |
+            v112_recovery_output/
+            research/v92_margin_recovery/raw/
+            research/v92_margin_recovery/records/
+          retention-days: 90

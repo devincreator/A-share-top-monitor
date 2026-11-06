@@ -1,0 +1,44 @@
+name: V113 Beijing 358 historical securities eight-shard full K-line acquisition
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths:
+      - '.github/workflows/v113-bj-full-sharded.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  bj:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [0,1,2,3,4,5,6,7]
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install akshare
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895931145
+          name: v113-beijing-historical-registry-39895931145
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: registry
+      - run: |
+          python research/v113_breadth/collect_beijing_shard.py \
+            --registry registry/beijing_historical_registry.csv \
+            --out out/ --shard ${{ matrix.shard }} --shards 8 --delay 0.75
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-bj-full-shard-${{ matrix.shard }}-${{ github.run_id }}
+          path: out/
+          retention-days: 90
+
+# retry-after-source-code-fix

@@ -1,0 +1,41 @@
+name: V113 SHSZ verify all 41 outDate gaps against 32 historical security lists
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-32-historical-lists.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  snapshot:
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [0,1,2,3,4,5,6,7]
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install baostock
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 40254546648
+          name: v113-shsz-exact-date-gap-audit-40254546648
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: gaps
+      - run: |
+          python research/v113_breadth/verify_delist_historical_snapshots.py \
+            --gaps gaps/exact_shsz_missing_stock_days.csv \
+            --out dated_source --shard ${{ matrix.shard }} --shards 8
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-shsz-dated-membership-${{ matrix.shard }}-${{ github.run_id }}
+          path: dated_source/
+          retention-days: 90

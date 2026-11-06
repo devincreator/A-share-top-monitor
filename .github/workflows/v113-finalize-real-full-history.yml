@@ -1,0 +1,116 @@
+name: V113 autonomously finalize both exchange historical stock archives and acceptance
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-finalize-real-full-history.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Wait for two independently executing historical source runs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 260); do
+            shsz=$(gh api repos/${GITHUB_REPOSITORY}/actions/runs/39895352257 --jq '.status')
+            beijing=$(gh api repos/${GITHUB_REPOSITORY}/actions/runs/39896246528 --jq '.status')
+            echo "Check ${attempt}: Shanghai/Shenzhen=${shsz}; Beijing=${beijing}"
+            if [ "${shsz}" = "completed" ] && [ "${beijing}" = "completed" ]; then
+              echo "All upstream jobs ended; assessing original artifacts without inferring successes"
+              exit 0
+            fi
+            sleep 60
+          done
+          echo "Upstream source jobs did not finish within bounded wait"
+          exit 1
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895352257
+          pattern: v113-bao-stock-full-shard-*-39895352257
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: shsz_raw
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39896246528
+          pattern: v113-bj-full-shard-*-39896246528
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: bj_raw
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895931145
+          name: v113-beijing-historical-registry-39895931145
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: bj_registry
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Strict Shanghai Shenzhen daily bar coverage and release-lag-independent audit
+        continue-on-error: true
+        run: |
+          python research/v113_breadth/merge_baostock_full.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --stock-basic basic/stock_basic.csv \
+            --source-dir shsz_raw --out v113_final/shsz
+      - name: Strict Beijing original bar and suspension-gap audit
+        continue-on-error: true
+        run: |
+          python research/v113_breadth/merge_beijing_full.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --registry bj_registry/beijing_historical_registry.csv \
+            --source-dir bj_raw --out v113_final/beijing
+      - name: Full A-share 1129-day independent acceptance
+        if: always()
+        shell: bash
+        run: |
+          if [ -f v113_final/shsz/daily_shsz_breadth.csv ] &&
+             [ -f v113_final/beijing/daily_beijing_breadth.csv ]; then
+            python research/v113_breadth/accept_v113_full.py \
+              --anchor anchor/v111_normalized/daily_unified.csv \
+              --shsz v113_final/shsz/daily_shsz_breadth.csv \
+              --beijing v113_final/beijing/daily_beijing_breadth.csv \
+              --shsz-audit v113_final/shsz/coverage.json \
+              --beijing-audit v113_final/beijing/coverage.json \
+              --out v113_final/acceptance
+          else
+            mkdir -p v113_final/acceptance
+            printf '%s\n' '{"version":"V113","status":"BLOCKED","reason":"SOURCE_SHARDS_OR_MERGE_MISSING","formal_signal_allowed":false}' > v113_final/acceptance/acceptance.json
+          fi
+      - name: Compute non-lookahead rolling new-high/low and moving-average breadth factors
+        if: always()
+        continue-on-error: true
+        run: |
+          python research/v113_breadth/rolling_v113_breadth.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --shsz-shards shsz_raw --beijing-shards bj_raw \
+            --out v113_final/rolling_factors
+      - name: Save all real audit evidence without declaring production acceptance
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v113-final-full-research-audit-${{ github.run_id }}
+          path: v113_final/
+          retention-days: 90
+          if-no-files-found: warn

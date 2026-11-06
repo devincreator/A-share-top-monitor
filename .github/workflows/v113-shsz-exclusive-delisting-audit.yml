@@ -1,0 +1,81 @@
+name: V113 SHSZ-only zero-gap historical stock-date reacceptance
+on:
+  push:
+    branches: [research/v111-assumed-lag-data-inventory-20261022]
+    paths: ['.github/workflows/v113-shsz-exclusive-delisting-audit.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/v111-assumed-lag-data-inventory-20261022
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Syntax and unit gate
+        run: |
+          python -m py_compile research/v113_breadth/baostock_shard.py research/v113_breadth/merge_baostock_full.py research/v113_breadth/list_shsz_gaps.py
+          python -m unittest discover -s research/v113_breadth -p 'test_*.py' -v
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39895352257
+          pattern: v113-bao-stock-full-shard-*-39895352257
+          merge-multiple: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: shsz_raw
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39892479046
+          name: v113-baostock-real-archive-39892479046
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: basic
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: 39739950143
+          name: v111-real-sources-assumed-lag-39739950143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: anchor
+      - name: Rebuild all SH SZ historical bars using empirical IPO inclusive and outDate exclusive membership
+        run: |
+          python research/v113_breadth/merge_baostock_full.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --stock-basic basic/stock_basic.csv \
+            --source-dir shsz_raw --out shsz_scoped_acceptance
+      - name: Independently recalculate every remaining security-day gap
+        run: |
+          python research/v113_breadth/list_shsz_gaps.py \
+            --anchor anchor/v111_normalized/daily_unified.csv \
+            --basic basic/stock_basic.csv \
+            --shards shsz_raw --out shsz_gaps
+      - name: Strict independent frozen calendar and scoped data coverage test
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("shsz_scoped_acceptance/coverage.json").read_text())
+          g=json.loads(Path("shsz_gaps/audit.json").read_text())
+          assert a["target_days"] == g["target_sessions"] == 1129
+          assert a["shsz_expected_basic_symbols"] == g["listed_symbols"] == 5564
+          assert a["all_shsz_ticker_archives_present"] and a["failed_stock_codes"] == 0
+          assert a["missing_shsz_security_date_observations"] == g["missing_stock_day_pairs"]
+          assert a["full_daily_shsz_days"] + len(g["dates_with_counts"]) == 1129
+          assert a["scoped_shsz_data_98pct_coverage_pass"], "Below frozen 98% day-coverage gate"
+          print(json.dumps({"version":"V113-SHSZ","scope":"SH_SZ_ONLY","result":"SCOPED_SOURCE_COVERAGE_PASS",
+            "complete_days":a["full_daily_shsz_days"],"target_days":1129,
+            "missing_stock_days":g["missing_stock_day_pairs"],
+            "original_source_sha256":a["daily_sha256"],
+            "historical_pit_and_membership_formal_certified":False,
+            "all_a_market_acceptance":False,"formal_signal_allowed":False}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: v113-shsz-only-source-coverage-audit-${{ github.run_id }}
+          path: |
+            shsz_scoped_acceptance/
+            shsz_gaps/
+          retention-days: 90
