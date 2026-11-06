@@ -1,0 +1,218 @@
+{
+  "schema": "HS_YEAR_EVIDENCE_V1",
+  "min_year": 2006,
+  "max_year": 2026,
+  "scope": "SSE_SZSE_ORDINARY_A",
+  "no_absence_inference": true,
+  "audit_not_finished": true,
+  "years": [
+    {
+      "year": 2006,
+      "raw_daily_bar_coverage": "241/241 RAW_SHA_VERIFIED_NOT_PIT",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/status/quality_gates.json#versions.V85_2006"
+      ],
+      "raw_daily_records": 288399
+    },
+    {
+      "year": 2007,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2008,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2009,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2010,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2011,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2012,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2013,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2014,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2015,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2016,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2017,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2018,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2019,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2020,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2021,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": []
+    },
+    {
+      "year": 2022,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv (index-only; partial boundary years; not stock universe)"
+      ]
+    },
+    {
+      "year": 2023,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv (index-only; partial boundary years; not stock universe)",
+        "research/status/quality_gates.json#versions.V90 (financing gaps; not stock universe)"
+      ]
+    },
+    {
+      "year": 2024,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv (index-only; partial boundary years; not stock universe)",
+        "research/status/quality_gates.json#versions.V90 (financing gaps; not stock universe)",
+        "research/status/quality_gates.json#versions.V69_V75 (unverified breadth)"
+      ]
+    },
+    {
+      "year": 2025,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv (index-only; partial boundary years; not stock universe)",
+        "research/status/quality_gates.json#versions.V90 (financing gaps; not stock universe)",
+        "research/status/quality_gates.json#versions.V69_V75 (unverified breadth)"
+      ]
+    },
+    {
+      "year": 2026,
+      "raw_daily_bar_coverage": "NOT_INDEPENDENTLY_VERIFIED",
+      "historical_listing_pit": "BLOCKED",
+      "source_publication_pit": "BLOCKED",
+      "formally_usable_for_market_breadth": false,
+      "formal_c50_allowed": false,
+      "evidence": [
+        "research/v97_event_intake/observations/index_000985_prices_20220223_20261020.csv (index-only; partial boundary years; not stock universe)",
+        "research/v88_daily_observations/ledger/ (daily samples)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-27T05:56:06.873Z",
+  "workflow_name": "R1-R6 historical SSE/SZSE evidence and PIT audit execution",
+  "conclusion": "partial",
+  "summary": "R1: independently inspected 24 abnormal-ticker ledger entries: 14 full_lifecycle_verified, 10 incomplete, all formal_pit_eligible false. R2: 2005 14665 missing bars unresolved and 2584 special identity entries not promoted. R3: 2006 raw 241/241 and 288399 only RAW integrity as previous evidence. R4: V103 2026-10-26 capture blocked after preopen; V88 collector timestamp not original publication. R5: 2026-10-26 5570 source rows/5217 traded SSE/SZSE cannot validate full universe, so C50 formal blocked. R6: research code/tests/CI and actual blocker report committed; GitHub CI run 40457985424 concluded success. No true historical PIT release.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/blob/research/hs-pit-audit-20261027/research/hs_pit_audit/R1_R6_EXECUTION_20261027.md",
+  "ci_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40457985424",
+  "data_gate": "RESEARCH_ONLY",
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "dual80_achieved": null,
+  "next_action": "Collect independent 2005 historical legal listing and suspended status evidence, classify 14665 unresolved rows, independently authenticate first source-publication timestamps, rerun coverage per trade date."
+}

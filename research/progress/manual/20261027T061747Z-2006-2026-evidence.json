@@ -1,0 +1,14 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-27T06:17:47.627Z",
+  "workflow_name": "SSE/SZSE 2006-2026 annual historical-data evidence classification",
+  "conclusion": "partial",
+  "summary": "Examined current quality gates, V85 2006 archive, V90 financing and V88 2026 samples; enumerated 21 calendar years and committed executable year evidence inventory + JSON output + 4 regression tests. GitHub CI run 40460196464 succeeded. Only 2006 raw 241/241 (288399 bars) is source SHA verified but NOT PIT. 2007-2026 full individual-stock universe coverage has not been independently verified; 2022-2026 CSI index history is a distinct, index-only source. 2023-2025 financing historical defects are research records, not proof of full market raw coverage. No fabricated data/certification.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/blob/research/hs-pit-audit-20261027/research/hs_pit_audit/annual_2006_2026_status.json",
+  "ci_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40460196464",
+  "data_gate": "RESEARCH_ONLY",
+  "dual80_achieved": null,
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "next_action": "Recover authoritative original stock daily bars and trading calendars per year 2007-2026 with source hashes, verify exchange listing episodes and observed status per session, reconstruct first-publication evidence and only then release date-scoped certified records."
+}

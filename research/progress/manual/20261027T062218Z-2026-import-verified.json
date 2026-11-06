@@ -1,0 +1,14 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-27T06:22:18.038Z",
+  "workflow_name": "Verified GitHub 2026 daily source yearly archive",
+  "conclusion": "partial",
+  "summary": "GitHub Actions 40460536466 completed successfully. Verified research/historical_data/import_result.json: 73 daily SSE/SZSE CSV files imported for 2026, 378609 raw filtered records, zero download/shape errors. Per-day original upstream SHA256 + filtered CSV SHA256 + Git blob SHA recorded. Year manifest folders for 2006–2026 created; 2006 holds Release pointer to existing 241-day archive, no duplicate ZIP in git; 2007–2025 zero newly imported bars (not absence claim). NOT full 2006–2026 archive, not independently validated exchange universe or PIT.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/blob/research/hs-pit-audit-20261027/research/historical_data/import_result.json",
+  "ci_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40460536466",
+  "data_gate": "RESEARCH_ONLY",
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "dual80_achieved": null,
+  "next_action": "Find independently downloadable historical delisted-inclusive 2007–2025 per-day raw source; cross-source reconcile 2026 73 days and calendar, do not promote missing years to PASS."
+}

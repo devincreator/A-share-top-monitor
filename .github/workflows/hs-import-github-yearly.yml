@@ -1,0 +1,37 @@
+name: Research import GitHub A-share daily files by year
+on:
+  push:
+    branches: [research/hs-pit-audit-20261027]
+    paths:
+      - '.github/workflows/hs-import-github-yearly.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: hs-yearly-import
+  cancel-in-progress: false
+jobs:
+  yearly-import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Import original public GitHub daily source, research-only
+        run: |
+          python research/hs_pit_audit/import_public_yearly.py --out research/historical_data
+      - name: Commit source evidence and dated files to research branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/historical_data
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "research: archive discovered public daily files by year (not PIT)"
+            git push origin HEAD:research/hs-pit-audit-20261027
+          fi

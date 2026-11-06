@@ -1,0 +1,16 @@
+{
+  "record_type": "manually_reported_research_milestone",
+  "recorded_at_utc": "2026-10-27T07:24:08.272Z",
+  "workflow_name": "Historical A-share 2007–2025 source and 2007 bounded archive",
+  "conclusion": "partial",
+  "summary": "Ran GitHub historical source pilot 40465892487: 19/19 annual daily samples for 2007–2025 downloaded with per-file SHA; verified 2007 backfill run 40466508143 succeeded and committed 35 original daily CSV for 2007 (242 expected sessions; 207 missing). In 2007 scan, 10 requests failed primarily HTTP 429; rate-limit handler updated to stop after 429 instead of continuing requests. Source importer and syntax tested by CI 40466826829 (success). This does not certify delisted-inclusive stock universe or original first-publication PIT, nor fill complete years.",
+  "evidence_url": "https://github.com/devincreator/A-share-top-monitor/blob/research/hs-pit-audit-20261027/research/historical_data/2007/backfill_report.json",
+  "sample_report_url": "https://github.com/devincreator/A-share-top-monitor/blob/research/hs-pit-audit-20261027/research/historical_data/historical_source_probe_2007_2025.json",
+  "source_import_workflow_run_id": 40466508143,
+  "ci_url": "https://github.com/devincreator/A-share-top-monitor/actions/runs/40466826829",
+  "data_gate": "RESEARCH_ONLY",
+  "production_updated": false,
+  "formal_signal_allowed": false,
+  "dual80_achieved": null,
+  "next_action": "Resume bounded annual batches only after observing source rate limits; archive remaining 2007 calendar dates and 2008–2025 trading dates, keep dated SHA256 and gap lists, independently verify universe/PIT. No formal model upgrade."
+}
