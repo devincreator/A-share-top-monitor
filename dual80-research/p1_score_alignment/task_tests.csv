@@ -1,0 +1,70 @@
+﻿task,group,name,passed,actual,expect
+5_TOP,sample,n_inside,true,266,>= 30
+5_TOP,sample,n_ordinary,true,1655,>= 100
+5_TOP,sample,n_early_shoulder,true,259,>= 20
+5_TOP,sample,n_late_shoulder,true,216,>= 20
+5_TOP,sample,n_stride1_ordinary_blocks,true,1440,>= 30
+5_TOP,sample,n_targets_with_eligible_day,true,38,>= 10
+5_TOP,concentration,median_inside_gt_ordinary,true,0.1655015536,> ordinary median 0.1259
+5_TOP,concentration,median_inside_gt_early,true,0.1655015536,> early median 0.1482
+5_TOP,concentration,median_inside_gt_late,true,0.1655015536,> late median 0.1459
+5_TOP,concentration,auc_inside_vs_ordinary,true,0.7250618995,>= 0.60
+5_TOP,concentration,tail_gap,true,0.1294914022,>= 0.05
+5_TOP,concentration,tail_ratio,true,2.347850759,">= 2, or inside >= 0.10 if ordinary tail rate is 0"
+5_TOP,concentration,tail_beats_early,true,0.03637472059,inside - early >= 0.02
+5_TOP,concentration,tail_beats_late,true,0.08204539126,inside - late >= 0.02
+5_TOP,concentration,target_vs_ordinary_block,true,0.378874269,>= 0.10
+5_TOP,concentration,mean_score_peak_inside_window,false,1,all tied argmax offsets in -6..0
+5_TOP,concentration,tail_rate_peak_inside_window,false,1,all tied argmax offsets in -6..0
+5_BOTTOM,sample,n_inside,true,267,>= 30
+5_BOTTOM,sample,n_ordinary,true,1647,>= 100
+5_BOTTOM,sample,n_early_shoulder,true,273,>= 20
+5_BOTTOM,sample,n_late_shoulder,true,209,>= 20
+5_BOTTOM,sample,n_stride1_ordinary_blocks,true,1451,>= 30
+5_BOTTOM,sample,n_targets_with_eligible_day,true,39,>= 10
+5_BOTTOM,concentration,median_inside_gt_ordinary,true,0.2175903122,> ordinary median 0.1019
+5_BOTTOM,concentration,median_inside_gt_early,true,0.2175903122,> early median 0.1329
+5_BOTTOM,concentration,median_inside_gt_late,true,0.2175903122,> late median 0.1948
+5_BOTTOM,concentration,auc_inside_vs_ordinary,true,0.7600949633,>= 0.60
+5_BOTTOM,concentration,tail_gap,true,0.1882960507,>= 0.05
+5_BOTTOM,concentration,tail_ratio,true,4.197150469,">= 2, or inside >= 0.10 if ordinary tail rate is 0"
+5_BOTTOM,concentration,tail_beats_early,true,0.1226488867,inside - early >= 0.02
+5_BOTTOM,concentration,tail_beats_late,false,0.007956561475,inside - late >= 0.02
+5_BOTTOM,concentration,target_vs_ordinary_block,true,0.3986993939,>= 0.10
+5_BOTTOM,concentration,mean_score_peak_inside_window,false,1,all tied argmax offsets in -6..0
+5_BOTTOM,concentration,tail_rate_peak_inside_window,false,1,all tied argmax offsets in -6..0
+9_TOP,sample,n_inside,true,112,>= 30
+9_TOP,sample,n_ordinary,true,1737,>= 100
+9_TOP,sample,n_early_shoulder,true,112,>= 20
+9_TOP,sample,n_late_shoulder,true,96,>= 20
+9_TOP,sample,n_stride1_ordinary_blocks,true,1642,>= 30
+9_TOP,sample,n_targets_with_eligible_day,true,16,>= 10
+9_TOP,concentration,median_inside_gt_ordinary,true,0.08154626412,> ordinary median 0.0615
+9_TOP,concentration,median_inside_gt_early,true,0.08154626412,> early median 0.0790
+9_TOP,concentration,median_inside_gt_late,true,0.08154626412,> late median 0.0764
+9_TOP,concentration,auc_inside_vs_ordinary,true,0.7658010527,>= 0.60
+9_TOP,concentration,tail_gap,true,0.165078337,>= 0.05
+9_TOP,concentration,tail_ratio,true,3.172280844,">= 2, or inside >= 0.10 if ordinary tail rate is 0"
+9_TOP,concentration,tail_beats_early,false,-0.02678571429,inside - early >= 0.02
+9_TOP,concentration,tail_beats_late,true,0.05357142857,inside - late >= 0.02
+9_TOP,concentration,target_vs_ordinary_block,true,0.3889311815,>= 0.10
+9_TOP,concentration,mean_score_peak_inside_window,false,1,all tied argmax offsets in -6..0
+9_TOP,concentration,tail_rate_peak_inside_window,false,1,all tied argmax offsets in -6..0
+9_BOTTOM,sample,n_inside,true,106,>= 30
+9_BOTTOM,sample,n_ordinary,true,1752,>= 100
+9_BOTTOM,sample,n_early_shoulder,true,112,>= 20
+9_BOTTOM,sample,n_late_shoulder,true,87,>= 20
+9_BOTTOM,sample,n_stride1_ordinary_blocks,true,1662,>= 30
+9_BOTTOM,sample,n_targets_with_eligible_day,true,16,>= 10
+9_BOTTOM,concentration,median_inside_gt_ordinary,true,0.1520783721,> ordinary median 0.0408
+9_BOTTOM,concentration,median_inside_gt_early,true,0.1520783721,> early median 0.0645
+9_BOTTOM,concentration,median_inside_gt_late,true,0.1520783721,> late median 0.1093
+9_BOTTOM,concentration,auc_inside_vs_ordinary,true,0.7752487723,>= 0.60
+9_BOTTOM,concentration,tail_gap,true,0.2148595675,>= 0.05
+9_BOTTOM,concentration,tail_ratio,true,3.227419895,">= 2, or inside >= 0.10 if ordinary tail rate is 0"
+9_BOTTOM,concentration,tail_beats_early,true,0.1863207547,inside - early >= 0.02
+9_BOTTOM,concentration,tail_beats_late,true,0.04695293863,inside - late >= 0.02
+9_BOTTOM,concentration,target_vs_ordinary_block,true,0.3963598075,>= 0.10
+9_BOTTOM,concentration,mean_score_peak_inside_window,false,1,all tied argmax offsets in -6..0
+9_BOTTOM,concentration,tail_rate_peak_inside_window,false,1,all tied argmax offsets in -6..0
+ALL,fn_visibility,pooled_fn_entered_tail_share,false,0.2105263158,>= 0.30 of FN with an eligible day

@@ -1440,8 +1440,8 @@
     },
     {
       "path": "dual80-research/README.md",
-      "sha256": "2dbcfd325bfe8a25e2b7783e9d50fa5d443be2e5eb38b406b21887ea713c876d",
-      "bytes": 2420
+      "sha256": "51185012e4b1dfbc1d082f4e9c7f867b966b475ff3edeaecff0a8e5d3a7d3753",
+      "bytes": 2919
     },
     {
       "path": "dual80-research/result.json",
@@ -1545,8 +1545,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "435943b12399c773aa69a89b75e16452b313efa4df8d26532e3ec3bba9bb8512",
-      "bytes": 3568
+      "sha256": "3cc5df1fbd94ab1dbdcb7ce4c48545abe48018ec02f11af7773da6dcc4dfb485",
+      "bytes": 3969
     },
     {
       "path": "requirements.txt",
@@ -5152,6 +5152,116 @@
       "path": "verify_repository.py",
       "sha256": "b4cccc0e88f267bb85e80b6043f10f60d84516c99ceda876f825a428cb4f7ca2",
       "bytes": 1804
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/README.md",
+      "sha256": "1be02c07ca518ae94026865cfe0e2ac5c61b1399b02f278b34f3ec63880feacb",
+      "bytes": 18683
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/alert_detail.csv",
+      "sha256": "3d1f9ff22c12f47205835b13c32137d2b62f4aefd37d26f0e194d47e24e00b58",
+      "bytes": 46015
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/artifact_manifest.json",
+      "sha256": "18681573fddaf3cf6901ce481680450263584f8b1c2a784b6d1389485e0f3ef4",
+      "bytes": 2748
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/decision.json",
+      "sha256": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+      "bytes": 3123
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/diagnose.py",
+      "sha256": "7a0da7636441df8b61f8d02168f61385af44fb2618f67cfa230fca03dd5363dc",
+      "bytes": 87642
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/eligible_days.csv",
+      "sha256": "059201e33bfc1fe0dd2ff161563be4ec6b20ee7fffa8b34ea2463d937a41fc65",
+      "bytes": 1010641
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_fn_breakdown.png",
+      "sha256": "afa1d2773d0eb41d5d16e7824afab1bc7ddfa136629670605338d98af1d6c39d",
+      "bytes": 44543
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_fp_buckets.png",
+      "sha256": "2a6478cd118ab2ecf39ddb38bc672f6725f9926b8e515299b24c65f57a6a9297",
+      "bytes": 118409
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_lead_mean_score.png",
+      "sha256": "2b323ea38e3efaa9f311ad730370741c8b3cf4fb226863b2a78da4b28622d1bf",
+      "bytes": 189265
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_lead_profile.png",
+      "sha256": "9c45fa1aaae8bc9c4db4c11c89a2a0e84a9da136e2d90e1a376355bf6ee3c61b",
+      "bytes": 174101
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_score_ecdf.png",
+      "sha256": "e99b5ad570e531bb548a8f6268118b6c0f4933387e5116c36a838243cb1ff660",
+      "bytes": 150211
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_tail_rate_by_region.png",
+      "sha256": "18565ad5010d4a358c6982138d5701682b16bcb442b86ca862448d0dd7caed89",
+      "bytes": 40653
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fig_window_max_excess.png",
+      "sha256": "c62f4442d4088e8f64bd9daca1060a7b71d89ecf10ebb3ac7de6e56a0656b4d7",
+      "bytes": 100376
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fn_summary.csv",
+      "sha256": "8acc4031c42d4fbe0685b17ca347b8e77ef8e0f20a32c9b978cb696b6c0c9570",
+      "bytes": 392
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fp_flag_rates.csv",
+      "sha256": "980007060ab93b6a0f26fe99cada14fd83f9ddf2b72c5ae56d98e7602e9ceafc",
+      "bytes": 1620
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/fp_summary.csv",
+      "sha256": "fb2493e066a9a6c6a0a29cbd2d2672fb63120165a293e148103e56707e2ee6ea",
+      "bytes": 650
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/lead_profile.csv",
+      "sha256": "8d403c899c94f6c1ddcb3faf754736ec4b3063696bf0bf6d9b54d91dacf78338",
+      "bytes": 4230
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/plan.json",
+      "sha256": "5f93dadb23bd50694e1f6a25e209706a41b0130d98c3d0ef9940336acaf503cc",
+      "bytes": 10822
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/region_distribution.csv",
+      "sha256": "4ac78ecfcf258d97df11a9d119018232e70d56e169a79c2d57436c5be1855187",
+      "bytes": 3606
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/result.json",
+      "sha256": "fa83f250f73b7e4d942af5ef56b052da2a8b3160b952e4b6b09ca74c771dd886",
+      "bytes": 42622
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/target_windows.csv",
+      "sha256": "f8b1f9bd5b935bec3d986139d0ef390524c5e8d4fbf2fb74660017c0c7c38b66",
+      "bytes": 14361
+    },
+    {
+      "path": "dual80-research/p1_score_alignment/task_tests.csv",
+      "sha256": "89db4db34b7a99f0aed69bcdebd4333432f291d82edd56e572efd21358811720",
+      "bytes": 4966
     }
   ]
 }

@@ -1,0 +1,5 @@
+﻿task,fp,economic_fp,cohort_share_of_fp,cohort_boundary_hit,window_goal_already_matched,too_late,too_early,opposite_in_window,trend_continuation,after_turn,oscillation_noise,other,structure_status,structure_pass,other_share_economic,top1_bucket,top1_share_economic,top2_share_economic
+5_TOP,55,55,0,0,0,7,10,0,34,4,0,0,pass,true,0,trend_continuation,0.6181818182,0.8
+5_BOTTOM,39,39,0,0,0,6,5,0,24,4,0,0,pass,true,0,trend_continuation,0.6153846154,0.7692307692
+9_TOP,39,39,0,0,0,5,5,0,22,7,0,0,pass,true,0,trend_continuation,0.5641025641,0.7435897436
+9_BOTTOM,43,43,0,0,0,3,3,0,28,9,0,0,pass,true,0,trend_continuation,0.6511627907,0.8604651163

@@ -1,0 +1,182 @@
+{
+  "phase": "P1",
+  "title": "Score alignment of the frozen close x price x past_rank90 baseline inside D..D+6",
+  "contains_measurements": false,
+  "hypothesis": "Published close x price scores already separate the seven decision days before a close pivot from the other scored days (fixed-threshold day-level AUC about 0.70-0.77). The past_rank90 ledger still produces more alerts than the dual-80 necessary band, with precision about 15-34% and recall about 39-51%. This run tests whether the causal top decile is concentrated inside the official hit window, whether false alerts have a pre-registered timing structure, and whether missed pivots ever enter that same tail. It does not treat those published rates as a target to optimize.",
+  "freeze": {
+    "index": "000985.CSI",
+    "label": "close",
+    "features": "price",
+    "fire_rule": "past_rank90",
+    "fire_rule_definition": "Causal quantile: threshold is the linear 0.90 quantile of up to 252 strictly earlier emitted scores, requiring at least 126 earlier scores. Current score is excluded. Fire on an armed upward cross; lock through D+6; rearm only on a later score below that day's own historical threshold. Identical to label_clock_v4/rank_replay.py.",
+    "decision_clock": "pre-open on day D; score last_input must be D-1",
+    "hit_window": "Decision days D = pivot-6 .. pivot inclusive. An alert on D hits a pivot when 0 <= pivot-D <= 6.",
+    "matching": "same scale, same direction, one-to-one, label_clock_v4.run.match",
+    "tasks": [
+      "5_TOP",
+      "5_BOTTOM",
+      "9_TOP",
+      "9_BOTTOM"
+    ],
+    "intraday_hybrid_used_for_decision": false,
+    "new_factors": false,
+    "threshold_search": false,
+    "alert_quota_from_future_target_counts": false,
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false
+  },
+  "eval_split": {
+    "source": "label_clock_v4 mature cohort, identical to rank_replay.evaluate on the full series",
+    "test_start": "2016-01-01",
+    "left_boundary": "pivot index >= first session on or after 2016-01-01, plus 7",
+    "frontier_rule": "For each scale, min across close and intraday label variants of the maximum pivot whose confirmation is at least 140 sessions before the series end. Evaluation only. The intraday variant is not a scored label in this diagnosis.",
+    "eligible_decision_day": "Session i with i >= test start, i+6 <= frontier, a close/price score, and a causal threshold. Pending alerts with i+6 > frontier are excluded from precision, recall, and from the FP taxonomy.",
+    "new_split": false,
+    "note": "Repeatedly inspected history. Diagnostic only. Not a confirmation sample."
+  },
+  "region_rules": {
+    "inside": "Eligible day in [pivot-6, pivot] for at least one evaluated same-task target.",
+    "early_shoulder": "Eligible day in [pivot-13, pivot-7] and not inside any evaluated target.",
+    "late_shoulder": "Eligible day in [pivot+1, pivot+6] and not inside and not early-shoulder.",
+    "ordinary": "Eligible day in none of the three sets above.",
+    "priority": [
+      "inside",
+      "early_shoulder",
+      "late_shoulder",
+      "ordinary"
+    ],
+    "shoulder_width_sessions": 7,
+    "shoulder_width_reason": "Equal to the hit window. Not chosen after seeing alignment.",
+    "regions_use": "Evaluated close targets only. Out-of-cohort pivots are counted in the FP cohort bucket, not used to redefine ordinary days."
+  },
+  "high_score_tail": {
+    "definition": "score >= that day's causal past_rank90 threshold",
+    "hindsight_percentile": "Midrank percentile of the score among eligible days of the same task. Descriptive only. It uses the full eligible sample, including later days, and is not a fire rule."
+  },
+  "fn_rules": {
+    "population": "Evaluated targets not matched to an alert.",
+    "candidate_days": "Eligible decision days inside [pivot-6, pivot].",
+    "classes": [
+      "no_eligible_day",
+      "fired_but_unmatched",
+      "tail_blocked_by_lock",
+      "tail_blocked_by_no_rearm",
+      "tail_blocked_by_lock_or_rearm",
+      "never_high"
+    ],
+    "entered_tail": [
+      "tail_blocked_by_lock",
+      "tail_blocked_by_no_rearm",
+      "tail_blocked_by_lock_or_rearm",
+      "fired_but_unmatched"
+    ],
+    "never_high": "At least one eligible window day, and none of them is in the causal tail.",
+    "note": "A tail day inside an active D..D+6 lock, or after a lock while still unarmed, did enter the tail even though the frozen rule did not emit a new alert."
+  },
+  "fp_rules": {
+    "population": "Evaluated FP alerts only. PENDING excluded. Buckets are retrospective.",
+    "inputs": "Same-scale close pivots of both directions, including pivots outside the mature cohort, plus 000985 closes. Not used as features.",
+    "priority": [
+      "cohort_boundary_hit",
+      "window_goal_already_matched",
+      "too_late",
+      "too_early",
+      "opposite_in_window",
+      "trend_continuation",
+      "after_turn",
+      "oscillation_noise",
+      "other"
+    ],
+    "definitions": {
+      "cohort_boundary_hit": "A same-direction pivot lies in [alert, alert+6] and that pivot is not an evaluated goal, and no evaluated goal lies in that span.",
+      "window_goal_already_matched": "An evaluated goal lies in [alert, alert+6] but this alert was not the matched alert. Expected to be rare under a 6-session lock.",
+      "too_late": "A same-direction pivot lies in [alert-6, alert-1].",
+      "too_early": "A same-direction pivot lies in [alert+7, alert+13].",
+      "opposite_in_window": "An opposite-direction pivot lies in [alert, alert+6].",
+      "trend_continuation": "The latest pivot at or before the alert is opposite, and the next same-direction pivot is at least 14 sessions later.",
+      "after_turn": "The latest pivot at or before the alert is same-direction and at least 7 sessions earlier, and the next pivot is opposite.",
+      "oscillation_noise": "None of the above, and (max close - min close) over [alert, alert+6] divided by the previous close is strictly below scale/100.",
+      "other": "Residual, including edges where the surrounding pivot is missing."
+    },
+    "economic_fp": "All FP alerts except cohort_boundary_hit. Structure shares use this subset.",
+    "raw_flags": "The same predicates are also stored without priority, so overlap is visible. Raw flags may sum to more than one."
+  },
+  "success_criteria": {
+    "sample_floors": {
+      "n_inside_min": 30,
+      "n_ordinary_min": 100,
+      "n_early_shoulder_min": 20,
+      "n_late_shoulder_min": 20,
+      "n_stride1_ordinary_blocks_min": 30,
+      "n_targets_with_eligible_day_min": 10
+    },
+    "concentration_all_required": {
+      "median_inside_gt_ordinary": true,
+      "median_inside_gt_early_shoulder": true,
+      "median_inside_gt_late_shoulder": true,
+      "auc_inside_vs_ordinary_min": 0.6,
+      "tail_gap_inside_minus_ordinary_min": 0.05,
+      "tail_ratio_inside_over_ordinary_min": 2.0,
+      "tail_ratio_if_ordinary_is_zero_requires_inside_min": 0.1,
+      "tail_inside_minus_early_min": 0.02,
+      "tail_inside_minus_late_min": 0.02,
+      "target_any_tail_minus_stride1_ordinary_block_min": 0.1,
+      "mean_score_argmax_offsets": "Every offset in -13..+6 with n>=10 that ties the maximum mean score, within 1e-12, lies in -6..0.",
+      "tail_rate_argmax_offsets": "Same rule for the causal tail rate."
+    },
+    "fn_visibility": {
+      "pooled_across_four_tasks": true,
+      "denominator": "FN targets with at least one eligible window day",
+      "numerator": "Those FN targets with at least one eligible causal-tail day",
+      "min_share": 0.3
+    },
+    "fp_structure_each_task": {
+      "inconclusive_if_economic_fp_below": 8,
+      "other_share_max": 0.4,
+      "top1_share_min": 0.25,
+      "top2_share_min": 0.6,
+      "rule": "PASS if other share < 0.40 AND (top1 >= 0.25 OR top2 >= 0.60), shares over economic FP, top buckets excluding other."
+    },
+    "decision_order": [
+      "BLOCKED_INSUFFICIENT_SAMPLE if any task fails a sample floor",
+      "else BLOCKED_NO_CONCENTRATION if any task fails a concentration test",
+      "else BLOCKED_FN_INVISIBLE if the pooled FN tail-entry share is below 0.30",
+      "else BLOCKED_FP_UNSTRUCTURED if any task fails the FP structure test",
+      "else GO_P2"
+    ],
+    "go_meaning": "A later Phase P2 may pre-register at most three fire-rule variants on these same close x price scores. P2 is not run here. GO does not mean dual-80 is reachable by compression, and it does not authorize a new factor, a new label, a new index, or a signal.",
+    "dependence_note": "Days overlap and scores are autocorrelated. These gates are pre-registered descriptive rules. No p-value is a gate."
+  },
+  "reported_but_not_gates": [
+    "nonoverlapping stride-7 ordinary-block tail rate",
+    "hindsight top-decile (midrank percentile >= 90) enrichment",
+    "median excess of TP alert days versus FP alert days",
+    "share of never-high FN whose best hindsight percentile is below 80, and the share in [80, 90)",
+    "eligible inside days that also fall in another target early shoulder",
+    "same-direction evaluated targets separated by 6 sessions or fewer",
+    "causal tail on an ineligible right-boundary window day",
+    "dual-80 necessary alert band ceil(0.8T)..floor(T/0.8), as context only",
+    "cohort_boundary_hit share, with a prose note if it is at least 0.30"
+  ],
+  "out_of_scope": [
+    "No threshold search and no new fire rule.",
+    "No new factor and no D-day feature.",
+    "No label change and no index change.",
+    "No intraday hybrid promotion.",
+    "No production page, collector, official signal, or V-series workflow.",
+    "formal_signal_allowed stays false."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-label-comparison/all_labels.csv": "1a74144826996281ac846bff81f7f646269eb64a8f890d2de5dc6f803e33f2ee",
+    "dual80-research/label_clock_v4/scores.csv": "57aa4ad9072a9c2355d1edfc6848358280a234f7c4f1947dbcd48a7c10a7528b",
+    "dual80-research/label_clock_v4/rank_events.csv": "fa9e33536e7f3e30c74df9f057085417389fcb67d303ddb08f0315a114ea6d59",
+    "dual80-research/label_clock_v4/rank_metrics.csv": "e7e23bd59cef709e96379b239c23035f0e972cfcc520888e83874bfd10d78f9f",
+    "dual80-research/label_clock_v4/rank_thresholds.csv": "91a41ed443ea06bcd20bf0d4dc5bcc20db66cff9565164e8d126b865843925e3",
+    "dual80-research/label_clock_v4/rank_replay.py": "05f4f0823e3e9e81950ecc34f73b8071fd8bda75cdd7df2731d2e487dd8d0346",
+    "dual80-research/label_clock_v4/run.py": "79b3b663f681ab0f4333031b12791523613c4bde99209d4b90adf36ca1461f7e"
+  }
+}
