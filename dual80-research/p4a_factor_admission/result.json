@@ -1,0 +1,278 @@
+{
+  "decision": "NO_FAMILY_ADMITTED",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "comparison_ran": false,
+  "families_admitted": [],
+  "families": [
+    {
+      "family_id": "financing_balance",
+      "name": "Shanghai plus Shenzhen financing balance",
+      "role": "candidate",
+      "eligible_if_evidence_passes": true,
+      "gate_passed": false,
+      "status": "RESEARCH_ONLY",
+      "blocks": [
+        "NO_DISCLOSURE_COLUMN",
+        "LINEAGE_NOT_PIT",
+        "POLICY_PIT_FALSE",
+        "VENDOR_REPRINT_NOT_A_CLOCK",
+        "PARTIAL_COVERAGE",
+        "MISSING_FILE",
+        "AFTER_CLOSE_DERIVED"
+      ]
+    },
+    {
+      "family_id": "turnover_rate",
+      "name": "Project-recomputed float-A share turnover, with the vendor native rate kept as a control",
+      "role": "candidate",
+      "eligible_if_evidence_passes": true,
+      "gate_passed": false,
+      "status": "RESEARCH_ONLY",
+      "blocks": [
+        "POLICY_PIT_FALSE",
+        "CONSTITUENT_SCOPE_UNCERTIFIED",
+        "LATEST_PARAMETER",
+        "NO_DISCLOSURE_COLUMN",
+        "VENDOR_FORMULA_UNRESOLVED"
+      ]
+    },
+    {
+      "family_id": "market_breadth",
+      "name": "Constituent breadth: advance share or new-low share, and the documented C50 path",
+      "role": "candidate",
+      "eligible_if_evidence_passes": true,
+      "gate_passed": false,
+      "status": "RESEARCH_ONLY",
+      "blocks": [
+        "MISSING_FILE",
+        "CONSTITUENT_SCOPE_UNCERTIFIED",
+        "NOT_THE_DOCUMENTED_BREADTH"
+      ]
+    },
+    {
+      "family_id": "index_trading_amount",
+      "name": "CSI 000985 tradingValue, stored in the column named turnover",
+      "role": "cited_already_compared",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "CITED_NOT_RERUN",
+      "blocks": [
+        "LINEAGE_NOT_PIT",
+        "CAPTURE_TIME_NOT_DISCLOSURE",
+        "NO_DISCLOSURE_COLUMN"
+      ]
+    },
+    {
+      "family_id": "style_index_controls",
+      "name": "000300 and 000852 closes, used only as the style ratio",
+      "role": "control_not_a_target",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "CONTROL_NOT_A_TARGET",
+      "blocks": [
+        "LINEAGE_NOT_PIT",
+        "CAPTURE_TIME_NOT_DISCLOSURE",
+        "NO_DISCLOSURE_COLUMN",
+        "CONTROL_NOT_TARGET",
+        "BACKCAST_NOT_THEN_KNOWN"
+      ]
+    },
+    {
+      "family_id": "official_peg",
+      "name": "peg on the official index receipt",
+      "role": "raw_field_not_used",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "NOT_A_CANDIDATE",
+      "blocks": [
+        "RAW_FIELD_UNUSED"
+      ]
+    },
+    {
+      "family_id": "official_constituent_count",
+      "name": "consNumber on the official index receipt",
+      "role": "raw_field_not_used",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "NOT_A_CANDIDATE",
+      "blocks": [
+        "RAW_FIELD_UNUSED"
+      ]
+    },
+    {
+      "family_id": "price_transforms",
+      "name": "Returns, distances, range position, realized volatility, interactions, and swing state",
+      "role": "excluded_price_family",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "NOT_A_CANDIDATE",
+      "blocks": [
+        "EXCLUDED_PRICE_FAMILY"
+      ]
+    },
+    {
+      "family_id": "named_outside_minimum_set",
+      "name": "News, financial statements, macro, fund flow, level-2, and minute bars",
+      "role": "out_of_scope",
+      "eligible_if_evidence_passes": false,
+      "gate_passed": false,
+      "status": "NOT_A_CANDIDATE",
+      "blocks": [
+        "OUT_OF_SCOPE"
+      ]
+    }
+  ],
+  "cited_close_past_rank90": [
+    {
+      "task": "5_TOP",
+      "group": "price__past_rank90",
+      "precision": 0.2361111111111111,
+      "recall": 0.4473684210526316,
+      "TP": 17,
+      "FP": 55,
+      "FN": 21,
+      "alerts": 72,
+      "targets": 38,
+      "dual80": false
+    },
+    {
+      "task": "5_TOP",
+      "group": "price_amount_style__past_rank90",
+      "precision": 0.18292682926829268,
+      "recall": 0.39473684210526316,
+      "TP": 15,
+      "FP": 67,
+      "FN": 23,
+      "alerts": 82,
+      "targets": 38,
+      "dual80": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "group": "price__past_rank90",
+      "precision": 0.3389830508474576,
+      "recall": 0.5128205128205128,
+      "TP": 20,
+      "FP": 39,
+      "FN": 19,
+      "alerts": 59,
+      "targets": 39,
+      "dual80": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "group": "price_amount_style__past_rank90",
+      "precision": 0.3114754098360656,
+      "recall": 0.48717948717948717,
+      "TP": 19,
+      "FP": 42,
+      "FN": 20,
+      "alerts": 61,
+      "targets": 39,
+      "dual80": false
+    },
+    {
+      "task": "9_TOP",
+      "group": "price__past_rank90",
+      "precision": 0.15217391304347827,
+      "recall": 0.3888888888888889,
+      "TP": 7,
+      "FP": 39,
+      "FN": 11,
+      "alerts": 46,
+      "targets": 18,
+      "dual80": false
+    },
+    {
+      "task": "9_TOP",
+      "group": "price_amount_style__past_rank90",
+      "precision": 0.20454545454545456,
+      "recall": 0.5,
+      "TP": 9,
+      "FP": 35,
+      "FN": 9,
+      "alerts": 44,
+      "targets": 18,
+      "dual80": false
+    },
+    {
+      "task": "9_BOTTOM",
+      "group": "price__past_rank90",
+      "precision": 0.1568627450980392,
+      "recall": 0.42105263157894735,
+      "TP": 8,
+      "FP": 43,
+      "FN": 11,
+      "alerts": 51,
+      "targets": 19,
+      "dual80": false
+    },
+    {
+      "task": "9_BOTTOM",
+      "group": "price_amount_style__past_rank90",
+      "precision": 0.17307692307692307,
+      "recall": 0.47368421052631576,
+      "TP": 9,
+      "FP": 43,
+      "FN": 10,
+      "alerts": 52,
+      "targets": 19,
+      "dual80": false
+    }
+  ],
+  "next_step": {
+    "implemented": false,
+    "name": "collect_financing_disclosure_timestamps",
+    "why_this_family": "It is the first candidate in the fixed order. A full-calendar file is already in the repository, it is outside the frozen price model, and it was not part of the price_amount_style comparison. Turnover stays second because its float-A denominator is still marked 最新 and its constituent scope is uncertified, so timestamps alone would not admit it. Breadth stays blocked on missing constituent, halt, and breadth files. Amount and style stay cited, not re-run.",
+    "artifact_that_would_be_required": "One row per research date for the Shanghai balance and one row per research date for the Shenzhen balance. Columns: observation_date, field, disclosure_timestamp. The timestamp must be timezone-aware and strictly before 09:15 Asia/Shanghai on the next research session. A 2026 capture time, an iFinD reprint, a 数据来源 label, or a sample of exchange files does not qualify.",
+    "do_not": [
+      "Do not scrape or download that file in this phase.",
+      "Do not assume a next-morning lag.",
+      "Do not fit the 63-session change, or any other transform, while the file is absent.",
+      "Do not collect breadth or a new external series in this phase."
+    ]
+  },
+  "v92_unique_dates": [
+    "2023-09-21",
+    "2023-09-22",
+    "2023-09-25",
+    "2023-09-26",
+    "2023-09-27",
+    "2024-06-14",
+    "2024-06-17",
+    "2024-06-18",
+    "2024-06-19",
+    "2024-06-20",
+    "2024-06-21",
+    "2024-06-24",
+    "2024-06-25",
+    "2024-06-26",
+    "2024-06-27",
+    "2024-06-28",
+    "2024-07-01",
+    "2024-07-02",
+    "2024-07-03",
+    "2024-07-04",
+    "2024-07-05",
+    "2024-08-08",
+    "2024-10-21",
+    "2024-10-22",
+    "2024-10-23",
+    "2024-10-24",
+    "2024-10-25",
+    "2024-10-28",
+    "2024-10-29",
+    "2024-10-30",
+    "2024-10-31",
+    "2024-11-01",
+    "2024-11-04",
+    "2025-01-07"
+  ],
+  "v92_capture_before_preopen": 0,
+  "plan_sha256": "5c59fd3f205aa9e2001303996afffa7b2715175e1fb0b630a0bddb00a85447d9",
+  "english": "No candidate has a structured disclosure timestamp on every research session, with observation_date strictly before D and the clock strictly before 09:15 Asia/Shanghai on D. Financing covers the 3659 sessions in the provider table, and its lineage statuses are PROVIDER_HISTORY_NOT_PIT 3659 and PROVIDER_HISTORY_REACQUIRED_NOT_PIT 3659. The exchange capture covers 34 sessions, PIT_certified values are False 68, capture-clock fields are first_captured_at_utc 64, source_run_started_at_utc 4, and those clocks run from 2026-10-21T03:55:49Z to 2026-10-26T08:48:48.991185+00:00; 0 of those capture times fall before the next pre-open, and a capture time would not count as disclosure anyway. Turnover is historical_publication_times_certified=False, constituents independently verified=False, and both the native-rate request and a float-A repair still say 最新. Market-breadth filename search found no files. Index amount and the 000300/000852 controls are OFFICIAL_HISTORY_NOT_PIT; the 000985 receipt clock is 2026-10-30T08:04:37.740882+00:00 to 2026-10-30T08:04:39.744425+00:00. Amount and style were already compared and are not re-run: 5_TOP price 23.6%/44.7% versus amount+style 18.3%/39.5%; 5_BOTTOM price 33.9%/51.3% versus amount+style 31.1%/48.7%; 9_TOP price 15.2%/38.9% versus amount+style 20.5%/50.0%; 9_BOTTOM price 15.7%/42.1% versus amount+style 17.3%/47.4%. The displayed baseline stayed on the price group. Official peg and consNumber are unused raw fields on that same receipt. The next step is to collect certified per-session disclosure timestamps for the Shanghai and Shenzhen financing balances. That collection is not done here. No family was fit. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a signal. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. P1c remains BLOCKED_NO_WINDOW_PEAK. P1d remains GO_NEW_FACTORS.",
+  "chinese": "没有任何候选家族在全部研究日上带有结构化披露时点，并且观察日严格早于 D、时钟严格早于 D 日上海时间 09:15。融资余额的供应商表覆盖 3659 个研究日，谱系状态是 PROVIDER_HISTORY_NOT_PIT 3659 和 PROVIDER_HISTORY_REACQUIRED_NOT_PIT 3659。交易所原始捕获覆盖 34 个交易日，PIT_certified 的取值是 False 68，捕获时钟字段是 first_captured_at_utc 64, source_run_started_at_utc 4，时间从 2026-10-21T03:55:49Z 到 2026-10-26T08:48:48.991185+00:00；其中 0 个捕获时间早于下一交易日开盘前，而且捕获时间本来就不是披露时点。换手率的 historical_publication_times_certified 是 False，历史成分独立认证是 False，原生换手率请求和一份流通 A 股修复回执仍然写着“最新”。市场广度文件名检索没有命中文件。成交额和 000300/000852 对照的谱系是 OFFICIAL_HISTORY_NOT_PIT；000985 回执时钟是 2026-10-30T08:04:37.740882+00:00 到 2026-10-30T08:04:39.744425+00:00。 成交额和风格已经比较过，本轮不重跑：5_TOP price 23.6%/44.7% versus amount+style 18.3%/39.5%; 5_BOTTOM price 33.9%/51.3% versus amount+style 31.1%/48.7%; 9_TOP price 15.2%/38.9% versus amount+style 20.5%/50.0%; 9_BOTTOM price 15.7%/42.1% versus amount+style 17.3%/47.4%。展示基线仍是价格组。官方回执上的 peg 和 consNumber 没有被研究代码用作特征。 下一步是为沪深融资余额收集逐日、带时区、并且早于下一交易日 09:15 的披露时点。这一步没有实施。没有拟合任何家族。 formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。 P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。P1c 仍是 BLOCKED_NO_WINDOW_PEAK。P1d 仍是 GO_NEW_FACTORS。"
+}

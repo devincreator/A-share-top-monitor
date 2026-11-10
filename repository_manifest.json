@@ -920,13 +920,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "7afdebdc5870e42f613dc2af8156daa7d98933b472eee54bb34bec6385c0dc82",
-      "bytes": 5598
+      "sha256": "ad80ab122d8180401ce4add42f62e350b2d209bba561792dbe6b010b3eef340a",
+      "bytes": 6140
     },
     {
       "path": "dual80-research/README.md",
-      "sha256": "4493179d358b1bd00a177764dae28e6981e6cec304a5f109c934cb4d1362ce3d",
-      "bytes": 4008
+      "sha256": "3388fca02b9f0a3ba8ae2979b786ea463a4a45d0080a48ea627e6451966c1ad9",
+      "bytes": 4182
     },
     {
       "path": "dual80-research/architecture_review.py",
@@ -1717,6 +1717,51 @@
       "path": "dual80-research/p1d_fire_timing/target_attribution.csv",
       "sha256": "1add4f1d8f8dec7397465a3b6e66929299454b12a5152a30b3e9900a5bf30be7",
       "bytes": 29493
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/README.md",
+      "sha256": "8a8559967ed93e1693ae46f65eccbf2fcd7fb013d37b5f6b6f8fd9f3bc3dbaf6",
+      "bytes": 17657
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/artifact_manifest.json",
+      "sha256": "f47945fd9ad25b6dfd715b8896e42ea97959ccd4c828fa73d2e4a642f2adf17e",
+      "bytes": 996
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/audit.py",
+      "sha256": "45ced175a527c963bdc371b15ffe34a141c454afc8e408000a7604448c26dd79",
+      "bytes": 74426
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/decision.json",
+      "sha256": "0c3e84ef26391ae01058e9901b35c9ea8587f186b670b7a90c65f78e914c1643",
+      "bytes": 4241
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/evidence.json",
+      "sha256": "11526466f0e589458a11de5f856c3e4a2ea5f99e159c6f32dbda96a0edbc9eb9",
+      "bytes": 84986
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/gaps.csv",
+      "sha256": "1a8f5e916703f59231704f13d2c3f3f139c98d3cfa9a5216580195227840306f",
+      "bytes": 8689
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/inventory.csv",
+      "sha256": "f751487a566b4b81e8fe72485f258d14f5cc2d56b4b97289ae8d34a235b1309d",
+      "bytes": 1190
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/plan.json",
+      "sha256": "5c59fd3f205aa9e2001303996afffa7b2715175e1fb0b630a0bddb00a85447d9",
+      "bytes": 21766
+    },
+    {
+      "path": "dual80-research/p4a_factor_admission/result.json",
+      "sha256": "90b1b5f3bb4a5d33b28d9f8f9c3d54c38b9dd2e7f6eae902d61ba8422249ec74",
+      "bytes": 11732
     },
     {
       "path": "dual80-research/pending_score_review.json",
