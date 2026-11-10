@@ -1,0 +1,260 @@
+{
+  "phase": "P1c",
+  "title": "Equal-weight slow-feature score: does the peak sit inside offsets -6..0?",
+  "contains_measurements": false,
+  "hypothesis": "P1 found that the frozen six-feature close x price logistic score, fired with past_rank90, peaks at offset +1 on all four tasks. That session cannot hit the pivot. P1b found that four slow inputs already depart from ordinary days inside offsets -6..0, while the pivot close adds a further increment at +1. This experiment asks whether a score that uses only those four features, combined with fixed equal weights and the economic signs already written in the P1b plan, moves the lead-profile peak into the hittable window. Dual-80 precision and recall are reported against the frozen close x price x past_rank90 baseline. They are not a search target.",
+  "freeze": {
+    "index": "000985.CSI",
+    "label": "close",
+    "feature_family": "price",
+    "feature_source": "label_clock_v4 X[\"price\"], produced by make_features(closes, turnover, style, scale=5) from broad_experiments_v2/run.py. The price block does not read scale, turnover, or style. Columns, in order: return3_scaled, return20_scaled, change_in_return3_scaled, distance_to_20day_high_scaled, distance_to_20day_low_scaled, position63.",
+    "features_in_score": [
+      "return20_scaled",
+      "distance_to_20day_high_scaled",
+      "distance_to_20day_low_scaled",
+      "position63"
+    ],
+    "feature_columns": {
+      "return20_scaled": 1,
+      "distance_to_20day_high_scaled": 3,
+      "distance_to_20day_low_scaled": 4,
+      "position63": 5
+    },
+    "excluded_from_primary_score": [
+      "return3_scaled",
+      "change_in_return3_scaled"
+    ],
+    "excluded_reason": "P1b presence did not clear return3_scaled or change_in_return3_scaled on two tasks. They stay out of this primary score. No sensitivity adds them.",
+    "new_factors": false,
+    "refit_six_feature_model": false,
+    "coefficient_search": false,
+    "threshold_search": false,
+    "grid_search": false,
+    "p2_alert_compression": false,
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "decision_clock": "pre-open on day D; feature row D uses closes through D-1",
+    "offset_definition": "Offset k is decision index pivot_index + k. Its last input index is pivot_index + k - 1. Offset 0 last input is the previous close. Offset +1 last input is the pivot close, and an alert that day cannot hit the pivot.",
+    "hittable_window": "Offsets -6..0.",
+    "hit_rule": "An alert on decision index a hits pivot p when 0 <= p - a <= 6.",
+    "matching": "same scale, same direction, one-to-one, label_clock_v4.run.match"
+  },
+  "score": {
+    "name": "equal_weight_sign_aligned_expanding_z_sum",
+    "formula": "score(task, i) = sum_k sign(task, k) * (x_k(i) - mu_k(i)) / sd_k(i), over the four slow features only.",
+    "weights": "Each included feature has weight 1. There is no intercept and no rescaling of the sum.",
+    "clip": "none",
+    "probability": false,
+    "signs": {
+      "source": "P1b plan economic signs for these four features. Tops are positive and bottoms are negative on every included feature. The signs were written before the P1b measurement and are not re-estimated from the P1c profile.",
+      "5_TOP": {
+        "return20_scaled": 1,
+        "distance_to_20day_high_scaled": 1,
+        "distance_to_20day_low_scaled": 1,
+        "position63": 1
+      },
+      "5_BOTTOM": {
+        "return20_scaled": -1,
+        "distance_to_20day_high_scaled": -1,
+        "distance_to_20day_low_scaled": -1,
+        "position63": -1
+      },
+      "9_TOP": {
+        "return20_scaled": 1,
+        "distance_to_20day_high_scaled": 1,
+        "distance_to_20day_low_scaled": 1,
+        "position63": 1
+      },
+      "9_BOTTOM": {
+        "return20_scaled": -1,
+        "distance_to_20day_high_scaled": -1,
+        "distance_to_20day_low_scaled": -1,
+        "position63": -1
+      }
+    },
+    "shared_series": "The price block ignores scale and the signs do not differ by scale, so 5_TOP and 9_TOP share one score series and the two bottom tasks share its negation. Tasks still differ in targets, frontier, and eligible days. This does not authorize a scale-specific weight.",
+    "standardization": {
+      "estimator": "expanding, causal, label-free",
+      "rows": "Feature rows j with 252 <= j < i. Row i is excluded. Rows before 252 are undefined and are excluded.",
+      "minimum_rows": 126,
+      "center": "arithmetic mean",
+      "scale": "sample standard deviation, ddof=1",
+      "sd_floor": "If any feature has variance below 1e-12, the run aborts. There is no silent floor and no clip.",
+      "not_used": "Evaluation-sample ordinary-day moments, full-sample moments, and any moment that includes row i or a later row."
+    },
+    "fitting": "No coefficient is fit. No walk-forward logistic regression. The expanding mean and standard deviation are the only estimated numbers, and they are not chosen to maximize precision, recall, or a peak location. The 2016-01-01 date is the inherited evaluation start, not a split used to pick this formula."
+  },
+  "fire_rule": {
+    "name": "past_rank90",
+    "same_as": "label_clock_v4/rank_replay.py and the P1 replay",
+    "lookback_sessions": 252,
+    "minimum_previous_scores": 126,
+    "quantile": 0.9,
+    "quantile_method": "numpy linear",
+    "threshold_inputs": "Strictly earlier emitted scores inside the lookback. The current score is excluded.",
+    "policy": "Fire on an armed upward cross of that day's own threshold. Lock through decision index i+6. Rearm only on a later score strictly below that later day's own threshold. The quantile is not searched.",
+    "applied_to": "The slow-feature score, separately on each task series. The baseline ledger is replayed only to lock the rule and to report the frozen comparison."
+  },
+  "cohort": {
+    "source": "P1 eligible_days.csv and target_windows.csv",
+    "test_start": "2016-01-01",
+    "eligible_day": "A P1 eligible day: a close x price score exists, the baseline causal threshold exists, the session is on or after the test start, and the session plus 6 is on or before the mature frontier. This experiment also requires the slow-feature score and its own causal threshold on that same day. A missing slow-score threshold aborts the run rather than dropping the day.",
+    "targets": {
+      "5_TOP": 38,
+      "5_BOTTOM": 39,
+      "9_TOP": 18,
+      "9_BOTTOM": 19
+    },
+    "eligible_days": {
+      "5_TOP": 2396,
+      "5_BOTTOM": 2396,
+      "9_TOP": 2057,
+      "9_BOTTOM": 2057
+    },
+    "regions": {
+      "5_TOP": {
+        "inside": 266,
+        "early_shoulder": 259,
+        "late_shoulder": 216,
+        "ordinary": 1655
+      },
+      "5_BOTTOM": {
+        "inside": 267,
+        "early_shoulder": 273,
+        "late_shoulder": 209,
+        "ordinary": 1647
+      },
+      "9_TOP": {
+        "inside": 112,
+        "early_shoulder": 112,
+        "late_shoulder": 96,
+        "ordinary": 1737
+      },
+      "9_BOTTOM": {
+        "inside": 106,
+        "early_shoulder": 112,
+        "late_shoulder": 87,
+        "ordinary": 1752
+      }
+    },
+    "region_priority": [
+      "inside",
+      "early_shoulder",
+      "late_shoulder",
+      "ordinary"
+    ],
+    "inside": "Eligible day in [pivot-6, pivot] for at least one evaluated same-task target.",
+    "early_shoulder": "Eligible day in [pivot-13, pivot-7] and not inside.",
+    "late_shoulder": "Eligible day in [pivot+1, pivot+6] and not inside and not early.",
+    "ordinary": "Eligible day in none of those sets.",
+    "p1_decision": "BLOCKED_NO_CONCENTRATION",
+    "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+    "new_split": false,
+    "note": "Repeatedly inspected history. Not a confirmation sample and not a blind test."
+  },
+  "tests": {
+    "sample_floors": {
+      "n_inside_min": 30,
+      "n_ordinary_min": 100,
+      "n_targets_min": 10,
+      "per_offset_min": 10,
+      "offsets": [
+        -13,
+        -12,
+        -11,
+        -10,
+        -9,
+        -8,
+        -7,
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "rule": "Every offset from -13 through +6 must have at least 10 evaluated pivots whose decision day is eligible."
+    },
+    "task_pass": {
+      "mean_score_argmax": "Among offsets -13..+6 with n>=10, every offset whose mean score is within 1e-12 of the maximum lies in -6..0.",
+      "tail_rate_argmax": "The same rule for the causal past_rank90 tail rate.",
+      "richer_than_ordinary": "The median slow-feature score on eligible inside days is strictly greater than the median on eligible ordinary days, and the causal tail rate on inside days is strictly greater than the causal tail rate on ordinary days. numpy.median: even counts use the average of the two middle values.",
+      "all_three_required": true,
+      "tie_tolerance": 1e-12
+    },
+    "majority": {
+      "n_tasks": 4,
+      "minimum_passing_tasks": 3,
+      "rule": "GO_WINDOW_PEAK requires at least 3 of the 4 tasks to pass all three task-level checks. Two passing tasks are not a majority."
+    },
+    "decision_order": [
+      "BLOCKED_INSUFFICIENT_SAMPLE if any task fails a sample floor",
+      "else GO_WINDOW_PEAK if at least 3 tasks pass all three checks",
+      "else BLOCKED_NO_WINDOW_PEAK"
+    ],
+    "blocked_meaning": "BLOCKED_NO_WINDOW_PEAK means the pre-registered peak and richness gates failed. If the argmax stays outside -6..0, the pre-pivot feature movement does not survive combination into this decision score. The gates are not loosened and the two fast features are not added.",
+    "go_meaning": "The slow-feature score peaks inside the hittable window on a majority of tasks and those windows are richer than ordinary days. Dual-80 is reported, not claimed. GO_WINDOW_PEAK does not open Phase P2, does not authorize a signal, and does not refit the six-feature model.",
+    "dependence_note": "Days overlap and scores are autocorrelated. These gates are descriptive rules. No p-value is a gate."
+  },
+  "reported_not_gates": [
+    "precision, recall, TP, FP, FN, alerts, pending, and the dual-80 necessary band ceil(0.8*T)..floor(T/0.8)",
+    "the same metrics for the frozen six-feature past_rank90 baseline",
+    "mean score and tail rate at each offset, including the frozen six-feature profile",
+    "plus1 mean minus the best mean inside -6..0, and the same gap for the tail rate",
+    "early-shoulder and late-shoulder medians and tail rates",
+    "share of evaluated targets with at least one eligible in-window causal-tail day",
+    "expanding mean and standard deviation at the first and last eligible sessions",
+    "the fact that the two top tasks share a score series and the two bottom tasks share its negation"
+  ],
+  "leakage": [
+    "Putting the decision session close, the pivot close, or any later close into a feature row at offsets -6..0.",
+    "Treating offset 0 as if its last input were the pivot close.",
+    "Using row i, or a later row, in mu(i) or sd(i).",
+    "Using ordinary-day moments from the evaluation sample, a label, a confirmation date, or a match status in the score.",
+    "Fitting or editing logistic coefficients, weights, signs, or the 0.90 quantile after seeing the lead profile.",
+    "Adding return3_scaled, change_in_return3_scaled, amount, style, swing, or any other input.",
+    "Dropping an eligible day because its slow score is inconvenient.",
+    "Choosing a different formula or a higher threshold after seeing precision or the argmax.",
+    "Using future target counts as an alert quota.",
+    "Changing the label, the index, or the hit window."
+  ],
+  "out_of_scope": [
+    "No refit of the six-feature model.",
+    "No Phase P2 alert compression.",
+    "No threshold change on the frozen score.",
+    "No fast-feature sensitivity.",
+    "No new external factor and no D-day feature.",
+    "No label change and no index change.",
+    "No production page, collector, official signal, or V-series workflow.",
+    "formal_signal_allowed stays false.",
+    "Not PIT and not a blind test."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-label-comparison/all_labels.csv": "1a74144826996281ac846bff81f7f646269eb64a8f890d2de5dc6f803e33f2ee",
+    "dual80-research/broad_experiments_v2/run.py": "04b45d13b33e102fd2600982687e4085f58e6782c5774aeedbbc1a65aadf83d5",
+    "dual80-research/label_clock_v4/run.py": "79b3b663f681ab0f4333031b12791523613c4bde99209d4b90adf36ca1461f7e",
+    "dual80-research/label_clock_v4/rank_replay.py": "05f4f0823e3e9e81950ecc34f73b8071fd8bda75cdd7df2731d2e487dd8d0346",
+    "dual80-research/label_clock_v4/scores.csv": "57aa4ad9072a9c2355d1edfc6848358280a234f7c4f1947dbcd48a7c10a7528b",
+    "dual80-research/label_clock_v4/rank_metrics.csv": "e7e23bd59cef709e96379b239c23035f0e972cfcc520888e83874bfd10d78f9f",
+    "dual80-research/label_clock_v4/rank_events.csv": "fa9e33536e7f3e30c74df9f057085417389fcb67d303ddb08f0315a114ea6d59",
+    "dual80-research/label_clock_v4/rank_thresholds.csv": "91a41ed443ea06bcd20bf0d4dc5bcc20db66cff9565164e8d126b865843925e3",
+    "dual80-research/p1_score_alignment/plan.json": "5f93dadb23bd50694e1f6a25e209706a41b0130d98c3d0ef9940336acaf503cc",
+    "dual80-research/p1_score_alignment/decision.json": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+    "dual80-research/p1_score_alignment/lead_profile.csv": "8d403c899c94f6c1ddcb3faf754736ec4b3063696bf0bf6d9b54d91dacf78338",
+    "dual80-research/p1_score_alignment/eligible_days.csv": "059201e33bfc1fe0dd2ff161563be4ec6b20ee7fffa8b34ea2463d937a41fc65",
+    "dual80-research/p1_score_alignment/target_windows.csv": "f8b1f9bd5b935bec3d986139d0ef390524c5e8d4fbf2fb74660017c0c7c38b66",
+    "dual80-research/p1b_feature_timing/plan.json": "3f9ae88190b16d40614080ae4075da4091ee1a6fe367cdf4f24f705bee51c973",
+    "dual80-research/p1b_feature_timing/decision.json": "4a3c816bcafff31228cbe9e9d6dd8ff4c9e790585ad5c4ad165d3b2a3ddfe4e6"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "decision": "BLOCKED_NO_WINDOW_PEAK",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "refit_six_feature_model": false,
+  "p2_opened": false,
+  "fast_features_in_primary_score": false,
+  "english": "BLOCKED. The pre-registered slow-feature score does not clear the window-peak gate on a majority of tasks (0 of 4 pass; the rule requires 3). Peaks: 5_TOP mean +1 / tail +1, 5_BOTTOM mean +1 / tail +1, 9_TOP mean +1 / tail +1, 9_BOTTOM mean +1 / tail +1. The pre-pivot movement of the four slow features does not survive combination into this decision score. Inside-window medians and causal tail rates are strictly above ordinary days on all four tasks. Baseline comparison, reported and not optimized: 5_TOP 17.8%/21.1% versus baseline 23.6%/44.7%; 5_BOTTOM 30.0%/38.5% versus baseline 33.9%/51.3%; 9_TOP 12.8%/27.8% versus baseline 15.2%/38.9%; 9_BOTTOM 16.7%/42.1% versus baseline 15.7%/42.1%. Dual-80 is not claimed. The two fast features stay out of the score. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a signal.",
+  "chinese": "阻断。预注册的慢变量分数没有在多数任务上通过窗口峰值门槛（0 / 4 通过，规则要求 3 个）。峰值：5_TOP 平均 +1，尾部 +1；5_BOTTOM 平均 +1，尾部 +1；9_TOP 平均 +1，尾部 +1；9_BOTTOM 平均 +1，尾部 +1。四个慢变量在拐点前的移动，合成决策分数之后没有保住可命中窗口里的峰值。四项任务的窗口内中位数和因果尾部比例都严格高于普通日。与冻结基线的精确率/覆盖率对照（只报告）：5_TOP 17.8%/21.1%，基线 23.6%/44.7%；5_BOTTOM 30.0%/38.5%，基线 33.9%/51.3%；9_TOP 12.8%/27.8%，基线 15.2%/38.9%；9_BOTTOM 16.7%/42.1%，基线 15.7%/42.1%。不声称双80。两个快变量不进入这个分数。P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。",
+  "passing_tasks": [],
+  "n_pass": 0,
+  "minimum_passing_tasks": 3,
+  "mean_peak_offsets": {
+    "5_TOP": [
+      1
+    ],
+    "5_BOTTOM": [
+      1
+    ],
+    "9_TOP": [
+      1
+    ],
+    "9_BOTTOM": [
+      1
+    ]
+  },
+  "tail_peak_offsets": {
+    "5_TOP": [
+      1
+    ],
+    "5_BOTTOM": [
+      1
+    ],
+    "9_TOP": [
+      1
+    ],
+    "9_BOTTOM": [
+      1
+    ]
+  }
+}

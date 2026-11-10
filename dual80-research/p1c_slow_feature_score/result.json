@@ -1,0 +1,322 @@
+{
+  "phase": "P1c",
+  "decision": "BLOCKED_NO_WINDOW_PEAK",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "refit_six_feature_model": false,
+  "p2_alert_compression": false,
+  "plan_sha256": "cdb7d9df74ce4c58098b5c7743529953fc25f0c2f56f8f5d596923ef176145bc",
+  "p1_decision": "BLOCKED_NO_CONCENTRATION",
+  "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+  "baseline_lock": {
+    "max_abs_threshold_diff": 0.0,
+    "metrics_match": true,
+    "events_match": true
+  },
+  "floor_failures": [],
+  "n_pass": 0,
+  "tasks": {
+    "5_TOP": {
+      "passed": false,
+      "mean_peak_offsets": [
+        1
+      ],
+      "tail_peak_offsets": [
+        1
+      ],
+      "mean_peak_value": 3.3936688893930893,
+      "tail_peak_value": 0.42105263157894735,
+      "mean_peak_inside": false,
+      "tail_peak_inside": false,
+      "richer_than_ordinary": true,
+      "inside_median": 1.9414724838268267,
+      "ordinary_median": -1.3414705089333845,
+      "inside_tail_rate": 0.2669172932330827,
+      "ordinary_tail_rate": 0.08459214501510574,
+      "early_tail_rate": 0.19305019305019305,
+      "late_tail_rate": 0.2037037037037037,
+      "plus1_minus_best_window_mean": 0.5832633976047514,
+      "plus1_minus_best_window_tail": 0.0789473684210526,
+      "targets_with_any_window_tail": 16,
+      "targets": 38,
+      "metrics": {
+        "TP": 8,
+        "FP": 37,
+        "FN": 30,
+        "precision": 0.17777777777777778,
+        "recall": 0.21052631578947367,
+        "alerts": 45,
+        "targets": 38,
+        "pending": 3
+      }
+    },
+    "5_BOTTOM": {
+      "passed": false,
+      "mean_peak_offsets": [
+        1
+      ],
+      "tail_peak_offsets": [
+        1
+      ],
+      "mean_peak_value": 5.165223534345529,
+      "tail_peak_value": 0.631578947368421,
+      "mean_peak_inside": false,
+      "tail_peak_inside": false,
+      "richer_than_ordinary": true,
+      "inside_median": 3.2132154000639623,
+      "ordinary_median": -0.6327050959415661,
+      "inside_tail_rate": 0.2397003745318352,
+      "ordinary_tail_rate": 0.060109289617486336,
+      "early_tail_rate": 0.1282051282051282,
+      "late_tail_rate": 0.22488038277511962,
+      "plus1_minus_best_window_mean": 1.1106363652376645,
+      "plus1_minus_best_window_tail": 0.23684210526315785,
+      "targets_with_any_window_tail": 17,
+      "targets": 39,
+      "metrics": {
+        "TP": 15,
+        "FP": 35,
+        "FN": 24,
+        "precision": 0.3,
+        "recall": 0.38461538461538464,
+        "alerts": 50,
+        "targets": 39,
+        "pending": 5
+      }
+    },
+    "9_TOP": {
+      "passed": false,
+      "mean_peak_offsets": [
+        1
+      ],
+      "tail_peak_offsets": [
+        1
+      ],
+      "mean_peak_value": 4.160760667383501,
+      "tail_peak_value": 0.5625,
+      "mean_peak_inside": false,
+      "tail_peak_inside": false,
+      "richer_than_ordinary": true,
+      "inside_median": 2.462190254725292,
+      "ordinary_median": -1.1596777642372469,
+      "inside_tail_rate": 0.38392857142857145,
+      "ordinary_tail_rate": 0.08347725964306275,
+      "early_tail_rate": 0.2857142857142857,
+      "late_tail_rate": 0.23958333333333334,
+      "plus1_minus_best_window_mean": 0.5213804836383558,
+      "plus1_minus_best_window_tail": 0.0625,
+      "targets_with_any_window_tail": 10,
+      "targets": 18,
+      "metrics": {
+        "TP": 5,
+        "FP": 34,
+        "FN": 13,
+        "precision": 0.1282051282051282,
+        "recall": 0.2777777777777778,
+        "alerts": 39,
+        "targets": 18,
+        "pending": 9
+      }
+    },
+    "9_BOTTOM": {
+      "passed": false,
+      "mean_peak_offsets": [
+        1
+      ],
+      "tail_peak_offsets": [
+        1
+      ],
+      "mean_peak_value": 5.838756899124541,
+      "tail_peak_value": 0.7333333333333333,
+      "mean_peak_inside": false,
+      "tail_peak_inside": false,
+      "richer_than_ordinary": true,
+      "inside_median": 4.132183405287641,
+      "ordinary_median": -0.037353698355974796,
+      "inside_tail_rate": 0.32075471698113206,
+      "ordinary_tail_rate": 0.08961187214611872,
+      "early_tail_rate": 0.11607142857142858,
+      "late_tail_rate": 0.28735632183908044,
+      "plus1_minus_best_window_mean": 0.9131698367555563,
+      "plus1_minus_best_window_tail": 0.2666666666666666,
+      "targets_with_any_window_tail": 9,
+      "targets": 19,
+      "metrics": {
+        "TP": 8,
+        "FP": 40,
+        "FN": 11,
+        "precision": 0.16666666666666666,
+        "recall": 0.42105263157894735,
+        "alerts": 48,
+        "targets": 19,
+        "pending": 7
+      }
+    }
+  },
+  "moments": {
+    "first_eligible": {
+      "date": "2016-01-04",
+      "history_rows": 821,
+      "mean": {
+        "return20_scaled": 0.4479830477098406,
+        "distance_to_20day_high_scaled": -2.1826640575692746,
+        "distance_to_20day_low_scaled": 4.313775745287132,
+        "position63": 0.6068362711164579
+      },
+      "std": {
+        "return20_scaled": 1.2105826554578272,
+        "distance_to_20day_high_scaled": 2.517698009666825,
+        "distance_to_20day_low_scaled": 3.594890578521331,
+        "position63": 0.34491374541547687
+      }
+    },
+    "last_eligible": {
+      "date": "2025-11-13",
+      "history_rows": 3216,
+      "mean": {
+        "return20_scaled": 0.17814765090708834,
+        "distance_to_20day_high_scaled": -2.470778929288075,
+        "distance_to_20day_low_scaled": 3.5304912681717373,
+        "position63": 0.5530651045354861
+      },
+      "std": {
+        "return20_scaled": 1.0692209586253767,
+        "distance_to_20day_high_scaled": 2.3913920844366188,
+        "distance_to_20day_low_scaled": 2.989760179670057,
+        "position63": 0.33365166898004284
+      }
+    }
+  },
+  "metrics": [
+    {
+      "task": "5_TOP",
+      "source": "slow_feature_score",
+      "TP": 8,
+      "FP": 37,
+      "FN": 30,
+      "precision": 0.17777777777777778,
+      "recall": 0.21052631578947367,
+      "alerts": 45,
+      "targets": 38,
+      "pending": 3,
+      "band_low": 31,
+      "band_high": 47,
+      "alerts_above_band": false,
+      "dual80": false
+    },
+    {
+      "task": "5_TOP",
+      "source": "frozen_six_feature_past_rank90",
+      "TP": 17,
+      "FP": 55,
+      "FN": 21,
+      "precision": 0.2361111111111111,
+      "recall": 0.4473684210526316,
+      "alerts": 72,
+      "targets": 38,
+      "pending": 2,
+      "band_low": 31,
+      "band_high": 47,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "source": "slow_feature_score",
+      "TP": 15,
+      "FP": 35,
+      "FN": 24,
+      "precision": 0.3,
+      "recall": 0.38461538461538464,
+      "alerts": 50,
+      "targets": 39,
+      "pending": 5,
+      "band_low": 32,
+      "band_high": 48,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "5_BOTTOM",
+      "source": "frozen_six_feature_past_rank90",
+      "TP": 20,
+      "FP": 39,
+      "FN": 19,
+      "precision": 0.3389830508474576,
+      "recall": 0.5128205128205128,
+      "alerts": 59,
+      "targets": 39,
+      "pending": 9,
+      "band_low": 32,
+      "band_high": 48,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "9_TOP",
+      "source": "slow_feature_score",
+      "TP": 5,
+      "FP": 34,
+      "FN": 13,
+      "precision": 0.1282051282051282,
+      "recall": 0.2777777777777778,
+      "alerts": 39,
+      "targets": 18,
+      "pending": 9,
+      "band_low": 15,
+      "band_high": 22,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "9_TOP",
+      "source": "frozen_six_feature_past_rank90",
+      "TP": 7,
+      "FP": 39,
+      "FN": 11,
+      "precision": 0.15217391304347827,
+      "recall": 0.3888888888888889,
+      "alerts": 46,
+      "targets": 18,
+      "pending": 9,
+      "band_low": 15,
+      "band_high": 22,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "9_BOTTOM",
+      "source": "slow_feature_score",
+      "TP": 8,
+      "FP": 40,
+      "FN": 11,
+      "precision": 0.16666666666666666,
+      "recall": 0.42105263157894735,
+      "alerts": 48,
+      "targets": 19,
+      "pending": 7,
+      "band_low": 16,
+      "band_high": 23,
+      "alerts_above_band": true,
+      "dual80": false
+    },
+    {
+      "task": "9_BOTTOM",
+      "source": "frozen_six_feature_past_rank90",
+      "TP": 8,
+      "FP": 43,
+      "FN": 11,
+      "precision": 0.1568627450980392,
+      "recall": 0.42105263157894735,
+      "alerts": 51,
+      "targets": 19,
+      "pending": 11,
+      "band_low": 16,
+      "band_high": 23,
+      "alerts_above_band": true,
+      "dual80": false
+    }
+  ]
+}
