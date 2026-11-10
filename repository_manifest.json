@@ -920,13 +920,13 @@
     },
     {
       "path": "README.md",
-      "sha256": "0d4dcbd174df0625ea2ced9039d58e9183f6d063da1049e1b23a6096543c0b4f",
-      "bytes": 5134
+      "sha256": "7afdebdc5870e42f613dc2af8156daa7d98933b472eee54bb34bec6385c0dc82",
+      "bytes": 5598
     },
     {
       "path": "dual80-research/README.md",
-      "sha256": "436204859cb028ab9d9ce36a960efb2b1bd71b87622ae908bb31176c0c2e872c",
-      "bytes": 3671
+      "sha256": "4493179d358b1bd00a177764dae28e6981e6cec304a5f109c934cb4d1362ce3d",
+      "bytes": 4008
     },
     {
       "path": "dual80-research/architecture_review.py",
@@ -1657,6 +1657,66 @@
       "path": "dual80-research/p1c_slow_feature_score/task_tests.csv",
       "sha256": "9c7c43433e0fede072d655d67de51d6abafaa9cb866e4d92a07bcbc07a45627d",
       "bytes": 2048
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/README.md",
+      "sha256": "61487549811713075480950650efc8ce877ad98aa98808ac2e00dcc2928f4c3b",
+      "bytes": 10699
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/artifact_manifest.json",
+      "sha256": "a81f7ede015bccfb4600fe7444248e49c706143ebb3d7388b0c5567328e9005e",
+      "bytes": 1424
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/decision.json",
+      "sha256": "883525cd7175058614ad920a0925de4a430b63ddcd7b20ce6dfd3d6c26873f11",
+      "bytes": 3446
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/diagnose.py",
+      "sha256": "53f31d4c31a1a61cc385ea22d37c19ecdc44037717b009358ec77569fac200b6",
+      "bytes": 72124
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/fig_fp_timing.png",
+      "sha256": "cf276e5dc8b1d0b3bc972817d45a0f445a472000d0b5d0979885b90eaa5e9980",
+      "bytes": 52251
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/fig_hit_offsets.png",
+      "sha256": "da5582f4dba692edad2d9c065d91cb11f81ea3d0ff0f803694211b357b615254",
+      "bytes": 134186
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/fig_miss_buckets.png",
+      "sha256": "dee16b46cdf87254d0a5a63e513b6a487939d338dc71c53f7f73cabdc87e78c9",
+      "bytes": 52863
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/fp_attribution.csv",
+      "sha256": "3c446b0fa1fcf2d079ac5f4187276392f323c0d2a5d5a36b8dbfc6c2f0720712",
+      "bytes": 25628
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/plan.json",
+      "sha256": "16c866a57c295929c6f4849cb2dc755399ad4459e1181bdf533c592bb9fba0e8",
+      "bytes": 16364
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/result.json",
+      "sha256": "e7a01e724025a11ab8f98453f9c9c89c0ab461fef028156e7c3906139d151b57",
+      "bytes": 10320
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/summary_by_task.csv",
+      "sha256": "58510b72f48583eb7428196617ca8a90a2fe26805b716b3667db5d1372b70901",
+      "bytes": 1592
+    },
+    {
+      "path": "dual80-research/p1d_fire_timing/target_attribution.csv",
+      "sha256": "1add4f1d8f8dec7397465a3b6e66929299454b12a5152a30b3e9900a5bf30be7",
+      "bytes": 29493
     },
     {
       "path": "dual80-research/pending_score_review.json",
