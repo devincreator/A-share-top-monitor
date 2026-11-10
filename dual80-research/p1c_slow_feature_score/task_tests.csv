@@ -1,0 +1,33 @@
+task,check,passed,actual,expect
+5_TOP,n_inside,true,266,>= 30
+5_TOP,n_ordinary,true,1655,>= 100
+5_TOP,n_targets,true,38,>= 10
+5_TOP,offsets_n_at_least_10,true,38,minimum n across offsets -13..+6 >= 10
+5_TOP,mean_score_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+5_TOP,tail_rate_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+5_TOP,median_inside_gt_ordinary,true,1.94147248383,> ordinary median -1.34147
+5_TOP,tail_inside_gt_ordinary,true,0.266917293233,> ordinary tail rate 0.0845921
+5_BOTTOM,n_inside,true,267,>= 30
+5_BOTTOM,n_ordinary,true,1647,>= 100
+5_BOTTOM,n_targets,true,39,>= 10
+5_BOTTOM,offsets_n_at_least_10,true,38,minimum n across offsets -13..+6 >= 10
+5_BOTTOM,mean_score_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+5_BOTTOM,tail_rate_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+5_BOTTOM,median_inside_gt_ordinary,true,3.21321540006,> ordinary median -0.632705
+5_BOTTOM,tail_inside_gt_ordinary,true,0.239700374532,> ordinary tail rate 0.0601093
+9_TOP,n_inside,true,112,>= 30
+9_TOP,n_ordinary,true,1737,>= 100
+9_TOP,n_targets,true,18,>= 10
+9_TOP,offsets_n_at_least_10,true,16,minimum n across offsets -13..+6 >= 10
+9_TOP,mean_score_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+9_TOP,tail_rate_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+9_TOP,median_inside_gt_ordinary,true,2.46219025473,> ordinary median -1.15968
+9_TOP,tail_inside_gt_ordinary,true,0.383928571429,> ordinary tail rate 0.0834773
+9_BOTTOM,n_inside,true,106,>= 30
+9_BOTTOM,n_ordinary,true,1752,>= 100
+9_BOTTOM,n_targets,true,19,>= 10
+9_BOTTOM,offsets_n_at_least_10,true,15,minimum n across offsets -13..+6 >= 10
+9_BOTTOM,mean_score_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+9_BOTTOM,tail_rate_peak_inside_window,false,+1,all tied argmax offsets in -6..0
+9_BOTTOM,median_inside_gt_ordinary,true,4.13218340529,> ordinary median -0.0373537
+9_BOTTOM,tail_inside_gt_ordinary,true,0.320754716981,> ordinary tail rate 0.0896119

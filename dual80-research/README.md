@@ -1,6 +1,6 @@
 # 双80自主研究：长历史滚动实验
 
-2026-11-10 的 P1 分数对齐在 [p1_score_alignment](p1_score_alignment/README.md)。它不替换本页的滚动实验，也不替换 `label_clock_v4` 的冻结基线。结论是 `BLOCKED_NO_CONCENTRATION`：close × price × past_rank90 的高分相对普通日有富集，但四项任务的峰值都在拐点后一天，有可评分日的漏报只有 21% 进过因果尾部。不开始发报压缩，不只提高阈值。同日的 P1b 特征时点审计在 [p1b_feature_timing](p1b_feature_timing/README.md)。它不重训。20日收益、距20日高点、距20日低点、63日区间位置在可命中窗口 −6..0 已经离开普通日，结论是 `GO_PRE_PIVOT_COORDINATE`，只放行以后预注册这些坐标；3日收益没有在两个任务上通过存在检验。P2 保持关闭，P1 的分数峰值仍在偏移 +1。未改生产，未认证 PIT，`formal_signal_allowed` 仍为 false。
+2026-11-10 的 P1 分数对齐在 [p1_score_alignment](p1_score_alignment/README.md)。它不替换本页的滚动实验，也不替换 `label_clock_v4` 的冻结基线。结论是 `BLOCKED_NO_CONCENTRATION`：close × price × past_rank90 的高分相对普通日有富集，但四项任务的峰值都在拐点后一天，有可评分日的漏报只有 21% 进过因果尾部。不开始发报压缩，不只提高阈值。同日的 P1b 特征时点审计在 [p1b_feature_timing](p1b_feature_timing/README.md)。它不重训。20日收益、距20日高点、距20日低点、63日区间位置在可命中窗口 −6..0 已经离开普通日，结论是 `GO_PRE_PIVOT_COORDINATE`，只放行以后预注册这些坐标；3日收益没有在两个任务上通过存在检验。P2 保持关闭，P1 的分数峰值仍在偏移 +1。未改生产，未认证 PIT，`formal_signal_allowed` 仍为 false。随后的 P1c 在 [p1c_slow_feature_score](p1c_slow_feature_score/README.md)。它不重训六特征模型，只用那四个慢变量的等权和，发报规则仍是 past_rank90。四项任务的平均分数和因果尾部都在偏移 +1，结论是 `BLOCKED_NO_WINDOW_PEAK`。精确率和覆盖率只与冻结基线对照，双80仍未达到。
 
 目标未完成，生产模型未改。本轮使用2011-08-02至2026-08-25共3659日的现有研究输入，2016年起逐年比较。固定4个候选：价格基线、5日平均成交额低于20日平均的成交衰减过滤、5日小盘/大盘比率方向背离过滤、两者组合。顶部与底部方向事先固定，没有网格搜索。
 

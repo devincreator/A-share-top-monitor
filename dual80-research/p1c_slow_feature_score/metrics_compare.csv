@@ -1,0 +1,9 @@
+task,source,TP,FP,FN,precision,recall,alerts,targets,pending,band_low,band_high,alerts_above_band,dual80
+5_TOP,slow_feature_score,8,37,30,0.177777777778,0.210526315789,45,38,3,31,47,false,false
+5_TOP,frozen_six_feature_past_rank90,17,55,21,0.236111111111,0.447368421053,72,38,2,31,47,true,false
+5_BOTTOM,slow_feature_score,15,35,24,0.3,0.384615384615,50,39,5,32,48,true,false
+5_BOTTOM,frozen_six_feature_past_rank90,20,39,19,0.338983050847,0.512820512821,59,39,9,32,48,true,false
+9_TOP,slow_feature_score,5,34,13,0.128205128205,0.277777777778,39,18,9,15,22,true,false
+9_TOP,frozen_six_feature_past_rank90,7,39,11,0.152173913043,0.388888888889,46,18,9,15,22,true,false
+9_BOTTOM,slow_feature_score,8,40,11,0.166666666667,0.421052631579,48,19,7,16,23,true,false
+9_BOTTOM,frozen_six_feature_past_rank90,8,43,11,0.156862745098,0.421052631579,51,19,11,16,23,true,false
