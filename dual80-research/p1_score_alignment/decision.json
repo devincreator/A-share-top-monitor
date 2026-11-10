@@ -1,0 +1,23 @@
+{
+  "decision": "BLOCKED_NO_CONCENTRATION",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "english": "BLOCKED. High scores do not concentrate inside D..D+6 under the pre-registered tests. Ordinary-day enrichment does pass on all four tasks: the inside-window tail rate is 2.35 to 4.20 times the ordinary rate, and inside-versus-ordinary AUC is 0.725 to 0.775. The pre-registered test still fails because the mean score and the causal tail rate both peak one session after the pivot (5_TOP +1, 5_BOTTOM +1, 9_TOP +1, 9_BOTTOM +1). That session is the first decision day whose last input is the pivot close, and an alert then cannot hit the pivot. Shoulder-average failures: 5_BOTTOM late shoulder, 9_TOP early shoulder. A second, independent gate also fails: only 21.1% of misses with a scoreable day entered the causal tail (12/57; cutoff 30%). 45 misses were never high. Do not only raise the threshold. The highest scores are already one session too late, so a higher quantile keeps the post-pivot spike and drops the weaker in-window days. Firing more is not compression: alert counts are already above the dual-80 band. Next diagnostic, not run here: compare the six frozen price features at offsets -6..0 with offset +1, without refitting, and see whether anything knowable before the pivot close moves inside the hit window. Median FP excess is at least the median TP excess on 5_TOP. A higher quantile alone is not supported there; a future fire rule would need a timing or persistence change to be informative.",
+  "chinese": "相对普通日，四项任务的窗口内尾部都更密：尾部比例是普通日的 2.35 到 4.20 倍，窗口对普通日的 AUC 为 0.725 到 0.775。预注册检验仍然失败，因为四项任务的平均分数和因果尾部比例都在拐点后的第一个交易日达到峰值。这一天的最后输入刚好是拐点收盘，发出的警报已经打不中该拐点。肩部均值未通过：5_BOTTOM 晚肩、9_TOP 早肩。另一条独立门槛也没过：有可评分日的漏报里，只有 21.1% 进过因果尾部（12/57，下限 30%）。45 个漏报从未进入尾部。不要只提高阈值。最高分已经落在拐点后一天，提高分位会留下这个打不中的尖峰，并丢掉窗口内更弱的日子。多发报也不是压缩，警报数已经高于双80必要上限。下一步不做发报实验，而是在不重训的前提下，比较拐点前 6 日至当天、以及拐点后一天的六个价格特征，看拐点收盘进入特征之前，窗口内有没有真正移动的坐标。本 PR 不实现该比较。这些任务上，误报超额的中位数不低于真阳性：5_TOP。只提高分位没有依据，后续规则需要动触发时机或持续性。",
+  "task_concentration_pass": {
+    "5_TOP": false,
+    "5_BOTTOM": false,
+    "9_TOP": false,
+    "9_BOTTOM": false
+  },
+  "task_fp_structure_pass": {
+    "5_TOP": true,
+    "5_BOTTOM": true,
+    "9_TOP": true,
+    "9_BOTTOM": true
+  },
+  "fn_entered_share": 0.21052631578947367,
+  "fn_visibility_pass": false
+}

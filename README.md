@@ -9,6 +9,7 @@
 |全部顶底图，切换三指数与两种口径|[交互图 index.html](index.html)，下载后用浏览器打开|
 |全部顶底静态图|[全景图](turning-label-comparison/charts/all_pivots_preview.png)|
 |最新方法、结果与失败分析|[当前研究报告](dual80-research/label_clock_v4/README.md)|
+|P1：高分是否落在 D..D+6|[分数对齐诊断](dual80-research/p1_score_alignment/README.md)，结论为阻断|
 |采用的规则|[ACTIVE_RESEARCH_CONTRACT.json](ACTIVE_RESEARCH_CONTRACT.json)|
 |研究主表：3659日、六项输入|[research_inputs.csv](turning-research-canonical/tables/research_inputs.csv)|
 |数据来源与换手率口径|[数据说明](turning-research-canonical/README.md)|
@@ -21,7 +22,7 @@
 
 中证全指作主标准，沪深300和中证1000作大小盘对照。收盘标签暂作可复算研究基准；盘中极值、收盘确认的混合标签只作实验对照，因为它不能保证每个标记都是相邻反向拐点间的实际最高或最低点。
 
-同一价格模型的新研究策略在收盘5%底部上达到精确率33.9%、覆盖率51.3%；其他任务仍有取舍，没有整体升级依据。历史已经反复研究，不称独立盲测。图表是截至2026-08-25的历史研究图，不是实时交易信号。
+同一价格模型的新研究策略在收盘5%底部上达到精确率33.9%、覆盖率51.3%；其他任务仍有取舍，没有整体升级依据。P1 对齐诊断重放了这套收盘×价格×历史90分位分数：窗口内尾部高于普通日，但四项任务的峰值都在拐点后第一个交易日，有可评分日的漏报只有21%进过因果尾部。结论是阻断，不进入发报压缩，也不只提高阈值。历史已经反复研究，不称独立盲测。图表是截至2026-08-25的历史研究图，不是实时交易信号。
 
 ## 数据与方法放在哪里
 

@@ -1,0 +1,5 @@
+﻿task,fn,denominator,entered_tail,entered_share,never_high,never_high_median_max_hindsight_percentile,never_high_median_max_excess,ineligible_tail_on_fn
+5_TOP,21,21,6,0.2857142857,15,82.07429048,-0.008845512838,0
+5_BOTTOM,19,19,2,0.1052631579,17,80.90567613,-0.07809689359,1
+9_TOP,11,9,2,0.2222222222,7,85.39134662,-0.001792662014,0
+9_BOTTOM,11,8,2,0.25,6,72.02236266,-0.08177418747,0
