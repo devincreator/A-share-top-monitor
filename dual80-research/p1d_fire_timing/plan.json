@@ -1,0 +1,238 @@
+{
+  "phase": "P1d",
+  "title": "Are past_rank90 misses delayed until offset +1, or is the hittable window too weak?",
+  "contains_measurements": false,
+  "hypothesis": "P1 found that the frozen six-feature score peaks at offset +1, and that only 21% of misses with a scoreable day ever entered the causal tail. P1c found that the equal-weight slow-feature score also peaks at offset +1, with lower or similar precision and recall. This run does not search a new fire rule. It attributes the actual past_rank90 hits, misses, and false positives of both frozen scores: a fire at offset +1 or later while a hittable day was already in the causal tail, versus a hittable window that never entered the tail.",
+  "freeze": {
+    "index": "000985.CSI",
+    "label": "close",
+    "tasks": [
+      "5_TOP",
+      "5_BOTTOM",
+      "9_TOP",
+      "9_BOTTOM"
+    ],
+    "decision_clock": "pre-open on day D; feature row D uses closes through D-1",
+    "offset_definition": "Offset k is decision index pivot_index + k. Its last input index is pivot_index + k - 1. Offset 0 last input is the previous close. Offset +1 last input is the pivot close, and an alert that day cannot hit the pivot.",
+    "hittable_window": "Offsets -6..0. An alert on decision index a hits pivot p when 0 <= p - a <= 6.",
+    "matching": "same scale, same direction, one-to-one, label_clock_v4.run.match",
+    "cohort": "P1 eligible_days.csv and target_windows.csv. The same mature frontier as rank_replay.evaluate.",
+    "targets": {
+      "5_TOP": 38,
+      "5_BOTTOM": 39,
+      "9_TOP": 18,
+      "9_BOTTOM": 19
+    },
+    "eligible_days": {
+      "5_TOP": 2396,
+      "5_BOTTOM": 2396,
+      "9_TOP": 2057,
+      "9_BOTTOM": 2057
+    },
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "new_factors": false,
+    "refit_six_feature_model": false,
+    "threshold_search": false,
+    "fire_rule_search": false,
+    "p2_alert_compression": false,
+    "fast_features_added": false,
+    "prior_decisions_unchanged": {
+      "P1": "BLOCKED_NO_CONCENTRATION",
+      "P1b": "GO_PRE_PIVOT_COORDINATE",
+      "P1c": "BLOCKED_NO_WINDOW_PEAK"
+    }
+  },
+  "scores": {
+    "frozen_six": "label_clock_v4 close x price logistic score, group price. Replayed with the same past_rank90 state machine. Not refit.",
+    "slow_four": "P1c equal-weight sign-aligned expanding z-sum of return20_scaled, distance_to_20day_high_scaled, distance_to_20day_low_scaled, and position63. Signs and weights stay as written in the P1c plan. The two fast features stay out."
+  },
+  "fire_rule": {
+    "name": "past_rank90",
+    "same_as": "label_clock_v4/rank_replay.py, the P1 replay, and the P1c replay",
+    "lookback_sessions": 252,
+    "minimum_previous_scores": 126,
+    "quantile": 0.9,
+    "quantile_method": "numpy linear",
+    "threshold_inputs": "Strictly earlier emitted scores inside the lookback. The current score is excluded.",
+    "causal_tail": "A day with a threshold whose score is greater than or equal to that day's own threshold.",
+    "policy": "Fire on an armed upward cross of that day's own threshold. Lock through decision index i+6. Rearm only on a later score strictly below that later day's own threshold. The quantile is not searched and the lock is not edited."
+  },
+  "populations": {
+    "true_hit": "An evaluated target matched to an alert. The fire offset is a - p and must lie in -6..0. A hit cannot be a +1 fire. If one appears, the run aborts.",
+    "false_negative": "An evaluated target with no matched alert.",
+    "false_positive": "An evaluated alert that match() did not pair with an evaluated target. PENDING alerts are excluded from this population and from the timing buckets.",
+    "eligible_window_day": "A P1 eligible day whose decision index lies in [pivot-6, pivot]."
+  },
+  "target_buckets": {
+    "priority": [
+      "hit_on_first_window_tail",
+      "hit_after_earlier_window_tail",
+      "other_fired_in_window_unmatched",
+      "delay_fire_at_plus1",
+      "delay_fire_at_plus2_to_plus6",
+      "other_late_fire_belongs_to_other_pivot",
+      "other_tail_blocked_by_lock",
+      "other_tail_blocked_by_no_rearm",
+      "other_tail_blocked_by_lock_or_rearm",
+      "weak_no_eligible_day",
+      "weak_never_in_tail"
+    ],
+    "definitions": {
+      "hit_on_first_window_tail": "Matched alert in -6..0, and no earlier eligible day in that window is in the causal tail.",
+      "hit_after_earlier_window_tail": "Matched alert in -6..0, and at least one earlier eligible day in that window is already in the causal tail. Those earlier days did not fire.",
+      "other_fired_in_window_unmatched": "False negative, but some eligible day in -6..0 did fire. The alert was consumed by another target or was not the matched alert. This outranks a later fire.",
+      "delay_fire_at_plus1": "False negative, at least one eligible day in -6..0 is in the causal tail, no fire inside -6..0, and an unmatched fire at offset exactly +1.",
+      "delay_fire_at_plus2_to_plus6": "False negative, at least one eligible day in -6..0 is in the causal tail, no fire inside -6..0, no unmatched fire at +1, and an unmatched fire at an offset in +2..+6.",
+      "other_late_fire_belongs_to_other_pivot": "False negative, the window has a causal-tail day, and every fire at +1..+6 is matched to a different evaluated target. That fire is the other pivot's hit, not a delayed fire for this one.",
+      "other_tail_blocked_by_lock": "False negative, every eligible in-window tail day is blocked by an active lock, and there is no fire at +1..+6.",
+      "other_tail_blocked_by_no_rearm": "False negative, every eligible in-window tail day is blocked because the rule has not rearmed, and there is no fire at +1..+6.",
+      "other_tail_blocked_by_lock_or_rearm": "False negative, the in-window tail days are a mix of lock and no-rearm, and there is no fire at +1..+6.",
+      "weak_no_eligible_day": "False negative with no eligible day in -6..0.",
+      "weak_never_in_tail": "False negative with at least one eligible day in -6..0, and none of those days is in the causal tail. A fire or a tail at +1 does not move this bucket."
+    },
+    "summary": {
+      "delay_to_plus1": [
+        "delay_fire_at_plus1",
+        "delay_fire_at_plus2_to_plus6"
+      ],
+      "in_window_too_weak": [
+        "weak_no_eligible_day",
+        "weak_never_in_tail"
+      ],
+      "other": [
+        "other_fired_in_window_unmatched",
+        "other_late_fire_belongs_to_other_pivot",
+        "other_tail_blocked_by_lock",
+        "other_tail_blocked_by_no_rearm",
+        "other_tail_blocked_by_lock_or_rearm"
+      ],
+      "hit": [
+        "hit_on_first_window_tail",
+        "hit_after_earlier_window_tail"
+      ]
+    },
+    "unmatched_fire": "A fire at offset +1..+6 is unmatched when match() did not pair it with a different evaluated target. False positives and pending fires count as unmatched. A fire paired with another evaluated target does not.",
+    "later_cap": "Later means offsets +2..+6 only. A fire at +7 or beyond is outside the pre-registered late shoulder, which has the same width as the hit window. That cap was not chosen from these counts.",
+    "not_delay": "A tail or a fire at +1 with no eligible causal-tail day inside -6..0 is not delay-to-+1. The same threshold would not have fired on a hittable day. That case stays in-window-too-weak and is reported separately."
+  },
+  "false_positive_buckets": {
+    "population": "Evaluated false positives only. Pending alerts are excluded.",
+    "pivots_used": "All close-label same-scale same-direction pivots, including pivots outside the mature cohort. Retrospective labels, not features.",
+    "priority": [
+      "too_late_last_input_is_pivot_close",
+      "too_late_last_input_after_pivot_close",
+      "in_window_false_alarm"
+    ],
+    "definitions": {
+      "too_late_last_input_is_pivot_close": "Some same-direction pivot index equals alert_index - 1. The last input is that pivot close. This is the +1-style fire.",
+      "too_late_last_input_after_pivot_close": "No pivot at alert_index - 1, and some same-direction pivot lies in [alert-6, alert-2]. The last input is already after that pivot close.",
+      "in_window_false_alarm": "No same-direction pivot lies in [alert-6, alert-1]. The fire is not a +1..+6 post-pivot emission. The name means a false alarm that is not too late, not a claim that the day sits inside a target window."
+    }
+  },
+  "decision_rule": {
+    "unit": "One evaluated false negative on one score. Hits are reported and are not in this denominator, because a hit already fired on a hittable day.",
+    "counts": {
+      "D": "False negatives whose summary is delay_to_plus1.",
+      "W": "False negatives whose summary is in_window_too_weak.",
+      "O": "False negatives whose summary is other.",
+      "identity": "D + W + O = FN. TP + FN = targets. The three false-positive buckets sum to FP."
+    },
+    "task_class": {
+      "DELAY": "D * 2 > FN. This is the integer form of D/FN > 1/2.",
+      "WEAK": "W * 2 > FN.",
+      "OTHER": "O * 2 > FN.",
+      "SPLIT": "None of the three inequalities holds, including an exact tie such as 4 and 4 out of 8.",
+      "exclusive": "At most one of D, W, O can satisfy count * 2 > FN, because the three counts sum to FN."
+    },
+    "score_class": {
+      "EARLY": "At least 3 of the 4 tasks are DELAY.",
+      "WEAK": "At least 3 of the 4 tasks are WEAK.",
+      "MIXED": "Otherwise, including 2 and 2 and a majority of OTHER or SPLIT."
+    },
+    "pr_decision_order": [
+      "BLOCKED_INSUFFICIENT_SAMPLE if any task on either score has FN < 8 or FP < 8",
+      "else GO_EARLY_FIRE_TRIAL if both scores are EARLY",
+      "else GO_NEW_FACTORS if both scores are WEAK",
+      "else MIXED"
+    ],
+    "majority_share_integer": "count * 2 > FN",
+    "minimum_tasks": 3,
+    "n_tasks": 4,
+    "fn_min": 8,
+    "fp_min": 8,
+    "why_denominator_is_all_misses": "The gap is the misses. D/FN > 1/2 means delay-to-+1, not a weak window and not lock or rearm, is the majority explanation of those misses. Using only D/(D+O) would call the task DELAY even when almost every miss never entered the tail. That would contradict GO_NEW_FACTORS. Hits stay in the tables. D/(D+O) and D/(TP+D+O) are reported and are not gates.",
+    "go_early_meaning": "Both scores have a 3-of-4 task majority of misses explained by an unmatched fire at +1..+6 while a hittable day was already in the causal tail. The single pre-registered variant below may be recommended. It is not implemented in this PR. GO_EARLY_FIRE_TRIAL does not loosen the P1 or P1c gates, does not open P2, does not raise a threshold, and does not authorize a signal.",
+    "go_new_factors_meaning": "On both scores, a 3-of-4 task majority of misses never entered the causal tail on a hittable day. Moving the fire earlier on this same threshold cannot recover them. The next step is features outside this price family, each gated on point-in-time availability. That work is not implemented here. The two fast price features are not added back.",
+    "mixed_meaning": "The two scores disagree, or a score has no 3-of-4 DELAY or WEAK majority. Report the counts. Do not relabel OTHER as delay. Do not loosen the buckets.",
+    "examples": {
+      "DELAY": "5 delay, 3 other, 0 weak out of 8, because 5 * 2 > 8.",
+      "SPLIT_tie": "4 delay and 4 weak out of 8, because 4 * 2 > 8 is false.",
+      "WEAK": "3 delay and 6 weak out of 9, because 6 * 2 > 9 and 3 * 2 > 9 is false."
+    }
+  },
+  "conditional_variant_not_run": {
+    "name": "emit_on_suppressed_hittable_tail",
+    "recommended_only_if": "GO_EARLY_FIRE_TRIAL",
+    "implemented": false,
+    "score": "frozen_six only",
+    "change": "Keep the causal past_rank90 threshold. On a day that is in that tail and does not fire only because the state is locked or not rearmed, emit an alert that day. Do not change the quantile, the features, the label, the index, or the hit window. Do not search another variant."
+  },
+  "reported_not_gates": [
+    "precision, recall, TP, FP, FN, alerts, and pending, copied from the locked ledgers",
+    "the hit-offset histogram on -6..0",
+    "hits with an earlier in-window causal-tail day",
+    "hits for which offset +1 is also in the causal tail",
+    "within each false-negative summary, how many have offset +1 in the causal tail, and how many fire at offset +1",
+    "the fine buckets inside delay_to_plus1 and other",
+    "the three false-positive timing buckets",
+    "pooled sums across the four tasks",
+    "D/(D+O) among tail-entering misses, and D/(TP+D+O) among tail-entering targets"
+  ],
+  "leakage": [
+    "Editing a bucket, the +6 cap, or the majority test after seeing the counts.",
+    "Calling a +1 tail a delay when no hittable day was in the tail.",
+    "Calling another pivot's matched fire a delayed fire for this pivot.",
+    "Treating offset +1 as a hit.",
+    "Searching a threshold, a lock length, or a new fire rule in this PR.",
+    "Adding return3_scaled, change_in_return3_scaled, or any feature outside the frozen scores.",
+    "Refitting the six-feature model or changing P1c weights or signs.",
+    "Using a future target count as an alert quota.",
+    "Changing the label, the index, or the hit window.",
+    "Putting the decision session close into a feature at offsets -6..0."
+  ],
+  "out_of_scope": [
+    "No implementation of emit_on_suppressed_hittable_tail.",
+    "No new factor and no point-in-time audit of a new factor.",
+    "No Phase P2 alert compression.",
+    "No production page, collector, official signal, or V-series workflow.",
+    "P1, P1b, and P1c conclusions are not rewritten.",
+    "formal_signal_allowed stays false.",
+    "Not PIT and not a blind test. Not dual-80."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-label-comparison/all_labels.csv": "1a74144826996281ac846bff81f7f646269eb64a8f890d2de5dc6f803e33f2ee",
+    "dual80-research/broad_experiments_v2/run.py": "04b45d13b33e102fd2600982687e4085f58e6782c5774aeedbbc1a65aadf83d5",
+    "dual80-research/label_clock_v4/run.py": "79b3b663f681ab0f4333031b12791523613c4bde99209d4b90adf36ca1461f7e",
+    "dual80-research/label_clock_v4/rank_replay.py": "05f4f0823e3e9e81950ecc34f73b8071fd8bda75cdd7df2731d2e487dd8d0346",
+    "dual80-research/label_clock_v4/scores.csv": "57aa4ad9072a9c2355d1edfc6848358280a234f7c4f1947dbcd48a7c10a7528b",
+    "dual80-research/label_clock_v4/rank_metrics.csv": "e7e23bd59cef709e96379b239c23035f0e972cfcc520888e83874bfd10d78f9f",
+    "dual80-research/label_clock_v4/rank_events.csv": "fa9e33536e7f3e30c74df9f057085417389fcb67d303ddb08f0315a114ea6d59",
+    "dual80-research/label_clock_v4/rank_thresholds.csv": "91a41ed443ea06bcd20bf0d4dc5bcc20db66cff9565164e8d126b865843925e3",
+    "dual80-research/p1_score_alignment/plan.json": "5f93dadb23bd50694e1f6a25e209706a41b0130d98c3d0ef9940336acaf503cc",
+    "dual80-research/p1_score_alignment/decision.json": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+    "dual80-research/p1_score_alignment/target_windows.csv": "f8b1f9bd5b935bec3d986139d0ef390524c5e8d4fbf2fb74660017c0c7c38b66",
+    "dual80-research/p1_score_alignment/eligible_days.csv": "059201e33bfc1fe0dd2ff161563be4ec6b20ee7fffa8b34ea2463d937a41fc65",
+    "dual80-research/p1b_feature_timing/plan.json": "3f9ae88190b16d40614080ae4075da4091ee1a6fe367cdf4f24f705bee51c973",
+    "dual80-research/p1b_feature_timing/decision.json": "4a3c816bcafff31228cbe9e9d6dd8ff4c9e790585ad5c4ad165d3b2a3ddfe4e6",
+    "dual80-research/p1c_slow_feature_score/plan.json": "cdb7d9df74ce4c58098b5c7743529953fc25f0c2f56f8f5d596923ef176145bc",
+    "dual80-research/p1c_slow_feature_score/decision.json": "111030674909e0124e97a961913ff6850f27d3112a4853163291798699b27139",
+    "dual80-research/p1c_slow_feature_score/metrics_compare.csv": "fdc8a8d60e970cd96f0b11b28c9b37a1138240c29e34fbd964ca0bae055b3cf4",
+    "dual80-research/p1c_slow_feature_score/alerts.csv": "242ac360deed932fe7b662cef231d250b767e063b1e2381d9a74264f74fb604a",
+    "dual80-research/p1c_slow_feature_score/eligible_days.csv": "174aa2313cc1eb8ffae3c0e0d177fc26b9d840de09bd9406655c06eb5f98bbe2"
+  }
+}

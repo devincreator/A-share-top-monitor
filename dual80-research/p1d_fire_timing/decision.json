@@ -1,0 +1,23 @@
+{
+  "decision": "GO_NEW_FACTORS",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "refit_six_feature_model": false,
+  "p2_opened": false,
+  "fast_features_added": false,
+  "variant_name": "emit_on_suppressed_hittable_tail",
+  "variant_recommended": false,
+  "variant_implemented": false,
+  "score_class": {
+    "frozen_six": "WEAK",
+    "slow_four": "WEAK"
+  },
+  "floors_ok": true,
+  "english": "A miss is delay-to-+1 only when an eligible day in -6..0 is already in the causal tail and an unmatched past_rank90 fire occurs at offset +1..+6. A miss is in-window-too-weak when no eligible day in -6..0 is in that tail. A task class requires count * 2 > FN; a score requires 3 of 4 tasks. Both scores must agree. Frozen six-feature score class: WEAK. Slow-feature score class: WEAK. 5_TOP frozen six-feature delay 3 / weak 15 / other 3 of 21 misses (WEAK) 5_BOTTOM frozen six-feature delay 1 / weak 17 / other 1 of 19 misses (WEAK) 9_TOP frozen six-feature delay 2 / weak 9 / other 0 of 11 misses (WEAK) 9_BOTTOM frozen six-feature delay 0 / weak 9 / other 2 of 11 misses (WEAK) 5_TOP slow-feature delay 4 / weak 22 / other 4 of 30 misses (WEAK) 5_BOTTOM slow-feature delay 1 / weak 22 / other 1 of 24 misses (WEAK) 9_TOP slow-feature delay 3 / weak 8 / other 2 of 13 misses (WEAK) 9_BOTTOM slow-feature delay 1 / weak 9 / other 1 of 11 misses (WEAK) Delay does not explain the gap. The next step is features outside this price family, each gated on point-in-time availability. That work is not implemented here, and the two fast price features are not added back. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. P1c remains BLOCKED_NO_WINDOW_PEAK. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a signal.",
+  "chinese": "漏报算作推迟到 +1，必须是 −6..0 里已有可评分因果尾部日，并且 +1..+6 有一次没有配给其他拐点的 past_rank90 发报。窗口内没有任何可评分日进入因果尾部，就算窗口内太弱。任务类别要求计数的两倍大于漏报数；一条分数要 4 项里至少 3 项同类。两条分数必须一致。冻结六特征是 WEAK。四慢变量是 WEAK。5_TOP 冻结六特征：推迟 3，窗口内太弱 15，其他 3，漏报 21（WEAK） 5_BOTTOM 冻结六特征：推迟 1，窗口内太弱 17，其他 1，漏报 19（WEAK） 9_TOP 冻结六特征：推迟 2，窗口内太弱 9，其他 0，漏报 11（WEAK） 9_BOTTOM 冻结六特征：推迟 0，窗口内太弱 9，其他 2，漏报 11（WEAK） 5_TOP 四慢变量：推迟 4，窗口内太弱 22，其他 4，漏报 30（WEAK） 5_BOTTOM 四慢变量：推迟 1，窗口内太弱 22，其他 1，漏报 24（WEAK） 9_TOP 四慢变量：推迟 3，窗口内太弱 8，其他 2，漏报 13（WEAK） 9_BOTTOM 四慢变量：推迟 1，窗口内太弱 9，其他 1，漏报 11（WEAK）。推迟发报解释不了这个缺口。下一步是价格家族之外、并且先过披露时点门禁的特征。本 PR 不实现，也不把两个快变量加回来。P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。P1c 仍是 BLOCKED_NO_WINDOW_PEAK。formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。",
+  "p1_decision": "BLOCKED_NO_CONCENTRATION",
+  "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+  "p1c_decision": "BLOCKED_NO_WINDOW_PEAK"
+}
