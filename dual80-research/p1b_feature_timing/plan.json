@@ -1,0 +1,233 @@
+{
+  "phase": "P1b",
+  "title": "Feature-timing audit of the six frozen price inputs at offsets -6..+1",
+  "contains_measurements": false,
+  "hypothesis": "P1 found that the frozen close x price x past_rank90 score peaks at offset +1 on all four tasks. Offset +1 is the first pre-open decision whose last input is the pivot close, and an alert that day cannot hit that pivot. This audit asks whether any of the six price inputs that already enter that frozen score moves inside offsets -6..0, where the last input is still before the pivot close. It does not refit the model. A pass means a later gated experiment may pre-register that coordinate. A fail means the marginal feature movement is dominated by the pivot close, and the feature layer stays blocked.",
+  "freeze": {
+    "index": "000985.CSI",
+    "label": "close",
+    "features": "price",
+    "feature_names": [
+      "return3_scaled",
+      "return20_scaled",
+      "change_in_return3_scaled",
+      "distance_to_20day_high_scaled",
+      "distance_to_20day_low_scaled",
+      "position63"
+    ],
+    "feature_source": "label_clock_v4 imports make_features from broad_experiments_v2/run.py and calls make_features(closes, turnover, style, scale=5). The price block does not read scale, turnover, or style. This audit uses that same matrix. It does not rebuild a second feature family.",
+    "formulas_at_last_input_index_i": {
+      "v": "max(sample stdev of diff(log(c[i-20:i+1])), ddof=1, floor 0.001)",
+      "return3_scaled": "log(c[i]/c[i-3]) / v",
+      "return20_scaled": "log(c[i]/c[i-20]) / (v * sqrt(20))",
+      "change_in_return3_scaled": "(log(c[i]/c[i-3]) - log(c[i-3]/c[i-6])) / v",
+      "distance_to_20day_high_scaled": "log(c[i] / max(c[i-19:i+1])) / v",
+      "distance_to_20day_low_scaled": "log(c[i] / min(c[i-19:i+1])) / v",
+      "position63": "(c[i] - min(c[i-62:i+1])) / (max(c[i-62:i+1]) - min(c[i-62:i+1])), or 0.5 if the range is 0",
+      "slice_note": "Python half-open slices. c[i-19:i+1] is the 20 closes ending at i. The pivot close is outside that window when i <= pivot-1."
+    },
+    "fire_rule": "not used. past_rank90 remains the frozen P1 rule and is not re-estimated.",
+    "decision_clock": "pre-open on day D; feature row D uses closes through D-1",
+    "offset_definition": "Offset k is decision index pivot_index + k. Its last input index is pivot_index + k - 1. Offset 0 is the pivot session and its last input is the previous close. Offset +1 is the next session and its last input is the pivot close.",
+    "hittable_window": "Offsets -6..0. An alert on those decision days can still hit the pivot. The pivot close is not an input.",
+    "offset_plus1": "First decision day whose last input is the pivot close. An alert that day cannot hit the pivot.",
+    "offset_plus2": "Shoulder. Last input is the session after the pivot. Reported, not a gate.",
+    "new_factors": false,
+    "refit": false,
+    "threshold_search": false,
+    "alert_quota_from_future_target_counts": false,
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "p2_alert_compression": false
+  },
+  "cohort_lock": {
+    "source": "P1 eligible_days.csv and target_windows.csv, close x price mature cohort",
+    "targets": {
+      "5_TOP": 38,
+      "5_BOTTOM": 39,
+      "9_TOP": 18,
+      "9_BOTTOM": 19
+    },
+    "eligible_days": {
+      "5_TOP": 2396,
+      "5_BOTTOM": 2396,
+      "9_TOP": 2057,
+      "9_BOTTOM": 2057
+    },
+    "regions": {
+      "5_TOP": {
+        "inside": 266,
+        "early_shoulder": 259,
+        "late_shoulder": 216,
+        "ordinary": 1655
+      },
+      "5_BOTTOM": {
+        "inside": 267,
+        "early_shoulder": 273,
+        "late_shoulder": 209,
+        "ordinary": 1647
+      },
+      "9_TOP": {
+        "inside": 112,
+        "early_shoulder": 112,
+        "late_shoulder": 96,
+        "ordinary": 1737
+      },
+      "9_BOTTOM": {
+        "inside": 106,
+        "early_shoulder": 112,
+        "late_shoulder": 87,
+        "ordinary": 1752
+      }
+    },
+    "p1_decision": "BLOCKED_NO_CONCENTRATION",
+    "ordinary_definition": "P1 region ordinary: eligible day in no evaluated target window and in neither shoulder."
+  },
+  "hold_last_close": {
+    "definition": "At the offset-+1 decision, recompute the same six formulas after replacing the pivot close with the previous close. The difference actual minus held is the isolated pivot-close jump. It is not a score, not a feature to train, and not written back onto the canonical close series.",
+    "uses_new_model": false
+  },
+  "standardization": {
+    "center": "mean of the feature on P1 ordinary eligible days of the same task",
+    "scale": "sample standard deviation of those ordinary days, ddof=1",
+    "z": "(event mean - ordinary mean) / ordinary std",
+    "median": "numpy median; even counts use the average of the two middle values"
+  },
+  "samples": {
+    "all_eligible": "Evaluated pivots whose decision day at that offset is a P1 eligible day. Used for the lead profile and for the P1 score-profile lock.",
+    "complete_case": "Evaluated pivots with every offset -6..+1 eligible. Gates use this set so the window and offset +1 contain the same pivots.",
+    "offset_plus2": "Reported on complete-case pivots that also have offset +2 eligible. Not a gate."
+  },
+  "tests": {
+    "sample_floors": {
+      "complete_case_min": 10,
+      "ordinary_min": 100,
+      "per_offset_eligible_min": 10,
+      "offsets": [
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0,
+        1
+      ]
+    },
+    "presence": {
+      "name": "presence",
+      "requires_abs_z_plus1_min": 0.25,
+      "same_sign_window_min": 0.2,
+      "window_over_abs_plus1_min": 0.5,
+      "same_sign_offset0_min": 0.15,
+      "window_over_same_sign_jump_min": 0.5,
+      "median_strictly_on_anchor_side": true,
+      "offset_z_floor": 0.1,
+      "min_offsets": 4,
+      "window_offsets": [
+        -6,
+        -5,
+        -4,
+        -3,
+        -2,
+        -1,
+        0
+      ],
+      "anchor": "sign of z at offset +1, defined only when abs(z at +1) clears the floor. This sign is the direction of the pivot-close session. It is not an economic sign chosen after inspecting which side passes."
+    },
+    "build": {
+      "name": "build",
+      "abs_late_minus_early_min": 0.35,
+      "must_exceed_abs_jump": true,
+      "must_exceed_abs_plus1_minus_offset0": true,
+      "abs_late_min": 0.2,
+      "median_strictly_on_build_side": true,
+      "early_offsets": [
+        -6,
+        -5,
+        -4
+      ],
+      "late_offsets": [
+        -2,
+        -1,
+        0
+      ]
+    },
+    "go": {
+      "presence_on_at_least_n_tasks": 2,
+      "build_on_at_least_n_tasks": 2,
+      "single_task_requires_both_tests": true,
+      "single_task_abs_z_win_min": 0.5,
+      "code": "GO_PRE_PIVOT_COORDINATE",
+      "meaning": "A later experiment may pre-register only the named feature-task cells. It does not authorize a refit of all six features, Phase P2 alert compression, a higher threshold, a new factor, or a signal."
+    },
+    "blocked_pivot_close": {
+      "jump_abs_min": 0.25,
+      "jump_abs_gt_window_abs": true,
+      "plus1_abs_min": 0.25,
+      "plus1_abs_gt_window_abs": true,
+      "plus1_abs_gt_offset0_abs": true,
+      "code": "BLOCKED_PIVOT_CLOSE_DOMINATED",
+      "rule": "Used only when the GO rule fails. A cell is pivot-close dominated when the absolute isolated jump clears 0.25 and exceeds the absolute window departure, or when the absolute offset-+1 departure clears 0.25 and exceeds both the absolute window departure and the absolute offset-0 departure."
+    },
+    "blocked_no_marginal_move": {
+      "code": "BLOCKED_NO_MARGINAL_MOVE",
+      "rule": "GO failed, sample floors passed, and no cell meets the pivot-close dominance rule."
+    },
+    "decision_order": [
+      "BLOCKED_INSUFFICIENT_SAMPLE if any task fails a sample floor",
+      "else GO_PRE_PIVOT_COORDINATE if any feature passes presence on at least two tasks, or build on at least two tasks, or both tests on one task with abs(z_win) >= 0.5",
+      "else BLOCKED_PIVOT_CLOSE_DOMINATED if any cell meets the dominance rule",
+      "else BLOCKED_NO_MARGINAL_MOVE"
+    ],
+    "dependence_note": "Days overlap and features are autocorrelated. These gates are pre-registered descriptive rules. No p-value is a gate. Economic signs are reported and are not gates."
+  },
+  "reported_not_gates": [
+    "economic sign agreement with the offset-+1 anchor",
+    "path fraction (z(0) - z(-6)) / (z(+1) - z(-6))",
+    "aging = z(held at +1) - z(0)",
+    "Pearson correlation of the offset-+1 minus offset-0 score change with the same change in each feature",
+    "Pearson correlation of that score change with the isolated pivot-close jump",
+    "share of complete-case pivots whose offset-0 and offset-+1 values lie on the anchor side of the ordinary median",
+    "z at offset +2",
+    "all-eligible lead profile beside the complete-case profile"
+  ],
+  "leakage": [
+    "Putting the pivot close, or any later close, into a value assigned to offsets -6..0.",
+    "Treating offset 0 as if its last input were the pivot close. Offset 0 last input is the previous session.",
+    "Using the decision session close inside the feature for that same decision session.",
+    "Using a confirmation date, a later pivot, the label, or the match status as a feature.",
+    "Fitting, refitting, or editing logistic coefficients, standardizers, or thresholds.",
+    "Choosing a feature sign, a favorite offset, or a numeric gate after seeing the lead profile.",
+    "Adding amount, style, swing, interaction, intraday, or any input outside the frozen price block.",
+    "Writing a score, an alert, or a production signal from the held-close counterfactual.",
+    "Declaring GO because offset +1 is large.",
+    "Changing the label, the index, or the hit window.",
+    "Using future target counts as a quota."
+  ],
+  "out_of_scope": [
+    "No Phase P2 alert compression.",
+    "No threshold change and no new fire rule.",
+    "No refit and no new factor.",
+    "No label change and no index change.",
+    "No production page, collector, official signal, or V-series workflow.",
+    "formal_signal_allowed stays false.",
+    "Not PIT and not a blind test."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-label-comparison/all_labels.csv": "1a74144826996281ac846bff81f7f646269eb64a8f890d2de5dc6f803e33f2ee",
+    "dual80-research/broad_experiments_v2/run.py": "04b45d13b33e102fd2600982687e4085f58e6782c5774aeedbbc1a65aadf83d5",
+    "dual80-research/label_clock_v4/run.py": "79b3b663f681ab0f4333031b12791523613c4bde99209d4b90adf36ca1461f7e",
+    "dual80-research/label_clock_v4/scores.csv": "57aa4ad9072a9c2355d1edfc6848358280a234f7c4f1947dbcd48a7c10a7528b",
+    "dual80-research/p1_score_alignment/plan.json": "5f93dadb23bd50694e1f6a25e209706a41b0130d98c3d0ef9940336acaf503cc",
+    "dual80-research/p1_score_alignment/decision.json": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+    "dual80-research/p1_score_alignment/lead_profile.csv": "8d403c899c94f6c1ddcb3faf754736ec4b3063696bf0bf6d9b54d91dacf78338",
+    "dual80-research/p1_score_alignment/eligible_days.csv": "059201e33bfc1fe0dd2ff161563be4ec6b20ee7fffa8b34ea2463d937a41fc65",
+    "dual80-research/p1_score_alignment/target_windows.csv": "f8b1f9bd5b935bec3d986139d0ef390524c5e8d4fbf2fb74660017c0c7c38b66",
+    "dual80-research/p1_score_alignment/diagnose.py": "7a0da7636441df8b61f8d02168f61385af44fb2618f67cfa230fca03dd5363dc"
+  }
+}
