@@ -1,0 +1,22 @@
+{
+  "url": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+  "final_url": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+  "referer": "https://www.sse.com.cn/",
+  "status": 200,
+  "blocked": false,
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 09:33:16 GMT",
+    "Content-Type": "text/html",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042  'unsafe-inline' 'unsafe-eval';worker-src www.sse.com.cn play.szs.nagasoft.cn blob:;  frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_sha256": "5b12c89a113a8c7857400f09ef5a15b2ad45a7d8a9b227e2a077b7305c4b3883",
+  "body_bytes": 27668
+}

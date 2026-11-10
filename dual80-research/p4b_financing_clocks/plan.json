@@ -1,0 +1,186 @@
+{
+  "phase": "P4b",
+  "title": "Which stored Shanghai and Shenzhen financing balances have a certified disclosure clock before the next pre-open?",
+  "contains_measurements": false,
+  "written_before_evidence": true,
+  "do_not_rewrite_after_evidence": true,
+  "hypothesis": "P4a left financing_balance RESEARCH_ONLY and named this collection as the next step. The stored balances may already be in the repository, but a value without a per-session disclosure clock is not usable at the D pre-open. This phase only tries to attach a real clock to those stored dates. It does not admit the family and it does not fit a score.",
+  "freeze": {
+    "index": "000985.CSI",
+    "style_controls": ["000300", "000852"],
+    "style_controls_are_not_targets": true,
+    "label": "close",
+    "tasks": ["5_TOP", "5_BOTTOM", "9_TOP", "9_BOTTOM"],
+    "decision_clock": "Pre-open on research session D. The deadline is 09:15 Asia/Shanghai on D, the start of the opening call auction, before the 09:30 continuous open.",
+    "calendar": {
+      "file": "turning-research-canonical/tables/research_inputs.csv",
+      "start": "2011-08-02",
+      "end": "2026-08-25",
+      "rows": 3659
+    },
+    "balances_already_stored": {
+      "file": "turning-raw-reacquired/tables/financing_sh_sz.csv",
+      "fields": ["balance_sh_yuan", "balance_sz_yuan"],
+      "exchanges": {
+        "balance_sh_yuan": "SSE",
+        "balance_sz_yuan": "SZSE"
+      },
+      "identity": "融资余额 for that exchange. Not 融资融券余额, not 融资买入额, not a stock-level row, and not a Shanghai-plus-Shenzhen sum."
+    },
+    "p4a_decision": "NO_FAMILY_ADMITTED",
+    "p4a_decision_file": "dual80-research/p4a_factor_admission/decision.json",
+    "prior_decisions_unchanged": {
+      "P1": "BLOCKED_NO_CONCENTRATION",
+      "P1b": "GO_PRE_PIVOT_COORDINATE",
+      "P1c": "BLOCKED_NO_WINDOW_PEAK",
+      "P1d": "GO_NEW_FACTORS",
+      "P4a": "NO_FAMILY_ADMITTED"
+    },
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "family_admitted_in_this_phase": false,
+    "model_fit_in_this_phase": false,
+    "other_families": "turnover, breadth, CSI amount, and 000300/000852 stay outside this collection. Their P4a statuses are not loosened."
+  },
+  "certified_clock": {
+    "definition": "A certified clock is a checkable timestamp of the moment that exchange's own financing balance for that observation date became public. It is attached to a saved official response, official file, or official page, and it can be re-read from that evidence. It is not a guess about when the exchange usually publishes.",
+    "one_row": "One row per research date per exchange. Shanghai and Shenzhen are separate. A combined figure does not certify either row.",
+    "next_session": "The next session is the following date in research_inputs.csv. No external calendar is added. The deadline is 09:15 Asia/Shanghai on that next session, timezone-aware, and the clock must be strictly earlier than the deadline.",
+    "terminal_date": "The last research date has no following session in the stored calendar. That row is kept. A later session is not invented for it, so it cannot be certified in this phase.",
+    "timezone": "The timestamp must already carry a timezone, or the same official evidence must state Beijing time / 北京时间 / Asia/Shanghai. A bare clock with no zone is not certified.",
+    "what_counts_as_the_exchange_clock": [
+      "A field on the official payload whose name is on the disclosure allowlist, and whose value is the publication time of that observation's financing balance.",
+      "A per-row official time that the same payload labels as the publication time of that observation's financing balance, even if the field name is not on the P4a allowlist. Record the raw name. Do not rename it onto the allowlist, and do not treat the row as admitted.",
+      "An official page or file that states the publication time of that exchange and that observation date. Save the raw bytes and the quote."
+    ],
+    "disclosure_allowlist": [
+      "publishTime",
+      "publishedAt",
+      "disclosureTime",
+      "announcementTime",
+      "firstAvailableTime",
+      "visibleAt",
+      "releaseTime",
+      "publication_time",
+      "disclosure_timestamp",
+      "published_at",
+      "visible_at",
+      "release_time",
+      "公布时间",
+      "披露时间",
+      "发布时间",
+      "最早可用时间"
+    ],
+    "page_level_update_time": "A single 更新时间 that sits on the page or the response header, rather than on the observation row, certifies nothing. It is a refresh clock when it is the time of this fetch, when it is identical for every historical query, or when the page is showing only the latest release."
+  },
+  "insufficient_evidence": [
+    "Download time, request time, or capture time, including request_started_at_utc, response_completed_at_utc, first_captured_at_utc, source_run_started_at_utc, and the HTTP Date or Last-Modified header of a later fetch.",
+    "Provider history with no disclosure clock. iFinD EDB values, 数据来源, 起始日期, and 终止日期 are a series and a coverage bound.",
+    "Lineage status PROVIDER_HISTORY_NOT_PIT or PROVIDER_HISTORY_REACQUIRED_NOT_PIT.",
+    "A reconstructed lag, including financing_lag_diagnostic.json, and any assumed same-evening or next-morning lag.",
+    "A standing sentence that the exchange publishes before the next open. A schedule is not a per-session clock.",
+    "The observation date itself: opDate, tradeDate, date, 信用交易日期, txtDate, subname, or a filename date.",
+    "A news article's own publication time. It can show that a reprint existed. It is not the exchange clock, and it is not applied to both exchanges.",
+    "An exchange file that has the balance and the session date but no publication timestamp.",
+    "A 2026 capture of an earlier session, including the v92 margin files.",
+    "Interpolation, backfill, or copying one certified day onto its neighbors.",
+    "A clock that is real but not strictly before 09:15 Asia/Shanghai on the next session. Record it as too late. It does not certify the row."
+  ],
+  "evidence_required_before_a_row_is_certified": [
+    "The raw official bytes are saved, with the URL and the SHA256.",
+    "The observation date in that evidence is the ledger date.",
+    "The evidence is the financing balance of that one exchange, not a stock-level detail and not the two-exchange sum.",
+    "The timestamp meets the certified-clock definition.",
+    "The timestamp is strictly before the next session's 09:15 Asia/Shanghai deadline.",
+    "No missing neighbor is filled from this row."
+  ],
+  "sources_to_inspect": {
+    "stored_balances_and_lineage": [
+      "turning-raw-reacquired/tables/financing_sh_sz.csv",
+      "turning-raw-reacquired/tables/financing_balance.csv",
+      "turning-raw-reacquired/tables/field_lineage.csv",
+      "turning-research-canonical/tables/field_lineage.csv",
+      "turning-research-canonical/tables/research_inputs.csv",
+      "turning-research-canonical/source_policy.json",
+      "turning-raw-reacquired/data_dictionary.json"
+    ],
+    "already_stored_official_receipts": [
+      "turning-raw-reacquired/independent_checks/sse_summary_2020-07-13.json",
+      "turning-raw-reacquired/independent_checks/sse_summary_2021-09-13.json",
+      "turning-raw-reacquired/independent_checks/szse_summary_2020-07-13.json",
+      "turning-raw-reacquired/independent_checks/szse_summary_2021-09-13.json"
+    ],
+    "stored_but_not_a_clock": [
+      "turning-raw-reacquired/independent_checks/sse_finance_20210913.json",
+      "turning-raw-reacquired/financing_lag_diagnostic.json",
+      "turning-raw-reacquired/独立核验结论.md",
+      "A-share-top-monitor-history/ifind_financing/",
+      "A-share-top-monitor-history/research/v92_margin_recovery/records/",
+      "A-share-top-monitor-history/research/v92_margin_recovery/raw/"
+    ],
+    "official_probes_preregistered": {
+      "sse_summary_shape": "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do with isPagination=true, empty tabType, empty stockCode, and beginDate=endDate. This is the market-summary shape already stored. Do not use tabType=mxtype.",
+      "szse_summary_shape": "https://www.szse.cn/api/report/ShowReport/data with SHOWTYPE=JSON, CATALOGID=1837_xxpl, and txtDate. This is the summary shape already stored.",
+      "sample_dates": ["2011-08-02", "2020-07-13", "2021-09-13", "2026-08-25"],
+      "why_these_dates": "The first stored research date, the two dates that already have official receipts, and the last stored research date. The sample is a schema check, not a certified subset.",
+      "html_pages_for_the_same_datasets": [
+        "https://www.sse.com.cn/market/othersdata/margin/sum/",
+        "https://www.szse.cn/disclosure/margin/margin/index.html"
+      ],
+      "already_documented_news_reprint": "https://www.nbd.com.cn/articles/2021-09-14/1912369.html",
+      "stop_rules": [
+        "If a probe returns a credential wall, an HTTP 401 or 403, or a block page, save the response and stop. Do not try another host, a proxy, or a vendor wrapper.",
+        "If none of the sample payloads has a per-row disclosure timestamp, do not walk the other research dates. Refetching the same schema would collect values that are already stored, not clocks.",
+        "If a sample payload does have a per-row disclosure timestamp, fetch the remaining stored research dates for that exchange only, save each raw response, and stop at the first block. Dates that were not fetched stay uncertified."
+      ]
+    }
+  },
+  "decision_rule": [
+    "Abort with PLAN_SOURCE_CHANGED if a file named in source_sha256 does not match the hash in this plan.",
+    "CLOCKS_COMPLETE only if every non-terminal research date has a certified clock for both exchanges. The terminal date has no next session, so this phase does not expect COMPLETE while that row remains.",
+    "CLOCKS_PARTIAL if at least one row has a certified clock and at least one required row does not. Do not admit the family. Admission stays a later P4a-style gate.",
+    "CLOCKS_UNAVAILABLE if no row has a certified clock. Official historical disclosure times could not be certified with the evidence in hand. That is a finished result.",
+    "A real clock that misses the 09:15 cutoff does not make the decision PARTIAL.",
+    "Never write turning-research-canonical/tables/disclosure_timestamps.csv. That path belongs to a later admission gate."
+  ],
+  "do_not": [
+    "Do not invent, interpolate, or backfill a timestamp.",
+    "Do not claim PIT, dual-80, or a blind test.",
+    "Do not fit a financing transform or a score.",
+    "Do not put a D-day financing value into a D pre-open feature.",
+    "Do not modify the production collector, the production website, or official signals.",
+    "Do not restore a V-series workflow.",
+    "Do not rewrite the P4a decision or loosen its admission gate.",
+    "Do not change formal_signal_allowed.",
+    "Do not edit this plan after the evidence counts are known."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "dual80-research/p4a_factor_admission/plan.json": "5c59fd3f205aa9e2001303996afffa7b2715175e1fb0b630a0bddb00a85447d9",
+    "dual80-research/p4a_factor_admission/decision.json": "0c3e84ef26391ae01058e9901b35c9ea8587f186b670b7a90c65f78e914c1643",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-research-canonical/tables/field_lineage.csv": "9d61d7cc99cce436a907ef45a6f43d6fc3afee57f307c8565f525f7775b61e85",
+    "turning-research-canonical/source_policy.json": "3316c3b0a3177be8c880910d525dbc879133fae020ad2bb54013f1bfe585260a",
+    "turning-raw-reacquired/tables/financing_sh_sz.csv": "7000bb8d56cb28492397e4c0c1183e7a1f889628e87f66ed5f6715c40c9d3594",
+    "turning-raw-reacquired/tables/financing_balance.csv": "f5ab69a0ef1fcded6cb12193fab3dbcea2b8832783e8905713d86ae0c8e38edb",
+    "turning-raw-reacquired/tables/field_lineage.csv": "9fc0c451284caff189d3730ee54ec80581551dd2073c6943258510ad33b52c90",
+    "turning-raw-reacquired/data_dictionary.json": "e8a891583e1a32d3aa09a8b15fc91997f9977955b306625cf2b56eafcd0c04fe",
+    "turning-raw-reacquired/README.md": "a0626361770f272ceb2d9d3ab8e16dad57dabc187a764f1f345bddc6f7c01153",
+    "turning-raw-reacquired/独立核验结论.md": "70f139ae3e92222378a7b4c92b4eeb80f2f6f0c1b18f397c90f8f2bc87cdb396",
+    "turning-raw-reacquired/financing_lag_diagnostic.json": "79a89e28d29e80d4dd4a658e64112fe2ffb019d98bc143089122202b3c7fdfd7",
+    "turning-raw-reacquired/independent_checks/sse_summary_2020-07-13.json": "1db65783e64a78e0b162fa34d1af2dd80b6b246236710454a75b0d1364b567df",
+    "turning-raw-reacquired/independent_checks/sse_summary_2021-09-13.json": "41fc53d8ef3294c87c841ab1992de23eb2bf5018e6719d7be42aaf04f0b335d4",
+    "turning-raw-reacquired/independent_checks/szse_summary_2020-07-13.json": "512ba61fa5b33dfb854e94eb8f29495a0c3f67784e14df558112e37e630f84f1",
+    "turning-raw-reacquired/independent_checks/szse_summary_2021-09-13.json": "1c06f533ae5c7f78e9fc0738680024d112634371adb4c374fc29747535486c71",
+    "turning-raw-reacquired/independent_checks/sse_finance_20210913.json": "d226e8a8da13b704525305668eeb783be95f62acba9a85824583ed1726259888",
+    "A-share-top-monitor-history/ifind_financing/2022-02-23_2022-03-31_raw.json": "5573cbc4bc89f992cf077bf40eba88d54c4d680d5da47989e5e26eee59661cbf",
+    "A-share-top-monitor-history/ifind_financing/financing_daily.csv": "0c7fd9c9a8b683bda481b9dfc9b5345a36b1c4c86b5a6ecb1029d37bc59c21e6",
+    "A-share-top-monitor-history/补数验收说明.md": "298ae927cfb510345ccfa1f87efc5aa29fa756bf72d91812fc269c1454508471",
+    "A-share-top-monitor-history/research/v92_margin_recovery/records/2024-06-26/SSE.json": "e16754ab217ae066b91e02aa8ab27c8e47506885c8aed6b884247bcd8288d7f7",
+    "A-share-top-monitor-history/research/v92_margin_recovery/records/2024-06-26/SZSE.json": "3652377ddbafdb3b45fc7d8010c5d7799db544b351d1b7ccb7dd054482a5173c",
+    "A-share-top-monitor-history/research/v92_margin_recovery/raw/SSE/2024-06-26.csv": "e81a97e532eae8f3a39dd741e2a4da722370e837076db96665f22f502d27bd1b",
+    "A-share-top-monitor-history/research/v92_margin_recovery/raw/SZSE/2024-06-26.csv": "080b5edfee4160c454c7b371e49b798f66bb461a4d870e9be11a168e6a8f2e12"
+  }
+}

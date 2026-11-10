@@ -1,0 +1,22 @@
+{
+  "url": "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do?isPagination=true&beginDate=20200713&endDate=20200713&tabType=&stockCode=&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=5",
+  "final_url": "https://query.sse.com.cn/marketdata/tradedata/queryMargin.do?isPagination=true&beginDate=20200713&endDate=20200713&tabType=&stockCode=&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=5",
+  "referer": "https://www.sse.com.cn/market/othersdata/margin/sum/",
+  "status": 200,
+  "blocked": false,
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 09:33:11 GMT",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1018",
+    "Connection": "close",
+    "Content-Language": "zh-CN",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042 'unsafe-inline' 'unsafe-eval'; frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_sha256": "57d6142ec21a3fe31e68403c91163747ded23b96db1290a7a7e2e0f90ad77a8c",
+  "body_bytes": 1018
+}

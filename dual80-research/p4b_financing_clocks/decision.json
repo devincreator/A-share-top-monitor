@@ -1,0 +1,25 @@
+{
+  "decision": "CLOCKS_UNAVAILABLE",
+  "formal_signal_allowed": false,
+  "family_admitted": false,
+  "model_fit": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "p4a_decision": "NO_FAMILY_ADMITTED",
+  "p4a_rewritten": false,
+  "admission_gate_loosened": false,
+  "certified_rows": 0,
+  "ledger_rows": 7318,
+  "date_range": [
+    "2011-08-02",
+    "2026-08-25"
+  ],
+  "canonical_disclosure_table_written": false,
+  "english": "The stored Shanghai and Shenzhen financing balances cover 3659 research dates from 2011-08-02 to 2026-08-25, which is 7318 exchange rows. Certified clocks: 0. Clocks found after the next 09:15 cutoff: 0. Stored official summary receipts, iFinD history, and v92 captures contributed 0 per-row disclosure clocks. Live checks of the pre-registered official sources: sse_2011-08-02 http 200, per-row clocks 0; szse_2011-08-02 transport URLError, per-row clocks 0; sse_2020-07-13 http 200, per-row clocks 0; szse_2020-07-13 transport URLError, per-row clocks 0; sse_2021-09-13 http 200, per-row clocks 0; szse_2021-09-13 transport URLError, per-row clocks 0; sse_2026-08-25 http 200, per-row clocks 0; szse_2026-08-25 transport URLError, per-row clocks 0; sse_html http 200, per-row clocks 0; szse_html http 200, per-row clocks 0; nbd_2021-09-14 http 200, per-row clocks 0. The Shanghai summary payload carries opDate and rzye and no publication time. retrieved_at on the stored receipt wrapper and the HTTP Date header are download times. The SSE page meta 页面生成时间 is the page shell. The 每日经济新闻 pubDate is the article's own time, and the article does not give a per-exchange financing-balance clock. The iFinD column publication_time_certified is false on every stored row. A reconstructed lag was not used. No missing date was interpolated. Financing was not admitted and was not fit. formal_signal_allowed stays false. This is not PIT and not dual-80. P4a remains NO_FAMILY_ADMITTED. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. P1c remains BLOCKED_NO_WINDOW_PEAK. P1d remains GO_NEW_FACTORS.",
+  "chinese": "已保存的沪深融资余额覆盖 2011-08-02 至 2026-08-25 共 3659 个研究日、7318 条交易所行。认证披露时点 0 条。晚于下一交易日 09:15 的时点 0 条。已保存的交易所汇总回执、iFinD 历史和 v92 捕获没有逐行披露时点（逐行时点 0 条）。预先登记的官方来源检查：sse_2011-08-02 http 200, per-row clocks 0; szse_2011-08-02 transport URLError, per-row clocks 0; sse_2020-07-13 http 200, per-row clocks 0; szse_2020-07-13 transport URLError, per-row clocks 0; sse_2021-09-13 http 200, per-row clocks 0; szse_2021-09-13 transport URLError, per-row clocks 0; sse_2026-08-25 http 200, per-row clocks 0; szse_2026-08-25 transport URLError, per-row clocks 0; sse_html http 200, per-row clocks 0; szse_html http 200, per-row clocks 0; nbd_2021-09-14 http 200, per-row clocks 0。上交所汇总正文只有 opDate 和融资余额，没有公布时间。回执外壳上的 retrieved_at 和本次 HTTP Date 是下载时间。上交所页面 meta 里的页面生成时间是页面模板时间。每日经济新闻的 pubDate 是稿件自己的时间，稿件没有给出分交易所的融资余额披露时点。iFinD 列 publication_time_certified 在已保存的每一行都是 false。没有使用重构滞后，也没有插值。融资家族没有准入，也没有拟合。formal_signal_allowed 仍为 false。这不是 PIT，也不是双80。P4a 仍是 NO_FAMILY_ADMITTED。P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。P1c 仍是 BLOCKED_NO_WINDOW_PEAK。P1d 仍是 GO_NEW_FACTORS。",
+  "p1_decision": "BLOCKED_NO_CONCENTRATION",
+  "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+  "p1c_decision": "BLOCKED_NO_WINDOW_PEAK",
+  "p1d_decision": "GO_NEW_FACTORS"
+}
