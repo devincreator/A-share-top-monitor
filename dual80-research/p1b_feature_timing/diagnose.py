@@ -711,7 +711,7 @@ def evaluate(base, closes, eligible, targets, scores, counts) -> tuple[list[dict
             for sample_name, bag in (('all_eligible', values), ('complete', complete_values)):
                 offsets = OFFSETS if sample_name == 'all_eligible' else WINDOW + [1]
                 for offset in offsets:
-                    column = [row[feature_index] for row in bag[offset]] if sample_name == 'all_eligible' else bag[offset][:, feature_index].tolist()
+                    column = [float(row[feature_index]) for row in bag[offset]]
                     mu = mean(column)
                     lead_rows.append({
                         'task': task,
@@ -962,6 +962,10 @@ def extremum(rows: list[dict], key: str) -> dict:
     return max(rows, key=lambda row: abs(row[key]))
 
 
+def _span(values: list[float]) -> str:
+    return f'{min(values):+.3f} to {max(values):+.3f}'
+
+
 def decision_paragraphs(rows: list[dict], decision: dict, counts: dict) -> tuple[str, str]:
     code = decision['decision']
     jump = extremum(rows, 'z_jump')
@@ -971,33 +975,58 @@ def decision_paragraphs(rows: list[dict], decision: dict, counts: dict) -> tuple
         f"{task} {len(counts[task]['complete'])} complete of {counts[task]['per_offset'][0]} eligible at offset 0"
         for task in TASKS
     )
-    named = []
-    for item in decision['presence_go']:
-        named.append(f"{item['feature']} presence on {', '.join(item['tasks'])}")
-    for item in decision['build_go']:
-        named.append(f"{item['feature']} build on {', '.join(item['tasks'])}")
-    for item in decision['single_task_go']:
-        named.append(f"{item['feature']} both tests on {item['task']}")
-    named_text = '; '.join(named) if named else 'none'
+    presence_features = [item['feature'] for item in decision['presence_go']]
+    build_only = [item for item in decision['build_go'] if item['feature'] not in presence_features]
+    presence_rows = [row for row in rows if row['feature'] in presence_features and row['pass_presence']]
+    passes = f"presence passes {decision['n_pass_presence']} of 24 cells; build passes {decision['n_pass_build']} of 24"
     jump_cell = f"{jump['task']} {jump['feature']} isolated jump {jump['z_jump']:+.3f} ordinary SD"
     window_cell = f"{window['task']} {window['feature']} window departure {window['z_win']:+.3f} ordinary SD"
     plus_cell = f"{plus['task']} {plus['feature']} offset +1 departure {plus['z_p1']:+.3f} ordinary SD"
-    passes = f"presence passes {decision['n_pass_presence']} of 24 cells; build passes {decision['n_pass_build']} of 24"
     if code == 'GO_PRE_PIVOT_COORDINATE':
+        names = ', '.join(presence_features) if presence_features else 'none'
+        window_span = _span([row['z_win'] for row in presence_rows]) if presence_rows else 'n/a'
+        jump_span = _span([row['z_jump'] for row in presence_rows]) if presence_rows else 'n/a'
+        build_bits = []
+        for item in build_only:
+            cells = [row for row in rows if row['feature'] == item['feature'] and row['task'] in item['tasks']]
+            build_bits.append(
+                f"{item['feature']} on {', '.join(item['tasks'])} "
+                f"(build {_span([row['build'] for row in cells])})"
+            )
+        build_text = '; '.join(build_bits) if build_bits else 'none'
         english = (
-            f"GO. A pre-pivot coordinate clears the frozen tests. {named_text}. {passes}. "
-            f"Largest absolute window departure: {window_cell}. Largest absolute isolated pivot-close jump: {jump_cell}. "
-            f"Samples: {n_text}. A later experiment may pre-register only those feature-task cells. "
-            "The six-feature model stays unfitted. Phase P2 alert compression stays closed. "
-            "The threshold stays unsearched. formal_signal_allowed stays false. "
-            "This is not PIT, not a blind test, and not a signal. P1 remains BLOCKED_NO_CONCENTRATION."
+            f"GO. The presence rule clears on every listed task inside offsets -6..0 for: {names}. "
+            f"On the presence-passing cells their window departure is {window_span} ordinary SD and the isolated pivot-close jump is {jump_span}. "
+            f"The window average is more than half of the offset-+1 departure, which is the presence rule. "
+            f"Offset +1 is still the farther level on {decision['n_plus1_level_dominates']} of 24 cells, so the pivot close adds a further increment; it does not create those four levels. "
+            f"Build passes that are not presence passes: {build_text}. "
+            f"return3_scaled clears presence on {sum(row['pass_presence'] for row in rows if row['feature']=='return3_scaled')} of 4 tasks, short of the two-task rule. "
+            f"On {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['task']}, "
+            f"its window departure is {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['z_win']:+.3f} "
+            f"and its isolated jump is {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['z_jump']:+.3f}. "
+            f"{passes}. Samples: {n_text}. "
+            "A later experiment may pre-register the presence-passing features, and the named build cells only as build coordinates. "
+            "It may not refit the six-feature model, open Phase P2, or raise the frozen score's threshold. "
+            "The P1 score peak at offset +1 remains. formal_signal_allowed stays false. "
+            "This is not PIT, not a blind test, and not a signal."
         )
+        cn_names = '、'.join(CN_FEATURE[name] for name in presence_features)
+        cn_build = '；'.join(
+            f"{CN_FEATURE[item['feature']]}在{'、'.join(item['tasks'])}"
+            for item in build_only
+        ) or '无'
         chinese = (
-            f"放行。有拐点收盘进入特征之前就已经移动、并且通过冻结检验的坐标。{named_text}。{passes}。"
-            f"窗口偏离绝对值最大的一格：{window_cell}。孤立拐点收盘跳跃绝对值最大的一格：{jump_cell}。"
-            f"样本：{n_text}。后续实验只可预注册这些特征与任务。六个价格特征的模型保持不重训。"
-            "P2 发报压缩保持关闭。阈值保持不搜索。formal_signal_allowed 仍为 false。"
-            "这不是 PIT，不是盲测，也不是信号。P1 仍是 BLOCKED_NO_CONCENTRATION。"
+            f"放行。存在检验在列出的任务上通过，坐标在可命中窗口 −6..0 内：{cn_names}。"
+            f"这些通过存在检验的格子，窗口偏离是 {window_span} 个普通日标准差，孤立的拐点收盘跳跃是 {jump_span}。"
+            f"窗口均值超过偏移 +1 偏离的一半，这是存在检验的规则。"
+            f"偏移 +1 仍然是更远的水平，这样的格子有 {decision['n_plus1_level_dominates']} / 24。拐点收盘在原有水平上再推进一步，不是从零造出这些坐标。"
+            f"只通过推移、没有通过存在检验的是：{cn_build}。"
+            f"3日收益通过存在检验的任务数是 {sum(row['pass_presence'] for row in rows if row['feature']=='return3_scaled')} / 4，没有达到两个任务的规则。"
+            f"在 {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['task']} 上，它的窗口偏离是 {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['z_win']:+.3f}，孤立跳跃是 {extremum([row for row in rows if row['feature']=='return3_scaled'], 'z_jump')['z_jump']:+.3f}。"
+            f"{passes}。样本：{n_text}。"
+            "后续实验可以预注册通过存在检验的特征；只通过推移的格子只能作为推移坐标预注册。"
+            "不能重训六个价格特征的模型，不能打开 P2 发报压缩，也不能提高冻结分数的阈值。"
+            "P1 的分数峰值仍在偏移 +1。formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。"
         )
     elif code == 'BLOCKED_PIVOT_CLOSE_DOMINATED':
         english = (
@@ -1149,7 +1178,7 @@ def render_report(rows: list[dict], decision: dict, counts: dict, score_diff: fl
         '',
         '## 与 P1 分数的对齐',
         '',
-        f'用 P1 的可评分日和目标，重算了 `lead_profile.csv` 里 −13..+6 的平均分数。最大绝对差是 {score_diff:.3e}。偏移 +1 的分数高于偏移 0 这一事实沿用 P1，不在这里重新判定。扣掉最新收盘之后的分数，就是已经发表的偏移 0 分数；本审计没有系数，不能在不重训的前提下改写逻辑回归。',
+        f'用 P1 的可评分日和目标，重算了 `lead_profile.csv` 里 −13..+6 的平均分数。最大绝对差是 {score_diff:.3e}。完整样本与全部可评分拐点的特征 z 最大绝对差是 {max(row["max_abs_z_gap_complete_vs_all"] for row in rows):.3f}，出现在样本不完全重合的任务上；判定用完整样本。偏移 +1 的分数高于偏移 0 这一事实沿用 P1，不在这里重新判定。扣掉最新收盘之后的分数，就是已经发表的偏移 0 分数；本审计没有系数，不能在不重训的前提下改写逻辑回归。',
         '',
         '## 边界',
         '',
@@ -1213,13 +1242,14 @@ def save_figures(rows: list[dict], lead_rows: list[dict]) -> None:
                 ax.set_title(task)
             ax.set_xticks(OFFSETS)
             ax.grid(axis='y', alpha=0.25)
+    for ax in axes[-1, :]:
+        ax.set_xlabel('offset from pivot')
     fig.suptitle(
-        'Frozen price features around close pivots. Green band: hittable offsets -6..0. '
-        'Orange point: offset +1, first day whose last input is the pivot close. '
-        'Open circle: offset +1 with the pivot close replaced by the previous close.',
+        'Green band: hittable offsets -6..0. Orange: offset +1, when the pivot close is the last input.\n'
+        'Open circle: same decision with the pivot close replaced by the previous close.',
         fontsize=10,
     )
-    fig.tight_layout(rect=(0, 0, 1, 0.97))
+    fig.tight_layout(rect=(0, 0, 1, 0.95))
     fig.savefig(HERE / 'fig_feature_lead.png', dpi=140)
     plt.close(fig)
 
