@@ -1,0 +1,173 @@
+{
+  "decision": "GO_PRE_PIVOT_COORDINATE",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "refit": false,
+  "p2_opened": false,
+  "english": "GO. The presence rule clears on every listed task inside offsets -6..0 for: return20_scaled, distance_to_20day_high_scaled, distance_to_20day_low_scaled, position63. On the presence-passing cells their window departure is -1.174 to +1.038 ordinary SD and the isolated pivot-close jump is -0.522 to +0.306. The window average is more than half of the offset-+1 departure, which is the presence rule. Offset +1 is still the farther level on 21 of 24 cells, so the pivot close adds a further increment; it does not create those four levels. Build passes that are not presence passes: return3_scaled on 5_TOP, 9_TOP (build +0.541 to +0.661); change_in_return3_scaled on 5_TOP, 9_TOP (build +0.393 to +0.638). return3_scaled clears presence on 1 of 4 tasks, short of the two-task rule. On 5_BOTTOM, its window departure is -0.805 and its isolated jump is -0.829. presence passes 17 of 24 cells; build passes 18 of 24. Samples: 5_TOP 38 complete of 38 eligible at offset 0, 5_BOTTOM 38 complete of 38 eligible at offset 0, 9_TOP 16 complete of 16 eligible at offset 0, 9_BOTTOM 15 complete of 15 eligible at offset 0. A later experiment may pre-register the presence-passing features, and the named build cells only as build coordinates. It may not refit the six-feature model, open Phase P2, or raise the frozen score's threshold. The P1 score peak at offset +1 remains. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a signal.",
+  "chinese": "放行。存在检验在列出的任务上通过，坐标在可命中窗口 −6..0 内：20日收益、距20日高点、距20日低点、63日区间位置。这些通过存在检验的格子，窗口偏离是 -1.174 to +1.038 个普通日标准差，孤立的拐点收盘跳跃是 -0.522 to +0.306。窗口均值超过偏移 +1 偏离的一半，这是存在检验的规则。偏移 +1 仍然是更远的水平，这样的格子有 21 / 24。拐点收盘在原有水平上再推进一步，不是从零造出这些坐标。只通过推移、没有通过存在检验的是：3日收益在5_TOP、9_TOP；3日收益变化在5_TOP、9_TOP。3日收益通过存在检验的任务数是 1 / 4，没有达到两个任务的规则。在 5_BOTTOM 上，它的窗口偏离是 -0.805，孤立跳跃是 -0.829。presence passes 17 of 24 cells; build passes 18 of 24。样本：5_TOP 38 complete of 38 eligible at offset 0, 5_BOTTOM 38 complete of 38 eligible at offset 0, 9_TOP 16 complete of 16 eligible at offset 0, 9_BOTTOM 15 complete of 15 eligible at offset 0。后续实验可以预注册通过存在检验的特征；只通过推移的格子只能作为推移坐标预注册。不能重训六个价格特征的模型，不能打开 P2 发报压缩，也不能提高冻结分数的阈值。P1 的分数峰值仍在偏移 +1。formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。",
+  "presence_go": [
+    {
+      "feature": "return20_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    },
+    {
+      "feature": "distance_to_20day_low_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    },
+    {
+      "feature": "position63",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    }
+  ],
+  "build_go": [
+    {
+      "feature": "return3_scaled",
+      "tasks": [
+        "5_TOP",
+        "9_TOP"
+      ]
+    },
+    {
+      "feature": "return20_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP"
+      ]
+    },
+    {
+      "feature": "change_in_return3_scaled",
+      "tasks": [
+        "5_TOP",
+        "9_TOP"
+      ]
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    },
+    {
+      "feature": "distance_to_20day_low_scaled",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP"
+      ]
+    },
+    {
+      "feature": "position63",
+      "tasks": [
+        "5_TOP",
+        "5_BOTTOM",
+        "9_TOP",
+        "9_BOTTOM"
+      ]
+    }
+  ],
+  "single_task_go": [
+    {
+      "feature": "return20_scaled",
+      "task": "5_TOP",
+      "z_win": 0.7043945601466777
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "task": "5_TOP",
+      "z_win": 0.7418801160966542
+    },
+    {
+      "feature": "distance_to_20day_low_scaled",
+      "task": "5_TOP",
+      "z_win": 0.8874444106954817
+    },
+    {
+      "feature": "position63",
+      "task": "5_TOP",
+      "z_win": 0.8098769000481344
+    },
+    {
+      "feature": "return20_scaled",
+      "task": "5_BOTTOM",
+      "z_win": -0.8145303289491669
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "task": "5_BOTTOM",
+      "z_win": -1.1740541414214898
+    },
+    {
+      "feature": "distance_to_20day_low_scaled",
+      "task": "5_BOTTOM",
+      "z_win": -0.8017725002143024
+    },
+    {
+      "feature": "position63",
+      "task": "5_BOTTOM",
+      "z_win": -0.7083720881758695
+    },
+    {
+      "feature": "return20_scaled",
+      "task": "9_TOP",
+      "z_win": 0.972526560529673
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "task": "9_TOP",
+      "z_win": 0.8485763409705271
+    },
+    {
+      "feature": "distance_to_20day_low_scaled",
+      "task": "9_TOP",
+      "z_win": 1.002473517437836
+    },
+    {
+      "feature": "position63",
+      "task": "9_TOP",
+      "z_win": 1.0380083014309676
+    },
+    {
+      "feature": "distance_to_20day_high_scaled",
+      "task": "9_BOTTOM",
+      "z_win": -1.1729927310430104
+    },
+    {
+      "feature": "position63",
+      "task": "9_BOTTOM",
+      "z_win": -0.9961530274444304
+    }
+  ],
+  "n_pass_presence": 17,
+  "n_pass_build": 18
+}
