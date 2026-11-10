@@ -1,0 +1,19 @@
+{
+  "stem": "hkex_js_20141117",
+  "url": "https://www.hkex.com.hk/eng/csm/DailyStat/data_tab_daily_20141117e.js",
+  "referer": "https://www.hkex.com.hk/",
+  "method": "GET",
+  "status": 404,
+  "error": "HTTPError",
+  "headers": {
+    "Content-Type": "text/html; charset=utf-8",
+    "X-AspNet-Version": "4.0.30319",
+    "Strict-Transport-Security": "max-age=480",
+    "Content-Length": "2756",
+    "Cache-Control": "private, max-age=600",
+    "Date": "Tue, 10 Nov 2026 10:09:16 GMT",
+    "Connection": "close"
+  },
+  "body_bytes": 2756,
+  "body_sha256": "43630f0e0c38193d0e8ab13c03a9f15c23a3536f60017d28a345e1c672db11ec"
+}

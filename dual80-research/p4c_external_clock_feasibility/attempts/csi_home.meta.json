@@ -1,0 +1,20 @@
+{
+  "stem": "csi_home",
+  "url": "https://www.csindex.com.cn/",
+  "referer": "https://www.csindex.com.cn/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "https://www.csindex.com.cn/",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:09:16 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "19563",
+    "Connection": "close",
+    "Last-Modified": "Mon, 02 Nov 2026 05:36:58 GMT",
+    "ETag": "\"6ae8217a-4c6b\"",
+    "P3P": "CP=CAO PSA OUR",
+    "Accept-Ranges": "bytes"
+  },
+  "body_bytes": 19563,
+  "body_sha256": "6fafb173ded9054df9b1f0e0580d752221190287670bf75678f90d0620dc0124"
+}

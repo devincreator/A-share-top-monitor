@@ -1,0 +1,1094 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="utf-8">
+<!--   <title>深交所主页</title>   -->
+<script>
+    var title = '<a href="./" class="CurrChnlCls">市场总貌</a> ';
+    title = title.substring(title.indexOf('>')+1,title.indexOf('</'));
+    document.write('<title>深圳证券交易所-'+ title +'</title>')
+</script>
+<script>
+  if(location.protocol == 'https:'){
+    document.write('<link href="https://res.szse.cn/common/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />');
+  }else{
+    document.write('<link href="http://res.static.szse.cn/common/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />');
+  }
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="expires" content="Web, 26 Feb 1997 08:21:57 GMT">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="author" content="www.szse.cn">
+<meta name="description" content="深交所官网">
+<meta name="keywords" content="深交所,深交所官网,深圳证券交易所,交易所,交易所官网,深圳证券交易所官网">
+<meta name="renderer" content=webkit>
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google" value="notranslate"> 
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="screen-orientation" content="portrait">
+<meta name="full-screen" content="yes">
+<meta name="browermode" content="application">
+<meta name="x5-orientation" content="portrait">
+<meta name="HandheldFriendly" content="true">
+<script type="text/javascript">
+	var u = navigator.userAgent;
+	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//android终端
+
+	function addElementMeta(name,  content) {
+		var head = document.getElementsByTagName('head')[0];
+		var meta = document.createElement('meta');
+
+		meta.setAttribute('name', name);
+		meta.setAttribute('content', content);
+		head.appendChild(meta);
+	}
+	if(isAndroid) {
+		addElementMeta('x5-fullscreen', 'true');
+		addElementMeta('x5-page-mode', 'app');
+	}
+</script> 
+    <script>
+  (function () {
+    var _versionDate = new Date().getTime();
+    if (location.protocol == 'https:') {
+      var _path = 'https://res.szse.cn';
+    } else {
+      var _path = 'http://res.static.szse.cn';
+    }
+    // _path = _path.replace(".static.", ".");
+    //var _path = 'http://res.szse.cn';
+    //document.write( " <script src='" + _path + "/common/js/first.js?random=" + _versionDate + "'> <\/script> ");
+    var _host = 'http://www.szse.cn';
+    if (location.protocol == 'https:') {
+      _host = 'https://www.szse.cn';
+    }
+
+
+    var backDomain = 'http://www.sse.org.cn'
+    var reg = /([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\.?(:\d+)?/;
+    if (backDomain && window.location.host.match(reg)[2] === backDomain.match(reg)[2]) {
+      _host = 'http://www.sse.org.cn';
+      _path = 'http://res.static.sse.org.cn';
+      if (location.protocol == 'https:') {
+        _host = 'https://www.sse.org.cn';
+        _path = 'https://res.static.sse.org.cn';
+      }
+
+    }
+
+    _path = _path.replace(".static.", ".");
+
+    document.write(" <script src='" + _host + "/szsePath.js?random=" + _versionDate + "'> <\/script> "
+      + " <script src='" + _path + "/common/js/concatversion.js?random=" + _versionDate + "'> <\/script> ");
+  }());
+</script>
+
+<script>
+
+  function backDomainLinkSwitch(value, type) {
+    var _port = location.port ? (":" + location.port) : "";
+    var reg = /([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\.?(:\d+)?/;
+    var urlRegx = /(.*)(http:|https:)(\/\/)(([a-zA-Z0-9][-a-zA-Z0-9]{0,62})((\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+))\.?(:\d+)?(.*)/;
+
+    // html字符串替换
+    if (type == 'str') {
+      var strArr = value.split("=");
+      strArr = strArr.map(function (v) {
+        var host = reg.test(v) ? v.match(reg)[0] : null;
+        if (pathObj.szseHosts.indexOf(host) > -1) {
+          if (window.location.protocol == 'https:' && urlRegx.test(v)) {
+            v = v.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+          };
+          if (pathObj.current_host === pathObj.back_host) {
+            v = v.replace(pathObj.main_host, pathObj.back_host);
+          }
+        }
+        return v
+      });
+      value = strArr.join("=");
+      return value;
+    }
+
+    // a标签地址替换
+    if (type === 'A') {
+      var eleA = document.querySelectorAll(value);
+      for (var i = 0; i < eleA.length; i++) {
+        var href = eleA[i].getAttribute("href");
+        var host = reg.test(href) ? href.match(reg)[0] : null;
+        if (href && pathObj.szseHosts.indexOf(host) > -1) {
+          if (window.location.protocol == 'https:') {
+            href = href.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+          };
+          if (pathObj.current_host === pathObj.back_host) {
+            href = href.replace(pathObj.main_host, pathObj.back_host);
+          }
+          eleA[i].setAttribute('href', href);
+        }
+      }
+    }
+
+    // 单链接替换
+    if (type === "link") {
+      if (window.location.protocol == 'https:' && !!value) {
+        value = value.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+      };
+      if (pathObj.current_host === pathObj.back_host) {
+        var host = reg.test(value) ? value.match(reg)[0] : null;
+        if (value && pathObj.szseHosts.indexOf(host) > -1) {
+          value = value.replace(pathObj.main_host, pathObj.back_host);
+        }
+      }
+      return value;
+    }
+
+    // 背景图地址更换
+    if (type === "background") {
+      var eleBg = document.querySelectorAll(value);
+      for (var i = 0; i < eleBg.length; i++) {
+        var href = eleBg[i].style.backgroundImage;
+        if (window.location.protocol == 'https:' && !!href) {
+          href = href.replace(urlRegx, '$1https:$3$4' + _port + '$9');
+        };
+        var host = reg.test(href) ? href.match(reg)[0] : null;
+        if (href && pathObj.szseHosts.indexOf(host) > -1) {
+          if (pathObj.current_host === pathObj.back_host) {
+            href = href.replace(pathObj.main_host, pathObj.back_host);
+          }
+          eleBg[i].style.backgroundImage = href;
+        }
+      }
+    }
+
+  }
+
+</script>
+
+<script>
+   if(document.cookie.indexOf('ft_language=1')>-1){
+    var style = document.createElement('style');
+    style.textContent='body{visibility:hidden;}';
+    document.head.appendChild(style);
+  }
+</script>
+<script>
+    addComCssFile()
+</script>
+<script>
+        changeVertion('/modules/report/css/report.css', 'css');
+    </script>
+</head>
+	<body>
+		<script>
+  navMenuAJAX('/application/publicindex/header/index.html', '/application/publicindex/header/index.html', 'header', 'www');
+</script>
+<div class="g-locationnav">
+    <div class="banner-wrap">
+      <img src="http://res.static.szse.cn/common/images/legalrules-banner.jpg" />
+    </div>
+    <div class="g-container">
+      <div class="g-banner-txt">
+            <h2 class="hidden-xs">市场总貌</h2>
+            <p>
+              <img src="http://res.static.szse.cn/common/icon/er-banneradr.png" />位置：<a href="../" class="CurrChnlCls">市场数据</a>/<a href="./" class="CurrChnlCls">市场总貌</a>
+            </p>
+          </div>
+    </div>
+</div>
+	
+			<div class="g-container-wrap">
+				<div class="g-container">
+					<div class="g-sidemenu">
+                                               
+
+<div class="menu-container">
+	<h2 class="title">市场数据</h2>
+	<div class="side-menu-container">
+		<ul class="side-menu-con">
+           <li class="level1 active last" chnlcode="marketOverview_report">
+
+			            <a href="../../market/overview/index.html">
+					<div>市场总貌
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level1" type="0" chnlcode="exponent">
+
+			        <a> 
+					<div>深市指数
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="exponentPandect">
+
+			            <a href="../../market/exponent/pandect/index.html">
+					<div>指数总览
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="sample_report">
+
+			            <a href="../../market/exponent/sample/index.html">
+					<div>指数与样本股
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="cnindex_link">
+
+			           <a href="http://www.cnindex.com.cn/" target='_blank'>
+					<div>国证指数系列
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="csindex_link">
+
+			           <a href="http://www.csindex.com.cn/" target='_blank'>
+					<div>中证指数系列
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="cesc_link">
+
+			           <a href="https://www.cesc.com/sc/index.html" target='_blank'>
+					<div>中华指数系列
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="stockInfo_report">
+
+			        <a> 
+					<div>股票数据
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="baseindicator_report">
+
+			            <a href="../../market/stock/indicator/index.html">
+					<div>基本概况
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level2" type="0" chnlcode="dealSituation">
+
+			        <a> 
+					<div>成交概况
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="dailySurvey">
+
+			            <a href="../../market/stock/situation/daily/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="weeklySurvey">
+
+			            <a href="../../market/stock/situation/weekly/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="monthlySurvey">
+
+			            <a href="../../market/stock/situation/monthly/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="annualSurvey">
+
+			            <a href="../../market/stock/situation/annual/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="active_report">
+
+			            <a href="../../market/stock/active/index.html">
+					<div>指标排名
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="deal_report">
+
+			            <a href="../../market/stock/deal/index.html">
+					<div>行业统计
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level2" type="0" chnlcode="stock_CDR">
+
+			        <a> 
+					<div>存托凭证成交
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="cdrDailySurvey_report">
+
+			            <a href="../../market/stock/CDR/daily/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="cdrWeeklySurvey">
+
+			            <a href="../../market/stock/CDR/weekly/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="cdrMonthlySurvey">
+
+			            <a href="../../market/stock/CDR/monthly/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="cdrAnnualSurvey">
+
+			            <a href="../../market/stock/CDR/annual/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="preferredStockDeal">
+
+			        <a> 
+					<div>优先股成交
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="prefDailySurvey_report">
+
+			            <a href="../../market/stock/preferred/daily/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="prefWeeklySurvey_report">
+
+			            <a href="../../market/stock/preferred/weekly/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="prefMonthlySurvey_report">
+
+			            <a href="../../market/stock/preferred/monthly/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="prefAnnualSurvey_report">
+
+			            <a href="../../market/stock/preferred/annual/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="changename_report">
+
+			            <a href="../../market/stock/changename/index.html">
+					<div>名称变更
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="suspendTermination_news">
+
+			            <a href="../../market/stock/suspend/index.html">
+					<div>暂停/终止上市
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="fundData_report">
+
+			        <a> 
+					<div>基金数据
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+            <li class="level2" type="0" chnlcode="fundDealSurvey">
+
+			        <a> 
+					<div>成交概况
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="fundDailySurvey_report">
+
+			            <a href="../../market/fund/dealSurvey/daily/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="fundWeeklySurvey_report">
+
+			            <a href="../../market/fund/dealSurvey/weekly/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="fundMonthlySurvey_report">
+
+			            <a href="../../market/fund/dealSurvey/monthly/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="fundAnnualSurvey_report">
+
+			            <a href="../../market/fund/dealSurvey/annual/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="fundData_fundvolume">
+
+			        <a> 
+					<div>基金规模
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="fundData_fundvolume_etf">
+
+			            <a href="../../market/fund/volume/etf/index.html">
+					<div>ETF规模
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="fundData_fundvolume_lof">
+
+			            <a href="../../market/fund/volume/lof/index.html">
+					<div>LOF规模
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="fundData_fundvolume_reits">
+
+			            <a href="../../market/fund/volume/reits/index.html">
+					<div>不动产基金规模
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="bondData">
+
+			        <a> 
+					<div>债券数据
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+            <li class="level2" type="0" chnlcode="bondData_overview">
+
+			        <a> 
+					<div>成交概况
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="bondDailySurvey_report">
+
+			            <a href="../../market/bond/overview/daily/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="bondWeeklySurvey_report">
+
+			            <a href="../../market/bond/overview/weekly/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="bondMonthlySurvey_report">
+
+			            <a href="../../market/bond/overview/monthly/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="bondAnnualSurvey_report">
+
+			            <a href="../../market/bond/overview/yearly/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="bondData_convertible">
+
+			            <a href="../../market/bond/convertible/index.html">
+					<div>可转债转股统计
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="optionData">
+
+			        <a> 
+					<div>期权数据
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="dayIndex">
+
+			            <a href="../../market/option/day/index.html">
+					<div>日度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="weekIndex">
+
+			            <a href="../../market/option/week/index.html">
+					<div>周度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="monthIndex">
+
+			            <a href="../../market/option/month/index.html">
+					<div>月度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="yearIndex">
+
+			            <a href="../../market/option/year/index.html">
+					<div>年度概况
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="otherData">
+
+			        <a> 
+					<div>其他数据
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="11" chnlcode="marginOth_link">
+
+			           <a href="http://www.szse.cn/disclosure/margin/margin/index.html" target='_blank'>
+					<div>融资融券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="transfer_link">
+
+			           <a href="http://www.szse.cn/disclosure/margin/lended/index.html" target='_blank'>
+					<div>转融通
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="11" chnlcode="szhkOth_link">
+
+			           <a href="http://www.szse.cn/szhk/szhktradeinfo/szdaily/index.html" target='_blank'>
+					<div>深港通
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level2" type="0" chnlcode="stockPledgeRepo">
+
+			        <a> 
+					<div>股票质押回购
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="11" chnlcode="dealInfo_link">
+
+			           <a href="http://www.szse.cn/disclosure/innovate/stock/message/index.html" target='_blank'>
+					<div>交易信息
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="11" chnlcode="rate_link">
+
+			           <a href="http://www.szse.cn/disclosure/innovate/stock/rate/index.html" target='_blank'>
+					<div>平均质押率
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+				</ul>
+	  </li>
+           <li class="level1 last" type="0" chnlcode="trend_report">
+
+			            <a href="../../market/trend/index.html">
+					<div>行情信息
+					
+					</div>
+				</a>
+				
+	  </li>
+            <li class="level1" type="0" chnlcode="productItem">
+
+			        <a> 
+					<div>产品目录
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+            <li class="level2" type="0" chnlcode="stock_protect">
+
+			        <a> 
+					<div>股票
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="stockList_report">
+
+			            <a href="../../market/product/stock/list/index.html">
+					<div>股票列表
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="preferredStock_report">
+
+			            <a href="../../market/product/stock/preferred/index.html">
+					<div>优先股列表
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="bond_report">
+
+			        <a> 
+					<div>债券
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="nationalDebtBonds_report">
+
+			            <a href="../../market/product/bond/tb/index.html">
+					<div>国债
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="localGovernmentBond_report">
+
+			            <a href="../../market/product/bond/ltb/index.html">
+					<div>地方政府债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="policyFinancialBond_report">
+
+			            <a href="../../market/product/bond/fb/index.html">
+					<div>政策性金融债
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="governmentBackedBond_report">
+
+			            <a href="../../market/product/bond/GB/index.html">
+					<div>政府支持债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="corporateBond_report">
+
+			            <a href="../../market/product/bond/cb/index.html">
+					<div>公司债券(含企业债券)
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="exchangeableBond_report">
+
+			            <a href="../../market/product/bond/ccb/index.html">
+					<div>可交换公司债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="privateBond_report">
+
+			            <a href="../../market/product/bond/ppb/index.html">
+					<div>非公开发行公司债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="privateExchangeableBond_report">
+
+			            <a href="../../market/product/bond/ppcb/index.html">
+					<div>非公开发行可交换公司债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="convertableBond_report">
+
+			            <a href="../../market/product/bond/CB/index.html">
+					<div>可转换债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="innovateBond_report">
+
+			            <a href="../../market/product/bond/innovate/index.html">
+					<div>创新创业可转换债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="secondaryBond_report">
+
+			            <a href="../../market/product/bond/sb/index.html">
+					<div>证券公司次级债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="shortTermBond_report">
+
+			            <a href="../../market/product/bond/stb/index.html">
+					<div>证券公司短期债券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="ABS_report">
+
+			            <a href="../../market/product/bond/ABS/index.html">
+					<div>企业资产支持证券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="REIT_report">
+
+			            <a href="../../market/product/bond/REIT/index.html">
+					<div>不动产资产支持证券
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="innovativeProducts_report">
+
+			            <a href="../../market/product/bond/ip/index.html">
+					<div>创新品种
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level2" type="0" chnlcode="fundList_report">
+
+			        <a> 
+					<div>基金
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level3 last" type="0" chnlcode="allFundList_report">
+
+			            <a href="../../market/product/list/all/index.html">
+					<div>所有基金列表
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="etfList_report">
+
+			            <a href="../../market/product/list/etfList/index.html">
+					<div>ETF列表
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="lofFundList_report">
+
+			            <a href="../../market/product/list/lofFundList/index.html">
+					<div>LOF基金列表
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level3 last" type="0" chnlcode="reits_report">
+
+			            <a href="../../market/product/list/reits/index.html">
+					<div>不动产基金列表
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level2 last" type="0" chnlcode="option_report">
+
+			            <a href="../../market/product/option/index.html">
+					<div>期权
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="gdrType_report">
+
+			            <a href="../../market/product/gdr/index.html">
+					<div>互联互通存托凭证
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+            <li class="level1" type="0" chnlcode="periodical">
+
+			        <a> 
+					<div>统计资料
+					
+					  <b class="caret"></b>
+					</div>
+				</a>
+				
+				<ul>
+           <li class="level2 last" type="0" chnlcode="month_news">
+
+			            <a href="../../market/periodical/month/index.html">
+					<div>统计月报
+					
+					</div>
+				</a>
+				
+	  </li>
+           <li class="level2 last" type="0" chnlcode="year_news">
+
+			            <a href="../../market/periodical/year/index.html">
+					<div>统计年鉴
+					
+					</div>
+				</a>
+				
+	  </li>
+				</ul>
+	  </li>
+           <li class="level1 last" type="0" chnlcode="subjectCount_news">
+
+			            <a href="../../market/subject/index.html">
+					<div>专题统计
+					
+					</div>
+				</a>
+				
+	  </li>
+		</ul>
+	</div>
+</div>
+
+
+					</div>
+					<div class="g-content">
+						<div class="g-conbox">
+							<div class="report-container" data-s-catalog-id="1803_sczm"></div>
+						</div>
+					</div>
+		        </div>
+			</div>
+
+		<script>
+  changeVertion('/common/js/toggleBig5.js', 'js');
+  navMenuAJAX('/application/publicindex/footer/index.html','/application/publicindex/footer/index.html', 'footer','www');
+  addComJsFile();
+</script>
+<script>
+    changeVertion('/modules/report/js/report_new.js','js');
+    changeVertion('/modules/report/js/detail_report.js','js');
+    changeVertion('/modules/report/js/common_report.js','js');
+</script>
+	</body>
+</html>

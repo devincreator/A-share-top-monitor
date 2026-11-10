@@ -1,0 +1,22 @@
+{
+  "stem": "csi_oneday",
+  "url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000985&startDate=20210913&endDate=20210913",
+  "referer": "https://www.csindex.com.cn/",
+  "status": 200,
+  "final_url": "https://www.csindex.com.cn/csindex-home/perf/index-perf?indexCode=000985&startDate=20210913&endDate=20210913",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:05:46 GMT",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Access-Control-Allow-Origin": "https://www.csindex.com.cn",
+    "Access-Control-Allow-Credentials": "false",
+    "Access-Control-Allow-Methods": "POST, GET, PATCH, DELETE, PUT",
+    "Access-Control-Max-Age": "3600",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+    "vary": "accept-encoding",
+    "P3P": "CP=CAO PSA OUR"
+  },
+  "body_bytes": 412,
+  "body_sha256": "30908dcef11a63c2ff090dc5be0d0caac4c6971f0c14584b77c800d9aa2138ce"
+}

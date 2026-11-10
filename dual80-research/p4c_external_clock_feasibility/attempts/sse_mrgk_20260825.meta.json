@@ -1,0 +1,23 @@
+{
+  "stem": "sse_mrgk_20260825",
+  "url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-08-25",
+  "referer": "https://www.sse.com.cn/market/stockdata/overview/day/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "https://query.sse.com.cn/commonQuery.do?sqlId=COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C&PRODUCT_CODE=01%2C02%2C03%2C11%2C17&type=inParams&SEARCH_DATE=2026-08-25",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:08:46 GMT",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "1711",
+    "Connection": "close",
+    "Content-Language": "zh-CN",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042 'unsafe-inline' 'unsafe-eval'; frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 1711,
+  "body_sha256": "5bd75d78b6353c6c2ad4b25cf3db907b43317ed14d2ecf188e87e70789365717"
+}

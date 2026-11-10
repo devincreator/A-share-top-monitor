@@ -1,0 +1,27 @@
+{
+  "stem": "szse_daily_page",
+  "url": "https://www.szse.cn/market/overview/index.html",
+  "referer": "https://www.szse.cn/",
+  "status": 200,
+  "final_url": "https://www.szse.cn/market/overview/index.html",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:06:25 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "27080",
+    "Connection": "close",
+    "Last-Modified": "Sat, 07 Nov 2026 15:09:12 GMT",
+    "ETag": "W/\"6aef3f18-69c8\"",
+    "Expires": "Tue, 10 Nov 2026 10:06:24 GMT",
+    "Cache-Control": "no-cache",
+    "X-UA-Compatible": "IE=EDGE",
+    "Vary": "Accept-Encoding",
+    "X-Varnish": "533929379",
+    "Age": "0",
+    "Via": "1.1 varnish-v4",
+    "X-cache": "MISS",
+    "Accept-Ranges": "bytes"
+  },
+  "body_bytes": 27080,
+  "body_sha256": "f04e1d3b569eca1b5baeb880c18837fbfe3d5dc569fa2c4cc797c8d5daa75dee"
+}

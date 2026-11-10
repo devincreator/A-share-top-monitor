@@ -1,0 +1,23 @@
+{
+  "stem": "pbc_stats",
+  "url": "http://www.pbc.gov.cn/diaochatongjisi/116219/index.html",
+  "referer": "http://www.pbc.gov.cn/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "https://www.pbc.gov.cn/diaochatongjisi/116219/index.html",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:09:14 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "57220",
+    "Connection": "close",
+    "Server": "nginx",
+    "Last-Modified": "Wed, 04 Nov 2026 08:31:18 GMT",
+    "ETag": "\"6aeaed56-df84\"",
+    "Accept-Ranges": "bytes",
+    "Guomissl": "type=2",
+    "x-via": "1.1 PS-HFE-01CW350:5 (Cdn Cache Server V2.0), 1.1 PS-HIA-01m2335:2 (Cdn Cache Server V2.0), 1.1 PS-FOC-01auE52:22 (Cdn Cache Server V2.0)",
+    "x-ws-request-id": "6af2ed4a_PS-FOC-01auE52_970-31391"
+  },
+  "body_bytes": 57220,
+  "body_sha256": "7d9a413f74a53788ffbd1c0b481ecf97231613edd84bb41dae5237320dc5f30b"
+}

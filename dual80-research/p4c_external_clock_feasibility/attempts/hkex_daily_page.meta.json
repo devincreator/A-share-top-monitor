@@ -1,0 +1,28 @@
+{
+  "stem": "hkex_daily_page",
+  "url": "https://www.hkex.com.hk/Mutual-Market/Stock-Connect/Statistics/Historical-Daily?sc_lang=en",
+  "referer": "https://www.hkex.com.hk/",
+  "status": 200,
+  "final_url": "https://www.hkex.com.hk/Mutual-Market/Stock-Connect/Statistics/Historical-Daily?sc_lang=en",
+  "headers": {
+    "Cache-Control": "no-cache, no-store,no-cache, no-store",
+    "Pragma": "no-cache,no-cache",
+    "Content-Type": "text/html; charset=utf-8",
+    "Expires": "-1",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "Access-Control-Allow-Origin": "*",
+    "Content-Security-Policy": "frame-ancestors 'self' https://www.hkex.com.hk https://sc.hkex.com.hk/ http://sc.hkex.com.hk/ http://www.hkgem.com http://www.hkex.com.hk http://www.hkexgroup.com http://sc.hkex.com.hk http://sc.hkexnews.hk http://www.hkexnews.hk https://google.com.hk https://www.recaptcha.net/ https://www1.hkex.com.hk https://assets.adobedtm.com https://hkexchanges.demdex.net https://dpm.demdex.net https://hkexchanges.data.adobedc.net https://hkexchanges.sc.omtrdc.net https://cm.everesttech.net https://hkexchanges.2o7.net https://*.mktoweb.com https://markets.hkex.com.hk https://piid.hkex.com.hk; frame-src 'self' http://www.hkgem.com http://www.hkex.com.hk http://www.hkexgroup.com http://sc.hkex.com.hk https://sc.hkex.com.hk http://sc.hkexnews.hk http://www.hkexnews.hk http://asia.tools.euroland.com https://google.com.hk https://www.hkexgroup.com https://view.vzaar.com https://video.vzaar.com https://www.google.com https://www.recaptcha.net/ https://www1.hkex.com.hk https://assets.adobedtm.com https://hkexchanges.demdex.net https://dpm.demdex.net https://hkexchanges.data.adobedc.net https://hkexchanges.sc.omtrdc.net https://cm.everesttech.net https://hkexchanges.2o7.net https://*.mktoweb.com https://markets.hkex.com.hk https://piid.hkex.com.hk; ",
+    "X-XSS-Protection": "1; mode=block",
+    "X-Frame-Options": "SameOrigin",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE",
+    "X-Akamai-Transformed": "0 - 0 -",
+    "Date": "Tue, 10 Nov 2026 10:05:45 GMT",
+    "Transfer-Encoding": "chunked",
+    "Connection": "Transfer-Encoding",
+    "Set-Cookie": "bm_so=486A9C2F0A83EE0E7E361C3CB219B10849DF13C7A43381493F77FA0F1D23A6CC~YAAQlishF3WzpcGhAQAAcLnrxAmHAqOhxY82CRS/u2wCs+LKTjJ49IXoFIhI+4tkwmSeET/ispJSOBWhvK5VzvA4A9yDhZ+sniSb429RyGh9jtqP3TYyBvW0Q8p5jhNa8jUfAbuThMET499TfxRGISFP4pcK4gAHcFP65pCDZTLLJo9a2ognV7CHpV7oPLCv4RM05upmvO3+dNj8pmk3jdQaCBEzfEIXQZXSqgMTLg0cNvL8pRbPW4m7kvx08+QOs9D1pP6HdA7SUCm0kWfTIXojmlLUi+eIvSOFGSfGsACTIWwmb7g4GWZ3qGM9h0cjNXjw3bjr/uMeMIZSaftpDbAspnmMlGrKkQMLSWKcC3JE25xOLSik6p1mOsBFqFN4VcMMAg4lAeBC3u5fR+WEeo1B1vRDYoHV+xvalE6vxeTdvlNnc1lYjjf2zfAVxzVauZ+d7t/mGT36/xheX+gyuF9sDol5UATLcnQX~8; Domain=.hkex.com.hk; Path=/; Expires=Wed, 11 Nov 2026 10:05:45 GMT; Max-Age=86400; Secure"
+  },
+  "body_bytes": 253506,
+  "body_sha256": "642f784ba454196ab115f74881d8b51aa1966b80470e02889725f67f4f078a7f"
+}

@@ -1,0 +1,18 @@
+{
+  "stem": "nbs_ppi_20261109",
+  "url": "https://www.stats.gov.cn/sj/zxfb/202611/t20261109_1965794.html",
+  "referer": "https://www.stats.gov.cn/sj/zxfb/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "https://www.stats.gov.cn/sj/zxfb/202611/t20261109_1965794.html",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:08:50 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "266009",
+    "Connection": "close",
+    "WZWS-RAY": "002-1794305330.035-cache03fst-waf03fst",
+    "VAR-Cache": "hit"
+  },
+  "body_bytes": 266009,
+  "body_sha256": "c100661cfbab14abc4b36413f439ec23bde9e6705a11e31dc61005b46792a6ff"
+}

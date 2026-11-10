@@ -1,0 +1,4299 @@
+/**
+ * @param {数据处理} data 
+ */
+function dataTreating(data){
+	if(data.indexOf(',') < 0){
+		return data;
+	} else {
+		return data.replace(/\,/g, '');
+	}
+}
+function public(params) {
+	this.url = sseQueryURL + "commonSoaQuery.do";
+  }
+  
+  public.prototype.quarterly = function quarterly(params) {
+	if (params <= 3) {
+	  return "1";
+	} else if (3 < params && params <= 6) {
+	  return "2";
+	} else if (6 < params && params <= 9) {
+	  return "3";
+	} else if (9 < params && params <= 12) {
+	  return "4";
+	} else {
+	  return "";
+	}
+  };
+  
+  public.prototype.dateConversion = function dateConversion(year, quarter) {
+	switch (quarter) {
+	  case "1":
+		return year + "-03-31";
+	  case "2":
+		return year + "-06-30";
+	  case "3":
+		return year + "-09-30";
+	  case "4":
+		return year + "-12-31";
+	  default:
+		return "";
+	}
+  };
+  
+  public.prototype.getEndMonth = function getEndMonth() {
+	var month = get_systemDate_global().substring(5, 7);
+	switch (month) {
+	  case "01":
+	  case "03":
+	  case "05":
+	  case "07":
+	  case "08":
+	  case "10":
+	  case "12":
+		return get_systemDate_global().substring(0, 8) + "31";
+	  case "04":
+	  case "06":
+	  case "09":
+	  case "11":
+		return get_systemDate_global().substring(0, 8) + "30";
+	  case "02":
+		return turnDateToString(
+		  new Date(
+			new Date(
+			  get_systemDate_global().substring(0, 4) + "/03/01"
+			).getTime() -
+			  1000 * 3600 * 24
+		  )
+		);
+	  default:
+		break;
+	}
+  };
+  
+  public.prototype.getEndYear = function getEndYear(params) {
+	return get_systemDate_global().substring(0, 4) + "-12-31";
+  };
+
+
+/**
+ * 港股通标的证券名单
+ */
+var stockList = {
+	newTableList : {
+		sqlId: "COMMON_SSE_JYFW_HGT_XXPL_BDZQQD_L",
+		isPagination: true,
+		"pageHelp.pageSize": 10,
+		"pageHelp.pageNo": 1,
+		"pageHelp.beginPage": 1,
+		"pageHelp.cacheSize": 1,
+		"pageHelp.endPage": 1,
+		keyword: '',
+	},
+		init: function () {
+			this.loadEvents();
+			// 证券代码或简称 输入框
+			$(".search_btn").on("click", function (e) {
+				e.stopPropagation();
+				stockList.newTableList.keyword = $("#inputCode").val();
+				var downUrl = sseQueryURL + 'commonExcelDd.do?sqlId=COMMON_SSE_JYFW_HGT_XXPL_BDZQQD_L&keyword=' + stockList.newTableList.keyword;
+				$('#download').attr({href:downUrl});
+				stockList.newTableData(1);
+			});
+		},
+		loadEvents: function() {
+			// 下载
+			var downUrl = sseQueryURL + 'commonExcelDd.do?sqlId=COMMON_SSE_JYFW_HGT_XXPL_BDZQQD_L&keyword=' + stockList.newTableList.keyword;
+			var downHtm = '<a id="download" class="tableDownload js_download_market" href="' + downUrl + '">' + "下载</a>";
+			$(".js_stockList .title_lev2 .new_date").after(downHtm);
+			$("#inputCode").attr("placeholder", "代码/中文简称/英文简称");
+			stockList.newTableData(1);
+		},
+	newTableData: function (pageIndex) {
+		var _this = this;
+		if (!paginationChange(_this.newTableList, pageIndex)) {//触发分页改变分页参数
+			return
+		} 
+		var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+		var stockNewTable = "<thead><tr>";
+		stockNewTable += '<th class="text-nowrap">证券代码</th>';
+		stockNewTable += '<th class="text-nowrap">英文简称</th>';
+		stockNewTable += '<th class="text-nowrap">中文简称(参考)</th>';
+		stockNewTable += '<th class="text-nowrap">品种</th>';
+		stockNewTable += "</tr></thead><tbody>";
+		// $(".js_hkexsctrading_month .remarks").remove();
+		getJSONP({
+			type: "post",
+			url: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+			data: _this.newTableList,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0) {
+					$.each(data.result, function (k, v) {
+						stockNewTable += "<tr>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_CODE + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.ABBR_EN + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.ABBR_CN + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_TYPE + "</td>";
+						stockNewTable += "</tr>";
+					});
+					Page.navigation(
+					  ".js_stockList .pagination-box",
+					  data.pageHelp.pageCount,
+					  data.pageHelp.total,
+					  data.pageHelp.pageNo,
+					  data.pageHelp.pageSize,
+					  "stockList.newTableData"
+					);
+					//日期赋值
+					$(".js_stockList .new_date").html("更新日期：" + data.result[0].UPDATE_DATE);
+				  } else {
+					stockNewTable += emptyTr;
+					stockNewTable += "</tbody>";
+					$(".js_stockList .table").html(stockNewTable);
+					$(".js_stockList .pagination-box").html("");
+				  }
+				  stockNewTable += "</tbody>";
+				  $(".js_stockList .table").html(stockNewTable);
+			},
+			errCallback: function () {
+			  stockNewTable += emptyTr;
+			  stockNewTable += "</tbody>";
+			  $(".js_stockList .table").html(stockNewTable);
+			  $(".js_stockList .pagination-box").html("");
+			},
+		  });
+	},
+	// setPeriodicParams: function () {
+	// 	var _this = stockList;
+	// 	_this.newTableList.companyCode = $("#inputCode").val(); //证券代码
+	// 	_this.newTableList.abbrCN = $("#inputCode").val(); //证券代码
+	// 	_this.newTableList.abbrEN = $("#inputCode").val(); //证券代码
+	// 	if (
+	// 	  isNaN(_this.newTableList.companyCode) &&
+	// 	  _this.newTableList.companyCode != ""
+	// 	) {
+	// 	  bootstrapModal({
+	// 		text: "证券代码必须为5位数字，请根据智能提示选择证券代码后查询",
+	// 	  });
+	// 	} else if (
+	// 	  _this.newTableList.companyCode.length != 5 &&
+	// 	  _this.newTableList.companyCode != ""
+	// 	) {
+	// 	  bootstrapModal({
+	// 		text: "证券代码必须为5位数字",
+	// 	  });
+	// 	} else {
+	// 	  _this.newTableData(1);
+	// 	}
+	//   },
+}
+if ($(".js_stockList").length > 0) {
+	stockList.init()
+	// $(".js_stockList").append("<div class='remarks'><span>上述港股通标的证券名单仅供参考，实际以公告披露为准。更新日期为非港股通交易日的，名单更新适用于更新日期次一港股通交易日。</span></div>");
+}
+//港股通标的证券名单end
+
+/**
+ * 港股通股票调整信息
+ */
+var stockAdjustment = {
+	newTableList : {
+		sqlId: "COMMON_SSE_JYFW_HGT_XXPL_BDZQTZXX_L",
+		isPagination: true,
+		"pageHelp.pageSize": 10,
+		"pageHelp.pageNo": 1,
+		"pageHelp.beginPage": 1,
+		"pageHelp.cacheSize": 1,
+		"pageHelp.endPage": 1,
+		},
+	newTableData: function (pageIndex) {
+		var _this = this;
+		if (!paginationChange(_this.newTableList, pageIndex)) {//触发分页改变分页参数
+			return
+		} 
+		var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+		var stockNewTable = "<thead><tr>";
+		stockNewTable += '<th class="text-nowrap">序号</th>';
+		stockNewTable += '<th class="text-nowrap">证券代码</th>';
+		stockNewTable += '<th class="text-nowrap">英文简称</th>';
+		stockNewTable += '<th class="text-nowrap">中文简称</th>';
+		stockNewTable += '<th class="text-nowrap">品种</th>';
+		stockNewTable += '<th class="text-nowrap">调整内容</th>';
+		stockNewTable += '<th class="text-nowrap">生效日期</th>';
+		stockNewTable += "</tr></thead><tbody>";
+		getJSONP({
+			type: "post",
+			url: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+			data: _this.newTableList,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0) {
+					$.each(data.result, function (k, v) {
+						stockNewTable += "<tr>";
+						stockNewTable += '<td class="text-nowrap">' + v.NUM + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_CODE + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.ABBR_EN + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_ABBR + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_TYPE + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + _this.adjustType(v.ADJUST_TYPE) + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.VALID_DATE + "</td>";
+						stockNewTable += "</tr>";
+					});
+					Page.navigation(
+					  ".js_stockAdjustment .pagination-box",
+					  data.pageHelp.pageCount,
+					  data.pageHelp.total,
+					  data.pageHelp.pageNo,
+					  data.pageHelp.pageSize,
+					  "stockAdjustment.newTableData"
+					);
+					//日期赋值
+					$(".js_stockAdjustment .new_date").html("更新日期：" + data.result[0].FILE_DATE);
+				  } else {
+					stockNewTable += emptyTr;
+					stockNewTable += "</tbody>";
+					$(".js_stockAdjustment .table").html(stockNewTable);
+					$(".js_stockAdjustment .pagination-box").html("");
+				  }
+				  stockNewTable += "</tbody>";
+				  $(".js_stockAdjustment .table").html(stockNewTable);
+			},
+			errCallback: function () {
+			  stockNewTable += emptyTr;
+			  stockNewTable += "</tbody>";
+			  $(".js_stockAdjustment .table").html(stockNewTable);
+			  $(".js_stockAdjustment .pagination-box").html("");
+			},
+		  });
+	},
+	adjustType: function (str) {
+		if(str == '01'){
+			return '调进';
+		}else if(str == '02'){
+			return '调出';
+		}
+	}
+}
+if ($(".js_stockAdjustment").length > 0) {
+	stockAdjustment.newTableData(1);
+	$(".js_stockAdjustment").append("<div class='remarks'><span>注：上述港股通标的证券调整信息仅供参考，实际以公告披露为准。</span></div>");
+}
+
+//港股通股票调整信息 end
+
+/**
+ * 港股通标的证券名单/港股通股票调整信息-品种转义
+ */
+
+function varietiesEscape(val) {
+	if(val == 'BOND'){
+		return '债券';
+	} else if(val == 'BWRT'){
+		return '一篮子权证';
+	} else if(val == 'EQTY'){
+		return '股票';
+	} else if(val == 'TRST'){
+		return 'ETF';
+	} else if(val == 'WRNT'){
+		return '权证';
+	}else{
+		return '-';
+	}
+}
+
+/**
+ * 历史参考汇率/结算汇兑比率
+ */
+var exchangeRatio = {
+	commonUrl: sseQueryURL + "commonSoaQuery.do",
+	commonParam: {
+		"isPagination": true,
+		"updateDate": changeFormatDate(get_systemDate_global(), -30, 0, 0),
+		"updateDateEnd": get_systemDate_global(),
+		"sqlId": "FW_HGT_GGTHL",
+		"pageHelp.cacheSize": 1,
+		"pageHelp.pageSize": 25,
+	},
+	typeOption: [  //类型数据，value --> 接口参数 sqlId 的值
+		{ name: "历史参考汇率", value: "FW_HGT_GGTHL" },
+		{ name: "结算汇兑比率", value: "FW_HGT_JSHDBL" }
+	],
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		bootstrapSelect({
+			method: function () {
+				//类型数据渲染
+				$(".js_type .selectpicker").html(addSelectOption(_this.typeOption)).selectpicker('refresh').selectpicker('render');
+				//类型初始化完成调用接口
+				$(".js_type .selectpicker").on('loaded.bs.select', function (e) {
+					setTimeout(function () {
+						_this.setStockParam();
+					}, 500)
+				});
+				//下拉框改变触发查询
+				$(".js_type .selectpicker").on('changed.bs.select', function (e) {
+					_this.setStockParam();
+				});
+			}
+		});
+		//日期范围渲染
+		laydate({
+			elem: ".js_dateRange input",
+			theme: '#b50005',
+			format: 'yyyy-MM-dd',
+			min: '1990-12-19',
+			value: _this.commonParam.updateDate + " - " + _this.commonParam.updateDateEnd,
+			max: get_systemDate_global(),
+			range: true,
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				setTimeout(function () {
+					_this.setStockParam();
+				}, 500)
+			},
+		});
+	},
+	setStockParam: function () {
+		var dateArr = $(".js_dateRange input").val().split(" - ");
+		if (new Date(dateArr[0]) > new Date(get_systemDate_global()) || new Date(dateArr[1]) > new Date(get_systemDate_global())) {
+			bootstrapModal({ text: "日期不能超过当前日期" });
+			return;
+		}
+		this.commonParam.updateDate = dateArr[0].replace(/\-/g, "");
+		this.commonParam.updateDateEnd = dateArr[1].replace(/\-/g, "");
+		this.commonParam.sqlId = $(".js_type .selectpicker").val();
+		this.getStockList(1);
+	},
+	getStockList: function (pageIndex) {
+		var _this = this;
+		if (!paginationChange(_this.commonParam, pageIndex)) {//触发分页改变分页参数
+			return
+		}
+		var htm = '<thead><tr>';
+		$(".js_exchangeRatio .remarks").remove();
+		if (_this.commonParam.sqlId == "FW_HGT_GGTHL") {  //历史参考汇率
+			htm += '<th>适用日期</th><th class="text-right">参考汇率买入价</th><th class="text-right">参考汇率卖出价</th><th>货币种类</th>';
+			//表格下方的注
+			$(".js_exchangeRatio").append('<div class="remarks"><span>注：投资者提交港股通买入申报时，证券公司可利用参考汇率卖出价计算投资者需要预冻结的人民币资金；投资者提交港股通卖出申报时，证券公司可利用参考汇率买入价计算投资者预计得到的人民币资金。</span></div>')
+		} else {  //结算汇兑比率
+			htm += '<th>适用日期</th><th class="text-right">买入结算汇兑比率</th><th class="text-right">卖出结算汇兑比率</th><th>货币种类</th>';
+			//表格下方的注
+			$(".js_exchangeRatio").append('<div class="remarks"><span>注：日终清算时，投资者的港股通买入交易，按卖出结算汇兑比率计算出实际需要支付的人民币；投资者的港股通卖出交易，按买入结算汇兑比率计算出实际可以得到的人民币。</span></div>')
+		}
+		htm += '</tr></thead><tbody>';
+		var emptyTr = '<tr><td colspan="18">暂无数据</td></tr>';
+		getJSONP({
+			url: _this.commonUrl,
+			data: _this.commonParam,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0) {
+					$.each(data.result, function (k, v) {
+						htm += '<tr>';
+						htm += '<td class="text-nowrap">' + (v.validDate ? v.validDate.substring(0, 4) + "年" + v.validDate.substring(4, 6) + "月" + v.validDate.substring(6, 8) + "日" : "") + '</td>';
+						htm += '<td class="text-nowrap text-right">' + (v.buyPrice ? v.buyPrice : "-") + '</td>';
+						htm += '<td class="text-nowrap text-right">' + (v.sellPrice ? v.sellPrice : "-") + '</td>';
+						htm += '<td class="text-nowrap">' + v.currencyType + '</td>';
+						htm += '</tr>';
+					})
+					//调用分页
+					Page.navigation(".js_exchangeRatio .pagination-box", data.pageHelp.pageCount, data.pageHelp.total, data.pageHelp.pageNo, data.pageHelp.pageSize, "exchangeRatio.getStockList");
+				} else {
+					htm += emptyTr;
+					$(".js_exchangeRatio .pagination-box").html("");
+				}
+				htm += '</tbody>';
+				$(".js_exchangeRatio .table").html(htm);
+			},
+			errCallback: function () {
+				htm += emptyTr;
+				htm += '</tbody>';
+				$(".js_exchangeRatio .table").html(htm);
+				$(".js_exchangeRatio .pagination-box").html("");
+			}
+		})
+	}
+}
+if ($(".js_exchangeRatio").length > 0) {
+	exchangeRatio.init();
+}
+//历史参考汇率/结算汇兑比率 end
+
+
+
+/**
+ * 港股通成交信息
+ */
+//每日成交信息
+var hkexsctradingDay = {
+	hkexsctradingDayUrl: sseQueryURL + 'ggt/getQuatationInfo.do?jsonCallBack=?',
+	hkexsctradingDayParam: {
+		'tradeDate': ''
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//日渲染
+		laydate({
+			elem: ".js_hkexsctrading_day .js_date input",
+			theme: '#b50005',
+			format: 'yyyy-MM-dd',
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.setHkexsctradingDayParams();
+				}, 500);
+			},
+		});
+		//点击搜索、回车触发查询
+		triggerSearch(_this.setAssetParams);
+		//初始加载
+		$(".js_hkexsctrading_day .js_date input").val(searchDay);
+		$('.js_hkexsctrading_day .title_lev3 .new_date').html('数据日期：' + searchDay);
+		_this.hkexsctradingDayParam.tradeDate = searchDay.replace(/\-/g, '');
+		_this.getHkexsctradingDayList();
+	},
+	setHkexsctradingDayParams: function () {
+		var _this = hkexsctradingDay;
+		var tradeDate = $(".js_hkexsctrading_day .js_date input").val() ? $(".js_hkexsctrading_day .js_date input").val() : '';
+		$('.js_hkexsctrading_day .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingDayParam.tradeDate = tradeDate.replace(/\-/g, '');
+		_this.getHkexsctradingDayList();
+	},
+	getHkexsctradingDayList: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingDayHtml = '<thead><tr>';
+		hkexsctradingDayHtml += '<th class="text-nowrap">当日情况</th>';
+		hkexsctradingDayHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingDayHtml += '</tr></thead><tbody>';
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingDayUrl,
+			data: _this.hkexsctradingDayParam,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if (v) {
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日买入成交金额（亿元）</td><td class="text-right">' + (v.BUY_AMOUNT ? v.BUY_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日买入成交笔数（万笔）</td><td class="text-right">' + (v.BUY_VOLUME ? v.BUY_VOLUME : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日卖出成交金额（亿元）</td><td class="text-right">' + (v.SELL_AMOUNT ? v.SELL_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日卖出成交笔数（万笔）</td><td class="text-right">' + (v.SELL_VOLUME ? v.SELL_VOLUME : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+					}
+					hkexsctradingDayHtml += '</tbody>';
+					$(".js_hkexsctrading_day .table").html(hkexsctradingDayHtml);
+				} else {
+					hkexsctradingDayHtml += emptyTr;
+					hkexsctradingDayHtml += '</tbody>';
+					$(".js_hkexsctrading_day .table").html(hkexsctradingDayHtml);
+				}
+			},
+			errCallback: function () {
+				hkexsctradingDayHtml += emptyTr;
+				hkexsctradingDayHtml += '</tbody>';
+				$(".js_hkexsctrading_day .table").html(hkexsctradingDayHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctrading_day").length > 0) {
+	hkexsctradingDay.init();
+}
+//每日成交信息END
+//每月成交信息 
+var hkexsctradingMonth = {
+	hkexsctradingMonthUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+	hkexsctradingMonthParam: {
+		'isPagination': true,
+		'pageHelp.pageSize:': '12',
+		'sqlId': 'COMMON_SSE_JYFW_HGT_GGTCJXX_LSGYCJXX_L',
+		'year': ''
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//月渲染
+		laydate({
+			elem: ".js_hkexsctrading_month .js_date input",
+			theme: '#b50005',
+			type: 'month',
+			format: 'yyyy-MM',
+			min: '2014-01-01',
+			max: public.prototype.getEndMonth(),
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.setHkexsctradingMonthParams();
+				}, 500);
+			},
+		});
+		//点击搜索、回车触发查询
+		triggerSearch(_this.setAssetParams);
+		//初始加载
+		$(".js_hkexsctrading_month .js_date input").val(searchMonth)
+		$('.js_hkexsctrading_month .title_lev3 .new_date').html('数据日期：' + searchMonth);
+		_this.hkexsctradingMonthParam.year = searchMonth.replace(/\-/g, '');
+		_this.getHkexsctradingMonthList();
+	},
+	setHkexsctradingMonthParams: function () {
+		var _this = hkexsctradingMonth;
+		var tradeDate = $(".js_hkexsctrading_month .js_date input").val() ? $(".js_hkexsctrading_month .js_date input").val() : '';
+		$('.js_hkexsctrading_month .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingMonthParam.year = tradeDate.replace(/\-/g, '');
+		_this.getHkexsctradingMonthList();
+	},
+	getHkexsctradingMonthList: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingMonthHtml = '<thead><tr>';
+		hkexsctradingMonthHtml += '<th class="text-nowrap">当月情况</th>';
+		hkexsctradingMonthHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingMonthHtml += '</tr></thead><tbody>';
+		$(".js_hkexsctrading_month .remarks").remove();
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingMonthUrl,
+			data: _this.hkexsctradingMonthParam,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if (v) {
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">总买入成交金额（亿元）</td><td class="text-right">' + (v.TOTAL_BUY_AMT ? v.TOTAL_BUY_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">总买入成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_BUY_VOL ? v.TOTAL_BUY_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">总卖出成交金额（亿元）</td><td class="text-right">' + (v.TOTAL_SELL_AMT ? v.TOTAL_SELL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">总卖出成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_SELL_VOL ? v.TOTAL_SELL_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均买入成交金额（亿元）</td><td class="text-right">' + (v.DAY_BUY_AMT ? v.DAY_BUY_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均买入成交笔数（万笔）</td><td class="text-right">' + (v.DAY_BUY_VOL ? v.DAY_BUY_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均卖出成交金额（亿元）</td><td class="text-right">' + (v.DAY_SELL_AMT ? v.DAY_SELL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均卖出成交笔数（万笔）</td><td class="text-right">' + (v.DAY_SELL_VOL ? v.DAY_SELL_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+					}
+					hkexsctradingMonthHtml += '</tbody>';
+					$(".js_hkexsctrading_month .table").html(hkexsctradingMonthHtml);
+				} else {
+					hkexsctradingMonthHtml += emptyTr;
+					hkexsctradingMonthHtml += '</tbody>';
+					$(".js_hkexsctrading_month .table").html(hkexsctradingMonthHtml);
+				}
+				if (_this.hkexsctradingMonthParam.year == get_systemDate_global().substring(0, 7).replace(/\-/g, '')) {
+					$(".js_hkexsctrading_month").append('<div class="remarks"><span>*本月度数据统计截止前1交易日</span></div>');
+				}
+			},
+			errCallback: function () {
+				hkexsctradingMonthHtml += emptyTr;
+				hkexsctradingMonthHtml += '</tbody>';
+				$(".js_hkexsctrading_month .table").html(hkexsctradingMonthHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctrading_month").length > 0) {
+	hkexsctradingMonth.init();
+}
+//每月成交信息 END
+//每年成交信息
+var hkexsctradingYear = {
+	hkexsctradingYearUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+	hkexsctradingYearParam: {
+		'isPagination': true,
+		'pageHelp.pageSize:': '12',
+		'sqlId': 'COMMON_SSE_JYFW_HGT_GGTCJXX_YEAR_L',
+		'year': ''
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//年渲染
+		laydate({
+			elem: ".js_hkexsctrading_year .js_date input",
+			theme: '#b50005',
+			type: 'year',
+			format: 'yyyy',
+			min: '2014-01-01',
+			max: public.prototype.getEndYear(),
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.setHkexsctradingYearParams();
+				}, 500);
+			},
+		});
+		//点击搜索、回车触发查询
+		triggerSearch(_this.setAssetParams);
+		//初始加载
+		$(".js_hkexsctrading_year .js_date input").val(searchYear)
+		$('.js_hkexsctrading_year .title_lev3 .new_date').html('数据日期：' + searchYear);
+		_this.hkexsctradingYearParam.year = searchYear;
+		_this.getHkexsctradingYearList();
+	},
+	setHkexsctradingYearParams: function () {
+		var _this = hkexsctradingYear;
+		var tradeDate = $(".js_hkexsctrading_year .js_date input").val() ? $(".js_hkexsctrading_year .js_date input").val() : '';
+		$('.js_hkexsctrading_year .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingYearParam.year = tradeDate;
+		_this.getHkexsctradingYearList();
+	},
+	getHkexsctradingYearList: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingYearHtml = '<thead><tr>';
+		hkexsctradingYearHtml += '<th class="text-nowrap">当年情况</th>';
+		hkexsctradingYearHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingYearHtml += '</tr></thead><tbody>';
+		$(".js_hkexsctrading_year .remarks").remove();
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingYearUrl,
+			data: _this.hkexsctradingYearParam,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if (v) {
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年买入成交金额（亿元）</td><td class="text-right">' + (v.BUY_AMT ? v.BUY_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年买入成交笔数（万笔）</td><td class="text-right">' + (v.BUY_VOL ? v.BUY_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年卖出成交金额（亿元）</td><td class="text-right">' + (v.SELL_AMT ? v.SELL_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年卖出成交笔数（万笔）</td><td class="text-right">' + (v.SELL_VOL ? v.SELL_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+					}
+					hkexsctradingYearHtml += '</tbody>';
+					$(".js_hkexsctrading_year .table").html(hkexsctradingYearHtml);
+				} else {
+					hkexsctradingYearHtml += emptyTr;
+					hkexsctradingYearHtml += '</tbody>';
+					$(".js_hkexsctrading_year .table").html(hkexsctradingYearHtml);
+				}
+				if (_this.hkexsctradingYearParam.year == get_systemDate_global().substring(0, 4)) {
+					$(".js_hkexsctrading_year").append('<div class="remarks"><span>*本年度数据统计截止前1交易月</span></div>');
+				}
+			},
+			errCallback: function () {
+				hkexsctradingYearHtml += emptyTr;
+				hkexsctradingYearHtml += '</tbody>';
+				$(".js_hkexsctrading_year .table").html(hkexsctradingYearHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctrading_year").length > 0) {
+	hkexsctradingYear.init();
+}
+//每年成交信息END
+// 港股通成交信息 END
+
+/**
+ * 港股通--专栏首页
+ */
+var southboundTrading = {
+	amountUrl: hq_queryUrl + "/v1/hkp/status/amount_status",
+	tableData: tableData['tableData_1120'],
+	amount: [], //成交笔数
+	money: [],//成交金额
+	groupingUnits: [
+		['minute', [1]]
+	],
+	init: function () {
+		var _this = this;
+		_this.loadEvents();
+		_this.getTradingDay();
+		require(['highstock'], function () {
+			_this.setMarkData();
+			_this.getyunhqChart();
+			setInterval(function () {
+				var ret = _this.getyunhqChart();
+				if (ret.success == true) {
+					_this.hgtChart(ret);
+				}
+			}, 60000);
+			_this.getStockIndex();
+			setInterval(_this.getStockIndex, 60000); //定时任务
+		});
+	},
+	loadEvents: function () {
+		this.amount = [ //成交笔数
+			transactionData[0].BUY_VOLUME,
+			transactionData[1].BUY_VOLUME,
+			transactionData[0].SELL_VOLUME,
+			transactionData[1].SELL_VOLUME
+		],
+			this.money = [ //成交金额
+				transactionData[0].BUY_AMOUNT,
+				transactionData[1].BUY_AMOUNT,
+				transactionData[0].SELL_AMOUNT,
+				transactionData[1].SELL_AMOUNT
+			],
+			//移动端--轮播
+			setSwiper({
+				el: '.swiper-container4',
+				param: {
+					autoplay: {
+						delay: 8000,
+						disableOnInteraction: false,
+					},
+					speed: 900,
+					loop: false,
+					pagination: {
+						el: '.pagination',
+						type: 'bullets',
+						clickable: true,
+					},
+				},
+			})
+		//右侧标题下面的日期拼接--港股通服务状态、当日额度余额
+		$(".js_serviceStatus .table-responsive").before('<div class="table_tip"></div>');
+		$("#viewCharthgt").before('<div class="table_tip"></div>');
+		//参考汇率、结算汇兑比率赋值
+		$(".js_referenceRate .rateCon").before('<div class="table_tip">' + "货币种类：" + CURRENCY_TYPE + " 适用日期：" + VALID_DATE + '</div>');
+		$(".js_referenceRate .rateBottom").eq(0).text(BUY_PRICE);
+		$(".js_referenceRate .rateBottom").eq(1).text(SELL_PRICE);
+
+		$(".js_settlementRate .rateCon").before('<div class="table_tip">' + "货币种类：" + CURRENCY_TYPE_clear + " 适用日期：" + VALID_DATE_clear + '</div>');
+		$(".js_settlementRate .rateBottom").eq(0).text(BUY_PRICE_clear);
+		$(".js_settlementRate .rateBottom").eq(1).text(SELL_PRICE_clear);
+
+		//港股通服务状态表格填充
+		var htm = '<tbody>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">是否港股通交易日</td>';
+		htm += '<td id="chartId1" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">买入申报状态</td>';
+		htm += '<td id="chartId2" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">卖出申报状态</td>';
+		htm += '<td id="chartId3" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '</tbody>';
+		$(".js_serviceStatus .table").html(htm);
+		//当日额度余额--注
+		var txtHtm = '<div class="remarks">注: 1、每日额度为420亿。<br>     2、上表在交易日的交易期间每1分钟更新一次。<br>     3、上表当日额度余额，按照去尾法截取整数部分。<br>     4、发生下述三种情形之一的，当日额度余额显示为0：情形一，因为显示精度的原因，当日额度余额少于100万时，显示为0；情形二，当日额度余额计算结果小于等于0时，显示为0；情形三，因当日额度使用完毕或者其他任何原因，在全市场范围暂停接受买入申报时，当日额度余额显示为0。<br>     5、申报状态仅在港股通交易日有效。</div>'
+		$(".js_viewChartCon").append(txtHtm);
+	},
+	//成交信息需要的数据
+	setMarkData: function () {
+		var _this = this;
+		//成交金额
+		var quickSortArr = [Number(_this.money[0]), Number(_this.money[1]), Number(_this.money[2]), Number(_this.money[3])];
+		_this.buyC("#js_turnoverChart", quickSortArr, '亿元');
+		//成交笔数
+		var quickSortArr02 = [Number(_this.amount[0]), Number(_this.amount[1]), Number(_this.amount[2]), Number(_this.amount[3])];
+		_this.buyC("#js_transactionsChart", quickSortArr02, '万笔');
+	},
+	//交易日安排
+	getTradingDay: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="3">暂无数据</td></tr>';
+		var htm = '<thead>';
+		htm += '<tr>';
+		htm += '<th>日期</th>';
+		htm += '<th>不提供港股通服务</th>';
+		htm += '<th>原因</th>';
+		htm += '</tr>';
+		htm += '</thead>';
+		htm += '<tbody>';
+		if (_this.tableData.list && _this.tableData.list.length > 1) {
+			$.each(_this.tableData.list, function (k, v) {
+				if (v) {
+					htm += '<tr>';
+					htm += '<td>' + v[0] + '</td>';
+					htm += '<td>' + v[1] + '</td>';
+					htm += '<td>' + v[2] + '</td>';
+					htm += '</tr>';
+				}
+			})
+		} else {
+			htm += emptyTr;
+		}
+		htm += '</tbody>';
+		$(".js_southboundTrading .table").html(htm);
+		var pHead = '<div class="text-center" style="padding:10px 8px 6px 8px;font-size:14px;color: rgb(255, 255, 255); background-color: rgb(65, 141, 211);">近期不提供港股通服务的日期</div>';
+		$(".js_southboundTrading .table-responsive").before(pHead);
+	},
+	//当日额度余额
+	getyunhqChart: function () {
+		var _this = this;
+		var hgtDailyInfo = {
+			daily_amt: '',
+			day_unused: '',
+			mktstatus_first: -1,
+			mktstatus_second: -1,
+			mktstatus_third: -1,
+			create_time: '',
+			success: false
+		}
+		$.ajax({
+			type: 'POST',
+			dataType: "jsonp",
+			url: _this.amountUrl,
+			jsonp: "callback",
+			data: {},
+			cache: false,
+			success: function (resultData) {
+				var dateStr = new String(resultData.date);
+				var status = resultData.status;
+				var timeStr = new String(status[0][1]); //港股通交易余额时间 Hmmss***
+				dateStr = dateStr.substring(0, 4) + '-' + dateStr.substring(4, 6) + '-' + dateStr.substring(6);
+				if (timeStr.length >= 9) {//hour > 9 clock
+					timeStr = timeStr.substring(0, 2) + ':' + timeStr.substring(2, 4) + ':' + timeStr.substring(4, 6);
+				} else {//hour <= 9 clock
+					timeStr = timeStr.substring(0, 1) + ':' + timeStr.substring(1, 3) + ':' + timeStr.substring(3, 5);
+				}
+				var mktStatus = new String(status[2][1]); //第1位：‘0’表示全市场限制买入，‘1’表示正常无此限制。第2位：‘0’表示全市场限制卖出，‘1’表示正常无此限制。
+				//第3位：‘0’表示当日非港股通交易日，‘1’表示当日港股通交易日
+				hgtDailyInfo.mktstatus_first = mktStatus.substring(0, 1);
+				hgtDailyInfo.mktstatus_second = mktStatus.substring(1, 2);
+				hgtDailyInfo.mktstatus_third = mktStatus.substring(2, 3);
+				hgtDailyInfo.daily_amt = status[3] / 1000000;
+				hgtDailyInfo.day_unused = status[4] / 1000000;
+				hgtDailyInfo.create_time = dateStr + ' ' + timeStr;
+				hgtDailyInfo.success = true;
+				_this.hgtChart(hgtDailyInfo);
+			}
+		});
+		return hgtDailyInfo;
+	},
+	//服务状态
+	hgtChart: function (dailyinfo) {
+		var _this = this;
+		var chart_mktstatus_first = "";
+		var chart_mktstatus_second = "";
+		var chart_mktstatus_third = "";
+		var daily_amt = parseInt(dailyinfo.daily_amt);
+		var day_unused = parseInt(dailyinfo.day_unused);
+		var remain_amt = daily_amt - day_unused < 0 ? 0 : daily_amt - day_unused;
+		if ("1" == dailyinfo.mktstatus_first) {
+			chart_mktstatus_first = "接受";
+		} else if ("0" == dailyinfo.mktstatus_first) {
+			chart_mktstatus_first = "不接受";
+		}
+		if ("1" == dailyinfo.mktstatus_second) {
+			chart_mktstatus_second = "接受";
+		} else if ("0" == dailyinfo.mktstatus_second) {
+			chart_mktstatus_second = "不接受";
+		}
+		if ("1" == dailyinfo.mktstatus_third) {
+			chart_mktstatus_third = "是";
+		} else if ("0" == dailyinfo.mktstatus_third) {
+			chart_mktstatus_third = "否";
+		}
+
+		$("#chartId1").html(chart_mktstatus_third);
+		$("#chartId2").html(chart_mktstatus_first);
+		$("#chartId3").html(chart_mktstatus_second);
+		$(".js_serviceStatus .table_tip").html("日期：" + dailyinfo.create_time.substring(0, 10));
+		$(".js_viewChartCon .table_tip").html("更新时间：" + dailyinfo.create_time);
+
+		_this.doughnutChart({
+			done: remain_amt,
+			undone: day_unused
+		});
+	},
+	//画图--当日额度余额
+	doughnutChart: function (obj) {
+		var _this = this;
+		var done = obj.done,
+			undone = obj.undone;
+		var sizeNum = 24;
+		if (clientWidth < 1200 && clientWidth > 768) {
+			sizeNum = 18;
+		}
+		$('#viewCharthgt').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				animation: false,
+				height: 210
+			},
+			title: {
+				floating: true,
+				text: '<span style="margin-left:23px;">当日额度余额</span><br><span style="font-size:' + sizeNum + 'px;">' + Number((undone / 100).toFixed(2)) + '亿元</span>',
+				style: {
+					fontSize: '12px',
+					fontFamily: 'microsoft yahei',
+					color: '#666',
+					fill: '#666'
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					return this.key + ':' + Number((this.y / 100).toFixed(2)) + "亿元";
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: false,//点击后中间标题换成当前鼠标选中标题
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: false
+					}
+				}
+			},
+			series: [{
+				type: 'pie',
+				innerSize: '90%',
+				animation: false,
+				data: [{
+					name: '已用额度',
+					y: done,
+					color: '#7cb5ec'
+				},
+				{
+					name: '可用额度',
+					y: undone,
+					color: '#f15c80'
+				}
+				]
+			}]
+		}, function (c) {
+			// 环形图圆心
+			var centerY = c.series[0].center[1],
+				titleHeight = parseInt(c.title.styles.fontSize);
+			c.setTitle({
+				y: centerY + titleHeight / 2 - 20
+			});
+			chart = c;
+		});
+	},
+	//画图--成交信息
+	buyC: function (obj, quickSortArr, strType) {
+		var _this = this;
+		var dataShadow = [],
+			yMax = _this.QuickSort({
+				arr: quickSortArr,
+				index: quickSortArr.length - 1,
+				type: strType
+			});
+		$(obj).highcharts({
+			chart: {
+				type: 'column',
+				inverted: true,
+				height: 220,
+			},
+			title: {
+				text: ''
+			},
+			xAxis: {
+				categories: [
+					'买入',
+					'卖出'
+				],
+				title: {
+					text: null
+				},
+				labels: {
+					enabled: true
+				},
+				tickWidth: 0,
+				lineColor: '#FFFFFF'
+			},
+			yAxis: [{
+				min: 0,
+				labels: {
+					enabled: false
+				},
+				title: {
+					text: ''
+				},
+				gridLineWidth: 0,
+				lineColor: '#FFFFFF'
+			}, {
+				title: {
+					text: ''
+				},
+				labels: {
+					enabled: false
+				},
+				opposite: false,
+				gridLineWidth: 0,
+				lineColor: '#FFFFFF'
+			}],
+			credits: {
+				enabled: false
+			},
+			legend: {
+				itemHoverStyle: "#898989",
+				enabled: true,
+				shadow: false,
+				align: 'left',
+				reversed: true,
+				verticalAlign: 'top',
+				height: 150,
+				x: -8,
+				y: -4, //图例在Y轴显示的垂直位置
+				itemStyle: {
+					color: '#898989',
+					fontWeight: "normal",
+					cursor: "pointer"
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					if (this.series.name.split(' ')[0] == 'Series') {
+						return false;
+					} else {
+						return this.key + '：' + this.y + strType + '<br>' + this.series.name;
+					}
+				}
+			},
+			plotOptions: {
+				column: {
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						crop: false,
+						useHTML: false
+					},
+					grouping: false,
+					shadow: false,
+					borderWidth: 0,
+					pointWidth: 15 //柱状图宽度
+				}
+			},
+			series: [
+				{
+					name: '',
+					color: 'rgba(0,0,0,0.05)',
+					data: [yMax, yMax],
+					dataLabels: {
+						enabled: false,
+						format: '{y}',
+						useHTML: true
+					},
+					pointPadding: 0.3,
+					pointPlacement: -0.32,
+					animation: false
+				}, {
+					name: '',
+					color: 'rgba(0,0,0,0.05)',
+					data: [yMax, yMax],
+					dataLabels: {
+						enabled: false
+					},
+					pointPadding: 0.3,
+					pointPlacement: 0.2,
+					yAxis: 1,
+					animation: false
+				}, {
+					name: '    交易日  ' + transactionData[0].TRADE_DATE,
+					color: '#418dd3',
+					data: [quickSortArr[0], quickSortArr[2]],
+					dataLabels: {
+						enabled: true
+					},
+					pointPadding: 0.36,
+					pointPlacement: 0.2,
+					yAxis: 1
+				}, {
+					name: '    上一日  ' + transactionData[1].TRADE_DATE,
+					color: '#bee0ff',
+					data: [quickSortArr[1], quickSortArr[3]],
+					dataLabels: {
+						enabled: true,
+						format: '{y}',
+					},
+					pointPadding: 0.36,
+					pointPlacement: -0.32
+				}]
+		});
+
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(0).css("transform", "matrix(1, 0, 0, 1, 10, 20)");
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(1).css("transform", "matrix(1, 0, 0, 1, 10, 45)");
+
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(2).hide();
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(3).hide();
+		$(obj).find(".highcharts-root").css("transform", "matrix(1, 0, 0, 1, 10, -25)");
+		$(obj).css("margin-bottom", "-30px");
+	},
+	//数组排序取最大值返回
+	QuickSort: function (obj) {
+		function sortNumber(a, b) {
+			return a - b;
+		}
+		var quickArr = obj.arr,
+			index = obj.index,
+			maxA = quickArr[index];
+
+		if (obj.type == '亿元') {
+			return parseFloat(maxA + 2);
+		} else {
+			return parseFloat(maxA + 300);
+		}
+	},
+	//股指行情图
+	getStockIndex: function () {
+		var _this = this;
+		var htm = '<thead><tr>';
+		htm += '<th>指数名称</th>';
+		htm += '<th class="text-right">最新</th>';
+		htm += '<th class="text-right">涨跌</th>';
+		htm += '</tr></thead><tbody>';
+		var emptyTr = '<tr><td colspan="18">暂无数据</td></tr>';
+		$.ajax({
+			type: 'GET',
+			dataType: 'jsonp',
+			url: hq_queryUrl + "/v1/csip/list/self/000159_CES300",
+			jsonp: 'callback',
+			data: {
+				select: 'code,name,last,chg_rate'
+			},
+			cache: false,
+			success: function (res) {
+				var returnArray = res.list;
+				var lastTr = [];
+
+				if (res && returnArray.length > 0) {
+					for (var i = 0; i < returnArray.length; ++i) {
+						var data = returnArray[i];
+						var dataTime = returnArray[0].date;
+						if (data[0] == "000159") {
+							htm += '<tr class="' + data[0] + '"><td><img src="/xhtml/images/sse.jpg" border="0">';
+						} else {
+							htm += '<tr class="' + data[0] + '"><td><img src="/xhtml/images/ces.ico" border="0">';
+						}
+						if (parseFloat(data[3]) > 0) {
+							htm += data[1] + '</td><td class="text-right"><font color="red">' + data[2].toFixed(2) + '</font></td>';
+							htm += '<td class="text-right"><font color="red">' + data[3].toFixed(2) + '%</font></td>';
+							htm += '</tr>';
+						} else if (parseFloat(data.sRate) < 0) {
+							htm += data[1] + '</td><td class="text-right"><font color="green">' + data[2].toFixed(2) + '</font></td>';
+							htm += '<td class="text-right"><font color="green">' + data[3].toFixed(2) + '%</font></td>';
+							htm += '</tr>';
+						} else {
+							htm += data[1] + '</td><td class="text-right">' + data[2].toFixed(2) + '</td>';
+							htm += '<td class="text-right">' + data[3].toFixed(2) + '%</td>';
+							htm += '</tr>';
+						}
+						htm += '<tr><td colspan="3" id="stockQC' + data[0] + '" class="stockTr" style="background-color:white;padding:10px 0;"><img src="/xhtml/images/ui/Highcharts-NotData.png" id="Highcharts-NotData" style="width: 90%;"></td></tr>';
+						lastTr.push("stockQC" + data[0]);
+					}
+				} else {
+					htm += emptyTr;
+				}
+				htm += '</tbody>';
+				$(".js_stockIndex .table").html(htm);
+				/**
+				 * 折叠效果
+				 */
+				for (var i = 0; i < lastTr.length; i++) {
+					var selector = lastTr[i];
+					var trCode = selector.substring(selector.length - 6, selector.length);
+					drawOnehgtZChart(trCode, selector, true, ("#" + selector));
+					// 获取当前展开的索引，设置为show()
+					$("#" + lastTr[i]).parent('tr').hide();
+					$("#" + lastTr[0]).parent('tr').show();
+				}
+				$(".js_stockIndex .table").find('tr').click(function () {
+					var _cliCode = $(this).attr('class');
+					if (_cliCode == 'undefined' || _cliCode == null || _cliCode == '') {
+						return
+					} else {
+						$(this).parent().find('.stockTr').parent('tr').hide();
+						$(this).next().show();
+					}
+				});
+			}
+		});
+	}
+}
+if ($(".js_southboundTrading").length > 0) {
+	southboundTrading.init();
+}
+//港股通--专栏首页 end
+
+/**
+ * 港股通交易日安排 
+ * 沪港通--专栏首页
+ */
+ var dayArrangement = {
+	tableData: tableData['tableData_1135'],
+	init: function () {
+		this.getDayList();
+	},
+	//渲染日安排静态数据列表
+	getDayList: function (pageYear,pageMonth) {
+		var _this = this;
+		if($(".js_table").length <= 0 && $(".js_bottom").length <= 0){
+			$(".js_dayArrangement .js_transaction").after('<div class="js_table"></div><div class="js_bottom"></div>');
+		}
+		if (_this.tableData.list && _this.tableData.list.length > 1) {
+			var yearList = {};//selsect的选框数组
+			var tableDataList = _this.trimSpace(_this.tableData.list);
+			var yearStar = tableDataList[0][0].substring(0,4);
+			var yearEnd = tableDataList[tableDataList.length - 1][0].substring(0,4);
+			for(var i = yearStar;i <= yearEnd;i++){
+				if(i == yearStar){
+					yearList[i] = (Number(tableDataList[0][0].substring(5,7)) > 9 ? tableDataList[0][0].substring(5,7) : tableDataList[0][0].substring(6,7));
+				} else if(i == yearEnd){
+					yearList[i] = (Number(tableDataList[tableDataList.length - 1][0].substring(5,7)) > 9 ? tableDataList[tableDataList.length - 1][0].substring(5,7) : tableDataList[tableDataList.length - 1][0].substring(6,7));
+				} else {
+					yearList[i] = '12';
+				}
+			}
+			var PageData_Array = [];//渲染页面的数组
+			var onDay = 0;//过去一个月几天
+			var monthDay = 0;//本月一号周几
+			var date = new Date();
+			if(!isNull(pageYear) && !isNull(pageMonth)){
+				//获取当前的年月
+				var year = Number(date.getFullYear());
+				var monthNumber = Number(date.getMonth() + 1);
+			} else {
+				var year = Number(pageYear);
+				var monthNumber = Number(pageMonth);
+			}
+			if(year == yearStar){
+				if(new Date(year,monthNumber).getTime() < new Date(yearStar,yearList[yearStar]).getTime()){
+					$('#pageMonth').text(yearList[yearStar] + '月');
+					monthNumber = Number(yearList[yearStar]);
+				}
+			}
+			if(year == yearEnd){
+				if(new Date(year,monthNumber).getTime() > new Date(yearEnd,yearList[yearEnd]).getTime()){
+					$('#pageMonth').text(yearList[yearEnd] + '月');
+					monthNumber = Number(yearList[yearStar]);
+				}
+			}
+			month = (monthNumber > 9) ? monthNumber : ("0" + monthNumber);
+			var today = year + "-" + month + "-" + '01';//当年页面渲染
+			var weekDay = [7, 1, 2, 3, 4, 5, 6];  
+			var myDate = new Date(Date.parse(today));//例如value:2023-02-01 
+			monthDay = weekDay[myDate.getDay()];//算当前月1号周几
+			onDay = monthDay;//上个月需要补的天数
+			if(monthNumber == 1){
+				onMonth = new Date(year - 1, 12, 0).getDate();//上月天数
+			} else {
+				onMonth = new Date(year, monthNumber - 1, 0).getDate();//上月天数
+			}
+			toMonth = new Date(year, monthNumber, 0).getDate();//当月天数
+			for(var i = onDay-1;i >= 0;i--){
+				PageData_Array.push({'pageData':onMonth - i,'year':(monthNumber > 1 ? year : year - 1),'month':(monthNumber > 1 ? monthNumber - 1 : 12),'color':'grey'});
+			}
+			for(var i = 1;i <= toMonth;i++){
+				PageData_Array.push({'pageData':i,'year':year,'month':monthNumber,'color':'black'});
+			}
+			var length = PageData_Array.length;
+			for(var i = 1;i <= 42 - length;i++){
+				PageData_Array.push({'pageData':i,'year':(monthNumber < 12 ? year : year + 1),'month':(monthNumber < 12 ? monthNumber + 1 : 1),'color':'grey'});
+			}
+			var PageData_Array_result = [];//最终渲染数组
+			for(var j = 0;j<PageData_Array.length;j++){
+				if((new Date(PageData_Array[j].year,PageData_Array[j].month,PageData_Array[j].pageData).getTime() < new Date(yearStar,yearList[yearStar],tableDataList[0][0].substring(8,10)).getTime()) || (new Date(PageData_Array[j].year,PageData_Array[j].month,PageData_Array[j].pageData).getTime() > new Date(yearEnd,yearList[yearEnd],tableDataList[tableDataList.length - 1][0].substring(8,10)).getTime())){
+					PageData_Array_result.push({'pageData':'','ymr':PageData_Array[j].year + '-' +((PageData_Array[j].month > 9) ? PageData_Array[j].month : ("0" + PageData_Array[j].month)) + '-' + ((PageData_Array[j].pageData > 9) ? PageData_Array[j].pageData : ("0" + PageData_Array[j].pageData)),'state':'','reason':'','weekDays':'','color':''});
+				} else {
+					PageData_Array_result.push({'pageData':PageData_Array[j].pageData,'ymr':PageData_Array[j].year + '-' +((PageData_Array[j].month > 9) ? PageData_Array[j].month : ("0" + PageData_Array[j].month)) + '-' + ((PageData_Array[j].pageData > 9) ? PageData_Array[j].pageData : ("0" + PageData_Array[j].pageData)),'state':'','reason':'','weekDays':'','color':PageData_Array[j].color});
+				}
+			}
+			for(var i = 0;i<tableDataList.length;i++){
+				for(var j = 0;j<PageData_Array_result.length;j++){
+					var myDate = new Date(Date.parse(PageData_Array_result[j].ymr));//例如value:2023-02-01 
+					weekDays = weekDay[myDate.getDay()];
+					if(PageData_Array_result[j].ymr == tableDataList[i][0]){
+						PageData_Array_result[j].state = tableDataList[i][1];
+						PageData_Array_result[j].reason = tableDataList[i][2];
+					}
+					PageData_Array_result[j].weekDays = weekDays;
+				}
+			}
+			var htm_year_li = '';
+			for(let key in yearList){
+				htm_year_li += '<li class="sse_arrange_head_li '+(year == key? 'sse_arrange_li_select':'')+'" value="'+key+'" >'+key+'</li>';
+			}
+			var htm_month_li = '';
+			for(let key in yearList){
+				if(year == key){
+					if(key == yearStar){
+						for(var i = yearList[key];i <= 12;i++){//测试点1
+							htm_month_li += '<li class="sse_arrange_head_li'+(monthNumber == i? ' sse_arrange_li_select':'')+'" >'+(i > 9 ? i : ("0" + i))+'</li>';
+						}
+					} else if(key == yearEnd){
+						for(var i = 1;i <= yearList[key];i++){
+							htm_month_li += '<li class="sse_arrange_head_li'+(monthNumber == i? ' sse_arrange_li_select':'')+'" >'+(i > 9 ? i : ("0" + i))+'</li>';
+						}
+					} else {
+						for(var i = 1; i <= 12; i++){
+							htm_month_li += '<li class="sse_arrange_head_li'+(monthNumber == i? ' sse_arrange_li_select':'')+'">'+(i > 9 ? i : ("0" + i))+'</li>';
+						}
+					}
+				}
+			}
+			$(".js_dayArrangement .js_table").css({'display': 'table','width': '100%','padding-bottom': '20px'});
+			var htm = '<div class="sse_arrange_head">'+
+			'<em class="month_next'+(year == Number(yearEnd) && monthNumber == Number(yearList[yearEnd]) ? ' disable':'')+'" id="imgRight"></em>'+
+			'<div class="sse_arrange_head_flex">'+
+			   '<div class="sse_arrange_head_year" id="headYear"><span id="pageYear">'+year+'年</span>'+
+			   '<img class="sse_arrange_img_down" src="/xhtml/images/table-down.png">'+
+			   '<div>'+
+			   '<ul class="sse_arrange_year_ul sse_arrange_hide" id="sse_year_select">'+
+			   htm_year_li+
+			   '</ul>'+
+			   '</div>'+
+			   '</div>'+
+			   '<div class="sse_arrange_head_month" id="headMonth"><span id="pageMonth">'+monthNumber+'月</span><img class="sse_arrange_img_down" src="/xhtml/images/table-down.png"><div>'+
+			   '<ul class="sse_arrange_month_ul sse_arrange_hide" id="sse_month_select">'+
+			   htm_month_li+
+			   '</ul>'+
+			   '</div>'+
+			   '</div>'+
+			'</div>'+
+			'<em class="month_pre'+(year == Number(yearStar) && monthNumber == Number(yearList[yearStar]) ? ' disable':'')+'" id="imgLeft"></em>';
+			var htm_table = '<thead><tr>';
+			htm_table += '<th class="sse_arrange_table_th">日</th>';
+			htm_table += '<th class="sse_arrange_table_th">一</th>';
+			htm_table += '<th class="sse_arrange_table_th">二</th>';
+			htm_table += '<th class="sse_arrange_table_th">三</th>';
+			htm_table += '<th class="sse_arrange_table_th">四</th>';
+			htm_table += '<th class="sse_arrange_table_th">五</th>';
+			htm_table += '<th class="sse_arrange_table_th">六</th>';
+			htm_table += '</tr></thead><tbody>';
+			var emptyTr = '<tr><td colspan="18">暂无数据</td></tr>';
+			htm_table += '<tr>';
+      // 在生成每个日期单元格时，添加月份判断
+      var currentDisplayYear = year.toString();   // 当前显示的年份
+      var currentDisplayMonth = monthNumber.toString().padStart(2, '0');  // 当前显示的月份
+			for(var i = 0; i< PageData_Array_result.length; i++){
+				var ymrdateStr = PageData_Array_result[i].ymr;
+        var [dateYear, dateMonth] = ymrdateStr.split('-');
+        var isCurrentMonth = dateYear === currentDisplayYear && dateMonth === currentDisplayMonth;
+				if(ymrdateStr <= '2024-12-29' && ymrdateStr > tableDataList[0][0] && PageData_Array_result[i].pageData == ''){
+					PageData_Array_result[i].pageData = (ymrdateStr.substring(ymrdateStr.length - 2) < 10 ? ymrdateStr.substring(ymrdateStr.length - 1) : ymrdateStr.substring(ymrdateStr.length - 2));
+				}
+        
+        var dateCellClass = isCurrentMonth ? 'sse_arrange_td_date' : 'sse_arrange_td_date sse_arrange_td_date_ncurrentmonth';
+        // 只在当前月显示休市背景
+        var haltClass = '';
+        if (isCurrentMonth) {
+            if (PageData_Array_result[i].state == '全天' && PageData_Array_result[i].reason != '周末' && 
+                PageData_Array_result[i].weekDays != 6 && PageData_Array_result[i].weekDays != 7) {
+                haltClass = ' sse_arrange_td_date_xiushiallday';
+            } else if (PageData_Array_result[i].state == '上午' && PageData_Array_result[i].reason != '周末' && 
+                      PageData_Array_result[i].weekDays != 6 && PageData_Array_result[i].weekDays != 7) {
+                haltClass = ' sse_arrange_td_date_xiushiam';
+            } else if (PageData_Array_result[i].state == '下午' && PageData_Array_result[i].reason != '周末' && 
+                      PageData_Array_result[i].weekDays != 6 && PageData_Array_result[i].weekDays != 7) {
+                haltClass = ' sse_arrange_td_date_xiushipm';
+            }
+        }
+        var weekendClass ='';
+        if (isCurrentMonth) {
+          if (PageData_Array_result[i].reason == '周末' || PageData_Array_result[i].weekDays == 6 || PageData_Array_result[i].weekDays == 7)
+          weekendClass = 'sse_arrange_zhoumo';
+        }
+
+				htm_table += 
+				'<td class="sse_arrange_table_td '+ weekendClass +'">'+
+				'<div class="sse_arrange_td_container">'+
+				'<div class="sse_arrange_td_allday">'+
+        '<div class="' + dateCellClass + haltClass + '">' + PageData_Array_result[i].pageData + '</div>' +
+				'<div class="sse_arrange_td_txt '+ (!isCurrentMonth ? 'sse_arrange_hide' : (PageData_Array_result[i].reason == '周末' || PageData_Array_result[i].weekDays == 6 || PageData_Array_result[i].weekDays == 7 ? 'sse_arrange_hide':''))+'">'+PageData_Array_result[i].reason+'</div>'+
+        '</div>'+
+				'</div>'+
+				'</td>';
+			}
+			htm_table += '</tr>';
+			htm_table += '</tbody>';
+			var htm_bottom = 
+			'<div class="sse_arrange_bottom">'+
+			'<div class="sse_arrange_statebtns">'+
+			'<span class="sse_arrange_each">'+
+			'<i class="sse_arrange_tradeday"></i>交易日</span>'+
+			'<span  class="sse_arrange_each">'+
+			'<i class="sse_arrange_tradeweenken"> </i>周  末</span>'+
+			'<span  class="sse_arrange_each">'+
+			'<i class="sse_arrange_xiushiallday"> </i>全日休市</span>'+
+			'<span  class="sse_arrange_each">'+
+			'<i class="sse_arrange_xiushiam"> </i>上午休市</span>'+
+			'<span  class="sse_arrange_each">'+
+			'<i class="sse_arrange_xiushipm"> </i>下午休市</span>'+
+			'</div>'+
+			'<div class="sse_arrange_gototoday" id="gototoday">'+
+			'<span class="sse_arrange_btn-gototoday">回到当月</span>'+
+			'</div>'+
+			'</div>'
+			// +'<div class="sse_arrange_comment">'+_this.tableData.desc+'</div>';
+			$(".js_dayArrangement .js_transaction").html(htm);
+			$(".js_dayArrangement .new_date").html($('#pageYear').text() + month + '月');
+			$(".js_dayArrangement .js_table").html(htm_table);
+			$(".js_dayArrangement .js_bottom").html(htm_bottom);
+			var yearScroll = {'yscroll':'','year':$('#pageYear').text()};//年selsect的位置偏移量
+			var monthScroll = {'mscroll':'','month':$('#pageMonth').text()};//月selsect的位置偏移量
+		} else {
+			var emptyTr = '<tr><td colspan="18">暂无数据</td></tr>';
+			$(".js_dayArrangement .js_table").html(emptyTr);
+			// $(".js_dayArrangement").append('<div class="remarks">' + _this.tableData.desc + '</div>')
+			return;
+		}
+		$("#headYear").click(function(){
+			//判断是否有class
+			if($("#sse_year_select").hasClass("sse_arrange_hide")){
+				//有就删除
+				$("#sse_year_select").removeClass("sse_arrange_hide");
+				if( yearScroll.year != $('#pageYear').text() || !isNull(yearScroll.yscroll)){
+					yearScroll.yscroll = $('#sse_year_select .sse_arrange_li_select').offset().top;
+					yearScroll.year = $('#pageYear').text();
+				}
+				$('#sse_year_select').animate({
+					scrollTop:yearScroll.yscroll - $('#sse_year_select').offset().top - 60
+				},100)
+			}else{
+				//没有就添加
+				$("#sse_year_select").addClass("sse_arrange_hide");
+			}
+			$("#sse_month_select").addClass("sse_arrange_hide");
+		})
+
+		$("#headMonth").click(function(){
+			//判断是否有class
+			if($("#sse_month_select").hasClass("sse_arrange_hide")){
+				//有就删除
+				$("#sse_month_select").removeClass("sse_arrange_hide");
+				if( monthScroll.month != $('#pageMonth').text() || !isNull(monthScroll.mscroll)){
+					monthScroll.mscroll = $('#sse_month_select .sse_arrange_li_select').offset().top;
+					monthScroll.month = $('#pageMonth').text();
+				}
+				$('#sse_month_select').animate({
+					scrollTop:monthScroll.mscroll - $('#sse_month_select').offset().top - 60
+				},100)
+			}else{
+				//没有就添加
+				$("#sse_month_select").addClass("sse_arrange_hide");
+			}
+			$("#sse_year_select").addClass("sse_arrange_hide");
+		})
+		//点击空白select框消失
+		$(document).on("click", function (e) {
+			if (!$('#headYear').is(e.target) && $('#headYear').has(e.target).length === 0 && !$('#headMonth').is(e.target) && $('#headMonth').has(e.target).length === 0) {
+			  	$("#sse_month_select").addClass("sse_arrange_hide");
+				$("#sse_year_select").addClass("sse_arrange_hide");
+			}
+		});
+		//年的点击事件
+		$("ul#sse_year_select").on("click","li",function(){
+			$('#pageYear').text(_this.yearTransformation($(this).text()));
+			_this.selectYearMonth();
+		});
+		//月的点击事件
+		$("ul#sse_month_select").on("click","li",function(){
+			if(year == yearEnd && monthNumber == yearList[yearEnd]){
+				$('#imgRight').hide();
+			}
+			$('#pageMonth').text(_this.monthTransformation($(this).text()));
+			_this.selectYearMonth();
+		});
+
+		$("ul#sse_year_select li").hover(function () {
+			$(this).addClass("sse_arrange_li_hover");
+	    },function () {
+			$(this).removeClass("sse_arrange_li_hover");
+	    });
+
+		$("ul#sse_month_select li").hover(function () {
+			$(this).addClass("sse_arrange_li_hover");
+	    },function () {
+			$(this).removeClass("sse_arrange_li_hover");
+	    });
+		//回到当月
+		$('#gototoday').click(function(){
+			_this.getDayList();
+		})
+		$('#imgLeft').click(function(){
+			if(year == Number(yearStar) && monthNumber == Number(yearList[yearStar])){
+				return;
+			}
+			if(monthNumber > 1 ){
+				var reductionMonth = monthNumber - 1;
+				$('#pageMonth').text(reductionMonth + '月');
+			} else {
+				$('#pageYear').text(year - 1 +'年')
+				$('#pageMonth').text(12 + '月');
+			}
+			_this.selectYearMonth();
+		})
+		$('#imgRight').click(function(){
+			if(year == Number(yearEnd) && monthNumber == Number(yearList[yearEnd])){
+				return;
+			}
+			if(monthNumber < 12 ){
+				var add = monthNumber + 1;
+				$('#pageMonth').text(add + '月');
+			} else {
+				$('#pageYear').text(year + 1 +'年')
+				$('#pageMonth').text(1 + '月');
+			}
+			_this.selectYearMonth();
+		})
+	},
+	//去除数组中空的字符串
+	trimSpace:function (array){  
+		for(var i = 0 ;i<array.length;i++)  
+		{  
+			if(array[i] == "" || array[i] == null || typeof(array[i]) == "undefined")  
+			{  
+				array.splice(i,1);  
+				i= i-1;  
+			}  
+		}  
+		return array;  
+    },
+	//选择年月触发
+	selectYearMonth:function(){
+		var _this = this;
+		var pageYear = ($('#pageYear').text()).replace('年','');
+		var pageMonth = ($('#pageMonth').text()).replace('月','');
+		_this.getDayList(pageYear,pageMonth);
+	},
+	//年份转化
+	yearTransformation:function(val){
+		return val + '年';
+	},
+	//月份转化
+	monthTransformation:function(val){
+		if(val == '01'){
+			return '1月';
+		} else if(val == '02'){
+			return '2月';
+		} else if(val == '03'){
+			return '3月';
+		} else if(val == '04'){
+			return '4月';
+		} else if(val == '05'){
+			return '5月';
+		} else if(val == '06'){
+			return '6月';
+		} else if(val == '07'){
+			return '7月';
+		} else if(val == '08'){
+			return '8月';
+		} else if(val == '09'){
+			return '9月';
+		} else if(val == '10'){
+			return '10月';
+		} else if(val == '11'){
+			return '11月';
+		} else if(val == '12'){
+			return '12月';
+		}
+	}
+}
+if ($(".js_dayArrangement").length > 0) {
+	dayArrangement.init();
+}
+//沪港通--专栏首页
+
+
+
+
+/* 获取沪港通行情走势值(无成交量) */
+function drawOnehgtZChart(code, area, isFirst, id) {
+	var linedata = [],
+		volume = [],
+		volmax = [],
+		dateseries = [],
+		high = 0,
+		low = 0,
+		prev_close = 0,
+		name = '';
+	var obj = {};
+
+	$.ajax({
+		type: 'GET',
+		dataType: "jsonp",
+		url: hq_queryUrl + 'v1/csip/line/' + code,
+		jsonp: "callback",
+		data: {
+			select: 'time,price,volume,avg_price,amount,highest,lowest',
+		},
+		cache: false,
+		success: function (res) {
+			prev_close = res.prev_close;
+			name = res.code;
+			obj['prev_close'] = prev_close;
+			obj['name'] = name;
+			if (res.line.length == 0 && id) {
+				$(id).empty();
+				$(id).append('<div class="d-flex align-items-center justify-content-center noChart_message">暂无走势信息</div>');
+				return;
+			}
+			for (var i = 0; i < res.line.length; i++) {
+				var linedate = res.date * 1000000 + res.line[i][0];
+				linedata.push([convertDateToUTC(String(linedate)), res.line[i][1]]);
+				volume.push([convertDateToUTC(String(linedate)), res.line[i][2]]);
+				volmax.push(res.line[i][2]);
+			}
+			obj['linedata'] = linedata;
+			obj['volume'] = volume;
+			obj['volmax'] = volmax;
+			dateseries.push(String(res.date));
+			obj['dateseries'] = dateseries;
+			high = res.highest;
+			low = res.lowest;
+			yPositions1 = [
+				(parseInt((prev_close - Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low))) * 1000)) / 1000,
+				(parseInt((prev_close - Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low)) / 2) * 1000)) / 1000,
+				prev_close,
+				(parseInt((prev_close + Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low)) / 2) * 1000)) / 1000,
+				(parseInt((prev_close + Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low))) * 1000)) / 1000
+			];
+			yPositions2 = [
+				(parseInt(((prev_close - Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low))) / prev_close - 1) * 10000)) / 100,
+				(parseInt(((prev_close - Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low)) / 2) / prev_close - 1) * 10000)) / 100,
+				'0.00',
+				(parseInt(((prev_close + Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low)) / 2) / prev_close - 1) * 10000)) / 100,
+				(parseInt(((prev_close + Math.max(Math.abs(high - prev_close), Math.abs(prev_close - low))) / prev_close - 1) * 10000)) / 100
+			];
+			yPositions3 = [
+				0,
+				Math.max.apply(null, obj['volmax']) * 0.5,
+				Math.max.apply(null, obj['volmax'])
+			];
+			obj['yPositions1'] = yPositions1;
+			obj['yPositions2'] = yPositions2;
+			obj['yPositions3'] = yPositions3;
+			if (isFirst == true) {
+				createOnehgtZChart(area, obj);
+			} else {
+				updateOnehgtZChart(obj);
+			}
+		},
+		error: function (err) {
+			console.log(err);
+		},
+	});
+}
+
+/* 绘制沪港通无成交量行情图 start */
+var onehgtChart;
+function createOnehgtZChart(area, obj) {
+	var areaWidth = $('#' + area).width();
+	var showWidth = window.innerWidth > 767 ? 390 : Number(window.innerWidth - 60);
+	onehgtChart = Highcharts.stockChart(area, {
+		chart: {
+			backgroundColor: '',
+			height: 150,
+			width: showWidth,
+			margin: [0, 1, 0, 0],
+			//zoomType: 'x',
+			events: {
+				load: function (e) { },
+			},
+		},
+		colors: ['#2c7be5', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
+		title: {
+			text: null
+		},
+		legend: {
+			enabled: false
+		},
+		tooltip: {
+			valueDecinale: 2,
+			shared: true,
+			useHTML: true,
+			formatter: function () {
+				var _name = obj['name'];
+				var _date = Highcharts.dateFormat('%m月%e日', this.x);
+				var _week = convertWeek(Highcharts.dateFormat('%A', this.x));
+				var _time = Highcharts.dateFormat('%H:%M', this.x);
+				var _y = this.points[0].y.toFixed(2);
+				$(".highcharts-tooltip .highcharts-label-box").attr("stroke", this.points[0].color + "");
+				return '<p style="margin:0px;padding:0px;font-size:14px;"><span>' + _name + '   </span><span style="' + Comparative(_y, obj['prev_close']) + ';">' + _y + '</span></p><p style="margin:0px;padding:0px;color:#999">' + _date + ' ' + _week + ' ' + _time + '</p>';
+			}
+		},
+		rangeSelector: {
+			enabled: false
+		},
+		navigator: {
+			enabled: false
+		},
+		scrollbar: {
+			enabled: false
+		},
+		xAxis: {
+			tickLength: 0,
+			startOnTick: true,
+			endOnTick: true,
+			crosshair: {
+				enabled: true,
+				color: 'rgba(45,38,27,.4)'
+			},
+			breaks: [{
+				/* 中午时间 */
+				from: Date.UTC(2011, 9, 6, 11, 30),
+				to: Date.UTC(2011, 9, 6, 13),
+				repeat: 24 * 36e5,
+				breakSize: 1
+			}],
+			gridLineColor: 'rgba(224,224,224)',
+			gridLineDashStyle: 'ShortDash',
+			gridLineWidth: 1,
+			labels: {
+				enabled: false,
+				style: {
+					'font-size': '12px',
+				},
+				useHTML: true,
+				step: 1,
+				formatter: function () {
+					var returnTime = Highcharts.dateFormat('%H:%M', this.value);
+					if (returnTime == "11:30") {
+						return '<span >11:30/13:00</span>';
+					} else if (returnTime == "09:30") {
+						return '<span  style="margin-left:32px;">09:30</span>';
+					} else if (returnTime == "15:00") {
+						return '<span  style="margin-left:-32px;">15:00</span>';
+					} else {
+						return returnTime;
+					}
+				},
+			},
+			/* 以yesterdayClose为界限，统一间隔值，从 最小到最大步进 */
+			tickPositioner: function () {
+				var positions = [];
+				if (areaWidth > 600) {
+					for (var i = 0; i < obj['dateseries'].length; i++) {
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 93000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 100000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 103000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 110000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 113000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 133000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 140000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 143000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 150000)));
+					}
+				} else {
+					for (var i = 0; i < obj['dateseries'].length; i++) {
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 93000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 103000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 113000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 140000)));
+						positions.push(convertDateToUTC(String(obj['dateseries'][i] * 1000000 + 150000)));
+					}
+				}
+
+				return positions;
+			}
+		},
+		credits: {
+			enabled: false,
+		},
+		yAxis: [{
+			opposite: false,
+			minPadding: 0,
+			showFirstLabel: true,
+			showLastLabel: true,
+			offset: 0,
+			crosshair: {
+				enabled: true,
+				color: 'rgba(45,38,27,.4)'
+			},
+			labels: {
+				enabled: false,
+				align: 'left',
+				x: 2,
+				y: 0,
+				style: {
+					'color': '#231e18',
+					'fontSize': '12'
+				},
+				useHTML: true,
+				formatter: function () {
+					return '<span style="position:relative;top:3px;">' + (this.value * 1).toFixed(2) + '</span>'
+				}
+			},
+			height: '100%',
+			gridLineColor: 'rgba(45,38,27,.1)',
+			lineColor: 'rgba(45,38,27,.1)',
+			gridLineWidth: 1,
+			gridLineDashStyle: 'ShortDash',
+			// tickPositions: obj['yPositions1'], //以yesterdayClose为界限，统一间隔值，从 最小到最大步进
+		}, {
+			opposite: true, //是否把它显示到另一边（右边）
+			showFirstLabel: true,
+			showLastLabel: true,
+			minPadding: 0,
+			offset: 0,
+			labels: {
+				align: 'right',
+				x: 0,
+				y: 5,
+				style: {
+					'color': 'rgba(102,102,102)',
+					'fontSize': '12'
+				},
+				useHTML: true,
+				formatter: function () {
+					/* 主图右侧轴描述 */
+					return '<span style="position:relative;top:-2px;font-size:12px;" class=' + Comparative(this.value, 0) + '>' + Math.abs(this.value * 1).toFixed(2) + '%</span>'
+				}
+			},
+			height: '100%',
+			lineWidth: 0,
+			gridLineWidth: 0,
+			// tickPositions: obj['yPositions2'], //以yesterdayClose为界限，统一间隔值，从 最小到最大步进
+		}],
+		series: [{
+			data: obj['linedata'],
+			type: 'area',
+			color: '#dc3545',
+			shadow: true,
+			dataGrouping: {
+				enabled: false
+			},
+			lineWidth: 1,
+			threshold: obj['prev_close'],
+			negativeColor: '#28a745',
+			negativeFillColor: {
+				lineWidth: 1,
+				linearGradient: { //渐变方向
+					x1: 0,
+					y1: 1,
+					x2: 0,
+					y2: 0
+				},
+				shadow: true,
+				stops: [
+					[0, Highcharts.Color('#28a745').setOpacity(0.2).get('rgba')],
+					[1, Highcharts.Color('#28a745').setOpacity(0).get('rgba')]
+				]
+			},
+			fillColor: {
+				lineWidth: 1,
+				linearGradient: { //渐变方向
+					x1: 0,
+					y1: 0,
+					x2: 0,
+					y2: 1
+				},
+				shadow: true,
+				stops: [
+					[0, Highcharts.Color('#dc3545').setOpacity(0.2).get('rgba')],
+					[1, Highcharts.Color('#dc3545').setOpacity(0).get('rgba')]
+				]
+			},
+			zIndex: 40,
+			id: 'sz1',
+		}],
+	});
+}
+
+/* 行情图更新数据重绘 */
+function updateOnehgtZChart(obj) {
+	onehgtChart.yAxis[0].update({
+		tickPositions: obj['yPositions1'],
+		redraw: false,
+	});
+	onehgtChart.yAxis[1].update({
+		tickPositions: obj['yPositions2'],
+		redraw: false,
+	});
+	var sz1 = onehgtChart.get('sz1');
+	sz1.setData(obj['linedata'], true, false, false);
+	onehgtChart.redraw();
+}
+/* 绘制沪港通行情图 end */
+
+
+/**
+ * 服务->沪港通 ->港股通信息披露 ->港股通标的证券调整信息
+ */
+
+var eligiblead = {
+	newTableList : {
+		sqlId: "COMMON_SSE_JYFW_HGT_XXPL_BDZQTZXX_L",
+		isPagination: true,
+		"pageHelp.pageSize": 10,
+		"pageHelp.pageNo": 1,
+		"pageHelp.beginPage": 1,
+		"pageHelp.cacheSize": 1,
+		"pageHelp.endPage": 1,
+		keyword: '',
+		validDate: '',
+		},
+	init: function () {
+		this.loadEvents();
+		// 证券代码或简称 输入框
+		$(".search_btn").on("click", function (e) {
+			e.stopPropagation();
+			eligiblead.newTableList.keyword = $("#inputCode").val();
+			eligiblead.newTableData(1);
+		});
+	},
+	loadEvents: function() {
+		// 下载
+		var downUrl = sseQueryURL + 'commonExcelDd.do?sqlId=COMMON_SSE_JYFW_HGT_XXPL_BDZQTZXX_L&keyword=' + eligiblead.newTableList.keyword + '&validDate=' + eligiblead.newTableList.validDate;
+		var downHtm = '<a id="download" class="tableDownload js_download_market" href="' + downUrl + '">' + "下载</a>";
+		$(".js_eligiblead .title_lev2 .new_date").after(downHtm);
+		$('#download').bind('click', function(){
+			var downUrl = sseQueryURL + 'commonExcelDd.do?sqlId=COMMON_SSE_JYFW_HGT_XXPL_BDZQTZXX_L&keyword=' + eligiblead.newTableList.keyword + '&validDate=' + eligiblead.newTableList.validDate;
+			$('#download').attr({href:downUrl});
+		})
+		$(".sse_searchInput .sse_input").attr("placeholder", "生效日期");
+		$("#inputCode").attr("placeholder", "代码/中文简称/英文简称");
+		//日期范围渲染
+		var _this = this;
+		laydate({
+			elem: ".js_date input",
+			theme: "#b50005",
+			format: "yyyy-MM-dd",
+			trigger: "click",
+			btns: ["clear", "confirm"],
+			done: function (value, date, endDate) {
+			  //选择时间触发查询
+			  setTimeout(function () {
+				eligiblead.newTableList.validDate = value.replace(/-/g,'')
+				_this.newTableData(1);
+			  }, 500);
+			},
+		  });
+		eligiblead.newTableData(1);
+	},
+	newTableData: function (pageIndex) {
+		var _this = this;
+		if (!paginationChange(_this.newTableList, pageIndex)) {//触发分页改变分页参数
+			return
+		} 
+		var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+		var stockNewTable = "<thead><tr>";
+		stockNewTable += '<th class="text-nowrap">序号</th>';
+		stockNewTable += '<th class="text-nowrap">证券代码</th>';
+		stockNewTable += '<th class="text-nowrap">英文简称</th>';
+		stockNewTable += '<th class="text-nowrap">中文简称(参考)</th>';
+		stockNewTable += '<th class="text-nowrap">品种</th>';
+		stockNewTable += '<th class="text-nowrap">调整内容</th>';
+		stockNewTable += '<th class="text-nowrap">生效日期</th>';
+		stockNewTable += "</tr></thead><tbody>";
+		getJSONP({
+			type: "post",
+			url: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+			data: _this.newTableList,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0) {
+					$.each(data.result, function (k, v) {
+						stockNewTable += "<tr>";
+						stockNewTable += '<td class="text-nowrap">' + v.NUM + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_CODE + "</td>"
+						stockNewTable += '<td class="text-nowrap">' + v.ABBR_EN + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_ABBR + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.SECURITY_TYPE + "</td>";
+						stockNewTable += '<td class="text-nowrap">' + v.ADJUST_TYPE + "</td>"
+						stockNewTable += '<td class="text-nowrap">' + v.VALID_DATE + "</td>";
+						stockNewTable += "</tr>";
+					});
+					Page.navigation(
+					  ".js_eligiblead .pagination-box",
+					  data.pageHelp.pageCount,
+					  data.pageHelp.total,
+					  data.pageHelp.pageNo,
+					  data.pageHelp.pageSize,
+					  "eligiblead.newTableData"
+					);
+				   //日期赋值
+					$(".js_eligiblead .new_date").html("更新日期：" + data.result[0].FILE_DATE);
+				  } else {
+					stockNewTable += emptyTr;
+					stockNewTable += "</tbody>";
+					$(".js_eligiblead .table").html(stockNewTable);
+					$(".js_eligiblead .pagination-box").html("");
+				  }
+				  stockNewTable += "</tbody>";
+				  $(".js_eligiblead .table").html(stockNewTable);
+			},
+			errCallback: function () {
+			  stockNewTable += emptyTr;
+			  stockNewTable += "</tbody>";
+			  $(".js_eligiblead .table").html(stockNewTable);
+			  $(".js_eligiblead .pagination-box").html("");
+			},
+		  });
+	}
+}
+if ($(".js_eligiblead").length > 0) {
+	eligiblead.init();
+}
+
+/**
+ * 服务->沪港通 ->港股通信息披露 ->港股通标的证券调整信息 END
+ */
+
+
+/**
+ * 港股通--专栏首页（新）
+ */
+var southboundTrading_new = {
+	amountUrl: hq_queryUrl + "/v1/hkp/status/amount_status",
+	tableData: tableData['tableData_1120'],
+	amount: [], //成交笔数
+	money: [],//成交金额
+	groupingUnits: [
+		['minute', [1]]
+	],
+	init: function () {
+		var _this = this;
+		_this.loadEvents();
+		_this.getTradingDay();
+		require(['highstock'], function () {
+			_this.setMarkData();
+			_this.getyunhqChart();
+			setInterval(function () {
+				var ret = _this.getyunhqChart();
+				if (ret.success == true) {
+					_this.hgtChart(ret);
+				}
+			}, 60000);
+			_this.getStockIndex();
+			setInterval(_this.getStockIndex, 60000); //定时任务
+		});
+	},
+	loadEvents: function () {
+		this.amount = [ //成交笔数
+			transactionData[0].BUY_VOLUME,
+			transactionData[1].BUY_VOLUME,
+			transactionData[0].SELL_VOLUME,
+			transactionData[1].SELL_VOLUME
+		],
+			this.money = [ //成交金额
+				transactionData[0].BUY_AMOUNT,
+				transactionData[1].BUY_AMOUNT,
+				transactionData[0].SELL_AMOUNT,
+				transactionData[1].SELL_AMOUNT
+			],
+			//移动端--轮播
+			setSwiper({
+				el: '.swiper-container4',
+				param: {
+					autoplay: {
+						delay: 8000,
+						disableOnInteraction: false,
+					},
+					speed: 900,
+					loop: false,
+					pagination: {
+						el: '.pagination',
+						type: 'bullets',
+						clickable: true,
+					},
+				},
+			})
+		//右侧标题下面的日期拼接--港股通服务状态、当日额度余额
+		$(".js_serviceStatus_new .table-responsive").before('<div class="table_tip"></div>');
+		$("#js_viewCharthgt_new").before('<div class="table_tip"></div>');
+		//参考汇率、结算汇兑比率赋值
+		$(".js_referenceRate_new .rateCon").before('<div class="table_tip">' + "货币种类：" + CURRENCY_TYPE + " 适用日期：" + VALID_DATE + '</div>');
+		$(".js_referenceRate_new .rateBottom").eq(0).text(BUY_PRICE);
+		$(".js_referenceRate_new .rateBottom").eq(1).text(SELL_PRICE);
+
+		$(".js_settlementRate_new .rateCon").before('<div class="table_tip">' + "货币种类：" + CURRENCY_TYPE_clear + " 适用日期：" + VALID_DATE_clear + '</div>');
+		$(".js_settlementRate_new .rateBottom").eq(0).text(BUY_PRICE_clear);
+		$(".js_settlementRate_new .rateBottom").eq(1).text(SELL_PRICE_clear);
+
+		//港股通服务状态表格填充
+		var htm = '<tbody>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">是否港股通交易日</td>';
+		htm += '<td id="js_chartId1_new" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">买入申报状态</td>';
+		htm += '<td id="js_chartId2_new" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '<tr>';
+		htm += '<td class="text-nowrap">卖出申报状态</td>';
+		htm += '<td id="js_chartId3_new" class="text-nowrap"></td>';
+		htm += '</tr>';
+		htm += '</tbody>';
+		$(".js_serviceStatus_new .table").html(htm);
+		//当日额度余额--注
+		var txtHtm = '<div class="remarks">注: 1、每日额度为420亿。<br>     2、上表在交易日的交易期间每1分钟更新一次。<br>     3、交易日的交易时间内，当日额度剩余大于等于30%（即126亿元）时，不展示具体的数值，仅提示“额度充足”；当日额度剩余小于30%时，公布当日额度余额，按照去尾法截取整数部分。<br>     4、发生下述三种情形之一的，当日额度余额显示为0：情形一，因为显示精度的原因，当日额度余额少于100万时，显示为0；情形二，当日额度余额计算结果小于等于0时，显示为0；情形三，因当日额度使用完毕或者其他任何原因，在全市场范围暂停接受买入申报时，当日额度余额显示为0。<br>     5、申报状态仅在港股通交易日有效。</div>'
+		$(".js_viewChartCon_new").append(txtHtm);
+	},
+	//成交信息需要的数据
+	setMarkData: function () {
+		var _this = this;
+		//成交金额
+		var quickSortArr = [Number(dataTreating(_this.money[0])), Number(dataTreating(_this.money[1])), Number(dataTreating(_this.money[2])), Number(dataTreating(_this.money[3]))];
+		_this.buyC("#js_turnoverChart_new", quickSortArr, '亿元');
+		//成交笔数
+		var quickSortArr02 = [Number(dataTreating(_this.amount[0])), Number(dataTreating(_this.amount[1])), Number(dataTreating(_this.amount[2])), Number(dataTreating(_this.amount[3]))];
+		_this.buyC("#js_transactionsChart_new", quickSortArr02, '万笔');
+	},
+	//交易日安排
+	getTradingDay: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="3">暂无数据</td></tr>';
+		var htm = '<thead>';
+		htm += '<tr>';
+		htm += '<th>日期</th>';
+		htm += '<th>不提供港股通服务</th>';
+		htm += '<th>原因</th>';
+		htm += '</tr>';
+		htm += '</thead>';
+		htm += '<tbody>';
+		if (_this.tableData.list && _this.tableData.list.length > 1) {
+			$.each(_this.tableData.list, function (k, v) {
+				if (v) {
+					htm += '<tr>';
+					htm += '<td>' + v[0] + '</td>';
+					htm += '<td>' + v[1] + '</td>';
+					htm += '<td>' + v[2] + '</td>';
+					htm += '</tr>';
+				}
+			})
+		} else {
+			htm += emptyTr;
+		}
+		htm += '</tbody>';
+		$(".js_southboundTrading_new .table").html(htm);
+		var pHead = '<div class="text-center" style="padding:10px 8px 6px 8px;font-size:14px;color: rgb(255, 255, 255); background-color: rgb(65, 141, 211);">近期不提供港股通服务的日期</div>';
+		$(".js_southboundTrading_new .table-responsive").before(pHead);
+	},
+	//当日额度余额
+	getyunhqChart: function () {
+		var _this = this;
+		var hgtDailyInfo = {
+			daily_amt: '',
+			day_unused: '',
+			mktstatus_first: -1,
+			mktstatus_second: -1,
+			mktstatus_third: -1,
+			create_time: '',
+			success: false
+		}
+		$.ajax({
+			type: 'POST',
+			dataType: "jsonp",
+			url: _this.amountUrl,
+			jsonp: "callback",
+			data: {},
+			cache: false,
+			success: function (resultData) {
+				var dateStr = new String(resultData.date);
+				var status = resultData.status;
+				var timeStr = new String(status[0][1]); //港股通交易余额时间 Hmmss***
+				dateStr = dateStr.substring(0, 4) + '-' + dateStr.substring(4, 6) + '-' + dateStr.substring(6);
+				if (timeStr.length >= 9) {//hour > 9 clock
+					timeStr = timeStr.substring(0, 2) + ':' + timeStr.substring(2, 4) + ':' + timeStr.substring(4, 6);
+				} else {//hour <= 9 clock
+					timeStr = timeStr.substring(0, 1) + ':' + timeStr.substring(1, 3) + ':' + timeStr.substring(3, 5);
+				}
+				var mktStatus = new String(status[2][1]); //第1位：‘0’表示全市场限制买入，‘1’表示正常无此限制。第2位：‘0’表示全市场限制卖出，‘1’表示正常无此限制。
+				//第3位：‘0’表示当日非港股通交易日，‘1’表示当日港股通交易日
+				hgtDailyInfo.mktstatus_first = mktStatus.substring(0, 1);
+				hgtDailyInfo.mktstatus_second = mktStatus.substring(1, 2);
+				hgtDailyInfo.mktstatus_third = mktStatus.substring(2, 3);
+				hgtDailyInfo.daily_amt = status[3] / 1000000;
+				hgtDailyInfo.day_unused = status[5] == '3' ? status[3] / 1000000 : status[4] / 1000000;
+				hgtDailyInfo.create_time = dateStr + ' ' + timeStr;
+				hgtDailyInfo.success = true;
+				hgtDailyInfo.amount_status = status[5];
+				_this.hgtChart(hgtDailyInfo);
+			}
+		});
+		return hgtDailyInfo;
+	},
+	//服务状态
+	hgtChart: function (dailyinfo) {
+		var _this = this;
+		var chart_mktstatus_first = "";
+		var chart_mktstatus_second = "";
+		var chart_mktstatus_third = "";
+		var daily_amt = parseInt(dailyinfo.daily_amt);//总额度
+		var day_unused = parseInt(dailyinfo.day_unused);//可用额度
+		var amount_status = dailyinfo.amount_status;
+		var remain_amt = daily_amt - day_unused < 0 ? 0 : daily_amt - day_unused;//已用额度
+		if ("1" == dailyinfo.mktstatus_first) {
+			chart_mktstatus_first = "接受";
+		} else if ("0" == dailyinfo.mktstatus_first) {
+			chart_mktstatus_first = "不接受";
+		}
+		if ("1" == dailyinfo.mktstatus_second) {
+			chart_mktstatus_second = "接受";
+		} else if ("0" == dailyinfo.mktstatus_second) {
+			chart_mktstatus_second = "不接受";
+		}
+		if ("1" == dailyinfo.mktstatus_third) {
+			chart_mktstatus_third = "是";
+		} else if ("0" == dailyinfo.mktstatus_third) {
+			chart_mktstatus_third = "否";
+		}
+
+		$("#js_chartId1_new").html(chart_mktstatus_third);
+		$("#js_chartId2_new").html(chart_mktstatus_first);
+		$("#js_chartId3_new").html(chart_mktstatus_second);
+		$(".js_serviceStatus_new .table_tip").html("日期：" + dailyinfo.create_time.substring(0, 10));
+		$(".js_viewChartCon_new .table_tip").html("更新时间：" + dailyinfo.create_time);
+
+		_this.doughnutChart({
+			done: remain_amt,//已用额度
+			undone: day_unused,//可用额度
+			status: amount_status
+		});
+	},
+	//画图--当日额度余额
+	doughnutChart: function (obj) {
+		var _this = this;
+		var done = obj.done,//已用额度
+			undone = obj.undone;//可用额度
+		var sizeNum = 24;
+		if (clientWidth < 1200 && clientWidth > 768) {
+			sizeNum = 18;
+		}
+		var undone_new = 0;
+		if(obj.status == '1'){
+			undone_new = '0';
+		} else if(obj.status == '2'){
+			undone_new = (Number((undone / 100).toFixed(2))) <= 0 ? '0' : (Number((undone / 100).toFixed(2))) + '亿元';
+		} else if(obj.status == '3'){
+			undone_new = '额度充足';
+		}
+		$('#js_viewCharthgt_new').highcharts({
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				animation: false,
+				height: 210
+			},
+			title: {
+				floating: true,
+				text: '<span style="margin-left:23px;">当日额度余额</span><br><span style="font-size:' + sizeNum + 'px;">' + undone_new + '</span>',
+				style: {
+					fontSize: '12px',
+					fontFamily: 'microsoft yahei',
+					color: '#666',
+					fill: '#666'
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					return this.key + ':' + Number((this.y / 100).toFixed(2)) + "亿元";
+				},
+				enabled:undone_new == 0 || undone_new == '额度充足'  ? false : true
+			},
+			credits: {
+				enabled: false
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: false,//点击后中间标题换成当前鼠标选中标题
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: false
+					}
+				}
+			},
+			series: [{
+				type: 'pie',
+				innerSize: '90%',
+				animation: false,
+				data: [{
+					name: '已用额度',
+					y: done,
+					color: '#7cb5ec'
+				},
+				{
+					name: '可用额度',
+					y: undone,
+					color: '#f15c80'
+				}
+				]
+			}]
+		}, function (c) {
+			// 环形图圆心
+			var centerY = c.series[0].center[1],
+				titleHeight = parseInt(c.title.styles.fontSize);
+			c.setTitle({
+				y: centerY + titleHeight / 2 - 20
+			});
+			chart = c;
+		});
+	},
+	//画图--成交信息
+	buyC: function (obj, quickSortArr, strType) {
+		var _this = this;
+		var dataShadow = [],
+			yMax = _this.QuickSort({
+				arr: quickSortArr,
+				index: quickSortArr.length - 1,
+				type: strType
+			});
+		$(obj).highcharts({
+			chart: {
+				type: 'column',
+				inverted: true,
+				height: 220,
+			},
+			title: {
+				text: ''
+			},
+			xAxis: {
+				categories: [
+					'买入',
+					'卖出'
+				],
+				title: {
+					text: null
+				},
+				labels: {
+					enabled: true
+				},
+				tickWidth: 0,
+				lineColor: '#FFFFFF'
+			},
+			yAxis: [{
+				min: 0,
+				labels: {
+					enabled: false
+				},
+				title: {
+					text: ''
+				},
+				gridLineWidth: 0,
+				lineColor: '#FFFFFF'
+			}, {
+				title: {
+					text: ''
+				},
+				labels: {
+					enabled: false
+				},
+				opposite: false,
+				gridLineWidth: 0,
+				lineColor: '#FFFFFF'
+			}],
+			credits: {
+				enabled: false
+			},
+			legend: {
+				itemHoverStyle: "#898989",
+				enabled: true,
+				shadow: false,
+				align: 'left',
+				reversed: true,
+				verticalAlign: 'top',
+				height: 150,
+				x: -8,
+				y: -4, //图例在Y轴显示的垂直位置
+				itemStyle: {
+					color: '#898989',
+					fontWeight: "normal",
+					cursor: "pointer"
+				}
+			},
+			tooltip: {
+				formatter: function () {
+					if (this.series.name.split(' ')[0] == 'Series') {
+						return false;
+					} else {
+						return this.key + '：' + this.y + strType + '<br>' + this.series.name;
+					}
+				}
+			},
+			plotOptions: {
+				column: {
+					cursor: 'pointer',
+					dataLabels: {
+						enabled: true,
+						crop: false,
+						useHTML: false
+					},
+					grouping: false,
+					shadow: false,
+					borderWidth: 0,
+					pointWidth: 15 //柱状图宽度
+				}
+			},
+			series: [
+				{
+					name: '',
+					color: 'rgba(0,0,0,0.05)',
+					data: [yMax, yMax],
+					dataLabels: {
+						enabled: false,
+						format: '{y}',
+						useHTML: true
+					},
+					pointPadding: 0.3,
+					pointPlacement: -0.32,
+					animation: false
+				}, {
+					name: '',
+					color: 'rgba(0,0,0,0.05)',
+					data: [yMax, yMax],
+					dataLabels: {
+						enabled: false
+					},
+					pointPadding: 0.3,
+					pointPlacement: 0.2,
+					yAxis: 1,
+					animation: false
+				}, {
+					name: '    交易日  ' + transactionData[0].TRADE_DATE,
+					color: '#418dd3',
+					data: [quickSortArr[0], quickSortArr[2]],
+					dataLabels: {
+						enabled: true
+					},
+					pointPadding: 0.36,
+					pointPlacement: 0.2,
+					yAxis: 1
+				}, {
+					name: '    上一日  ' + transactionData[1].TRADE_DATE,
+					color: '#bee0ff',
+					data: [quickSortArr[1], quickSortArr[3]],
+					dataLabels: {
+						enabled: true,
+						format: '{y}',
+					},
+					pointPadding: 0.36,
+					pointPlacement: -0.32
+				}]
+		});
+
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(0).css("transform", "matrix(1, 0, 0, 1, 10, 20)");
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(1).css("transform", "matrix(1, 0, 0, 1, 10, 45)");
+
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(2).hide();
+		$(obj).find(".highcharts-legend .highcharts-legend-item").eq(3).hide();
+		$(obj).find(".highcharts-root").css("transform", "matrix(1, 0, 0, 1, 10, -25)");
+		$(obj).css("margin-bottom", "-30px");
+	},
+	//数组排序取最大值返回
+	QuickSort: function (obj) {
+		function sortNumber(a, b) {
+			return a - b;
+		}
+		var quickArr = obj.arr,
+			index = obj.index,
+			maxA = quickArr[index];
+
+		if (obj.type == '亿元') {
+			return parseFloat(maxA + 2);
+		} else {
+			return parseFloat(maxA + 300);
+		}
+	},
+	//股指行情图
+	getStockIndex: function () {
+		var _this = this;
+		var htm = '<thead><tr>';
+		htm += '<th>指数名称</th>';
+		htm += '<th class="text-right">最新</th>';
+		htm += '<th class="text-right">涨跌</th>';
+		htm += '</tr></thead><tbody>';
+		var emptyTr = '<tr><td colspan="18">暂无数据</td></tr>';
+		$.ajax({
+			type: 'GET',
+			dataType: 'jsonp',
+			url: hq_queryUrl + "/v1/csip/list/self/000159_CES300",
+			jsonp: 'callback',
+			data: {
+				select: 'code,name,last,chg_rate'
+			},
+			cache: false,
+			success: function (res) {
+				var returnArray = res.list;
+				var lastTr = [];
+
+				if (res && returnArray.length > 0) {
+					for (var i = 0; i < returnArray.length; ++i) {
+						var data = returnArray[i];
+						var dataTime = returnArray[0].date;
+						if (data[0] == "000159") {
+							htm += '<tr class="' + data[0] + '"><td><img src="/xhtml/images/sse.jpg" border="0">';
+						} else {
+							htm += '<tr class="' + data[0] + '"><td><img src="/xhtml/images/ces.ico" border="0">';
+						}
+						if (parseFloat(data[3]) > 0) {
+							htm += data[1] + '</td><td class="text-right"><font color="red">' + data[2].toFixed(2) + '</font></td>';
+							htm += '<td class="text-right"><font color="red">' + data[3].toFixed(2) + '%</font></td>';
+							htm += '</tr>';
+						} else if (parseFloat(data.sRate) < 0) {
+							htm += data[1] + '</td><td class="text-right"><font color="green">' + data[2].toFixed(2) + '</font></td>';
+							htm += '<td class="text-right"><font color="green">' + data[3].toFixed(2) + '%</font></td>';
+							htm += '</tr>';
+						} else {
+							htm += data[1] + '</td><td class="text-right">' + data[2].toFixed(2) + '</td>';
+							htm += '<td class="text-right">' + data[3].toFixed(2) + '%</td>';
+							htm += '</tr>';
+						}
+						htm += '<tr><td colspan="3" id="stockQC' + data[0] + '" class="stockTr" style="background-color:white;padding:10px 0;"><img src="/xhtml/images/ui/Highcharts-NotData.png" id="Highcharts-NotData" style="width: 90%;"></td></tr>';
+						lastTr.push("stockQC" + data[0]);
+					}
+				} else {
+					htm += emptyTr;
+				}
+				htm += '</tbody>';
+				$(".js_stockIndex_new .table").html(htm);
+				/**
+				 * 折叠效果
+				 */
+				for (var i = 0; i < lastTr.length; i++) {
+					var selector = lastTr[i];
+					var trCode = selector.substring(selector.length - 6, selector.length);
+					drawOnehgtZChart(trCode, selector, true, ("#" + selector));
+					// 获取当前展开的索引，设置为show()
+					$("#" + lastTr[i]).parent('tr').hide();
+					$("#" + lastTr[0]).parent('tr').show();
+				}
+				$(".js_stockIndex_new .table").find('tr').click(function () {
+					var _cliCode = $(this).attr('class');
+					if (_cliCode == 'undefined' || _cliCode == null || _cliCode == '') {
+						return
+					} else {
+						$(this).parent().find('.stockTr').parent('tr').hide();
+						$(this).next().show();
+					}
+				});
+			}
+		});
+	}
+}
+if ($(".js_southboundTrading_new").length > 0) {
+	southboundTrading_new.init();
+}
+//港股通--专栏首页(新) end
+
+/**
+ * 港股通成交概况
+ */
+
+//每日成交信息
+var hkexsctradingDay_New = {
+	hkexsctradingDayUrl_New: sseQueryURL + 'ggt/getQuatationInfo.do?jsonCallBack=?',
+	hkexsctradingDayParam_New: {
+		'tradeDate': ''
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//日渲染
+		laydate({
+			elem: ".js_hkexsctradingNew_day .js_date input",
+			theme: '#b50005',
+			format: 'yyyy-MM-dd',
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.searchtradingDayParams();
+				}, 500);
+			},
+		});
+		$(".js_hkexsctradingNew_day .js_date input").attr("placeholder", "查询日期");
+		_this.searchtradingDayList();
+	},
+	searchtradingDayParams: function () {
+		var _this = hkexsctradingDay_New;
+		var tradeDate = $(".js_hkexsctradingNew_day .js_date input").val() ? $(".js_hkexsctradingNew_day .js_date input").val() : '';
+		$('.js_hkexsctradingNew_day .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingDayParam_New.tradeDate = tradeDate.replace(/\-/g, '');
+		_this.searchtradingDayList();
+	},
+	searchtradingDayList: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingDayHtml = '<thead><tr>';
+		hkexsctradingDayHtml += '<th class="text-nowrap">当日情况</th>';
+		hkexsctradingDayHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingDayHtml += '</tr></thead><tbody>';
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingDayUrl_New,
+			data: _this.hkexsctradingDayParam_New,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if(_this.hkexsctradingDayParam_New.tradeDate == ''){
+						$('.js_hkexsctradingNew_day .title_lev3 .new_date').html('数据日期：' + v.TRADE_DATE);
+						$(".js_hkexsctradingNew_day .js_date input").val(v.TRADE_DATE);
+					}
+					if (v) {
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日买入成交金额（亿元）</td><td class="text-right">' + (v.BUY_AMOUNT ? v.BUY_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日买入成交笔数（万笔）</td><td class="text-right">' + (v.BUY_VOLUME ? v.BUY_VOLUME : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日卖出成交金额（亿元）</td><td class="text-right">' + (v.SELL_AMOUNT ? v.SELL_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日卖出成交笔数（万笔）</td><td class="text-right">' + (v.SELL_VOLUME ? v.SELL_VOLUME : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日成交总额（亿元）</td><td class="text-right">' + (v.TOTAL_AMOUNT ? v.TOTAL_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日总成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_VOLUME ? v.TOTAL_VOLUME : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+						hkexsctradingDayHtml += '<tr>';
+						hkexsctradingDayHtml += '<td class="text-nowrap">当日ETF成交总额（亿元）</td><td class="text-right">' + (v.ETF_TOTAL_AMOUNT ? v.ETF_TOTAL_AMOUNT : '-') + '</td>';
+						hkexsctradingDayHtml += '</tr>';
+					}
+					hkexsctradingDayHtml += '</tbody>';
+					$(".js_hkexsctradingNew_day .table").html(hkexsctradingDayHtml);
+				} else {
+					if(_this.hkexsctradingDayParam_New.tradeDate == ''){
+						$('.js_hkexsctradingNew_day .title_lev3 .new_date').html('数据日期：' + get_systemDate_global());
+					}
+					hkexsctradingDayHtml += emptyTr;
+					hkexsctradingDayHtml += '</tbody>';
+					$(".js_hkexsctradingNew_day .table").html(hkexsctradingDayHtml);
+				}
+			},
+			errCallback: function () {
+				if(_this.hkexsctradingDayParam_New.tradeDate == ''){
+					$('.js_hkexsctradingNew_day .title_lev3 .new_date').html('数据日期：' + get_systemDate_global());
+				}
+				hkexsctradingDayHtml += emptyTr;
+				hkexsctradingDayHtml += '</tbody>';
+				$(".js_hkexsctradingNew_day .table").html(hkexsctradingDayHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctradingNew_day").length > 0) {
+	hkexsctradingDay_New.init();
+}
+//每日成交信息END
+//每月成交信息 
+var hkexsctradingMonth_New = {
+	hkexsctradingMonthUrl_New: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+	hkexsctradingMonthParam_New: {
+		'isPagination': true,
+		'pageHelp.pageSize:': '12',
+		'sqlId': 'COMMON_SSE_JYFW_HGT_GGTCJXX_LSGYCJXX_L',
+		'year': '',
+		'maxTradeMonth':'1'
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//月渲染
+		laydate({
+			elem: ".js_hkexsctradingNew_month .js_date input",
+			theme: '#b50005',
+			type: 'month',
+			format: 'yyyy-MM',
+			min: '2014-01-01',
+			max: get_systemDate_global().substring(0, 7),
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.searchtradingMonthParams();
+				}, 500);
+			},
+		});
+		$(".js_hkexsctradingNew_month .js_date input").attr("placeholder", "查询日期");
+		_this.searchtradingMonthList();
+	},
+	searchtradingMonthParams: function () {
+		var _this = hkexsctradingMonth_New;
+		var tradeDate = $(".js_hkexsctradingNew_month .js_date input").val() ? $(".js_hkexsctradingNew_month .js_date input").val() : '';
+		$('.js_hkexsctradingNew_month .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingMonthParam_New.year = tradeDate.replace(/\-/g, '');
+		_this.searchtradingMonthList();
+	},
+	searchtradingMonthList: function () {
+		var _this = this;
+		if(_this.hkexsctradingMonthParam_New.year == ''){
+			_this.hkexsctradingMonthParam_New.maxTradeMonth = '1';
+		} else {
+			delete _this.hkexsctradingMonthParam_New.maxTradeMonth;
+		}
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingMonthHtml = '<thead><tr>';
+		hkexsctradingMonthHtml += '<th class="text-nowrap">当月情况</th>';
+		hkexsctradingMonthHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingMonthHtml += '</tr></thead><tbody>';
+		$(".js_hkexsctradingNew_month .remarks").remove();
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingMonthUrl_New,
+			data: _this.hkexsctradingMonthParam_New,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if(_this.hkexsctradingMonthParam_New.year == ''){
+						$('.js_hkexsctradingNew_month .title_lev3 .new_date').html('数据日期：' + v.TRADE_MONTH.substring(0, 4) + '-' + v.TRADE_MONTH.substring(4, 6));
+						$(".js_hkexsctradingNew_month .js_date input").val(v.TRADE_MONTH.substring(0, 4) + '-' + v.TRADE_MONTH.substring(4, 6));
+					}
+					if (v) {
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月买入成交金额（亿元）</td><td class="text-right">' + (v.TOTAL_BUY_AMT ? v.TOTAL_BUY_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月买入成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_BUY_VOL ? v.TOTAL_BUY_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月卖出成交金额（亿元）</td><td class="text-right">' + (v.TOTAL_SELL_AMT ? v.TOTAL_SELL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月卖出成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_SELL_VOL ? v.TOTAL_SELL_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月成交总额（亿元）</td><td class="text-right">' + (v.TOTAL_AMT ? v.TOTAL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月总成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_VOL ? v.TOTAL_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月ETF成交总额（亿元）</td><td class="text-right">' + (v.ETF_TOTAL_AMT ? v.ETF_TOTAL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均买入成交金额（亿元）</td><td class="text-right">' + (v.DAY_BUY_AMT ? v.DAY_BUY_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均买入成交笔数（万笔）</td><td class="text-right">' + (v.DAY_BUY_VOL ? v.DAY_BUY_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均卖出成交金额（亿元）</td><td class="text-right">' + (v.DAY_SELL_AMT ? v.DAY_SELL_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均卖出成交笔数（万笔）</td><td class="text-right">' + (v.DAY_SELL_VOL ? v.DAY_SELL_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均成交金额（亿元）</td><td class="text-right">' + (v.DAY_AMT ? v.DAY_AMT : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+						hkexsctradingMonthHtml += '<tr>';
+						hkexsctradingMonthHtml += '<td class="text-nowrap">当月日均成交笔数（万笔）</td><td class="text-right">' + (v.DAY_VOL ? v.DAY_VOL : '-') + '</td>';
+						hkexsctradingMonthHtml += '</tr>';
+					}
+					hkexsctradingMonthHtml += '</tbody>';
+					$(".js_hkexsctradingNew_month .table").html(hkexsctradingMonthHtml);
+				} else {
+					if(_this.hkexsctradingMonthParam_New.year == ''){
+						$('.js_hkexsctradingNew_month .title_lev3 .new_date').html('数据日期：' + get_systemDate_global().substring(0, 7));
+						$(".js_hkexsctradingNew_month .js_date input").val(get_systemDate_global().substring(0, 7));
+					}
+					hkexsctradingMonthHtml += emptyTr;
+					hkexsctradingMonthHtml += '</tbody>';
+					$(".js_hkexsctradingNew_month .table").html(hkexsctradingMonthHtml);
+				}
+				if (_this.hkexsctradingMonthParam_New.year == get_systemDate_global().substring(0, 7).replace(/\-/g, '')) {
+					$(".js_hkexsctradingNew_month").append('<div class="remarks"><span>*本月度数据统计截止前1交易日</span></div>');
+				}
+			},
+			errCallback: function () {
+				if(_this.hkexsctradingMonthParam_New.year == ''){
+					$('.js_hkexsctradingNew_month .title_lev3 .new_date').html('数据日期：' + get_systemDate_global().substring(0, 7));
+					$(".js_hkexsctradingNew_month .js_date input").val(get_systemDate_global().substring(0, 7));
+				}
+				hkexsctradingMonthHtml += emptyTr;
+				hkexsctradingMonthHtml += '</tbody>';
+				$(".js_hkexsctradingNew_month .table").html(hkexsctradingMonthHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctradingNew_month").length > 0) {
+	hkexsctradingMonth_New.init();
+}
+//每月成交信息 END
+//每年成交信息
+var hkexsctradingYear_New = {
+	hkexsctradingYearUrl_New: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+	hkexsctradingYearParam_New: {
+		'isPagination': true,
+		'pageHelp.pageSize:': '12',
+		'sqlId': 'COMMON_SSE_JYFW_HGT_GGTCJXX_YEAR_L',
+		'year': ''
+	},
+	init: function () {
+		this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		//年渲染
+		laydate({
+			elem: ".js_hkexsctradingNew_year .js_date input",
+			theme: '#b50005',
+			type: 'year',
+			format: 'yyyy',
+			min: '2014-01-01',
+			max: get_systemDate_global().substring(0, 4),
+			trigger: 'click',
+			btns: ['confirm'],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.searchtradingYearParams();
+				}, 500);
+			},
+		});
+		$(".js_hkexsctradingNew_year .js_date input").attr("placeholder", "查询日期");
+		_this.searchtradingYearList();
+	},
+	searchtradingYearParams: function () {
+		var _this = hkexsctradingYear_New;
+		var tradeDate = $(".js_hkexsctradingNew_year .js_date input").val() ? $(".js_hkexsctradingNew_year .js_date input").val() : '';
+		$('.js_hkexsctradingNew_year .title_lev3 .new_date').html('数据日期：' + tradeDate);
+		_this.hkexsctradingYearParam_New.year = tradeDate;
+		_this.searchtradingYearList();
+	},
+	searchtradingYearList: function () {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="2">暂无数据</td></tr>'
+		var hkexsctradingYearHtml = '<thead><tr>';
+		hkexsctradingYearHtml += '<th class="text-nowrap">当年情况</th>';
+		hkexsctradingYearHtml += '<th class="text-right">成交概况</th>';
+		hkexsctradingYearHtml += '</tr></thead><tbody>';
+		$(".js_hkexsctradingNew_year .remarks").remove();
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.hkexsctradingYearUrl_New,
+			data: _this.hkexsctradingYearParam_New,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					var v = data.result[0];
+					if(_this.hkexsctradingYearParam_New.year == ''){
+						$('.js_hkexsctradingNew_year .title_lev3 .new_date').html('数据日期：' + v.TRADE_YEAR);
+						$(".js_hkexsctradingNew_year .js_date input").val(v.TRADE_YEAR);
+					}
+					if (v) {
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年买入成交金额（亿元）</td><td class="text-right">' + (v.BUY_AMT ? v.BUY_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年买入成交笔数（万笔）</td><td class="text-right">' + (v.BUY_VOL ? v.BUY_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年卖出成交金额（亿元）</td><td class="text-right">' + (v.SELL_AMT ? v.SELL_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年卖出成交笔数（万笔）</td><td class="text-right">' + (v.SELL_VOL ? v.SELL_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年成交总额（亿元）</td><td class="text-right">' + (v.TOTAL_AMT ? v.TOTAL_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年总成交笔数（万笔）</td><td class="text-right">' + (v.TOTAL_VOL ? v.TOTAL_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年ETF成交总额（亿元）</td><td class="text-right">' + (v.ETF_TOTAL_AMT ? v.ETF_TOTAL_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均买入成交金额（亿元）</td><td class="text-right">' + (v.DAY_BUY_AMT ? v.DAY_BUY_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均买入成交笔数（万笔）</td><td class="text-right">' + (v.DAY_BUY_VOL ? v.DAY_BUY_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均卖出成交金额（亿元）</td><td class="text-right">' + (v.DAY_SELL_AMT ? v.DAY_SELL_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均卖出成交笔数（万笔）</td><td class="text-right">' + (v.DAY_SELL_VOL ? v.DAY_SELL_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均成交金额（亿元）</td><td class="text-right">' + (v.DAY_AMT ? v.DAY_AMT : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+						hkexsctradingYearHtml += '<tr>';
+						hkexsctradingYearHtml += '<td class="text-nowrap">当年日均成交笔数（万笔）</td><td class="text-right">' + (v.DAY_VOL ? v.DAY_VOL : '-') + '</td>';
+						hkexsctradingYearHtml += '</tr>';
+					}
+					hkexsctradingYearHtml += '</tbody>';
+					$(".js_hkexsctradingNew_year .table").html(hkexsctradingYearHtml);
+				} else {
+					if(_this.hkexsctradingYearParam_New.year == ''){
+						$('.js_hkexsctradingNew_year .title_lev3 .new_date').html('数据日期：' + get_systemDate_global().substring(0, 4));
+						$(".js_hkexsctradingNew_year .js_date input").val(get_systemDate_global().substring(0, 4));
+					}
+					hkexsctradingYearHtml += emptyTr;
+					hkexsctradingYearHtml += '</tbody>';
+					$(".js_hkexsctradingNew_year .table").html(hkexsctradingYearHtml);
+				}
+				if (_this.hkexsctradingYearParam_New.year == get_systemDate_global().substring(0, 4)) {
+					$(".js_hkexsctradingNew_year").append('<div class="remarks"><span>*本年度数据统计截止前1交易月</span></div>');
+				}
+			},
+			errCallback: function () {
+				if(_this.hkexsctradingYearParam_New.year == ''){
+					$('.js_hkexsctradingNew_year .title_lev3 .new_date').html('数据日期：' + get_systemDate_global().substring(0, 4));
+					$(".js_hkexsctradingNew_year .js_date input").val(get_systemDate_global().substring(0, 4));
+				}
+				hkexsctradingYearHtml += emptyTr;
+				hkexsctradingYearHtml += '</tbody>';
+				$(".js_hkexsctradingNew_year .table").html(hkexsctradingYearHtml);
+			}
+		})
+	}
+}
+if ($(".js_hkexsctradingNew_year").length > 0) {
+	hkexsctradingYear_New.init();
+}
+//每年成交信息END
+// 港股通成交概况 END
+
+/**
+ * 港股通市场数据->成交活跃证券
+ */
+var activeSecurities = {
+	activeSecuritiesUrl:sseQueryURL + "commonSoaQuery.do?jsonCallBack=?",
+	activeSecuritiesParam:{
+		'tradeDate': '',
+		'sqlId':'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ'
+	},
+	activeSecuritiesTitle:'当日港股通前十大成交活跃证券',
+	typeList: [
+		{ name: "每日统计", value: "0",sql:'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ' },
+		{ name: "月度统计", value: "1",sql:'FW_HGTZL_GGTSCSJ_CJHYZQ_YDTJ' },
+		{ name: "年度统计", value: "2",sql:'FW_HGTZL_GGTSCSJ_CJHYZQ_NDTJ'},
+	],
+	init: function () {
+		var _this = this;
+		_this.loadEvents();
+	},
+	loadEvents: function () {
+		var _this = this;
+		bootstrapSelect({
+			method: function () {
+			  //类型数据渲染
+			  $(".js_select_type .selectpicker")
+				.html(addSelectOption(_this.typeList))
+				.selectpicker("refresh")
+				.selectpicker("render");
+			  //类型初始化完成调用接口
+			  $(".js_select_type .selectpicker").on(
+				"loaded.bs.select",
+				function (e) {
+				  setTimeout(function () {
+					_this.searchType()
+				  }, 500);
+				}
+			  );
+			  //下拉框改变触发查询
+			  $(".js_select_type .selectpicker").on(
+				"changed.bs.select",
+				function (e) {
+					_this.searchType();
+				}
+			  );
+			},
+		});
+	},
+	searchType:function() {
+		var _this = activeSecurities;
+		var val = $('.js_select_type .selectpicker').val();
+		_this.activeSecuritiesParam.sqlId = _this.typeList[val].sql;
+		delete _this.activeSecuritiesParam.tradeDate;
+		delete _this.activeSecuritiesParam.tradeMonth;
+		delete _this.activeSecuritiesParam.tradeYear;
+		if(val == 0){
+			_this.activeSecuritiesTitle = '当日港股通前十大成交活跃证券';
+			_this.activeSecuritiesParam.tradeDate = '';
+			var htm = $('.js_date .sse_searchInput').html();
+			$('.js_date .sse_searchInput').html('');
+			$('.js_date .sse_searchInput').html(htm);
+			$(".js_date input").attr("placeholder", "查询日期");
+			laydate({
+				elem: ".js_date input",
+				theme: "#b50005",
+				format: "yyyy-MM-dd",
+				trigger: "click",
+				btns: ["confirm"],
+				done: function (value, date, endDate) {
+					//选择时间触发查询
+					setTimeout(function () {
+						_this.searchDate();
+					}, 500);
+				},
+			});
+		} else if(val == 1){
+			_this.activeSecuritiesTitle = '当月港股通前十大成交活跃证券';
+			_this.activeSecuritiesParam.tradeMonth = '';
+			var htm = $('.js_date .sse_searchInput').html();
+			$('.js_date .sse_searchInput').html('');
+			$('.js_date .sse_searchInput').html(htm);
+			$(".js_date input").attr("placeholder", "查询日期");
+			laydate({
+				elem: ".js_date input",
+				theme: "#b50005",
+				type: 'month',
+				format: 'yyyy-MM',
+				min: '2014-01-01',
+				max: get_systemDate_global().substring(0, 7),
+				trigger: 'click',
+				btns: ["confirm"],
+				done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.searchDate();
+				}, 500);
+				},
+			});
+		} else if(val == 2){
+			_this.activeSecuritiesTitle = '当年港股通前十大成交活跃证券';
+			_this.activeSecuritiesParam.tradeYear = '';
+			var htm = $('.js_date .sse_searchInput').html();
+			$('.js_date .sse_searchInput').html('');
+			$('.js_date .sse_searchInput').html(htm);
+			$(".js_date input").attr("placeholder", "查询日期");
+			laydate({
+				elem: ".js_date input",
+				theme: "#b50005",
+				type: 'year',
+				format: 'yyyy',
+				min: '2014-01-01',
+				max: get_systemDate_global().substring(0, 4),
+				trigger: 'click',
+				btns: ["confirm"],
+				done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+					_this.searchDate();
+				}, 500);
+				},
+			});
+		}
+		_this.getData();
+	},
+	searchDate:function() {
+		var _this = activeSecurities;
+		var date = $(".js_date input").val() ? $(".js_date input").val() : '';
+		$(".js_ggtcjhyzq h2").html(_this.activeSecuritiesTitle + "<span class='new_date'>数据日期："+ date +"</span>");
+		if(_this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ'){
+			_this.activeSecuritiesParam.tradeDate = date.replace(/\-/g, '');
+		} else if(_this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_YDTJ'){
+			_this.activeSecuritiesParam.tradeMonth = date.replace(/\-/g, '');
+		} else if(_this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_NDTJ'){
+			_this.activeSecuritiesParam.tradeYear = date.replace(/\-/g, '');
+		}
+		_this.getData();
+	},
+	getData: function() {
+		var _this = this;
+		var emptyTr = '<tr><td colspan="7">暂无数据</td></tr>'
+		var htmlContent = "<thead><tr>";
+		htmlContent += '<th>名次</th>';
+		htmlContent += '<th>证券代码</th>';
+		htmlContent += '<th>英文简称</th>';
+		htmlContent += '<th>中文简称（参考）</th>';
+		htmlContent += '<th class="text-right">买入成交金额（亿元）</th>';
+		htmlContent += '<th class="text-right">卖出成交金额（亿元）</th>';
+		htmlContent += '<th class="text-right">成交总额（亿元）</th>';
+		htmlContent += "</tr></thead><tbody>";
+		getJSONP({
+			type: 'post',
+			dataType: 'jsonp',
+			url: _this.activeSecuritiesUrl,
+			data: _this.activeSecuritiesParam,
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0 && data.result[0]) {
+					if(_this.activeSecuritiesParam.tradeDate == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ'){
+						var date = data.result[0].tradeDate.substring(0, 4) + '-' + data.result[0].tradeDate.substring(4, 6) + '-' + data.result[0].tradeDate.substring(6, 8);
+					}
+					if(_this.activeSecuritiesParam.tradeMonth == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_YDTJ'){
+						var date = data.result[0].tradeMonth.substring(0, 4) + '-' + data.result[0].tradeMonth.substring(4, 6);
+					}
+					if(_this.activeSecuritiesParam.tradeYear == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_NDTJ'){
+						var date = data.result[0].tradeYear;
+					}
+					$.each(data.result, function (k, v) {
+						htmlContent += "<tr>";
+						htmlContent += '<td class="text-nowrap">' + (v.ranking ? v.ranking : '-') + "</td>";
+						htmlContent += '<td class="text-nowrap">' + (v.secCode ? v.secCode : '-') + "</td>"
+						htmlContent += '<td class="text-nowrap">' + (v.enAbbr ? v.enAbbr : '-') + "</td>";
+						htmlContent += '<td class="text-nowrap">' + (v.cnAbbr ? v.cnAbbr : '-') + "</td>";
+						htmlContent += '<td class="text-nowrap text-right">' + (v.buyAmount ? v.buyAmount : '-') + "</td>";
+						htmlContent += '<td class="text-nowrap text-right">' + (v.sellAmount ? v.sellAmount : '-') + "</td>"
+						htmlContent += '<td class="text-nowrap text-right">' + (v.tradeAmount ? v.tradeAmount : '-') + "</td>";
+						htmlContent += "</tr>";
+					});
+					htmlContent += "</tbody>";
+					$(".js_ggtcjhyzq .table").html(htmlContent);
+				} else {
+					if(_this.activeSecuritiesParam.tradeDate == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ'){
+						var date = get_systemDate_global();
+					}
+					if(_this.activeSecuritiesParam.tradeMonth == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_YDTJ'){
+						var date = get_systemDate_global().substring(0, 7);
+					}
+					if(_this.activeSecuritiesParam.tradeYear == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_NDTJ'){
+						var date = get_systemDate_global().substring(0, 4);
+					}
+					htmlContent += emptyTr;
+					htmlContent += '</tbody>';
+					$(".js_ggtcjhyzq .table").html(htmlContent);
+				}
+				if(isNull(date)){
+					$(".js_date input").val(date);
+					$(".js_ggtcjhyzq h2").html(_this.activeSecuritiesTitle + "<span class='new_date'>数据日期："+ date +"</span>");
+				}
+			},
+			errCallback: function () {
+				if(_this.activeSecuritiesParam.tradeDate == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_MRTJ'){
+					var date = get_systemDate_global();
+				}
+				if(_this.activeSecuritiesParam.tradeMonth == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_YDTJ'){
+					var date = get_systemDate_global().substring(0, 7);
+				}
+				if(_this.activeSecuritiesParam.tradeYear == '' && _this.activeSecuritiesParam.sqlId == 'FW_HGTZL_GGTSCSJ_CJHYZQ_NDTJ'){
+					var date = get_systemDate_global().substring(0, 4);
+				}
+				if(isNull(date)){
+					$(".js_date input").val(date);
+					$(".js_ggtcjhyzq h2").html(_this.activeSecuritiesTitle + "<span class='new_date'>数据日期："+ date +"</span>");
+				}
+				htmlContent += emptyTr;
+				htmlContent += '</tbody>';
+				$(".js_ggtcjhyzq .table").html(htmlContent);
+			}
+		})
+	  },
+}
+if($('.js_ggtcjhyzq').length > 0){
+	activeSecurities.init();
+}
+
+/**
+ * 港股通市场数据->港股通证券持有数量
+ */
+var holdingQuantity = {
+	holdingQuantityUrl: sseQueryURL + 'sseQuery/commonSoaQuery.do',  //港股通证券持有数量url
+	holdingQuantityParams: { //港股通证券持有数量参数
+		"isPagination": true,
+		"sqlId":'FW_HGTZL_GGTSCSJ_GGTZQCYSL',
+		"secCodeName": '',
+		"tradeDate": '',
+		"pageHelp.pageSize": 25,
+		"pageHelp.pageNo": 1,
+		"pageHelp.beginPage": 1,
+		"pageHelp.cacheSize": 1,
+		"pageHelp.endPage": 1
+	},
+	holdingQuantityDownUrl:sseQueryURL + "commonSoaExcelDd.do?sqlId=FW_HGTZL_GGTSCSJ_GGTZQCYSL",//港股通证券持有数量下载链接
+	init: function () {
+		var _this = this;
+		_this.loadEvents();
+		//点击证券代码或简称搜索
+		$(".search_btn").on("click", function (e) {
+			e.stopPropagation();
+			_this.searchDate();
+		});
+	},
+	loadEvents: function () {
+		var _this = this;
+		$(".js_ggtzqcysl h2.title_lev2 .new_date").after("<a id='download' class='tableDownload js_download_market' href=''>下载</a>");
+		$("#inputCode").attr("placeholder", "证券代码或简称");
+		$(".js_date input").attr("placeholder", "查询日期");
+		$('#download').attr('href', _this.holdingQuantityDownUrl+ "&secCodeName=" + _this.holdingQuantityParams.secCodeName + "&tradeDate=" + _this.holdingQuantityParams.tradeDate);
+		laydate({
+			elem: ".js_date input",
+			theme: "#b50005",
+			format: "yyyy-MM-dd",
+			trigger: "click",
+			btns: ["confirm"],
+			done: function (value, date, endDate) {
+				//选择时间触发查询
+				setTimeout(function () {
+				   _this.searchDate();
+				}, 500);
+			},
+		});
+		_this.getData(1);
+	},
+  	searchDate: function() {
+		var _this = this;
+		$(".js_ggtzqcysl h2.title_lev2 .new_date").html('数据日期：'+ $(".js_date input").val());
+		_this.holdingQuantityParams.tradeDate = $(".js_date input").val().replace(/\-/g, '');
+		_this.holdingQuantityParams.secCodeName = $("#inputCode").val();
+		_this.getData(1);
+	},
+  	getData: function(pageIndex) {
+		var _this = this;
+		$('#download').attr('href', _this.holdingQuantityDownUrl+ "&secCodeName=" + _this.holdingQuantityParams.secCodeName + "&tradeDate=" + _this.holdingQuantityParams.tradeDate);
+		if (!paginationChange(_this.holdingQuantityParams, pageIndex)) {  //触发分页改变分页参数
+		return;
+		}
+
+		var holdingQuantityHtml = '<thead><tr>';
+		holdingQuantityHtml += '<th>证券代码</th>';
+		holdingQuantityHtml += '<th>英文简称</th>';
+		holdingQuantityHtml += '<th>中文简称（参考）</th>';
+		holdingQuantityHtml += '<th>港股通投资者合计持有数量</th>';
+		holdingQuantityHtml += '</tr></thead><tbody>';
+		var emptyTr = '<tr><td colspan="4">暂无数据</tr>';
+		getJSONP({
+			type: 'post',
+			url: _this.holdingQuantityUrl,
+			data: _this.holdingQuantityParams,
+			dataType: 'jsonp',
+			successCallback: function (data) {
+				if (data && data.result && data.result.length > 0) {
+					if(_this.holdingQuantityParams.tradeDate == ''){
+						var dateStr = data.result[0].tradeDate;
+						var _data  = dateStr.substring(0, 4) + '-' + dateStr.substring(4, 6) + '-' + dateStr.substring(6);
+						$(".js_ggtzqcysl h2.title_lev2 .new_date").html('数据日期：'+ _data);
+						$(".js_date input").val(_data);
+					}
+					$.each(data.result, function (k, v) {
+						holdingQuantityHtml += '<tr>';
+						holdingQuantityHtml += '<td class="text-nowrap">' + (v.secCode ? v.secCode : '-') + '</td>';  //证券代码
+						holdingQuantityHtml += '<td class="text-nowrap">' + (v.enAbbr ? v.enAbbr : '-') + '</td>';  //英文简称
+						holdingQuantityHtml += '<td class="text-nowrap">' + (v.cnAbbr ? v.cnAbbr : '-') + '</td>';  //中文简称
+						holdingQuantityHtml += '<td class="text-nowrap">' + (v.totalHoldings ? v.totalHoldings : '-') + '</td>';  //港股通投资者合计持有数量
+					})
+					holdingQuantityHtml += '</tbody>';
+					$(".js_ggtzqcysl .table").html(holdingQuantityHtml);
+					//调用分页
+					Page.navigation(".js_ggtzqcysl .pagination-box", data.pageHelp.pageCount, data.pageHelp.total, data.pageHelp.pageNo, data.pageHelp.pageSize, "holdingQuantity.getData");
+				} else {
+					if(_this.holdingQuantityParams.tradeDate == ''){
+						$(".js_ggtzqcysl h2.title_lev2 .new_date").html('数据日期：'+ get_systemDate_global());
+						$(".js_date input").val(get_systemDate_global());
+					}
+					holdingQuantityHtml += emptyTr;
+					holdingQuantityHtml += '</tbody>';
+					$(".js_ggtzqcysl .table").html(holdingQuantityHtml);
+					$(".js_ggtzqcysl .pagination-box").html("");
+				}
+			},
+			errCallback: function () {
+				if(_this.holdingQuantityParams.tradeDate == ''){
+					$(".js_ggtzqcysl h2.title_lev2 .new_date").html('数据日期：'+ get_systemDate_global());
+					$(".js_date input").val(get_systemDate_global());
+				}
+				holdingQuantityHtml += emptyTr;
+				holdingQuantityHtml += '</tbody>';
+				$(".js_ggtzqcysl .table").html(holdingQuantityHtml);
+				$(".js_ggtzqcysl .pagination-box").html("");
+			}
+		})
+	}
+}
+if($('.js_ggtzqcysl').length > 0){
+	holdingQuantity.init();
+}
+
+function hgtcjgk(params) {
+	this.params = {
+	  dayNode: ".js_hgtcjgk .js_day",
+	  dayDateNode: ".js_hgtcjgk .js_day .js_date_day input",
+	  monthNode: ".js_hgtcjgk .js_month",
+	  monthDateNode: ".js_hgtcjgk .js_month .js_date_month input",
+	  yearNode: ".js_hgtcjgk .js_year",
+	  yearDateNode: ".js_hgtcjgk .js_year .js_date_year input",
+	  tradeDate: "",
+	  // getQuatationInfo: sseQueryURL + "commonSoaQuery.do",
+	  hgtcjgktradingDayParam: {
+		sqlId: "FW_HGTZL_HGTSCSJ_HGTCJGK_MRTJ",
+		tradeDate: "",
+	  },
+	  hgtcjgktradingMonthParam: {
+		sqlId: "FW_HGTZL_HGTSCSJ_HGTCJGK_YDTJ",
+		tradeMonth: "",
+	  },
+	  hgtcjgktradingYearParam: {
+		sqlId: "FW_HGTZL_HGTSCSJ_HGTCJGK_NDTJ",
+		tradeYear: "",
+	  },
+	};
+	public.call(this);
+  }
+  
+  hgtcjgk.prototype = Object.create(public.prototype);
+  hgtcjgk.prototype.constructor = hgtcjgk;
+  
+  var hgtcjgkPage = new hgtcjgk();
+  
+  hgtcjgkPage.methods = {
+	init: function init(params) {
+	  var _this = hgtcjgkPage.params,
+		_that = this,
+		that = hgtcjgkPage;
+  
+	  //日渲染
+	  laydate({
+		elem: _this.dayDateNode,
+		theme: "#b50005",
+		format: "yyyy-MM-dd",
+		trigger: "click",
+		btns: ["confirm"],
+		// min: '2014-01-01',
+		// max: get_systemDate_global(),
+		done: function (value, date, endDate) {
+		  //选择时间触发查询
+		  setTimeout(function () {
+			_this.hgtcjgktradingDayParam.tradeDate = $(_this.dayDateNode)
+			  .val()
+			  .replace(/\-/g, "");
+			_that.searchData("day");
+		  }, 500);
+		},
+	  });
+	  laydate({
+		elem: _this.monthDateNode,
+		theme: "#b50005",
+		format: "yyyy-MM",
+		type: "month",
+		min: "2014-01-01",
+		max: that.getEndMonth(),
+		trigger: "click",
+		btns: ["confirm"],
+		done: function (value, date, endDate) {
+		  _this.hgtcjgktradingMonthParam.tradeMonth = $(_this.monthDateNode)
+			.val()
+			.replace(/\-/g, "");
+		  //选择时间触发查询
+		  setTimeout(function () {
+			_that.searchData("month");
+		  }, 500);
+		},
+	  });
+	  laydate({
+		elem: _this.yearDateNode,
+		theme: "#b50005",
+		format: "yyyy",
+		type: "year",
+		trigger: "click",
+		btns: ["confirm"],
+		min: "2014-01-01",
+		max: that.getEndYear(),
+		done: function (value, date, endDate) {
+		  _this.hgtcjgktradingYearParam.tradeYear = $(_this.yearDateNode).val();
+		  //选择时间触发查询
+		  setTimeout(function () {
+			_that.searchData("year");
+		  }, 500);
+		},
+	  });
+	  _that.searchData("all");
+	},
+	searchData: function searchData(type) {
+	  switch (type) {
+		case "all":
+		  this.searchAll();
+		  break;
+		case "day":
+		  this.serachDay();
+		  break;
+		case "month":
+		  this.serachMonth();
+		  break;
+		case "year":
+		  this.serachYear();
+		  break;
+		default:
+		  this.searchAll();
+	  }
+	},
+	searchAll: function searchAll(params) {
+	  this.serachDay();
+	  this.serachMonth();
+	  this.serachYear();
+	},
+  
+	serachDay: function serachDay(params) {
+	  var _this = hgtcjgkPage;
+	  var htmlHead = "<thead><tr>";
+	  htmlHead += '<th class="text-nowrap">当日情况</th>';
+	  htmlHead += '<th class="text-right">成交概况</th>';
+	  htmlHead += "</tr></thead>";
+	  getJSONP({
+		type: "post",
+		dataType: "jsonp",
+		url: _this.url,
+		data: _this.params.hgtcjgktradingDayParam,
+		successCallback: function (data) {
+		  if (data && data.result && data.result.length > 0) {
+			var res = data.result[0];
+			$(_this.params.dayDateNode).val(turnDateAddLine(res.tradeDate));
+			$(_this.params.dayNode + " .title_lev3 .new_date").html(
+			  "数据日期：" + turnDateAddLine(res.tradeDate)
+			);
+			//-----------------------------------------------------------------------
+			var html = "<tbody>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当日成交总额（亿元）</td><td class="text-right">' +
+			  (res.totalAmount ? res.totalAmount : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当日总成交笔数（万笔）</td><td class="text-right">' +
+			  (res.totalVolume ? res.totalVolume : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当日ETF成交总额（亿元）</td><td class="text-right">' +
+			  (res.etfTotalAmount ? res.etfTotalAmount : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "</tbody>";
+			$(_this.params.dayNode + " .table").html(htmlHead + html);
+			//-----------------------------------------------------------------------
+		  } else {
+			var date1 = _this.params.hgtcjgktradingDayParam.tradeDate
+			  ? turnDateAddLine(_this.params.hgtcjgktradingDayParam.tradeDate)
+			  : get_systemDate_global();
+			$(_this.params.dayDateNode).val(date1);
+			$(_this.params.dayNode + " .title_lev3 .new_date").html(
+			  "数据日期：" + date1
+			);
+			var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+			$(_this.params.dayNode + " .table").html(htmlHead + emptyTr);
+		  }
+		},
+		errCallback: function () {
+		  var date1 = _this.params.hgtcjgktradingDayParam.tradeDate
+			? turnDateAddLine(_this.params.hgtcjgktradingDayParam.tradeDate)
+			: get_systemDate_global();
+		  $(_this.params.dayDateNode).val(date1);
+		  $(_this.params.dayNode + " .title_lev3 .new_date").html(
+			"数据日期：" + date1
+		  );
+		  var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+		  $(_this.params.dayNode + " .table").html(htmlHead + emptyTr);
+		},
+	  });
+	},
+  
+	serachMonth: function serachMonth(params) {
+	  var _this = hgtcjgkPage;
+	  var htmlHead = "<thead><tr>";
+	  htmlHead += '<th class="text-nowrap">当月情况</th>';
+	  htmlHead += '<th class="text-right">成交概况</th>';
+	  htmlHead += "</tr></thead>";
+	  _this.params.hgtcjgktradingMonthParam;
+	  getJSONP({
+		type: "post",
+		dataType: "jsonp",
+		url: _this.url,
+		data: _this.params.hgtcjgktradingMonthParam,
+		successCallback: function (data) {
+		  if (data && data.result && data.result.length > 0) {
+			var monthData = data.result[0];
+			$(_this.params.monthDateNode).val(
+			  turnDateAddLine(monthData.tradeMonth).replace(/-$/, "")
+			);
+			$(_this.params.monthNode + " .title_lev3 .new_date").html(
+			  "数据日期：" +
+				turnDateAddLine(monthData.tradeMonth).replace(/-$/, "")
+			);
+			//-----------------------------------------------------------------------
+			var html = "<tbody>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当月成交总额（亿元）</td><td class="text-right">' +
+			  (monthData.totalAmt ? monthData.totalAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当月总成交笔数（万笔）</td><td class="text-right">' +
+			  (monthData.totalVol ? monthData.totalVol : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当月日均成交金额（亿元）</td><td class="text-right">' +
+			  (monthData.dayAmt ? monthData.dayAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当月日均成交笔数（万笔）</td><td class="text-right">' +
+			  (monthData.dayVol ? monthData.dayVol : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当月ETF成交总额（亿元）</td><td class="text-right">' +
+			  (monthData.etfTotalAmt ? monthData.etfTotalAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "</tbody>";
+			$(_this.params.monthNode + " .table").html(htmlHead + html);
+			//-----------------------------------------------------------------------
+		  } else {
+			var monthDate = _this.params.hgtcjgktradingMonthParam.tradeMonth
+			  ? turnDateAddLine(
+				  _this.params.hgtcjgktradingMonthParam.tradeMonth
+				).replace(/-$/, "")
+			  : get_systemDate_global().substring(0, 7);
+			var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+			$(_this.params.monthNode + " .table").html(htmlHead + emptyTr);
+			$(_this.params.monthDateNode).val(monthDate);
+			$(_this.params.monthNode + " .title_lev3 .new_date").html(
+			  "数据日期：" + monthDate
+			);
+		  }
+		},
+		errCallback: function () {
+		  var monthDate = _this.params.hgtcjgktradingMonthParam.tradeMonth
+			? turnDateAddLine(
+				_this.params.hgtcjgktradingMonthParam.tradeMonth
+			  ).replace(/-$/, "")
+			: get_systemDate_global().substring(0, 7);
+		  var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+		  $(_this.params.monthNode + " .table").html(htmlHead + emptyTr);
+		  $(_this.params.monthDateNode).val(monthDate);
+		  $(_this.params.monthNode + " .title_lev3 .new_date").html(
+			"数据日期：" + monthDate
+		  );
+		},
+	  });
+	},
+  
+	serachYear: function serachYear(params) {
+	  var _this = hgtcjgkPage;
+	  var htmlHead = "<thead><tr>";
+	  htmlHead += '<th class="text-nowrap">当年情况</th>';
+	  htmlHead += '<th class="text-right">成交概况</th>';
+	  htmlHead += "</tr></thead>";
+  
+	  getJSONP({
+		type: "post",
+		dataType: "jsonp",
+		url: _this.url,
+		data: _this.params.hgtcjgktradingYearParam,
+		successCallback: function (data) {
+		  if (data && data.result && data.result.length > 0) {
+			var yearData = data.result[0];
+			$(_this.params.yearDateNode).val(yearData.tradeYear);
+			$(_this.params.yearNode + " .title_lev3 .new_date").html(
+			  "数据日期：" + yearData.tradeYear
+			);
+			//-----------------------------------------------------------------------
+			var html = "<tbody>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当年成交总额（亿元）</td><td class="text-right">' +
+			  (yearData.totalAmt ? yearData.totalAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当年总成交笔数（万笔）</td><td class="text-right">' +
+			  (yearData.totalVol ? yearData.totalVol : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当年日均成交金额（亿元）</td><td class="text-right">' +
+			  (yearData.dayAmt ? yearData.dayAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当年日均成交笔数（万笔）</td><td class="text-right">' +
+			  (yearData.dayVol ? yearData.dayVol : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "<tr>";
+			html +=
+			  '<td class="text-nowrap">当年ETF成交总额（亿元）</td><td class="text-right">' +
+			  (yearData.etfTotalAmt ? yearData.etfTotalAmt : "-") +
+			  "</td>";
+			html += "</tr>";
+			html += "</tbody>";
+			$(_this.params.yearNode + " .table").html(htmlHead + html);
+			//-----------------------------------------------------------------------
+		  } else {
+			var yearDate = _this.params.hgtcjgktradingYearParam.tradeYear
+			  ? _this.params.hgtcjgktradingYearParam.tradeYear
+			  : get_systemDate_global().substring(0, 4);
+			$(_this.params.yearDateNode).val(yearDate);
+			$(_this.params.yearNode + " .title_lev3 .new_date").html(
+			  "数据日期：" + yearDate
+			);
+			var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+			$(_this.params.yearNode + " .table").html(htmlHead + emptyTr);
+		  }
+		},
+		errCallback: function () {
+		  var yearDate = _this.params.hgtcjgktradingYearParam.tradeYear
+			? _this.params.hgtcjgktradingYearParam.tradeYear
+			: get_systemDate_global().substring(0, 4);
+		  $(_this.params.yearDateNode).val(yearDate);
+		  $(_this.params.yearNode + " .title_lev3 .new_date").html(
+			"数据日期：" + yearDate
+		  );
+		  var emptyTr = '<tbody><tr><td colspan="2">暂无数据</td></tr></tbody>';
+		  $(_this.params.yearNode + " .table").html(htmlHead + emptyTr);
+		},
+	  });
+	},
+  };
+  //沪股通成交概况
+  if ($(".js_hgtcjgk").length > 0) {
+	hgtcjgkPage.methods.init();
+  }
+  
+  function hgtcjhyzq() {
+	this.params = {
+	  typeList: [
+		{ name: "每日统计", value: "tradeDate" },
+		{ name: "月度统计", value: "tradeMonth" },
+		{ name: "年度统计", value: "tradeYear" },
+	  ],
+	  tradeDate: {
+		sqlId: "FW_HGTZL_HGTSCSJ_CJHYZQ_MRTJ",
+		tradeDate: "",
+	  },
+	  tradeMonth: {
+		sqlId: "FW_HGTZL_HGTSCSJ_CJHYZQ_YDTJ",
+		tradeMonth: "",
+	  },
+	  tradeYear: {
+		sqlId: "FW_HGTZL_HGTSCSJ_CJHYZQ_NDTJ",
+		tradeYear: "",
+	  },
+	};
+	public.call(this);
+  }
+  
+  hgtcjhyzq.prototype = Object.create(public.prototype);
+  hgtcjhyzq.prototype.constructor = hgtcjhyzq;
+  
+  var hgtcjhyzqPage = new hgtcjhyzq();
+  
+  hgtcjhyzqPage.methods = {
+	init: function init() {
+	  var _this = hgtcjhyzqPage.params,
+		_that = this,
+		that = hgtcjhyzqPage;
+	  this.initSelectDate();
+	  bootstrapSelect({
+		method: function () {
+		  //类型数据渲染
+		  $(".js__select_type .selectpicker")
+			.html(addSelectOption(_this.typeList))
+			.selectpicker("refresh")
+			.selectpicker("render");
+		  //类型初始化完成调用接口
+		  $(".js__select_type .selectpicker").on(
+			"loaded.bs.select",
+			function (e) {
+			  setTimeout(function () {
+				_that.initDateDom({
+				  format: "yyyy-MM-dd",
+				  type: "date",
+				  params: _this.tradeDate,
+				});
+			  }, 500);
+			}
+		  );
+		  //下拉框改变触发查询
+		  $(".js__select_type .selectpicker").on(
+			"changed.bs.select",
+			function (e) {
+			  _this.tradeDate.tradeDate = "";
+			  _this.tradeMonth.tradeMonth = "";
+			  _this.tradeYear.tradeYear = "";
+			  switch ($(".js__select_type .selectpicker").val()) {
+				case "tradeDate":
+				  _that.initDateDom({
+					format: "yyyy-MM-dd",
+					type: "date",
+					params: _this.tradeDate,
+				  });
+				  break;
+				case "tradeMonth":
+				  _that.initDateDom({
+					format: "yyyy-MM",
+					type: "month",
+					params: _this.tradeMonth,
+				  });
+				  break;
+				case "tradeYear":
+				  _that.initDateDom({
+					format: "yyyy",
+					type: "year",
+					params: _this.tradeYear,
+				  });
+				  break;
+				default:
+				  break;
+			  }
+			}
+		  );
+		},
+	  });
+	},
+  
+	initSelectDate: function initSelectDate(params) {
+	  var strDate = $(".js_date .sse_searchInput")
+		  .html()
+		  .replace(/sse_input/g, "sse_input js_date"),
+		strMonth = $(".js_date .sse_searchInput")
+		  .html()
+		  .replace(/sse_input/g, "sse_input js_month"),
+		strYear = $(".js_date .sse_searchInput")
+		  .html()
+		  .replace(/sse_input/g, "sse_input js_year"),
+		_this = hgtcjhyzqPage.params,
+		that = hgtcjhyzqPage,
+		_that = this;
+	  $(".js_date .sse_searchInput").html(strDate + strMonth + strYear);
+	  $(".js_date .sse_searchInput .js_date").show();
+	  $(".js_date .sse_searchInput .js_date+.bi-calendar4-week").show();
+	  $(".js_date .sse_searchInput .js_month").hide();
+	  $(".js_date .sse_searchInput .js_month+.bi-calendar4-week").hide();
+	  $(".js_date .sse_searchInput .js_year").hide();
+	  $(".js_date .sse_searchInput .js_year+.bi-calendar4-week").hide();
+	  laydate({
+		elem: ".js_date .sse_searchInput .js_date",
+		theme: "#b50005",
+		format: "yyyy-MM-dd",
+		type: "date",
+		trigger: "click",
+		btns: ["confirm"],
+		done: function (value, date, endDate) {
+		  //选择时间触发查询
+		  _this.tradeDate.tradeDate = $(".js_date .sse_searchInput .js_date")
+			.val()
+			.replace(/\-/g, "");
+		  setTimeout(function () {
+			_that.searchDate();
+		  }, 500);
+		},
+	  });
+	  laydate({
+		elem: ".js_date .sse_searchInput .js_month",
+		theme: "#b50005",
+		format: "yyyy-MM",
+		type: "month",
+		min: "2014-01-01",
+		max: that.getEndMonth(),
+		trigger: "click",
+		btns: ["confirm"],
+		done: function (value, date, endDate) {
+		  //选择时间触发查询
+		  _this.tradeMonth.tradeMonth = $(".js_date .sse_searchInput .js_month")
+			.val()
+			.replace(/\-/g, "");
+		  setTimeout(function () {
+			_that.searchDate();
+		  }, 500);
+		},
+	  });
+	  laydate({
+		elem: ".js_date .sse_searchInput .js_year",
+		theme: "#b50005",
+		format: "yyyy",
+		type: "year",
+		min: "2014-01-01",
+		max: that.getEndYear(),
+		trigger: "click",
+		btns: ["confirm"],
+		done: function (value, date, endDate) {
+		  //选择时间触发查询
+		  _this.tradeYear.tradeYear = $(
+			".js_date .sse_searchInput .js_year"
+		  ).val();
+		  setTimeout(function () {
+			_that.searchDate();
+		  }, 500);
+		},
+	  });
+	},
+  
+	initDateBox: function initDateBox(params) {
+	  if (params == "date") {
+		$(".js_date .sse_searchInput .js_date").show();
+		$(".js_date .sse_searchInput .js_date+.bi-calendar4-week").show();
+		$(".js_date .sse_searchInput .js_month").hide();
+		$(".js_date .sse_searchInput .js_month+.bi-calendar4-week").hide();
+		$(".js_date .sse_searchInput .js_year").hide();
+		$(".js_date .sse_searchInput .js_year+.bi-calendar4-week").hide();
+	  } else if (params == "month") {
+		$(".js_date .sse_searchInput .js_date").hide();
+		$(".js_date .sse_searchInput .js_date+.bi-calendar4-week").hide();
+		$(".js_date .sse_searchInput .js_month").show();
+		$(".js_date .sse_searchInput .js_month+.bi-calendar4-week").show();
+		$(".js_date .sse_searchInput .js_year").hide();
+		$(".js_date .sse_searchInput .js_year+.bi-calendar4-week").hide();
+	  } else if (params == "year") {
+		$(".js_date .sse_searchInput .js_date").hide();
+		$(".js_date .sse_searchInput .js_date+.bi-calendar4-week").hide();
+		$(".js_date .sse_searchInput .js_month").hide();
+		$(".js_date .sse_searchInput .js_month+.bi-calendar4-week").hide();
+		$(".js_date .sse_searchInput .js_year").show();
+		$(".js_date .sse_searchInput .js_year+.bi-calendar4-week").show();
+	  }
+	},
+  
+	initDateDom: function initDateDom(params) {
+	  this.initDateBox(params.type);
+	  this.getData(params);
+	},
+  
+	searchDate: function searchDate(params) {
+	  var _this = hgtcjhyzqPage.params,
+		strType = $(".js__select_type .selectpicker").val();
+	  this.getData({
+		params: _this[strType],
+		type:
+		  strType == "tradeDate"
+			? "date"
+			: strType == "tradeMonth"
+			? "month"
+			: strType == "tradeYear"
+			? "year"
+			: "",
+	  });
+	},
+	getData: function getData(params) {
+	  var _this = hgtcjhyzqPage;
+	  var htmlHead = "<thead><tr>";
+	  htmlHead += '<th class="text-left">名次</th>';
+	  htmlHead += '<th class="text-left">证券代码</th>';
+	  htmlHead += '<th class="text-left">证券简称</th>';
+	  htmlHead += '<th class="text-right">成交总额（亿元）</th>';
+	  htmlHead += "</tr></thead>";
+  
+	  //-----------------------------------------------------------------------
+	  getJSONP({
+		type: "post",
+		dataType: "jsonp",
+		url: _this.url,
+		data: params.params,
+		successCallback: function (data) {
+		  if (data && data.result && data.result.length > 0) {
+			var dataList = data.result;
+			var html = "<tbody>";
+			$.each(dataList, function (index, item) {
+			  html += "<tr>";
+			  html +=
+				'<td class="text-left">' +
+				(item.ranking ? item.ranking : "-") +
+				"</td><td class='text-left'> " +
+				(item.secCode ? item.secCode : "-") +
+				" </td><td class='text-left'> " +
+				(item.secAbbr ? item.secAbbr : "-") +
+				" </td><td class='text-right'> " +
+				(item.tradeAmount ? item.tradeAmount : "-") +
+				" </td>";
+			  html += "</tr>";
+			});
+			html += "</tbody>";
+			$(".js_hgtcjhyzq .table").html(htmlHead + html);
+			if (params.type == "date") {
+			  $(".js_date .sse_searchInput .js_date").val(
+				turnDateAddLine(dataList[0].tradeDate)
+			  );
+			  $(".js_hgtcjhyzq h2").html(
+				"当日沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  turnDateAddLine(dataList[0].tradeDate) +
+				  "</span>"
+			  );
+			} else if (params.type == "month") {
+			  $(".js_date .sse_searchInput .js_month").val(
+				turnDateAddLine(dataList[0].tradeMonth).replace(/-$/, "")
+			  );
+			  $(".js_hgtcjhyzq h2").html(
+				"当月沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  turnDateAddLine(dataList[0].tradeMonth).replace(/-$/, "") +
+				  "</span>"
+			  );
+			} else if (params.type == "year") {
+			  $(".js_date .sse_searchInput .js_year").val(dataList[0].tradeYear);
+			  $(".js_hgtcjhyzq h2").html(
+				"当年沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  dataList[0].tradeYear +
+				  "</span>"
+			  );
+			}
+		  } else {
+			if (params.type == "date") {
+			  var dayDate = _this.params.tradeDate.tradeDate
+				? turnDateAddLine(_this.params.tradeDate.tradeDate)
+				: get_systemDate_global();
+			  $(".js_date .sse_searchInput .js_date").val(dayDate);
+			  $(".js_hgtcjhyzq h2").html(
+				"当日沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  dayDate +
+				  "</span>"
+			  );
+			} else if (params.type == "month") {
+			  var monthDate = _this.params.tradeMonth.tradeMonth
+				? turnDateAddLine(_this.params.tradeMonth.tradeMonth).replace(
+					/-$/,
+					""
+				  )
+				: get_systemDate_global().substring(0, 7);
+			  $(".js_date .sse_searchInput .js_month").val(monthDate);
+			  $(".js_hgtcjhyzq h2").html(
+				"当月沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  monthDate +
+				  "</span>"
+			  );
+			} else if (params.type == "year") {
+			  var yearDate = _this.params.tradeYear.tradeYear
+				? _this.params.tradeYear.tradeYear
+				: get_systemDate_global().substring(0, 4);
+			  $(".js_date .sse_searchInput .js_year").val(yearDate);
+			  $(".js_hgtcjhyzq h2").html(
+				"当年沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				  yearDate +
+				  "</span>"
+			  );
+			}
+			var emptyTr = '<tbody><tr><td colspan="4">暂无数据</td></tr></tbody>';
+			$(".js_hgtcjhyzq .table").html(htmlHead + emptyTr);
+		  }
+		},
+		errCallback: function () {
+		  if (params.type == "date") {
+			var dayDate = _this.params.tradeDate.tradeDate
+			  ? turnDateAddLine(_this.params.tradeDate.tradeDate)
+			  : get_systemDate_global();
+			$(".js_date .sse_searchInput .js_date").val(dayDate);
+			$(".js_hgtcjhyzq h2").html(
+			  "当日沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				dayDate +
+				"</span>"
+			);
+		  } else if (params.type == "month") {
+			var monthDate = _this.params.tradeMonth.tradeMonth
+			  ? turnDateAddLine(_this.params.tradeMonth.tradeMonth).replace(
+				  /-$/,
+				  ""
+				)
+			  : get_systemDate_global().substring(0, 7);
+			$(".js_date .sse_searchInput .js_month").val(monthDate);
+			$(".js_hgtcjhyzq h2").html(
+			  "当月沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				monthDate +
+				"</span>"
+			);
+		  } else if (params.type == "year") {
+			var yearDate = _this.params.tradeYear.tradeYear
+			  ? _this.params.tradeYear.tradeYear
+			  : get_systemDate_global().substring(0, 4);
+			$(".js_date .sse_searchInput .js_year").val(yearDate);
+			$(".js_hgtcjhyzq h2").html(
+			  "当年沪股通前十大成交活跃证券<span class='new_date'>数据日期：" +
+				yearDate +
+				"</span>"
+			);
+		  }
+		  var emptyTr = '<tbody><tr><td colspan="4">暂无数据</td></tr></tbody>';
+		  $(".js_hgtcjhyzq .table").html(htmlHead + emptyTr);
+		},
+	  });
+	  //-----------------------------------------------------------------------
+	},
+  };
+  
+  //成交活跃证券
+  if ($(".js_hgtcjhyzq").length > 0) {
+	hgtcjhyzqPage.methods.init();
+  }
+  
+  function hgtzjcysl() {
+	this.params = {
+	  queryParams: {
+		sqlId: "FW_HGTZL_HGTSCSJ_HGTZQCYSL_L",
+		secCodeName: "",
+		year: "",
+		quarter: "",
+		isPagination: true,
+		"pageHelp.pageSize": 25,
+		"pageHelp.pageNo": 1,
+		"pageHelp.beginPage": 1,
+		"pageHelp.cacheSize": 1,
+		"pageHelp.endPage": 1,
+	  },
+	  quarterList: [
+		{ name: "第一季度", value: "1" },
+		{ name: "第二季度", value: "2" },
+		{ name: "第三季度", value: "3" },
+		{ name: "第四季度", value: "4" },
+	  ],
+	  pagination: {},
+	};
+	public.call(this);
+  }
+  
+  hgtzjcysl.prototype = Object.create(public.prototype);
+  hgtzjcysl.prototype.constructor = hgtzjcysl;
+  
+  var hgtzjcyslPage = new hgtzjcysl();
+  
+  hgtzjcyslPage.methods = {
+	init: function init() {
+	  var _this = hgtzjcyslPage.params,
+		_that = this;
+	  $("#inputCode").attr("placeholder", "证券代码或简称");
+  
+	  // 证券代码或简称 输入框
+	  $(".search_btn").on("click", function (e) {
+		e.stopPropagation();
+		_this.queryParams.secCodeName = $("#inputCode").val();
+		_this.queryParams["pageHelp.pageNo"] = "1";
+		_this.queryParams["pageHelp.beginPage"] = "1";
+		// stockList.newTableData(1);
+		_that.getData(1);
+	  });
+  
+	  laydate({
+		elem: ".js_year_data input",
+		theme: "#b50005",
+		format: "yyyy",
+		trigger: "click",
+		type: "year",
+		btns: ["confirm"],
+		done: function (value, date, endDate) {
+		  //选择时间触发查询
+		  _this.queryParams.year = $(".js_year_data input").val();
+		  _this.queryParams["pageHelp.pageNo"] = "1";
+		  _this.queryParams["pageHelp.beginPage"] = "1";
+		  setTimeout(function () {
+			_that.getData(1);
+		  }, 500);
+		},
+	  });
+  
+	  bootstrapSelect({
+		method: function () {
+		  //类型数据渲染
+		  $(".js_select_data .selectpicker")
+			.html(addSelectOption(_this.quarterList))
+			.selectpicker("refresh")
+			.selectpicker("render");
+		  //类型初始化完成调用接口
+		  $(".js_select_data .selectpicker").on("loaded.bs.select", function (e) {
+			_this.queryParams.quarter = "";
+			_this.queryParams["pageHelp.pageNo"] = "1";
+			_this.queryParams["pageHelp.beginPage"] = "1";
+			setTimeout(function () {
+			  _that.getData(1);
+			}, 500);
+		  });
+		  //下拉框改变触发查询
+		  $(".js_select_data .selectpicker").on(
+			"changed.bs.select",
+			function (e) {
+			  _this.queryParams["pageHelp.pageNo"] = "1";
+			  _this.queryParams["pageHelp.beginPage"] = "1";
+			  _this.queryParams.quarter = $(
+				".js_select_data .selectpicker"
+			  ).val();
+			  setTimeout(function () {
+				_that.getData(1);
+			  }, 500);
+			}
+		  );
+		},
+	  });
+	},
+	getData: function getData(pageIndex) {
+	  var _this = hgtzjcyslPage;
+	  var htmlHead = "<thead><tr>";
+	  htmlHead += '<th class="text-left">证券代码</th>';
+	  htmlHead += '<th class="text-left">证券简称</th>';
+	  htmlHead += '<th class="text-left">沪股通投资者合计持有数量</th>';
+	  htmlHead += "</tr></thead>";
+	  if (!paginationChange(_this.params.queryParams, pageIndex)) return; //触发分页改变分页参数
+	  //-----------------------------------------------------------------------
+	  _this.params.queryParams.tradeDate = _this.params.queryParams.quarter
+		? _this
+			.dateConversion(
+			  _this.params.queryParams.year,
+			  _this.params.queryParams.quarter
+			)
+			.replace(/\-/g, "")
+		: "";
+		var objData = JSON.parse(JSON.stringify(_this.params.queryParams))
+		delete objData.quarter
+		delete objData.year
+	  getJSONP({
+		type: "post",
+		dataType: "jsonp",
+		url: _this.url,
+		data: objData,
+		successCallback: function (data) {
+		  if (data && data.result && data.result.length > 0) {
+			var yearDate = data.result;
+			$(".js_year_data input").val(yearDate[0].tradeDate.substring(0, 4));
+			_this.params.queryParams.year = yearDate[0].tradeDate.substring(0, 4);
+			var html = "<tbody>";
+			$.each(yearDate, function (index, item) {
+			  html += "<tr>";
+			  html +=
+				'<td class="text-left">' +
+				(item.secCode ? item.secCode : "-") +
+				"</td><td class='text-left'> " +
+				(item.secAbbr ? item.secAbbr : "-") +
+				"</td><td class='text-left'> " +
+				(item.totalHoldings ? item.totalHoldings : "-") +
+				" </td>";
+			  html += "</tr>";
+			});
+			html += "</tbody>";
+			_this.params.queryParams.quarter = _this.quarterly(
+			  Number(yearDate[0].tradeDate.substring(4, 6))
+			);
+			$(".js_select_data .selectpicker").val(
+			  _this.params.queryParams.quarter
+			);
+			$(".js_select_data .selectpicker").selectpicker("refresh");
+			$(".js_holding_quantity .table").html(htmlHead + html);
+  
+			var downUrl =
+			  sseQueryURL +
+			  "commonSoaExcelDd.do?sqlId=FW_HGTZL_HGTSCSJ_HGTZQCYSL_L&secCodeName=" +
+			  _this.params.queryParams.secCodeName +
+			  "&tradeDate=" +
+			  _this.params.queryParams.tradeDate;
+			$(".js_holding_quantity h2.title_lev2").html(
+			  "沪股通证券持有数量" +
+				"<span class='new_date'>数据日期：" +
+				turnDateAddLine(yearDate[0].tradeDate) +
+				"</span><a id='download' class='tableDownload js_download_market' href='" +
+				downUrl +
+				"'>下载</a>"
+			);
+  
+			Page.navigation(
+			  ".js_holding_quantity .pagination-box",
+			  data.pageHelp.pageCount,
+			  data.pageHelp.total,
+			  data.pageHelp.pageNo,
+			  data.pageHelp.pageSize,
+			  "hgtzjcyslPage.methods.getData"
+			);
+			// $(".js_holding_quantity .change-pageSize").remove();
+		  } else {
+			if (_this.params.queryParams.year) {
+			  var yearDate = _this.params.queryParams.year;
+			} else {
+			  var yearDate = get_systemDate_global().substring(0, 4);
+			  _this.params.queryParams.quarter = _this.quarterly(
+				Number(get_systemDate_global().split("-")[1])
+			  );
+			  $(".js_select_data .selectpicker").val(
+				_this.params.queryParams.quarter
+			  );
+			  $(".js_select_data .selectpicker").selectpicker("refresh");
+			}
+			$(".js_year_data input").val(yearDate);
+			_this.params.queryParams.year = yearDate;
+			var emptyTr = '<tbody><tr><td colspan="3">暂无数据</td></tr></tbody>';
+			$(".js_holding_quantity .table").html(htmlHead + emptyTr);
+  
+			var downUrl =
+			  sseQueryURL +
+			  "commonSoaExcelDd.do?sqlId=FW_HGTZL_HGTSCSJ_HGTZQCYSL_L&secCodeName=" +
+			  _this.params.queryParams.secCodeName +
+			  "&tradeDate=" +
+			  _this.params.queryParams.tradeDate;
+			$(".js_holding_quantity h2.title_lev2").html(
+			  "沪股通证券持有数量" +
+				"<span class='new_date'>数据日期：" +
+				_this.dateConversion(yearDate, _this.params.queryParams.quarter) +
+				"</span><a id='download' class='tableDownload js_download_market' href='" +
+				downUrl +
+				"'>下载</a>"
+			);
+			$(".js_holding_quantity .pagination-box").html("");
+		  }
+		},
+		errCallback: function () {
+		  if (_this.params.queryParams.year) {
+			var yearDate = _this.params.queryParams.year;
+		  } else {
+			var yearDate = get_systemDate_global().substring(0, 4);
+			_this.params.queryParams.quarter = _this.quarterly(
+			  Number(get_systemDate_global().split("-")[1])
+			);
+			$(".js_select_data .selectpicker").val(
+			  _this.params.queryParams.quarter
+			);
+			$(".js_select_data .selectpicker").selectpicker("refresh");
+		  }
+		  $(".js_year_data input").val(yearDate);
+		  _this.params.queryParams.year = yearDate;
+		  var emptyTr = '<tbody><tr><td colspan="3">暂无数据</td></tr></tbody>';
+		  $(".js_holding_quantity .table").html(htmlHead + emptyTr);
+  
+		  var downUrl =
+			sseQueryURL +
+			"commonSoaExcelDd.do?sqlId=FW_HGTZL_HGTSCSJ_HGTZQCYSL_L&secCodeName=" +
+			_this.params.queryParams.secCodeName +
+			"&tradeDate=" +
+			_this.params.queryParams.tradeDate;
+		  $(".js_holding_quantity h2.title_lev2").html(
+			"沪股通证券持有数量" +
+			  "<span class='new_date'>数据日期：" +
+			  _this.dateConversion(yearDate, _this.params.queryParams.quarter) +
+			  "</span><a id='download' class='tableDownload js_download_market' href='" +
+			  downUrl +
+			  "'>下载</a>"
+		  );
+		  $(".js_holding_quantity .pagination-box").html("");
+		},
+	  });
+	  //-----------------------------------------------------------------------
+	},
+  };
+  
+  //沪股通证券持有数量
+  if ($(".js_holding_quantity").length > 0) {
+	hgtzjcyslPage.methods.init();
+  }

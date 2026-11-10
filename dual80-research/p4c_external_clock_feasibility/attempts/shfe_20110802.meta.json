@@ -1,0 +1,25 @@
+{
+  "stem": "shfe_20110802",
+  "url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20110802.dat",
+  "referer": "https://www.shfe.com.cn/",
+  "status": 200,
+  "final_url": "https://www.shfe.com.cn/data/tradedata/future/dailydata/kx20110802.dat",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:07:14 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "39414",
+    "Last-Modified": "Wed, 20 Mar 2024 09:17:18 GMT",
+    "ETag": "\"65faa99e-99f6\"",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1;mode=block",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=31536000;includeSubDomains",
+    "Content-Security-Policy": "frame-ancestors 'self'",
+    "Cache-Control": "max-age=30",
+    "Accept-Ranges": "bytes",
+    "Connection": "close",
+    "Via": "1.1 ID-0001242763257547 uproxy-2"
+  },
+  "body_bytes": 39414,
+  "body_sha256": "9f0e6078f5e2af7fdce99c161d49d2012c0cacc7a16061adbaf0668a6ad52197"
+}

@@ -1,0 +1,22 @@
+{
+  "stem": "sse_hgt_page",
+  "url": "https://www.sse.com.cn/services/hkexsc/hgtscsj/hgtcjgk/",
+  "referer": "https://www.sse.com.cn/",
+  "status": 200,
+  "final_url": "https://www.sse.com.cn/services/hkexsc/hgtscsj/hgtcjgk/",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:05:33 GMT",
+    "Content-Type": "text/html",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042  'unsafe-inline' 'unsafe-eval';worker-src www.sse.com.cn play.szs.nagasoft.cn blob:;  frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 27758,
+  "body_sha256": "be433c3823c7c88c38143ec2d4f57c792a26480de420029cc7640a06ad8104c1"
+}

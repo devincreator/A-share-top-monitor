@@ -1,0 +1,26 @@
+{
+  "stem": "ine_20210913",
+  "url": "https://www.ine.cn/data/tradedata/future/dailydata/kx20210913.dat",
+  "referer": "https://www.ine.cn/",
+  "status": 200,
+  "final_url": "https://www.ine.cn/data/tradedata/future/dailydata/kx20210913.dat",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:07:20 GMT",
+    "Content-Type": "application/json",
+    "Content-Length": "27014",
+    "Last-Modified": "Mon, 23 Sep 2024 09:27:38 GMT",
+    "ETag": "\"66f1348a-6986\"",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1;mode=block",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=31536000;includeSubDomains",
+    "Content-Security-Policy": "frame-ancestors 'self'",
+    "Cache-Control": "no-store",
+    "Accept-Ranges": "bytes",
+    "Set-Cookie": "safeline_bot_token=0; SameSite=Lax; Max-Age=0; Secure",
+    "Connection": "close",
+    "Via": "1.1 ID-0001242763257547 uproxy-5"
+  },
+  "body_bytes": 27014,
+  "body_sha256": "6c52b9a40743bc9e40cfc03216bd059deb2bf7b5d758fa1db718c2702b01f208"
+}

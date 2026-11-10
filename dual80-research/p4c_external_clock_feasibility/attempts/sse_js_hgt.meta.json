@@ -1,0 +1,24 @@
+{
+  "stem": "sse_js_hgt",
+  "url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_southboundStock_2021.js",
+  "referer": "https://www.sse.com.cn/services/hkexsc/hgtscsj/hgtcjgk/",
+  "status": 200,
+  "final_url": "https://www.sse.com.cn/xhtml/home/2021public/querySearch/search_southboundStock_2021.js",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:07:21 GMT",
+    "Content-Type": "application/javascript",
+    "Content-Length": "158872",
+    "Connection": "close",
+    "Last-Modified": "Fri, 27 Feb 2026 08:44:11 GMT",
+    "ETag": "\"69a1595b-26c98\"",
+    "Accept-Ranges": "bytes",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042  'unsafe-inline' 'unsafe-eval';worker-src www.sse.com.cn play.szs.nagasoft.cn blob:;  frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 158872,
+  "body_sha256": "eed1410daa884591a9a54d0e4a84c5595c11cccfc1cee4b84ffd27d70e7c59c5"
+}

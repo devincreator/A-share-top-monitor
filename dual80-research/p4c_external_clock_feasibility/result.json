@@ -1,0 +1,14 @@
+{
+  "phase": "P4c",
+  "decision": "NO_CERTIFIABLE_FAMILY",
+  "certified_rows": 0,
+  "non_terminal_research_dates": 3658,
+  "coverage": "0/3658",
+  "families_searched": 11,
+  "families_collected": 0,
+  "formal_signal_allowed": false,
+  "family_admitted": false,
+  "model_fit": false,
+  "blind_test": false,
+  "PIT_certified": false
+}

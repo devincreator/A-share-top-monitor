@@ -1,0 +1,8 @@
+{
+  "stem": "szse_hgt_page",
+  "url": "https://www.szse.cn/szhk/szhktrade/index.html",
+  "referer": "https://www.szse.cn/",
+  "status": null,
+  "error": "URLError",
+  "detail": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>"
+}

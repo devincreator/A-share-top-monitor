@@ -1,0 +1,23 @@
+{
+  "stem": "sse_hgt_20110802",
+  "url": "https://query.sse.com.cn/commonSoaQuery.do?sqlId=FW_HGTZL_HGTSCSJ_HGTCJGK_MRTJ&tradeDate=20110802&isPagination=false",
+  "referer": "https://www.sse.com.cn/services/hkexsc/hgtscsj/hgtcjgk/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "https://query.sse.com.cn/commonSoaQuery.do?sqlId=FW_HGTZL_HGTSCSJ_HGTCJGK_MRTJ&tradeDate=20110802&isPagination=false",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:08:39 GMT",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Content-Length": "493",
+    "Connection": "close",
+    "Content-Language": "zh-CN",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042 'unsafe-inline' 'unsafe-eval'; frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 493,
+  "body_sha256": "8a56401728143ef0129364d90c5b5bfc58dee12f3f44a8ed4180638bbec0a474"
+}
