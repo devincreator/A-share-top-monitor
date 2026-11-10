@@ -1,0 +1,11 @@
+{
+  "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1837_xxpl&txtDate=2011-08-02&tab1PAGENO=1",
+  "referer": "https://www.szse.cn/disclosure/margin/margin/index.html",
+  "status": null,
+  "error": "URLError",
+  "detail": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>",
+  "blocked": false,
+  "transport_error": true,
+  "headers": {},
+  "body_sha256": null
+}

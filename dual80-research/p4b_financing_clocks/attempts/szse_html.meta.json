@@ -1,0 +1,27 @@
+{
+  "url": "https://www.szse.cn/disclosure/margin/margin/index.html",
+  "final_url": "https://www.szse.cn/disclosure/margin/margin/index.html",
+  "referer": "https://www.szse.cn/",
+  "status": 200,
+  "blocked": false,
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 09:35:48 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "31026",
+    "Connection": "close",
+    "Last-Modified": "Sat, 07 Nov 2026 15:09:11 GMT",
+    "ETag": "W/\"6aef3f17-7932\"",
+    "Expires": "Tue, 10 Nov 2026 09:35:47 GMT",
+    "Cache-Control": "no-cache",
+    "X-UA-Compatible": "IE=EDGE",
+    "Vary": "Accept-Encoding",
+    "X-Varnish": "532248438",
+    "Age": "0",
+    "Via": "1.1 varnish-v4",
+    "X-cache": "MISS",
+    "Accept-Ranges": "bytes"
+  },
+  "body_sha256": "f6949581e0ff06ffad901922d7e20d5433ac8e2a2bfcb85f9d49a6e594d7489d",
+  "body_bytes": 31026
+}

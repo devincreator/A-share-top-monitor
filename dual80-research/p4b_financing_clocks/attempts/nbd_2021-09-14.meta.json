@@ -1,0 +1,30 @@
+{
+  "url": "https://www.nbd.com.cn/articles/2021-09-14/1912369.html",
+  "final_url": "https://www.nbd.com.cn/articles/2021-09-14/1912369.html",
+  "referer": "https://www.nbd.com.cn/",
+  "status": 200,
+  "blocked": false,
+  "headers": {
+    "Server": "openresty",
+    "Date": "Tue, 10 Nov 2026 09:32:52 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Vary": "Origin",
+    "Status": "200 OK",
+    "debug_local_ip": "10.0.0.71",
+    "X-UA-Compatible": "IE=Edge,chrome=1",
+    "X-Request-Id": "8170d4f3724186c27f2cd008c1b24c3b",
+    "X-Runtime": "0.217109",
+    "X-Rack-Cache": "miss",
+    "X-Varnish": "399615007",
+    "Via": "1.1 varnish-v4",
+    "X-Cache": "MISS",
+    "X-Cache-Lookup": "Cache Miss",
+    "Cache-Control": "private, must-revalidate, max-age=0",
+    "Age": "0",
+    "Transfer-Encoding": "chunked",
+    "X-NWS-LOG-UUID": "5165732891367367706",
+    "Connection": "close"
+  },
+  "body_sha256": "a6eb845cb96255c8e360151c2a7c5c0759b86484137bc23f48d076e3e9598f21",
+  "body_bytes": 37972
+}
