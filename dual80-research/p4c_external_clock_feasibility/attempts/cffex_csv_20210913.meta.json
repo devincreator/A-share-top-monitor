@@ -1,0 +1,8 @@
+{
+  "stem": "cffex_csv_20210913",
+  "url": "https://www.cffex.com.cn/sj/hqsj/rtj/202109/13/20210913_1.csv",
+  "referer": "https://www.cffex.com.cn/",
+  "status": null,
+  "error": "URLError",
+  "detail": "<urlopen error _ssl.c:983: The handshake operation timed out>"
+}

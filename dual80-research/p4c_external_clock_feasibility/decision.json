@@ -1,0 +1,33 @@
+{
+  "decision": "NO_CERTIFIABLE_FAMILY",
+  "formal_signal_allowed": false,
+  "family_admitted": false,
+  "model_fit": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "p4a_decision": "NO_FAMILY_ADMITTED",
+  "p4b_decision": "CLOCKS_UNAVAILABLE",
+  "p4a_rewritten": false,
+  "p4b_rewritten": false,
+  "admission_gate_loosened": false,
+  "certified_rows": 0,
+  "non_terminal_research_dates": 3658,
+  "research_dates": 3659,
+  "coverage": "0/3658",
+  "families_searched": 11,
+  "families_with_certifiable_clock": 0,
+  "families_collected": 0,
+  "deferred_families": [],
+  "date_range": [
+    "2011-08-02",
+    "2026-08-25"
+  ],
+  "canonical_disclosure_table_written": false,
+  "english": "NO_CERTIFIABLE_FAMILY. Certified pre-09:15 clocks: 0/3658 non-terminal research dates from 2011-08-02 to 2026-08-25 (3659 rows, the last date has no next session). Families searched: 11. Families with a certifiable clock: 0. Families collected: 0. SSE northbound and SSE daily market statistics return tradeDate and values on 2026-08-25 and no publication time; the 2011-08-02, 2020-07-13, and 2021-09-13 queries returned empty results. HKEX daily files that returned HTTP 200 carry a trading date and no publication time; 2014-11-17, 2021-09-13, 2024-01-02, and 2025-11-06 returned HTTP 404. CSI 000985 and H11001 rows are tradeDate plus prices. cninfo announcementTime values are integers with no timezone, on company documents, not a session-level index field. SHFE update_date and print_date have no timezone; on 2011-08-02 both read 2015-06-05, so they are file update times. The saved SHFE daily-data page and trading-hours page do not contain 北京时间. CFFEX HTTPS timed out and the HTTP CSV has no time column. DCE HTTPS timed out and the HTTP page returned 412. SZSE API requests failed the TLS handshake. No second host was used. NBS PubDate values have no timezone. The PBOC createDate is one time on a section page. SSE news dates and 页面生成时间 are not session clocks. No family was admitted and no score was fit. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a formal signal. P4a remains NO_FAMILY_ADMITTED. P4b remains CLOCKS_UNAVAILABLE. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. P1c remains BLOCKED_NO_WINDOW_PEAK. P1d remains GO_NEW_FACTORS.",
+  "chinese": "NO_CERTIFIABLE_FAMILY。认证的、早于下一研究日 09:15 的披露时点是 0/3658 （研究日历 2011-08-02 至 2026-08-25 共 3659 日，最后一日没有下一交易日）。检索家族 11 个。有可认证时钟的家族 0 个。本轮收集的家族 0 个。上交所沪股通和每日成交概况在 2026-08-25 返回交易日和数值，没有公布时间；2011-08-02、2020-07-13、2021-09-13 的结果为空。港交所返回 HTTP 200 的日文件只有交易日，没有公布时间；2014-11-17、2021-09-13、2024-01-02、2025-11-06 为 HTTP 404。中证指数 000985 与中证全债 H11001 的行是交易日加行情。巨潮公告的 announcementTime 是没有时区的整数，挂在公司文件上，不是指数的一个交易日字段。上期所 update_date 和 print_date 没有时区；2011-08-02 这两项都是 2015-06-05，所以它们是文件更新时间。已保存的上期所日周数据页和交易时间页没有“北京时间”。中金所 HTTPS 超时，HTTP CSV 没有时间列。大商所 HTTPS 超时，HTTP 页面状态 412。深交所数据接口 TLS 握手失败。没有改用另一台主机。统计局 PubDate 没有时区。人民银行 createDate 是栏目页上的一个时间。上交所新闻列表上的日期和页面生成时间不是交易日字段的披露时钟。没有准入任何家族，也没有拟合分数。formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是正式信号。P4a 仍是 NO_FAMILY_ADMITTED。P4b 仍是 CLOCKS_UNAVAILABLE。P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。P1c 仍是 BLOCKED_NO_WINDOW_PEAK。P1d 仍是 GO_NEW_FACTORS。",
+  "p1_decision": "BLOCKED_NO_CONCENTRATION",
+  "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+  "p1c_decision": "BLOCKED_NO_WINDOW_PEAK",
+  "p1d_decision": "GO_NEW_FACTORS"
+}

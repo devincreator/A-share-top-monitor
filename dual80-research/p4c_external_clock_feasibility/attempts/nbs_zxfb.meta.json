@@ -1,0 +1,16 @@
+{
+  "stem": "nbs_zxfb",
+  "url": "https://www.stats.gov.cn/sj/zxfb/",
+  "referer": "https://www.stats.gov.cn/",
+  "status": 200,
+  "final_url": "https://www.stats.gov.cn/sj/zxfb/",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:06:20 GMT",
+    "Content-Type": "text/html",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "WZWS-RAY": "1129-1794333980.991-waf02fst"
+  },
+  "body_bytes": 73422,
+  "body_sha256": "145788165fcbebe0546914ac4d91dcc637c722966d1d03bbbd531f9676675655"
+}

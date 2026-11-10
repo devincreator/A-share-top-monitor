@@ -1,0 +1,18 @@
+{
+  "stem": "nbs_old_try",
+  "url": "https://www.stats.gov.cn/sj/zxfb/202109/t20210909_1821908.html",
+  "referer": "https://www.stats.gov.cn/sj/zxfb/",
+  "method": "GET",
+  "status": 404,
+  "error": "HTTPError",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:09:04 GMT",
+    "Content-Type": "text/html",
+    "Content-Length": "153",
+    "Connection": "close",
+    "WZWS-RAY": "014-1794305344.848-src-cache03fst-waf03fst",
+    "VAR-Cache": "miss:Primer"
+  },
+  "body_bytes": 153,
+  "body_sha256": "6807c84bf35d67496e020c1528303b87d4759933c09817e514a7159ac689d352"
+}

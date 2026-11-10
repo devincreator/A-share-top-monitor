@@ -1,0 +1,22 @@
+{
+  "stem": "sse_news_page",
+  "url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/",
+  "referer": "https://www.sse.com.cn/",
+  "status": 200,
+  "final_url": "https://www.sse.com.cn/aboutus/mediacenter/hotandd/",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:10:55 GMT",
+    "Content-Type": "text/html",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042  'unsafe-inline' 'unsafe-eval';worker-src www.sse.com.cn play.szs.nagasoft.cn blob:;  frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 32437,
+  "body_sha256": "4f3dad623b685dcc838301543d343349abb5513def1fe7293b4da4cae3520a95"
+}

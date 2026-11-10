@@ -1,0 +1,432 @@
+tabData = [
+	{
+		"id": 0,
+		"date": "2026-11-06",
+		"market": "SSE Northbound",
+		"tradingDay": 1,
+		"content": [
+			{
+				"style": 1,
+				"table": {
+					"classname": "tradingTable",
+					"schema": [
+						["Total Turnover", "Total Trade Count", "DQB", "ETF Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["128,368.26"]
+							]
+						},
+						{
+							"td": [
+								["7,046,717"]
+							]
+						},
+						{
+							"td": [
+								["999,999,999"]
+							]
+						},
+						{
+							"td": [
+								["2,647.99"]
+							]
+						}
+					]
+				}
+			},
+			{
+				"style": 2,
+				"table": {
+					"classname": "top10Table",
+					"schema": [
+						["Rank", "Stock Code", "Stock Name", "Total Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["1", "600519", "KWEICHOW MOUTAI", "3,208,717,020"]
+							]
+						},
+						{
+							"td": [
+								["2", "600900", "CHINA YANGTZE POWER", "1,674,712,260"]
+							]
+						},
+						{
+							"td": [
+								["3", "603259", "WUXI APPTEC", "1,651,780,622"]
+							]
+						},
+						{
+							"td": [
+								["4", "600183", "SHENGYI TECHNOLOGY", "1,625,657,421"]
+							]
+						},
+						{
+							"td": [
+								["5", "688256", "CAMBRICON TECHNOLOGIES CORPORATION", "1,566,082,017"]
+							]
+						},
+						{
+							"td": [
+								["6", "688008", "MONTAGE TECHNOLOGY", "1,337,833,497"]
+							]
+						},
+						{
+							"td": [
+								["7", "601899", "ZIJIN MINING", "1,262,573,459"]
+							]
+						},
+						{
+							"td": [
+								["8", "600036", "CHINA MERCHANTS BANK", "1,197,658,233"]
+							]
+						},
+						{
+							"td": [
+								["9", "688012", "ADVANCED MICRO-FABRICATION EQUIPMENT", "1,083,819,929"]
+							]
+						},
+						{
+							"td": [
+								["10", "601318", "PING AN INSURANCE", "1,039,424,500"]
+							]
+						}
+					]
+				}
+			}
+		]
+	},
+	{
+		"id": 1,
+		"date": "2026-11-06",
+		"market": "SSE Southbound",
+		"tradingDay": 1,
+		"content": [
+			{
+				"style": 1,
+				"table": {
+					"classname": "tradingTable",
+					"schema": [
+						["Total Turnover", "Buy Turnover", "Sell Turnover", "Total Trade Count", "Buy Trade Count", "Sell Trade Count", "ETF Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["55,195.89"]
+							]
+						},
+						{
+							"td": [
+								["29,551.77"]
+							]
+						},
+						{
+							"td": [
+								["25,644.12"]
+							]
+						},
+						{
+							"td": [
+								["1,307,615"]
+							]
+						},
+						{
+							"td": [
+								["701,975"]
+							]
+						},
+						{
+							"td": [
+								["605,640"]
+							]
+						},
+						{
+							"td": [
+								["1,058.21"]
+							]
+						}
+					]
+				}
+			},
+			{
+				"style": 2,
+				"table": {
+					"classname": "top10Table",
+					"schema": [
+						["Rank", "Stock Code", "Stock Name", "Buy Turnover", "Sell Turnover", "Total Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["1", "00700", "TENCENT", "2,255,750,760", "1,733,953,848", "3,989,704,608"]
+							]
+						},
+						{
+							"td": [
+								["2", "01347", "HUA HONG GRACE", "1,502,349,500", "1,068,097,322", "2,570,446,822"]
+							]
+						},
+						{
+							"td": [
+								["3", "01810", "XIAOMI-W", "881,393,376", "1,679,288,788", "2,560,682,164"]
+							]
+						},
+						{
+							"td": [
+								["4", "06869", "YOFC", "887,172,500", "1,235,703,475", "2,122,875,975"]
+							]
+						},
+						{
+							"td": [
+								["5", "00981", "SMIC", "1,278,929,560", "798,064,967", "2,076,994,527"]
+							]
+						},
+						{
+							"td": [
+								["6", "02513", "Z.AI", "1,034,460,680", "882,060,677", "1,916,521,357"]
+							]
+						},
+						{
+							"td": [
+								["7", "09988", "BABA-W", "1,203,751,220", "612,615,022", "1,816,366,242"]
+							]
+						},
+						{
+							"td": [
+								["8", "01888", "KB LAMINATES", "670,377,200", "1,077,805,730", "1,748,182,930"]
+							]
+						},
+						{
+							"td": [
+								["9", "03690", "MEITUAN-W", "742,614,290", "358,512,509", "1,101,126,799"]
+							]
+						},
+						{
+							"td": [
+								["10", "03308", "ZJ INNOLIGHT", "506,546,325", "496,558,425", "1,003,104,750"]
+							]
+						}
+					]
+				}
+			}
+		]
+	},
+	{
+		"id": 2,
+		"date": "2026-11-06",
+		"market": "SZSE Northbound",
+		"tradingDay": 1,
+		"content": [
+			{
+				"style": 1,
+				"table": {
+					"classname": "tradingTable",
+					"schema": [
+						["Total Turnover", "Total Trade Count", "DQB", "ETF Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["134,225.04"]
+							]
+						},
+						{
+							"td": [
+								["7,546,945"]
+							]
+						},
+						{
+							"td": [
+								["999,999,999"]
+							]
+						},
+						{
+							"td": [
+								["2,472.85"]
+							]
+						}
+					]
+				}
+			},
+			{
+				"style": 2,
+				"table": {
+					"classname": "top10Table",
+					"schema": [
+						["Rank", "Stock Code", "Stock Name", "Total Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["1", "300308", "ZHONGJI INNOLIGHT", "4,603,464,902"]
+							]
+						},
+						{
+							"td": [
+								["2", "300750", "CONTEMPORARY AMPEREX TECHNOLOGY", "3,677,522,336"]
+							]
+						},
+						{
+							"td": [
+								["3", "300502", "EOPTOLINK TECHNOLOGY", "2,691,975,741"]
+							]
+						},
+						{
+							"td": [
+								["4", "2371", "NAURA TECHNOLOGY GROUP", "2,119,856,896"]
+							]
+						},
+						{
+							"td": [
+								["5", "300274", "SUNGROW POWER SUPPLY", "1,460,590,737"]
+							]
+						},
+						{
+							"td": [
+								["6", "2475", "LUXSHARE PRECISION INDUSTRY", "1,389,270,873"]
+							]
+						},
+						{
+							"td": [
+								["7", "2384", "SUZHOU DONGSHAN PRECISION MANUFACTURING", "1,310,896,982"]
+							]
+						},
+						{
+							"td": [
+								["8", "300408", "CHAOZHOU THREE-CIRCLE GROUP", "1,260,606,230"]
+							]
+						},
+						{
+							"td": [
+								["9", "2463", "WUS PRINTED CIRCUIT KUNSHAN", "1,010,286,316"]
+							]
+						},
+						{
+							"td": [
+								["10", "2916", "SHENNAN CIRCUITS", "949,769,342"]
+							]
+						}
+					]
+				}
+			}
+		]
+	},
+	{
+		"id": 3,
+		"date": "2026-11-06",
+		"market": "SZSE Southbound",
+		"tradingDay": 1,
+		"content": [
+			{
+				"style": 1,
+				"table": {
+					"classname": "tradingTable",
+					"schema": [
+						["Total Turnover", "Buy Turnover", "Sell Turnover", "Total Trade Count", "Buy Trade Count", "Sell Trade Count", "ETF Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["31,818.70"]
+							]
+						},
+						{
+							"td": [
+								["15,162.98"]
+							]
+						},
+						{
+							"td": [
+								["16,655.72"]
+							]
+						},
+						{
+							"td": [
+								["776,373"]
+							]
+						},
+						{
+							"td": [
+								["370,454"]
+							]
+						},
+						{
+							"td": [
+								["405,919"]
+							]
+						},
+						{
+							"td": [
+								["668.20"]
+							]
+						}
+					]
+				}
+			},
+			{
+				"style": 2,
+				"table": {
+					"classname": "top10Table",
+					"schema": [
+						["Rank", "Stock Code", "Stock Name", "Buy Turnover", "Sell Turnover", "Total Turnover"]
+					],
+					"tr": [
+						{
+							"td": [
+								["1", "00700", "TENCENT", "1,170,452,220", "932,092,020", "2,102,544,240"]
+							]
+						},
+						{
+							"td": [
+								["2", "09988", "BABA-W", "871,360,050", "866,683,510", "1,738,043,560"]
+							]
+						},
+						{
+							"td": [
+								["3", "01810", "XIAOMI-W", "513,102,716", "939,256,092", "1,452,358,808"]
+							]
+						},
+						{
+							"td": [
+								["4", "00981", "SMIC", "448,370,000", "917,304,575", "1,365,674,575"]
+							]
+						},
+						{
+							"td": [
+								["5", "06869", "YOFC", "339,085,450", "760,972,979", "1,100,058,429"]
+							]
+						},
+						{
+							"td": [
+								["6", "01347", "HUA HONG GRACE", "508,191,150", "565,100,100", "1,073,291,250"]
+							]
+						},
+						{
+							"td": [
+								["7", "02513", "Z.AI", "454,354,460", "532,830,700", "987,185,160"]
+							]
+						},
+						{
+							"td": [
+								["8", "03690", "MEITUAN-W", "560,278,065", "288,844,514", "849,122,579"]
+							]
+						},
+						{
+							"td": [
+								["9", "01888", "KB LAMINATES", "219,571,320", "538,127,363", "757,698,683"]
+							]
+						},
+						{
+							"td": [
+								["10", "02331", "LI NING", "183,750,080", "238,652,745", "422,402,825"]
+							]
+						}
+					]
+				}
+			}
+		]
+	}
+]

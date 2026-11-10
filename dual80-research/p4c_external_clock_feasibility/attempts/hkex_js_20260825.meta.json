@@ -1,0 +1,19 @@
+{
+  "stem": "hkex_js_20260825",
+  "url": "https://www.hkex.com.hk/eng/csm/DailyStat/data_tab_daily_20260825e.js",
+  "referer": "https://www.hkex.com.hk/Mutual-Market/Stock-Connect/Statistics/Historical-Daily?sc_lang=en",
+  "status": 200,
+  "final_url": "https://www.hkex.com.hk/eng/csm/DailyStat/data_tab_daily_20260825e.js",
+  "headers": {
+    "Content-Type": "application/javascript",
+    "Last-Modified": "Tue, 25 Aug 2026 09:27:29 GMT",
+    "ETag": "\"8016c7f27334dd1:0\"",
+    "Strict-Transport-Security": "max-age=480",
+    "Vary": "Accept-Encoding",
+    "Date": "Tue, 10 Nov 2026 10:07:28 GMT",
+    "Content-Length": "8639",
+    "Connection": "close"
+  },
+  "body_bytes": 8639,
+  "body_sha256": "aceace5578e7beea1eaefd3c4a54feefa5dc907bd775d794648a15639756119c"
+}

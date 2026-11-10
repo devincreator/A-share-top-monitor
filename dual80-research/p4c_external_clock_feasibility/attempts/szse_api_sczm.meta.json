@@ -1,0 +1,8 @@
+{
+  "stem": "szse_api_sczm",
+  "url": "https://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1803_sczm&TABKEY=tab1",
+  "referer": "https://www.szse.cn/market/overview/index.html",
+  "status": null,
+  "error": "URLError",
+  "detail": "<urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>"
+}

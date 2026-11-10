@@ -1,0 +1,22 @@
+{
+  "stem": "shfe_daily_page",
+  "url": "https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/",
+  "referer": "https://www.shfe.com.cn/",
+  "status": 200,
+  "final_url": "https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:10:48 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1;mode=block",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=31536000;includeSubDomains",
+    "Content-Security-Policy": "frame-ancestors 'self'",
+    "Cache-Control": "max-age=30",
+    "Connection": "close",
+    "Via": "1.1 ID-0001242763257547 uproxy-4"
+  },
+  "body_bytes": 543804,
+  "body_sha256": "8fab67a947135e2c6ba534ef3939ce04e992a637e4cbf9afb0fedaac330ec235"
+}

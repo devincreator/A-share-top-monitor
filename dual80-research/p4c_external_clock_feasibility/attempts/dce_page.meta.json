@@ -1,0 +1,18 @@
+{
+  "stem": "dce_page",
+  "url": "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
+  "referer": "http://www.dce.com.cn/",
+  "method": "GET",
+  "status": 412,
+  "error": "HTTPError",
+  "headers": {
+    "Server": "******",
+    "Date": "Tue, 10 Nov 2026 10:09:11 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Set-Cookie": "hNUS9DnJtejwS=qaf3IAOm8h5A82DJILA0CDohwFAOH_C1ypgGXBx7BrZ_1niglpDrUgLfYqPooeI9Yr3RdrozyvL8MQLOPdK71vJmrj0xVPfRdq8tprhL5QskE; Path=/; expires=Fri, 07 Nov 2036 10:09:11 GMT; HttpOnly"
+  },
+  "body_bytes": 2760,
+  "body_sha256": "fde5718f98b937edcd211938ffe9e5be309b6346c4be11a3372b754941fdea33"
+}

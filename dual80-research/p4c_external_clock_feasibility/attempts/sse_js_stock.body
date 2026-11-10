@@ -1,0 +1,4969 @@
+/**
+ * 股票数据-股票数据总貌-总貌
+ */
+String.prototype.num_toFixed = function (num) {
+  var _this = "";
+  if (Number(this)) {
+    if (Number(this) === 0) {
+      _this = "0";
+    } else {
+      _this = Number(this).toFixed(num);
+    }
+  } else if (this == "-") {
+    _this = "0";
+  } else {
+    _this = this;
+  }
+  if (_this % 1 === 0) {
+    _this = parseInt(_this);
+  }
+  return _this;
+};
+String.prototype.str_toFixed = function (num) {
+  var _this = "";
+  if (Number(this) === 0) {
+    _this = "0";
+  } else if (this == "-") {
+    _this = "-";
+  } else {
+    _this = parseFloat(Number(this).toFixed(num));
+  }
+  return _this;
+};
+// 合并原有逻辑
+var statisticalOverview = {
+  statisticalOverviewUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  statisticalOverviewParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L",
+    PRODUCT_NAME: "股票,主板,科创板",
+    type: "inParams",
+    TRADE_DATE: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    _this.getstatisticalOverviewList();
+  },
+  getstatisticalOverviewList: function () {
+    var _this = this;
+    var emptyHtml = '';
+    emptyHtml += "<p><span>上市股票/只</span><b>-</b></p>";
+    emptyHtml += "<p><span>总股本/亿股</span><b>-</b></p>";
+    emptyHtml += "<p><span>流通股本/亿股</span><b>-</b></p>";
+    emptyHtml += "<p><span>总市值/亿元</span><b>-</b></p>";
+    emptyHtml += "<p><span>流通市值/亿元</span><b>-</b></p>";
+    emptyHtml += "<p><span>平均市盈率/倍</span><b>-</b></p>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.statisticalOverviewUrl,
+      data: _this.statisticalOverviewParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            if (v.PRODUCT_NAME === "股票") {
+              var statisticalOverviewHtml =
+                "<p><span>上市公司/家</span><b>" +
+                (v.LIST_COM_NUM ? v.LIST_COM_NUM : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>上市股票/只</span><b>" +
+                (v.SECURITY_NUM ? v.SECURITY_NUM : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>总股本/亿股</span><b>" +
+                (v.TOTAL_ISSUE_VOL ? parseFloat(v.TOTAL_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>流通股本/亿股</span><b>" +
+                (v.NEGO_ISSUE_VOL ? parseFloat(v.NEGO_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>总市值/亿元</span><b>" +
+                (v.TOTAL_VALUE ? parseFloat(v.TOTAL_VALUE) : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>流通市值/亿元</span><b>" +
+                (v.NEGO_VALUE ? parseFloat(v.NEGO_VALUE) : "-") +
+                "</b></p>";
+              statisticalOverviewHtml +=
+                "<p><span>平均市盈率/倍</span><b>" +
+                (v.AVG_PE_RATIO ? v.AVG_PE_RATIO.num_toFixed(2) : "-") +
+                "</b></p>";
+              $(".js_statisticalOverview .js_dataCon").html(
+                statisticalOverviewHtml
+              );
+              var downUrl =
+                sseQueryURL +
+                "commonExcelDd.do?sqlId=COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L&PRODUCT_NAME=" +
+                "股票,主板,科创板" + "&type=inParams&TRADE_DATE=" + turnDateAddLine(v.TRADE_DATE);
+              var downHtm =
+                '<a class="tableDownload js_download-export" href="' +
+                downUrl +
+                '">' +
+                "下载</a>";
+              $(".title_lev2").html('统计数据<span class="new_date">数据日期：' +
+                turnDateAddLine(v.TRADE_DATE) +
+                "</span>" + downHtm)
+              $(".js_date input").val(turnDateAddLine(v.TRADE_DATE));
+              //日期
+              laydate({
+                elem: ".js_date input",
+                theme: "#b50005",
+                format: "yyyy-MM-dd",
+                trigger: "click",
+                // min: "1991-01-01",
+                // max: v.TRADE_DATE,
+                btns: ["confirm"],
+                done: function (value, date, endDate) {
+                  //选择时间触发查询
+                  setTimeout(function () {
+                    _this.statisticalOverviewParams.TRADE_DATE = $(".js_date input").val();
+                    _this.getstatisticalOverviewList();
+                  }, 500);
+                },
+              });
+            } else if (v.PRODUCT_NAME === "主板") {
+              var statisticalMainHtml = "";
+              statisticalMainHtml +=
+                "<p><span>上市股票/只</span><b>" +
+                (v.SECURITY_NUM ? v.SECURITY_NUM : "-") +
+                "</b></p>";
+              statisticalMainHtml +=
+                "<p><span>总股本/亿股</span><b>" +
+                (v.TOTAL_ISSUE_VOL ? parseFloat(v.TOTAL_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalMainHtml +=
+                "<p><span>流通股本/亿股</span><b>" +
+                (v.NEGO_ISSUE_VOL ? parseFloat(v.NEGO_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalMainHtml +=
+                "<p><span>总市值/亿元</span><b>" +
+                (v.TOTAL_VALUE ? parseFloat(v.TOTAL_VALUE) : "-") +
+                "</b></p>";
+              statisticalMainHtml +=
+                "<p><span>流通市值/亿元</span><b>" +
+                (v.NEGO_VALUE ? parseFloat(v.NEGO_VALUE) : "-") +
+                "</b></p>";
+              statisticalMainHtml +=
+                "<p><span>平均市盈率/倍</span><b>" +
+                (v.AVG_PE_RATIO ? v.AVG_PE_RATIO.num_toFixed(2) : "-") +
+                "</b></p>";
+              $(".js_statisticalMaina .js_dataCon").html(statisticalMainHtml);
+            } else if (v.PRODUCT_NAME === "科创板") {
+              var statisticalStarHtml = "";
+              statisticalStarHtml +=
+                "<p><span>上市股票/只</span><b>" +
+                (v.SECURITY_NUM ? v.SECURITY_NUM : "-") +
+                "</b></p>";
+              statisticalStarHtml +=
+                "<p><span>总股本/亿股</span><b>" +
+                (v.TOTAL_ISSUE_VOL ? parseFloat(v.TOTAL_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalStarHtml +=
+                "<p><span>流通股本/亿股</span><b>" +
+                (v.NEGO_ISSUE_VOL ? parseFloat(v.NEGO_ISSUE_VOL) : "-") +
+                "</b></p>";
+              statisticalStarHtml +=
+                "<p><span>总市值/亿元</span><b>" +
+                (v.TOTAL_VALUE ? parseFloat(v.TOTAL_VALUE) : "-") +
+                "</b></p>";
+              statisticalStarHtml +=
+                "<p><span>流通市值/亿元</span><b>" +
+                (v.NEGO_VALUE ? parseFloat(v.NEGO_VALUE) : "-") +
+                "</b></p>";
+              statisticalStarHtml +=
+                "<p><span>平均市盈率/倍</span><b>" +
+                (v.AVG_PE_RATIO ? v.AVG_PE_RATIO.num_toFixed(2) : "-") +
+                "</b></p>";
+              $(".js_statisticalStar .js_dataCon").html(statisticalStarHtml);
+            }
+          });
+        } else {
+          var downUrl =
+            sseQueryURL +
+            "commonExcelDd.do?sqlId=COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L&PRODUCT_NAME=" +
+            "股票,主板,科创板" + "&type=inParams&TRADE_DATE=" + $(".js_date input").val();
+          var downHtm =
+            '<a class="tableDownload js_download-export" href="' +
+            downUrl +
+            '">' +
+            "下载</a>";
+          $(".title_lev2").html('统计数据<span class="new_date">数据日期：' +
+            $(".js_date input").val() +
+            "</span>" + downHtm)
+          $(".js_statisticalOverview .js_dataCon").html('<p><span>上市公司/家</span><b>-</b></p>' + emptyHtml);
+          $(".js_statisticalMaina .js_dataCon").html(emptyHtml);
+          $(".js_statisticalStar .js_dataCon").html(emptyHtml);
+        }
+      },
+      errCallback: function () {
+        var downUrl =
+          sseQueryURL +
+          "commonExcelDd.do?sqlId=COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L&PRODUCT_NAME=" +
+          "股票,主板,科创板" + "&type=inParams&TRADE_DATE=" + $(".js_date input").val();
+        var downHtm =
+          '<a class="tableDownload js_download-export" href="' +
+          downUrl +
+          '">' +
+          "下载</a>";
+        $(".title_lev2").html('统计数据<span class="new_date">数据日期：' +
+          t$(".js_date input").val() +
+          "</span>" + downHtm)
+        $(".js_statisticalOverview .js_dataCon").html('<p><span>上市公司/家</span><b>-</b></p>' + emptyHtml);
+        $(".js_statisticalMain .js_dataCon").html(emptyHtml);
+        $(".js_statisticalStar .js_dataCon").html(emptyHtml);
+      },
+    });
+  },
+};
+if ($(".js_statisticalOverview").length > 0) {
+  statisticalOverview.init();
+}
+
+/**
+* 股票成交概况-每日概况
+*/
+var overviewDay = {
+  indexNum: 0,
+  overviewDayUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  overviewDayParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C",
+    PRODUCT_CODE: "01,02,03,11,17",
+    type: "inParams",
+    SEARCH_DATE: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期范围渲染
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setOverviewDayParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setOverviewDayParams);
+    //初始加载
+    _this.getOverviewDayList();
+  },
+  setOverviewDayParams: function () {
+    var _this = overviewDay;
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : "";
+    _this.overviewDayParams.SEARCH_DATE = searchDate;
+    $(".js_overviewDay .title_lev2 .new_date").html("数据日期：" + searchDate);
+    _this.getOverviewDayList();
+  },
+  getOverviewDayList: function () {
+    var _this = this;
+    var emptyTr = '<tr><td colspan="6">暂无数据</td></tr>';
+    var overviewDayHtml = "<thead><tr>";
+    overviewDayHtml += "<th>单日情况</th>";
+    overviewDayHtml += '<th class="text-right">股票</th>';
+    overviewDayHtml += '<th class="text-right">主板A</th>';
+    overviewDayHtml += '<th class="text-right">主板B</th>';
+    overviewDayHtml += '<th class="text-right">科创板</th>';
+    overviewDayHtml += '<th class="text-right">股票回购</th>';
+    overviewDayHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.overviewDayUrl,
+      data: _this.overviewDayParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          //初次加载 更新数据日期及插件日期
+          if (_this.indexNum == 0) {
+            _this.indexNum = 1;
+            var dataDate = data.result[0].TRADE_DATE ?
+              turnDateAddLine(data.result[0].TRADE_DATE).substr(0, 10) :
+              "";
+            $(".js_overviewDay .title_lev2 .new_date").html(
+              "数据日期：" + dataDate
+            );
+            $(".js_date input").val(dataDate);
+          }
+          var resultDatas = [],
+            tableTitle = [
+              "",
+              "挂牌数",
+              "市价总值(亿元)",
+              "流通市值(亿元)",
+              "成交金额(亿元)",
+              "成交量(亿股/亿份)",
+              "平均市盈率(倍)",
+              "换手率(%)",
+              "流通换手率(%)",
+            ];
+          $.each(data.result, function (k, v) {
+            var resultData = [];
+            //数组传入顺序固定，与表格第一列抱持一致，类型作为行数据获取标准（通过类型下标获取行数据）
+            resultData.push(v.PRODUCT_CODE); //股票类型
+
+            resultData.push(v.LIST_NUM); //挂牌数
+            resultData.push(v.TOTAL_VALUE.str_toFixed(2)); //市价总值(亿元)
+            resultData.push(v.NEGO_VALUE.str_toFixed(2)); //流通市值(亿元)
+            resultData.push(v.TRADE_AMT.str_toFixed(2)); //成交金额(亿元)
+            resultData.push(v.TRADE_VOL.str_toFixed(2)); //成交量(亿股/亿份)
+            resultData.push(v.AVG_PE_RATE.str_toFixed(4)); //平均市盈率(倍)
+            resultData.push(v.TOTAL_TO_RATE.str_toFixed(4)); //换手率(%)
+            resultData.push(v.NEGO_TO_RATE.str_toFixed(4)); //流通换手率(%)
+
+            resultDatas.push(resultData);
+          });
+          //横向变纵向
+          resultDatas = changearr(resultDatas);
+          //获取下标 股票17 主板A 01 主板B 02 科创板 03 股票回购 11
+          var STOCKINDEX = resultDatas[0].indexOf("17"); //股票下标
+          var ASHAREINDEX = resultDatas[0].indexOf("01"); //主板A下标
+          var BSHAREINDEX = resultDatas[0].indexOf("02"); //主板B下标
+          var STARINDEX = resultDatas[0].indexOf("03"); //科创板下标
+          var STOCKBUYBACKINDEX = resultDatas[0].indexOf("11"); //股票回购 下标
+          $.each(resultDatas, function (k, v) {
+            if (k > 0 && k < 11) {
+              overviewDayHtml += "<tr>";
+              overviewDayHtml +=
+                '<td class="text-nowrap">' + tableTitle[k] + "</td>"; //单日情况
+              overviewDayHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKINDEX != -1 ? v[STOCKINDEX] : "-") +
+                "</td>"; //股票
+              overviewDayHtml +=
+                '<td class="text-right text-nowrap">' +
+                (ASHAREINDEX != -1 ? v[ASHAREINDEX] : "-") +
+                "</td>"; //主板A
+              overviewDayHtml +=
+                '<td class="text-right text-nowrap">' +
+                (BSHAREINDEX != -1 ? v[BSHAREINDEX] : "-") +
+                "</td>"; //主板B
+              overviewDayHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STARINDEX != -1 ? v[STARINDEX] : "-") +
+                "</td>"; //科创板
+              overviewDayHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKBUYBACKINDEX != -1 ? v[STOCKBUYBACKINDEX] : "-") +
+                "</td>"; //股票回购
+              overviewDayHtml += "</tr>";
+            }
+          });
+          overviewDayHtml += "</tbody>";
+          $(".js_overviewDay .table").html(overviewDayHtml);
+        } else {
+          overviewDayHtml += emptyTr;
+          overviewDayHtml += "</tbody>";
+          $(".js_overviewDay .table").html(overviewDayHtml);
+        }
+      },
+      errCallback: function () {
+        overviewDayHtml += emptyTr;
+        overviewDayHtml += "</tbody>";
+        $(".js_overviewDay .table").html(overviewDayHtml);
+      },
+    });
+  },
+};
+if ($(".js_overviewDay").length > 0) {
+  overviewDay.init();
+}
+//股票成交概况-每日概况 END
+
+/**
+* 股票成交概况-每周概况
+*/
+var overviewWeekly = {
+  todayDate: get_systemDate_global(),
+  overviewWeeklyUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  isfrist: true, // 默认首次访问
+  overviewWeeklyParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_CJGK_MZGK_C",
+    PRODUCT_CODE: "01,02,03,11,17",
+    type: "inParams",
+    START_DATE: "",
+    END_DATE: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期范围渲染
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setOverviewWeeklyParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setOverviewWeeklyParams);
+    //初始加载
+    var dayNum = new Date(_this.todayDate).getDay();
+    var day = getXDayString(_this.todayDate, 5); //获取本周五
+    if (!(dayNum == 6 || dayNum == 0)) {
+      var friday = new Date(day);
+      friday.setDate(friday.getDate() - 7);
+      day = turnDateToString(friday); //获取上周五
+    }
+    var monday = getXDayString(day, 1);
+    var sunday = getXDayString(day, 7);
+    $(".js_date input").val(day);
+    $(".js_overviewWeekly .title_lev2 .new_date").html(
+      "数据日期：" + monday + "至" + sunday
+    );
+    _this.overviewWeeklyParams.START_DATE = monday;
+    _this.overviewWeeklyParams.END_DATE = sunday;
+    _this.getOverviewWeeklyList();
+  },
+  setOverviewWeeklyParams: function () {
+    var _this = overviewWeekly;
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : "";
+    var monday = getXDayString(searchDate, 1);
+    var sunday = getXDayString(searchDate, 7);
+    $(".js_overviewWeekly .title_lev2 .new_date").html(
+      "数据日期：" + monday + "至" + sunday
+    );
+    _this.overviewWeeklyParams.START_DATE = monday;
+    _this.overviewWeeklyParams.END_DATE = sunday;
+    _this.getOverviewWeeklyList();
+  },
+  getOverviewWeeklyList: function () {
+    var _this = this;
+    if (_this.isfrist) {
+      _this.overviewWeeklyParams.START_DATE = "";
+      _this.overviewWeeklyParams.END_DATE = "";
+    }
+    var emptyTr = '<tr><td colspan="6">暂无数据</td></tr>';
+    var overviewWeeklyHtml = "<thead><tr>";
+    overviewWeeklyHtml += "<th>本周情况</th>";
+    overviewWeeklyHtml += '<th class="text-right">股票</th>';
+    overviewWeeklyHtml += '<th class="text-right">主板A</th>';
+    overviewWeeklyHtml += '<th class="text-right">主板B</th>';
+    overviewWeeklyHtml += '<th class="text-right">科创板</th>';
+    overviewWeeklyHtml += '<th class="text-right">股票回购</th>';
+    overviewWeeklyHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.overviewWeeklyUrl,
+      data: _this.overviewWeeklyParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          var resultDatas = [],
+            tableTitle = [
+              "",
+              "挂牌数",
+              "市价总值(亿元)",
+              "流通市值(亿元)",
+              "成交金额(亿元)",
+              "最高成交金额(亿元)",
+              "最低成交金额(亿元)",
+              "成交量(亿股/亿份)",
+              "最高成交量(亿股/亿份)",
+              "最低成交量(亿股/亿份)",
+              "平均市盈率(倍)",
+              "换手率(%)",
+              "流通换手率(%)",
+              "累计交易天数(天)",
+            ];
+          $.each(data.result, function (k, v) {
+            var resultData = [];
+            //数组传入顺序固定，与表格第一列抱持一致，类型作为行数据获取标准（通过类型下标获取行数据）
+            resultData.push(
+              v.PRODUCT_CODE == "-" || v.PRODUCT_CODE == undefined ?
+                v.PRODUCT_CODE_B :
+                v.PRODUCT_CODE
+            ); //基金类型
+            resultData.push(v.LIST_NUM); //挂牌数
+            resultData.push(v.TOTAL_VALUE.str_toFixed(2)); //市价总值(亿元)
+            resultData.push(v.NEGO_VALUE.str_toFixed(2)); //流通市值(亿元)
+            resultData.push(v.TRADE_AMT.str_toFixed(4)); //成交金额(亿元)
+            resultData.push(
+              v.HIGH_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.HIGH_AMT_DATE) +
+              ")"
+            ); //最高成交金额(亿元)
+            resultData.push(
+              v.LOW_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.LOW_AMT_DATE) +
+              ")"
+            ); //最低成交金额(亿元)
+            resultData.push(v.TRADE_VOL.str_toFixed(4)); //成交量(亿股/亿份)
+            resultData.push(
+              v.HIGH_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.HIGH_VOL_DATE) +
+              ")"
+            ); //最高成交量(亿股/亿份)
+            resultData.push(
+              v.LOW_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.LOW_VOL_DATE) +
+              ")"
+            ); //最低成交量(亿股/亿份)
+            resultData.push(v.AVG_PE_RATE.str_toFixed(2)); //平均市盈率(倍)
+            resultData.push(v.TOTAL_TO_RATE.str_toFixed(4)); //换手率(%)
+            resultData.push(v.TO_RATE.str_toFixed(4)); //流通换手率(%)
+            resultData.push(v.WEEK_TRADE_DAYS); //累计交易天数(天)
+
+            resultDatas.push(resultData);
+          });
+          //横向变纵向
+          resultDatas = changearr(resultDatas);
+          //获取下标 股票17 主板A 1 主板B 2 科创板 48 股票回购 11
+          var STOCKINDEX = resultDatas[0].indexOf("17"); //股票下标
+          var ASHAREINDEX = resultDatas[0].indexOf("01"); //主板A下标
+          var BSHAREINDEX = resultDatas[0].indexOf("02"); //主板B下标
+          var STARINDEX = resultDatas[0].indexOf("03"); //科创板下标
+          var STOCKBUYBACKINDEX = resultDatas[0].indexOf("11"); //股票回购 下标
+
+          $.each(resultDatas, function (k, v) {
+            if (k > 0 && k < 18) {
+              overviewWeeklyHtml += "<tr>";
+              overviewWeeklyHtml +=
+                '<td class="text-nowrap">' + tableTitle[k] + "</td>"; //每周情况
+              overviewWeeklyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKINDEX != -1 ? v[STOCKINDEX] : "-") +
+                "</td>"; //股票
+              overviewWeeklyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (ASHAREINDEX != -1 ? v[ASHAREINDEX] : "-") +
+                "</td>"; //主板A
+              overviewWeeklyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (BSHAREINDEX != -1 ? v[BSHAREINDEX] : "-") +
+                "</td>"; //主板B
+              overviewWeeklyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STARINDEX != -1 ? v[STARINDEX] : "-") +
+                "</td>"; //科创板
+              overviewWeeklyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKBUYBACKINDEX != -1 ? v[STOCKBUYBACKINDEX] : "-") +
+                "</td>"; //股票回购
+              overviewWeeklyHtml += "</tr>";
+            }
+          });
+
+          overviewWeeklyHtml += "</tbody>";
+          $(".js_overviewWeekly .table").html(overviewWeeklyHtml);
+          // 传值日期控件
+          var timeipt = $(".sse_input");
+          var endDate = data.result[0].END_DATE.substr(0, 8).replace(
+            /^(\d{4})(\d{2})(\d{2})$/,
+            "$1-$2-$3"
+          );
+          if (_this.isfrist) {
+            var day = getXDayString(endDate, 5); //获取本周五
+            timeipt.val(day);
+            $(".js_overviewWeekly .title_lev2 .new_date").html(
+              "数据日期：" + getXDayString(endDate, 1) + "至" + endDate
+            );
+          }
+          _this.isfrist = false;
+        } else {
+          overviewWeeklyHtml += emptyTr;
+          overviewWeeklyHtml += "</tbody>";
+          $(".js_overviewWeekly .table").html(overviewWeeklyHtml);
+        }
+      },
+      errCallback: function () {
+        overviewWeeklyHtml += emptyTr;
+        overviewWeeklyHtml += "</tbody>";
+        $(".js_overviewWeekly .table").html(overviewWeeklyHtml);
+      },
+    });
+  },
+};
+if ($(".js_overviewWeekly").length > 0) {
+  overviewWeekly.init();
+}
+//股票成交概况-每周概况 END
+
+/**
+* 股票成交概况-月度概况
+*/
+var overviewMonthly = {
+  todayDate: get_systemDate_global(),
+  isfrist: true, // 默认首次访问
+  overviewMonthlyUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  overviewMonthlyParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_CJGK_MYGK_C",
+    PRODUCT_CODE: "01,02,03,11,17",
+    type: "inParams",
+    SEARCH_DATE: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期范围渲染
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "month",
+      format: "yyyy-MM",
+      trigger: "click",
+      min: "1999-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setOverviewMonthlyParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setOverviewMonthlyParams);
+    //初始加载
+    $(".js_date input").val(searchMonthJ);
+    $(".js_overviewMonthly .title_lev2 .new_date").html(
+      "数据日期：" + searchMonthJ
+    );
+    _this.overviewMonthlyParams.SEARCH_DATE = searchMonthJ;
+    _this.getOverviewMonthlyList();
+  },
+  setOverviewMonthlyParams: function () {
+    var _this = overviewMonthly;
+    var inYear = $(".js_date input").val() ? $(".js_date input").val() : "";
+    $(".js_overviewMonthly .title_lev2 .new_date").html("数据日期：" + inYear);
+    _this.overviewMonthlyParams.SEARCH_DATE = inYear;
+    _this.getOverviewMonthlyList();
+  },
+  getOverviewMonthlyList: function () {
+    var _this = this;
+    if (_this.isfrist) {
+      _this.overviewMonthlyParams.SEARCH_DATE = "";
+    }
+    var emptyTr = '<tr><td colspan="6">暂无数据</td></tr>';
+    var overviewMonthlyHtml = "<thead><tr>";
+    overviewMonthlyHtml += "<th>月度情况</th>";
+    overviewMonthlyHtml += '<th class="text-right">股票</th>';
+    overviewMonthlyHtml += '<th class="text-right">主板A</th>';
+    overviewMonthlyHtml += '<th class="text-right">主板B</th>';
+    overviewMonthlyHtml += '<th class="text-right">科创板</th>';
+    overviewMonthlyHtml += '<th class="text-right">股票回购</th>';
+    overviewMonthlyHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.overviewMonthlyUrl,
+      data: _this.overviewMonthlyParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          var resultDatas = [],
+            tableTitle = [
+              "",
+              "挂牌数",
+              "市价总值(亿元)",
+              "流通市值(亿元)",
+              "成交金额(亿元)",
+              "最高成交金额(亿元)",
+              "最低成交金额(亿元)",
+              "成交量(亿股/亿份)",
+              "最高成交量(亿股/亿份)",
+              "最低成交量(亿股/亿份)",
+              "平均市盈率(倍)",
+              "换手率(%)",
+              "流通换手率(%)",
+              "累计交易天数(天)",
+            ];
+          $.each(data.result, function (k, v) {
+            var resultData = [];
+            //数组传入顺序固定，与表格第一列抱持一致，类型作为行数据获取标准（通过类型下标获取行数据）
+            resultData.push(
+              v.PRODUCT_CODE == "-" || v.PRODUCT_CODE == undefined ?
+                v.PRODUCT_CODE_B :
+                v.PRODUCT_CODE
+            ); //基金类型
+            resultData.push(v.LIST_NUM); //挂牌数
+            resultData.push(v.TOTAL_VALUE.str_toFixed(2)); //市价总值(亿元)
+            resultData.push(v.NEGO_VALUE.str_toFixed(2)); //流通市值(亿元)
+            resultData.push(v.TRADE_AMT.str_toFixed(4)); //成交金额(亿元)
+            resultData.push(
+              v.M_HIGH_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.M_HIGH_AMT_DATE) +
+              ")"
+            ); //最高成交金额(亿元)
+            resultData.push(
+              v.M_LOW_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.M_LOW_AMT_DATE) +
+              ")"
+            ); //最低成交金额(亿元)
+            resultData.push(v.TRADE_VOL.str_toFixed(4)); //成交量(亿股/亿份)
+            resultData.push(
+              v.M_HIGH_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.M_HIGH_VOL_DATE) +
+              ")"
+            ); //最高成交量(亿股/亿份)
+            resultData.push(
+              v.M_LOW_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.M_LOW_VOL_DATE) +
+              ")"
+            ); //最低成交量(亿股/亿份)
+            resultData.push(v.AVG_PE_RATE.str_toFixed(2)); //平均市盈率(倍)
+            resultData.push(v.TOTAL_TO_RATE.str_toFixed(4)); //换手率(%)
+            resultData.push(v.TO_RATE.str_toFixed(4)); //流通换手率(%)
+            resultData.push(v.TRADE_DAYS); //累计交易天数(天)
+
+            resultDatas.push(resultData);
+          });
+          //横向变纵向
+          resultDatas = changearr(resultDatas);
+          //获取下标 股票17 主板A 1 主板B 2 科创板 03 股票回购 11
+          var STOCKINDEX = resultDatas[0].indexOf("17"); //股票下标
+          var ASHAREINDEX = resultDatas[0].indexOf("01"); //主板A下标
+          var BSHAREINDEX = resultDatas[0].indexOf("02"); //主板B下标
+          var STARINDEX = resultDatas[0].indexOf("03"); //科创板下标
+          var STOCKBUYBACKINDEX = resultDatas[0].indexOf("11"); //股票回购 下标
+
+          $.each(resultDatas, function (k, v) {
+            if (k > 0 && k < 18) {
+              overviewMonthlyHtml += "<tr>";
+              overviewMonthlyHtml +=
+                '<td class="text-nowrap">' + tableTitle[k] + "</td>"; //每周情况
+              overviewMonthlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKINDEX != -1 ? v[STOCKINDEX] : "-") +
+                "</td>"; //股票
+              overviewMonthlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (ASHAREINDEX != -1 ? v[ASHAREINDEX] : "-") +
+                "</td>"; //主板A
+              overviewMonthlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (BSHAREINDEX != -1 ? v[BSHAREINDEX] : "-") +
+                "</td>"; //主板B
+              overviewMonthlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STARINDEX != -1 ? v[STARINDEX] : "-") +
+                "</td>"; //科创板
+              overviewMonthlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKBUYBACKINDEX != -1 ? v[STOCKBUYBACKINDEX] : "-") +
+                "</td>"; //股票回购
+              overviewMonthlyHtml += "</tr>";
+            }
+          });
+
+          overviewMonthlyHtml += "</tbody>";
+          $(".js_overviewMonthly .table").html(overviewMonthlyHtml);
+          // 传值日期控件
+          var timeipt = $(".sse_input");
+          if (_this.isfrist) {
+            timeipt.val(
+              data.result[0].TRADE_DATE.substr(0, 6).replace(
+                /^(\d{4})(\d{2})$/,
+                "$1-$2"
+              )
+            );
+            $(".js_overviewMonthly .title_lev2 .new_date").html(
+              "数据日期：" +
+              data.result[0].TRADE_DATE.substr(0, 6).replace(
+                /^(\d{4})(\d{2})$/,
+                "$1-$2"
+              )
+            );
+          }
+          _this.isfrist = false;
+        } else {
+          overviewMonthlyHtml += emptyTr;
+          overviewMonthlyHtml += "</tbody>";
+          $(".js_overviewMonthly .table").html(overviewMonthlyHtml);
+        }
+        if (
+          _this.overviewMonthlyParams.inYear == _this.todayDate.substring(0, 7)
+        ) {
+          $(".js_overviewMonthly .table").after(
+            '<div class="remarks">*本月度数据统计截止前1交易日</div>'
+          );
+        }
+      },
+      errCallback: function () {
+        overviewMonthlyHtml += emptyTr;
+        overviewMonthlyHtml += "</tbody>";
+        $(".js_overviewMonthly .table").html(overviewMonthlyHtml);
+      },
+    });
+  },
+};
+if ($(".js_overviewMonthly").length > 0) {
+  overviewMonthly.init();
+}
+//股票成交概况-月度概况 END
+
+/**
+* 股票成交概况-年度概况
+*/
+var overviewYearly = {
+  overviewYearlyUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  isfrist: true, // 默认首次访问
+  overviewYearlyParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_CJGK_MNGK_C",
+    PRODUCT_CODE: "01,02,03,11,17",
+    type: "inParams",
+    SEARCH_YEAR: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期范围渲染
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1999-01-01",
+      max: searchYearJ,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setOverviewYearlyParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setOverviewYearlyParams);
+    //初始加载
+    $(".js_date input").val(searchYearJ);
+    $(".js_overviewYearly .title_lev2 .new_date").html(
+      "截止日期：" + searchYearJ + "年"
+    );
+    _this.overviewYearlyParams.SEARCH_YEAR = searchYearJ;
+    _this.getOverviewYearlyList();
+  },
+  setOverviewYearlyParams: function () {
+    var _this = overviewYearly;
+    var inYear = $(".js_date input").val() ? $(".js_date input").val() : "";
+    $(".js_overviewYearly .title_lev2 .new_date").html(
+      "截止日期：" + inYear + "年"
+    );
+    _this.overviewYearlyParams.SEARCH_YEAR = inYear;
+    _this.getOverviewYearlyList();
+  },
+  getOverviewYearlyList: function () {
+    var _this = this;
+    if (_this.isfrist) {
+      _this.overviewYearlyParams.SEARCH_YEAR = "";
+    }
+    var emptyTr = '<tr><td colspan="6">暂无数据</td></tr>';
+    var overviewYearlyHtml = "<thead><tr>";
+    overviewYearlyHtml += "<th>年度情况</th>";
+    overviewYearlyHtml += '<th class="text-right">股票</th>';
+    overviewYearlyHtml += '<th class="text-right">主板A</th>';
+    overviewYearlyHtml += '<th class="text-right">主板B</th>';
+    overviewYearlyHtml += '<th class="text-right">科创板</th>';
+    overviewYearlyHtml += '<th class="text-right">股票回购</th>';
+    overviewYearlyHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.overviewYearlyUrl,
+      data: _this.overviewYearlyParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          var resultDatas = [],
+            tableTitle = [
+              "",
+              "挂牌数",
+              "市价总值(亿元)",
+              "流通市值(亿元)",
+              "成交金额(亿元)",
+              "最高成交金额(亿元)",
+              "最低成交金额(亿元)",
+              "成交量(亿股/亿份)",
+              "最高成交量(亿股/亿份)",
+              "最低成交量(亿股/亿份)",
+              "平均市盈率(倍)",
+              "换手率(%)",
+              "流通换手率(%)",
+              "累计交易天数(天)",
+            ];
+          $.each(data.result, function (k, v) {
+            var resultData = [];
+            //数组传入顺序固定，与表格第一列抱持一致，类型作为行数据获取标准（通过类型下标获取行数据）
+            resultData.push(
+              v.PRODUCT_CODE == "-" || v.PRODUCT_CODE == undefined ?
+                v.PRODUCT_CODE_B :
+                v.PRODUCT_CODE
+            ); //基金类型
+            resultData.push(v.LIST_NUM); //挂牌数
+            resultData.push(v.TOTAL_VALUE.str_toFixed(2)); //市价总值(亿元)
+            resultData.push(v.NEGO_VALUE.str_toFixed(2)); //流通市值(亿元)
+            resultData.push(v.Y_TRADE_AMT.str_toFixed(4)); //成交金额(亿元)
+            resultData.push(
+              v.Y_HIGH_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.Y_HIGH_AMT_DATE) +
+              ")"
+            ); //最高成交金额(亿元)
+            resultData.push(
+              v.Y_LOW_AMT.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.Y_LOW_AMT_DATE) +
+              ")"
+            ); //最低成交金额(亿元)
+            resultData.push(v.Y_TRADE_VOL.str_toFixed(4)); //成交量(亿股/亿份)
+            resultData.push(
+              v.Y_HIGH_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.Y_HIGH_VOL_DATE) +
+              ")"
+            ); //最高成交量(亿股/亿份)
+            resultData.push(
+              v.Y_LOW_VOL.str_toFixed(4) +
+              "<br>" +
+              "(" +
+              turnDateAddLine(v.Y_LOW_VOL_DATE) +
+              ")"
+            ); //最低成交量(亿股/亿份)
+            resultData.push(v.AVG_PE_RATE.str_toFixed(2)); //平均市盈率(倍)
+            resultData.push(v.TOTAL_TO_RATE.str_toFixed(4)); //换手率(%)
+            resultData.push(v.TO_RATE.str_toFixed(4)); //流通换手率(%)
+            resultData.push(v.Y_TRADE_DAYS); //累计交易天数(天)
+            resultDatas.push(resultData);
+          });
+          //横向变纵向
+          resultDatas = changearr(resultDatas);
+          //获取下标 股票17 主板A 1 主板B 2 科创板 48 股票回购 11
+          var STOCKINDEX = resultDatas[0].indexOf("17"); //股票下标
+          var ASHAREINDEX = resultDatas[0].indexOf("01"); //主板A下标
+          var BSHAREINDEX = resultDatas[0].indexOf("02"); //主板B下标
+          var STARINDEX = resultDatas[0].indexOf("03"); //科创板下标
+          var STOCKBUYBACKINDEX = resultDatas[0].indexOf("11"); //股票回购 下标
+          $.each(resultDatas, function (k, v) {
+            if (k > 0 && k < 18) {
+              overviewYearlyHtml += "<tr>";
+              overviewYearlyHtml +=
+                '<td class="text-nowrap">' + tableTitle[k] + "</td>"; //年度情况
+              overviewYearlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKINDEX != -1 ?
+                  v[STOCKINDEX] :
+                  k > 4 && k != 7 && k < 13 ?
+                    "-<br/>(-)" :
+                    "-") +
+                "</td>"; //股票
+              overviewYearlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (ASHAREINDEX != -1 ?
+                  v[ASHAREINDEX] :
+                  k > 4 && k != 7 && k < 13 ?
+                    "-<br/>(-)" :
+                    "-") +
+                "</td>"; //主板A
+              overviewYearlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (BSHAREINDEX != -1 ?
+                  v[BSHAREINDEX] :
+                  k > 4 && k != 7 && k < 13 ?
+                    "-<br/>(-)" :
+                    "-") +
+                "</td>"; //主板B
+              overviewYearlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STARINDEX != -1 ?
+                  v[STARINDEX] :
+                  k > 4 && k != 7 && k < 13 ?
+                    "-<br/>(-)" :
+                    "-") +
+                "</td>"; //科创板
+              overviewYearlyHtml +=
+                '<td class="text-right text-nowrap">' +
+                (STOCKBUYBACKINDEX != -1 ?
+                  v[STOCKBUYBACKINDEX] :
+                  k > 4 && k != 7 && k < 13 ?
+                    "-<br/>(-)" :
+                    "-") +
+                "</td>"; //股票回购
+              overviewYearlyHtml += "</tr>";
+            }
+          });
+          overviewYearlyHtml += "</tbody>";
+          $(".js_overviewYearly .table").html(overviewYearlyHtml);
+          // 传值日期控件
+          var timeipt = $(".sse_input");
+          if (_this.isfrist) {
+            timeipt.val(data.result[0].DATA_DATE.substr(0, 4));
+          }
+          _this.isfrist = false;
+          $(".js_overviewYearly .title_lev2 .new_date").html(
+            "截止日期：" + data.result[0].DATA_DATE.substr(0, 4) + '-' + data.result[0].DATA_DATE.substring(4, 6)
+          );
+        } else {
+          overviewYearlyHtml += emptyTr;
+          overviewYearlyHtml += "</tbody>";
+          $(".js_overviewYearly .table").html(overviewYearlyHtml);
+        }
+        if (
+          _this.overviewYearlyParams.inYear ==
+          get_systemDate_global().substring(0, 4)
+        ) {
+          $(".js_overviewYearly .table").after(
+            '<div class="remarks">*本年度数据统计截止前1交易月</div>'
+          );
+        }
+      },
+      errCallback: function () {
+        overviewYearlyHtml += emptyTr;
+        overviewYearlyHtml += "</tbody>";
+        $(".js_overviewYearly .table").html(overviewYearlyHtml);
+      },
+    });
+  },
+};
+if ($(".js_overviewYearly").length > 0) {
+  overviewYearly.init();
+}
+//股票成交概况-年度概况 END
+
+/**
+* 优先股成交统计信息
+*/
+var pshare = {
+  pshareUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  pshareParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_ZQPZ_GP_YXG_L",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //初始加载
+    _this.getPshareList(1);
+  },
+  setpshareParams: function () {
+    var _this = pshare;
+    _this.getPshareList(1);
+  },
+  getPshareList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.pshareParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="8">暂无数据</td></tr>';
+    var pshareHtml = "<thead><tr>";
+    pshareHtml += '<th class="text-nowrap">交易日期</th>';
+    pshareHtml += '<th class="text-nowrap">证券代码</th>';
+    pshareHtml += '<th class="text-nowrap">证券简称</th>';
+    pshareHtml += '<th class="text-right">成交价</th>';
+    pshareHtml += '<th class="text-right">成交金额（万元）</th>';
+    pshareHtml += '<th class="text-right">成交量（万股）</th>';
+    pshareHtml += "<th>买入营业部</th>";
+    pshareHtml += "<th>卖出营业部</th>";
+    pshareHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.pshareUrl,
+      data: _this.pshareParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            pshareHtml += "<tr>";
+            pshareHtml += '<td class="text-nowrap">' + v.TRADE_DATE + "</td>"; //交易日期
+            pshareHtml +=
+              '<td class="text-nowrap">' + v.SECURITY_CODE + "</td>"; //证券代码
+            pshareHtml +=
+              '<td class="text-nowrap"><span>' +
+              v.SECURITY_ABBR +
+              "</span></td>"; //证券简称
+            pshareHtml +=
+              '<td class="text-right">' +
+              (v.PRICE && v.PRICE != "-" ? v.PRICE : "-") +
+              "</td>"; //成交价
+            pshareHtml +=
+              '<td class="text-right">' +
+              (v.AMOUNT && v.AMOUNT != "-" ? v.AMOUNT : "-") +
+              "</td>"; //成交金额（万元）
+            pshareHtml +=
+              '<td class="text-right">' +
+              (v.VOLUME && v.VOLUME != "-" ? v.VOLUME : "-") +
+              "</td>"; //成交量（手）
+            pshareHtml += '<td class="text-nowrap">' + v.BUYER + "</td>"; //买入营业部
+            pshareHtml += '<td class="text-nowrap">' + v.SELLER + "</td>"; //卖出营业部
+            pshareHtml += "</tr>";
+          });
+          pshareHtml += "</tbody>";
+          $(".js_pshare .table").html(pshareHtml);
+          //调用分页
+          Page.navigation(
+            ".js_pshare .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "pshare.getPshareList"
+          );
+        } else {
+          pshareHtml += emptyTr;
+          pshareHtml += "</tbody>";
+          $(".js_pshare .table").html(pshareHtml);
+          $(".js_pshare .pagination-box").html("");
+        }
+      },
+      errCallback: function () {
+        pshareHtml += emptyTr;
+        pshareHtml += "</tbody>";
+        $(".js_pshare .table").html(pshareHtml);
+        $(".js_pshare .pagination-box").html("");
+      },
+    });
+  },
+};
+if ($(".js_pshare").length > 0) {
+  pshare.init();
+}
+//优先股成交统计信息 END
+
+/**
+* 新股首日表现
+*/
+var firstday = {
+  todayDate: get_systemDate_global(),
+  firstdayUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  firstdayParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_SRBX_L",
+    COMPANY_CODE: "",
+    START_DATE: "",
+    END_DATE: "",
+    ISSUE_TYPE0: 1,
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期范围
+    laydate({
+      elem: ".js_dateRange input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      range: true,
+      min: "1990-12-19",
+      max: get_systemDate_global(),
+      trigger: "click",
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setfirstdayParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setfirstdayParams);
+    //初始加载
+    _this.firstdayParams.START_DATE = _this.todayDate.substr(0, 4) + "-01-01";
+    _this.firstdayParams.END_DATE = _this.todayDate;
+    $(".js_firstday .title_lev2 .new_date").html(
+      "查询日期：" +
+      _this.firstdayParams.START_DATE +
+      "至" +
+      _this.firstdayParams.END_DATE
+    );
+    _this.getFirstDayList(1);
+  },
+  setfirstdayParams: function () {
+    var _this = firstday;
+    var inputCode = $("#inputCode").val() ? $("#inputCode").val() : ""; //证券代码
+    var res = (reg = /^\d{6}$/);
+    if (inputCode && !res.test(inputCode)) {
+      bootstrapModal({
+        text: "证券代码必须为6位数字",
+      });
+      return;
+    }
+    _this.firstdayParams.COMPANY_CODE = inputCode; //证券代码
+    var timeStr = $(".js_dateRange input").val();
+    var beginDate = timeStr ? timeStr.substr(0, 10) : ""; //开始日期
+    var endDate = timeStr ? timeStr.substr(-10) : ""; //结束日期
+    if (inputCode == "" && beginDate == "") {
+      bootstrapModal({
+        text: "请输入查询条件",
+      });
+      return;
+    }
+    if (timeStr != "") {
+      $(".js_firstday .title_lev2 .new_date").html(
+        "查询日期：" + beginDate + "至" + endDate
+      );
+    } else {
+      $(".js_firstday .title_lev2 .new_date").html(
+        "查询日期："
+      );
+    }
+
+    _this.firstdayParams.START_DATE = beginDate;
+    _this.firstdayParams.END_DATE = endDate;
+    if (
+      _this.firstdayParams.START_DATE ||
+      _this.firstdayParams.END_DATE ||
+      _this.firstdayParams.COMPANY_CODE
+    )
+      _this.firstdayParams.DEFAULT_CONDITION = undefined;
+    _this.getFirstDayList(1);
+  },
+  getFirstDayList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.firstdayParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="10">暂无数据</td></tr>';
+    var firstdayHtml = "<thead><tr>";
+    firstdayHtml += '<th class="text-nowrap">公司代码</th>';
+    firstdayHtml += '<th class="text-nowrap">公司名称</th>';
+    firstdayHtml += '<th class="text-nowrap">日期</th>';
+    firstdayHtml += '<th class="text-right">开盘价</th>';
+    firstdayHtml += '<th class="text-right">最高价</th>';
+    firstdayHtml += '<th class="text-right">最低价</th>';
+    firstdayHtml += '<th class="text-right">收盘价</th>';
+    firstdayHtml += '<th class="text-right">成交量(万股/万份)</th>';
+    firstdayHtml += '<th class="text-right">成交额(万元)</th>';
+    firstdayHtml += '<th class="text-right">日换手率</th>';
+    firstdayHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.firstdayUrl,
+      data: _this.firstdayParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            firstdayHtml += "<tr>";
+            firstdayHtml +=
+              '<td class="text-nowrap"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.COMPANY_CODE +
+              '" target="_black">' +
+              v.COMPANY_CODE +
+              "</a></td>"; //公司代码
+            firstdayHtml += '<td class="text-nowrap">' + v.FULL_NAME + "</td>"; //公司名称
+            firstdayHtml +=
+              '<td class="text-nowrap">' +
+              turnDateAddLine(v.TRADE_DATE) +
+              "</td>"; //日期
+            firstdayHtml += '<td class="text-right">' + v.OPEN_PRICE + "</td>"; //开盘价
+            firstdayHtml += '<td class="text-right">' + v.HIGH_PRICE + "</td>"; //最高价
+            firstdayHtml += '<td class="text-right">' + v.LOW_PRICE + "</td>"; //最低价
+            firstdayHtml += '<td class="text-right">' + v.CLOSE_PRICE + "</td>"; //收盘价
+            firstdayHtml += '<td class="text-right">' + v.TRADE_VOL + "</td>"; //成交量
+            firstdayHtml += '<td class="text-right">' + v.TRADE_AMT + "</td>"; //成交额
+            firstdayHtml +=
+              '<td class="text-right">' +
+              (v.TO_RATE ? _this.toFixedEx(v.TO_RATE) : "-") +
+              "</td>"; //日换手率
+            firstdayHtml += "</tr>";
+          });
+          firstdayHtml += "</tbody>";
+          $(".js_firstday .table").html(firstdayHtml);
+          //调用分页
+          Page.navigation(
+            ".js_firstday .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "firstday.getFirstDayList"
+          );
+        } else {
+          firstdayHtml += emptyTr;
+          firstdayHtml += "</tbody>";
+          $(".js_firstday .table").html(firstdayHtml);
+          $(".js_firstday .pagination-box").html("");
+        }
+        //搜索代码添加cookie
+        popularize.saveCpyIntoCookie(
+          $("#inputCode").val().trim(),
+          $("#inputCode"),
+          1
+        );
+      },
+      errCallback: function () {
+        firstdayHtml += emptyTr;
+        firstdayHtml += "</tbody>";
+        $(".js_firstday .table").html(firstdayHtml);
+        $(".js_firstday .pagination-box").html("");
+      },
+    });
+  },
+  toFixedEx: function (d) {
+    d += "";
+    if (d == null || d == undefined || d == "null" || "" == d || "-" == d) {
+      return "-";
+    } else {
+      if (d.indexOf(".") == -1) {
+        return d;
+      } else {
+        if (d.substring(d.indexOf(".")).length > 2) {
+          return parseFloat(d).toFixed(2);
+        } else {
+          return d;
+        }
+      }
+    }
+  },
+};
+if ($(".js_firstday").length > 0) {
+  firstday.init();
+}
+//新股首日表现 END
+
+/**
+* 募集资金-概况
+*/
+/*---------------------------------------------------------------------------*/
+/**
+*
+* @param { Array } arr
+* @param { key } key
+* @param { String } field
+* @returns
+*/
+function findExistField(arr, key, field) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i][key] == field) {
+      return i;
+    }
+  }
+  return -1;
+}
+/**
+*
+* @param { Arrat } arr
+* @param { Function } cbs
+*/
+function publicStockList(arr, cbs) {
+  var stockList = [];
+  if (findExistField(arr, "SEC_TYPE", "股票") != -1) {
+    var arrList = [
+      "首发：公开发行",
+      "首发：超额配售",
+      "首发小计",
+      "再发：公开增发",
+      "再发：定向增发",
+      "再发：配股",
+      "再发：转债转股",
+      "再发：优先股",
+      "再发小计",
+      "普通股合计",
+    ];
+    for (var i = 0; i < arrList.length; i++) {
+      if (findExistField(arr, "RAISING_FORM", arrList[i]) == -1) {
+        var obj = {
+          MONTH_COM_CNT: "-",
+          MONTH_ISS_AMT: "-",
+          M_MAIN_COM_NUM: "-",
+          M_MAIN_RAISED_AMT: "-",
+          M_STAR_COM_NUM: "-",
+          M_STAR_RAISED_AMT: "-",
+          RAISING_FORM: "",
+          SEC_TYPE: "",
+          TRADE_DATE: "-",
+          YEAR_COM_CNT: "-",
+          YEAR_ISS_AMT: "-",
+          Y_MAIN_COM_NUM: "-",
+          Y_MAIN_RAISED_AMT: "-",
+          Y_STAR_COM_NUM: "-",
+          Y_STAR_RAISED_AMT: "-",
+        };
+        obj["SEC_TYPE"] = "股票";
+        obj["RAISING_FORM"] = arrList[i];
+        stockList.push(obj);
+      } else {
+        stockList.push(arr[findExistField(arr, "RAISING_FORM", arrList[i])]);
+      }
+    }
+  }
+  if (findExistField(arr, "SEC_TYPE", "债券") != -1) {
+    var arrList = ["公司债", "资产支持证券", "债券合计"];
+    if (new Date(turnDateAddLine(arr[0].TRADE_DATE)) > new Date('2023-10-21')) {
+      arrList[0] = "公司债券（含企业债券）";
+    }
+    for (var i = 0; i < arrList.length; i++) {
+      if (findExistField(arr, "RAISING_FORM", arrList[i]) == -1) {
+        var obj = {
+          MONTH_COM_CNT: "-",
+          MONTH_ISS_AMT: "-",
+          M_MAIN_COM_NUM: "-",
+          M_MAIN_RAISED_AMT: "-",
+          M_STAR_COM_NUM: "-",
+          M_STAR_RAISED_AMT: "-",
+          RAISING_FORM: "",
+          SEC_TYPE: "",
+          TRADE_DATE: "-",
+          YEAR_COM_CNT: "-",
+          YEAR_ISS_AMT: "-",
+          Y_MAIN_COM_NUM: "-",
+          Y_MAIN_RAISED_AMT: "-",
+          Y_STAR_COM_NUM: "-",
+          Y_STAR_RAISED_AMT: "-",
+        };
+        obj["SEC_TYPE"] = "债券";
+        obj["RAISING_FORM"] = arrList[i];
+        stockList.push(obj);
+      } else {
+        stockList.push(arr[findExistField(arr, "RAISING_FORM", arrList[i])]);
+      }
+    }
+  }
+  if (findExistField(arr, "SEC_TYPE", "公募REITs") != -1) {
+    var arrList = ["公募REITs合计"];
+    for (var i = 0; i < arrList.length; i++) {
+      if (findExistField(arr, "RAISING_FORM", arrList[i]) == -1) {
+        var obj = {
+          MONTH_COM_CNT: "-",
+          MONTH_ISS_AMT: "-",
+          M_MAIN_COM_NUM: "-",
+          M_MAIN_RAISED_AMT: "-",
+          M_STAR_COM_NUM: "-",
+          M_STAR_RAISED_AMT: "-",
+          RAISING_FORM: "",
+          SEC_TYPE: "",
+          TRADE_DATE: "-",
+          YEAR_COM_CNT: "-",
+          YEAR_ISS_AMT: "-",
+          Y_MAIN_COM_NUM: "-",
+          Y_MAIN_RAISED_AMT: "-",
+          Y_STAR_COM_NUM: "-",
+          Y_STAR_RAISED_AMT: "-",
+        };
+        obj["SEC_TYPE"] = "公募REITs";
+        obj["RAISING_FORM"] = arrList[i];
+        stockList.push(obj);
+      } else {
+        stockList.push(arr[findExistField(arr, "RAISING_FORM", arrList[i])]);
+      }
+    }
+  }
+  setTimeout(function () {
+    cbs(stockList);
+  });
+}
+/*---------------------------------------------------------------------------*/
+var raiseOverview = {
+  todayDate: get_systemDate_global(),
+  raiseOverviewUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  raiseOverviewParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_MJZJ_ZJGK_C",
+    SEARCH_DATE: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "month",
+      format: "yyyy-MM",
+      trigger: "click",
+      min: "2019-07-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setRaiseOverviewParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setRaiseOverviewParams);
+    //初始加载
+    _this.getRaiseOverviewList();
+  },
+  setRaiseOverviewParams: function () {
+    var _this = raiseOverview;
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : "";
+    _this.raiseOverviewParams.SEARCH_DATE = searchDate; //日期
+    $(".js_raiseOverview .title_lev2 .new_date").html(
+      "* 截止时间：" + searchDate
+    );
+    _this.getRaiseOverviewList();
+  },
+  getRaiseOverviewList: function () {
+    var _this = this;
+    var emptyTr = '<tr><td colspan="20">暂无数据</td></tr>';
+    var raiseOverviewHtml = "<thead>";
+    raiseOverviewHtml += "<tr>";
+    raiseOverviewHtml += '<th class="table_grayBg" rowspan="3">证券类型</th>';
+    raiseOverviewHtml +=
+      '<th class="table_grayBg" rowspan="3" colspan="2">筹、融资方式</th>';
+    raiseOverviewHtml += '<th class="table_grayBg" colspan="4">公司数</th>';
+    raiseOverviewHtml +=
+      '<th class="table_grayBg" colspan="4">筹资金额(亿元)</th>';
+    raiseOverviewHtml += "</tr>";
+    raiseOverviewHtml += "<tr>";
+    raiseOverviewHtml += '<th class="table_grayBg" colspan="2">本月</th>';
+    raiseOverviewHtml += '<th class="table_grayBg" colspan="2">本年</th>';
+    raiseOverviewHtml += '<th class="table_grayBg" colspan="2">本月</th>';
+    raiseOverviewHtml += '<th class="table_grayBg" colspan="2">本年</th>';
+    raiseOverviewHtml += "</tr>";
+    raiseOverviewHtml += "<tr>";
+    raiseOverviewHtml += '<th class="table_grayBg">主板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">科创板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">主板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">科创板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">主板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">科创板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">主板</th>';
+    raiseOverviewHtml += '<th class="table_grayBg">科创板</th>';
+    raiseOverviewHtml += "</tr>";
+    raiseOverviewHtml += "</thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.raiseOverviewUrl,
+      data: _this.raiseOverviewParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          publicStockList(data.result, function (res_arr) {
+            data.result = res_arr;
+            var fristDate = turnDateAddLine(data.result[0].TRADE_DATE);
+            $(".js_raiseOverview .title_lev2 .new_date").html(
+              "* 截止时间：" + fristDate
+            );
+            if (!$(".js_date input").val()) {
+              //初次加载无时间，默认添加
+              $(".js_date input").val(fristDate.substr(0, 7));
+            }
+            var resultDatas = [];
+            $.each(data.result, function (k, v) {
+              var resultHtml = "<tr>",
+                resultData = {};
+              if (v.RAISING_FORM == "首发：公开发行") {
+                resultHtml +=
+                  '<td class="table_borderRight" rowspan="10">股票</td><td class="table_borderRight" rowspan="3">首发</td><td>公开发行</td>';
+                resultData.key = 1;
+              }
+              if (v.RAISING_FORM == "首发：超额配售") {
+                resultHtml += "<td>超额配售</td>";
+                resultData.key = 2;
+              }
+              if (v.RAISING_FORM == "首发小计") {
+                resultHtml += '<td class="txtBlue">首发小计</td>';
+                resultData.key = 3;
+              }
+              if (v.RAISING_FORM == "再发：公开增发") {
+                resultHtml +=
+                  '<td class="table_borderRight" rowspan="6">再发</td><td>公开增发</td>';
+                resultData.key = 4;
+              }
+              if (v.RAISING_FORM == "再发：定向增发") {
+                resultHtml += "<td>定向增发</td>";
+                resultData.key = 5;
+              }
+              if (v.RAISING_FORM == "再发：配股") {
+                resultHtml += "<td>配股</td>";
+                resultData.key = 6;
+              }
+              if (v.RAISING_FORM == "再发：转债转股") {
+                resultHtml += "<td>转债转股</td>";
+                resultData.key = 7;
+              }
+              if (v.RAISING_FORM == "再发：优先股") {
+                resultHtml += "<td>优先股</td>";
+                resultData.key = 8;
+              }
+              if (v.RAISING_FORM == "再发小计") {
+                resultHtml += '<td class="txtBlue">再发小计</td>';
+                resultData.key = 9;
+              }
+              if (v.RAISING_FORM == "普通股合计") {
+                resultHtml +=
+                  '<td colspan="2" class="txtBlue font-weight-bold">普通股合计</td>';
+                resultData.key = 10;
+              }
+              if (/公司债/.test(v.RAISING_FORM)) {
+                resultHtml +=
+                  '<td class="table_borderRight" rowspan="3">债券</td><td colspan="2">' + v.RAISING_FORM + '</td>';
+                resultData.key = 11;
+              }
+              if (v.RAISING_FORM == "资产支持证券") {
+                resultHtml += '<td colspan="2">资产支持证券</td>';
+                resultData.key = 12;
+              }
+              if (v.RAISING_FORM == "债券合计") {
+                resultHtml +=
+                  '<td colspan="2" class="txtBlue font-weight-bold">债券合计</td>';
+                resultData.key = 13;
+              }
+              if (v.RAISING_FORM == "公募REITs合计") {
+                resultHtml +=
+                  '<td class="table_borderRight">公募REITs</td><td colspan="2" class="txtBlue font-weight-bold">公募REITs合计</td>';
+                resultData.key = 14;
+              }
+              if (
+                v.RAISING_FORM == "首发小计" ||
+                v.RAISING_FORM == "再发小计" ||
+                v.RAISING_FORM == "普通股合计" ||
+                v.RAISING_FORM == "债券合计" ||
+                v.RAISING_FORM == "公募REITs合计" ||
+                /公司债/.test(v.RAISING_FORM) ||
+                v.RAISING_FORM == "资产支持证券"
+              ) {
+                resultHtml +=
+                  '<td class="text-right' +
+                  (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                    " txtBlue" :
+                    "") +
+                  (v.RAISING_FORM == "普通股合计" ||
+                    v.RAISING_FORM == "债券合计" ||
+                    v.RAISING_FORM == "公募REITs合计" ?
+                    " txtBlue font-weight-bold" :
+                    "") +
+                  '" colspan="2">' +
+                  v.MONTH_COM_CNT +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                    " txtBlue" :
+                    "") +
+                  (v.RAISING_FORM == "普通股合计" ||
+                    v.RAISING_FORM == "债券合计" ||
+                    v.RAISING_FORM == "公募REITs合计" ?
+                    " txtBlue font-weight-bold" :
+                    "") +
+                  '" colspan="2">' +
+                  v.YEAR_COM_CNT +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                    " txtBlue" :
+                    "") +
+                  (v.RAISING_FORM == "普通股合计" ||
+                    v.RAISING_FORM == "债券合计" ||
+                    v.RAISING_FORM == "公募REITs合计" ?
+                    " txtBlue font-weight-bold" :
+                    "") +
+                  '" colspan="2">' +
+                  (v.MONTH_ISS_AMT == 0 ?
+                    0 :
+                    v.MONTH_ISS_AMT && v.MONTH_ISS_AMT != "-" ?
+                      Number(v.MONTH_ISS_AMT).toFixed(2) :
+                      "-") +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                    " txtBlue" :
+                    "") +
+                  (v.RAISING_FORM == "普通股合计" ||
+                    v.RAISING_FORM == "债券合计" ||
+                    v.RAISING_FORM == "公募REITs合计" ?
+                    " txtBlue font-weight-bold" :
+                    "") +
+                  '" colspan="2">' +
+                  (v.YEAR_ISS_AMT == 0 ?
+                    0 :
+                    v.YEAR_ISS_AMT && v.YEAR_ISS_AMT != "-" ?
+                      Number(v.YEAR_ISS_AMT).toFixed(2) :
+                      "-") +
+                  "</td>";
+              } else if (
+                v.RAISING_FORM == "首发：公开发行" ||
+                v.RAISING_FORM == "首发：超额配售" ||
+                v.RAISING_FORM == "再发：公开增发" ||
+                v.RAISING_FORM == "再发：定向增发" ||
+                v.RAISING_FORM == "再发：配股" ||
+                v.RAISING_FORM == "再发：转债转股" ||
+                v.RAISING_FORM == "再发：优先股"
+              ) {
+                resultHtml +=
+                  '<td class="text-right' + '">' + v.M_MAIN_COM_NUM + "</td>";
+                resultHtml +=
+                  '<td class="text-right' + '">' + v.M_STAR_COM_NUM + "</td>";
+                resultHtml +=
+                  '<td class="text-right' + '">' + v.Y_MAIN_COM_NUM + "</td>";
+                resultHtml +=
+                  '<td class="text-right' + '">' + v.Y_STAR_COM_NUM + "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  '">' +
+                  v.M_MAIN_RAISED_AMT.str_toFixed(2) +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  '">' +
+                  v.M_STAR_RAISED_AMT.str_toFixed(2) +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  '">' +
+                  v.Y_MAIN_RAISED_AMT.str_toFixed(2) +
+                  "</td>";
+                resultHtml +=
+                  '<td class="text-right' +
+                  '">' +
+                  v.Y_STAR_RAISED_AMT.str_toFixed(2) +
+                  "</td>";
+              }
+              resultHtml += "</tr>";
+              resultData.html = resultHtml;
+              resultDatas.push(resultData);
+            });
+            // }
+            resultDatas.sort(function (a, b) {
+              //按key正序排序
+              var c = a.key;
+              var d = b.key;
+              return c - d;
+            });
+            //结果循环
+            $.each(resultDatas, function (k, v) {
+              raiseOverviewHtml += v.html;
+            });
+            raiseOverviewHtml += "</tbody>";
+            $(".js_raiseOverview .table").html(raiseOverviewHtml);
+          });
+        } else {
+          var resultList = [];
+          var dataList = [{
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "首发：公开发行",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "首发：超额配售",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "首发小计",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发：公开增发",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发：定向增发",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发：配股",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发：转债转股",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发：优先股",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "再发小计",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "普通股合计",
+            SEC_TYPE: "股票",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "公司债",
+            SEC_TYPE: "债券",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "资产支持证券",
+            SEC_TYPE: "债券",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "债券合计",
+            SEC_TYPE: "债券",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          {
+            MONTH_COM_CNT: "-",
+            MONTH_ISS_AMT: "-",
+            M_MAIN_COM_NUM: "-",
+            M_MAIN_RAISED_AMT: "-",
+            M_STAR_COM_NUM: "-",
+            M_STAR_RAISED_AMT: "-",
+            RAISING_FORM: "公募REITs合计",
+            SEC_TYPE: "公募REITs",
+            TRADE_DATE: "-",
+            YEAR_COM_CNT: "-",
+            YEAR_ISS_AMT: "-",
+            Y_MAIN_COM_NUM: "-",
+            Y_MAIN_RAISED_AMT: "-",
+            Y_STAR_COM_NUM: "-",
+            Y_STAR_RAISED_AMT: "-",
+          },
+          ];
+          if (new Date($(".js_date input").val()) >= new Date('2023-10')) {
+            dataList[10].RAISING_FORM = "公司债券（含企业债券）";
+          }
+          $.each(dataList, function (k, v) {
+            var resultHtml = "<tr>",
+              resultData = {};
+            if (v.RAISING_FORM == "首发：公开发行") {
+              resultHtml +=
+                '<td class="table_borderRight" rowspan="10">股票</td><td class="table_borderRight" rowspan="3">首发</td><td>公开发行</td>';
+              resultData.key = 1;
+            }
+            if (v.RAISING_FORM == "首发：超额配售") {
+              resultHtml += "<td>超额配售</td>";
+              resultData.key = 2;
+            }
+            if (v.RAISING_FORM == "首发小计") {
+              resultHtml += '<td class="txtBlue">首发小计</td>';
+              resultData.key = 3;
+            }
+            if (v.RAISING_FORM == "再发：公开增发") {
+              resultHtml +=
+                '<td class="table_borderRight" rowspan="6">再发</td><td>公开增发</td>';
+              resultData.key = 4;
+            }
+            if (v.RAISING_FORM == "再发：定向增发") {
+              resultHtml += "<td>定向增发</td>";
+              resultData.key = 5;
+            }
+            if (v.RAISING_FORM == "再发：配股") {
+              resultHtml += "<td>配股</td>";
+              resultData.key = 6;
+            }
+            if (v.RAISING_FORM == "再发：转债转股") {
+              resultHtml += "<td>转债转股</td>";
+              resultData.key = 7;
+            }
+            if (v.RAISING_FORM == "再发：优先股") {
+              resultHtml += "<td>优先股</td>";
+              resultData.key = 8;
+            }
+            if (v.RAISING_FORM == "再发小计") {
+              resultHtml += '<td class="txtBlue">再发小计</td>';
+              resultData.key = 9;
+            }
+            if (v.RAISING_FORM == "普通股合计") {
+              resultHtml +=
+                '<td colspan="2" class="txtBlue font-weight-bold">普通股合计</td>';
+              resultData.key = 10;
+            }
+            if (/公司债/.test(v.RAISING_FORM)) {
+              resultHtml +=
+                '<td class="table_borderRight" rowspan="3">债券</td><td colspan="2">' + v.RAISING_FORM + '</td>';
+              resultData.key = 11;
+            }
+            if (v.RAISING_FORM == "资产支持证券") {
+              resultHtml += '<td colspan="2">资产支持证券</td>';
+              resultData.key = 12;
+            }
+            if (v.RAISING_FORM == "债券合计") {
+              resultHtml +=
+                '<td colspan="2" class="txtBlue font-weight-bold">债券合计</td>';
+              resultData.key = 13;
+            }
+            if (v.RAISING_FORM == "公募REITs合计") {
+              resultHtml +=
+                '<td class="table_borderRight">公募REITs</td><td colspan="2" class="txtBlue font-weight-bold">公募REITs合计</td>';
+              resultData.key = 14;
+            }
+            if (
+              v.RAISING_FORM == "首发小计" ||
+              v.RAISING_FORM == "再发小计" ||
+              v.RAISING_FORM == "普通股合计" ||
+              v.RAISING_FORM == "债券合计" ||
+              v.RAISING_FORM == "公募REITs合计" ||
+              /公司债/.test(v.RAISING_FORM) ||
+              v.RAISING_FORM == "资产支持证券"
+            ) {
+              resultHtml +=
+                '<td class="text-right' +
+                (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                  " txtBlue" :
+                  "") +
+                (v.RAISING_FORM == "普通股合计" ||
+                  v.RAISING_FORM == "债券合计" ||
+                  v.RAISING_FORM == "公募REITs合计" ?
+                  " txtBlue font-weight-bold" :
+                  "") +
+                '" colspan="2">' +
+                v.MONTH_COM_CNT +
+                "</td>";
+              resultHtml +=
+                '<td class="text-right' +
+                (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                  " txtBlue" :
+                  "") +
+                (v.RAISING_FORM == "普通股合计" ||
+                  v.RAISING_FORM == "债券合计" ||
+                  v.RAISING_FORM == "公募REITs合计" ?
+                  " txtBlue font-weight-bold" :
+                  "") +
+                '" colspan="2">' +
+                v.YEAR_COM_CNT +
+                "</td>";
+              resultHtml +=
+                '<td class="text-right' +
+                (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                  " txtBlue" :
+                  "") +
+                (v.RAISING_FORM == "普通股合计" ||
+                  v.RAISING_FORM == "债券合计" ||
+                  v.RAISING_FORM == "公募REITs合计" ?
+                  " txtBlue font-weight-bold" :
+                  "") +
+                '" colspan="2">' +
+                v.MONTH_ISS_AMT +
+                "</td>";
+              resultHtml +=
+                '<td class="text-right' +
+                (v.RAISING_FORM == "首发小计" || v.RAISING_FORM == "再发小计" ?
+                  " txtBlue" :
+                  "") +
+                (v.RAISING_FORM == "普通股合计" ||
+                  v.RAISING_FORM == "债券合计" ||
+                  v.RAISING_FORM == "公募REITs合计" ?
+                  " txtBlue font-weight-bold" :
+                  "") +
+                '" colspan="2">' +
+                v.YEAR_ISS_AMT +
+                "</td>";
+            } else if (
+              v.RAISING_FORM == "首发：公开发行" ||
+              v.RAISING_FORM == "首发：超额配售" ||
+              v.RAISING_FORM == "再发：公开增发" ||
+              v.RAISING_FORM == "再发：定向增发" ||
+              v.RAISING_FORM == "再发：配股" ||
+              v.RAISING_FORM == "再发：转债转股" ||
+              v.RAISING_FORM == "再发：优先股"
+            ) {
+              resultHtml +=
+                '<td class="text-right' + '">' + v.M_MAIN_COM_NUM + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.M_STAR_COM_NUM + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.Y_MAIN_COM_NUM + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.Y_STAR_COM_NUM + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.M_MAIN_RAISED_AMT + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.M_STAR_RAISED_AMT + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.Y_MAIN_RAISED_AMT + "</td>";
+              resultHtml +=
+                '<td class="text-right' + '">' + v.Y_STAR_RAISED_AMT + "</td>";
+            }
+            resultHtml += "</tr>";
+            resultData.html = resultHtml;
+            resultList.push(resultData);
+          });
+          //结果循环
+          $.each(resultList, function (k, v) {
+            raiseOverviewHtml += v.html;
+          });
+          raiseOverviewHtml += "</tbody>";
+          $(".js_raiseOverview .table").html(raiseOverviewHtml);
+        }
+      },
+      errCallback: function () {
+        raiseOverviewHtml += emptyTr;
+        raiseOverviewHtml += "</tbody>";
+        $(".js_raiseOverview .table").html(raiseOverviewHtml);
+      },
+    });
+  },
+};
+if ($(".js_raiseOverview").length > 0) {
+  raiseOverview.init();
+}
+//募集资金-概况 END
+
+//募集资金公用保留小数的方法
+var fixedNum = {
+  tofixedNum: function (val, n) {
+    var ps = String(val).split(".");
+    if (ps.length == 1) {
+      return val;
+    } else {
+      if (ps[1].length < 2) {
+        return val;
+      }
+    }
+    var num = Number(val);
+    if (num == 0) {
+      return num;
+    }
+    return num.toFixed(n);
+  },
+};
+
+/**
+* 首发募集资金情况
+*/
+var raiseIpo = {
+  todayDate: get_systemDate_global(),
+  raiseIpoUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  raiseIpoAShareAndStarParams: {
+    //主板A和科创板
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_MJZJ_SF_ZBA_L",
+    SEARCH_YEAR: "",
+    LIST_BOARD: "1",
+    SEC_CODE_ASC: "",
+    SEC_CODE_DESC: 1,
+    ISS_DATE_ASC: "",
+    ISS_DATE_DESC: "",
+    LIST_DATE_ASC: "",
+    LIST_DATE_DESC: "",
+  },
+  raiseIpoBShareParams: {
+    //主板B
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    type: "inParams",
+    sqlId: "COMMON_SSE_GP_SJTJ_MJZJ_SF_BGSF_ZQDM_L_NEW_ASC",
+    searchyear: "",
+  },
+  raiseIpoTypeOption: [{
+    value: "1",
+    name: "主板A",
+  },
+  {
+    value: "2",
+    name: "主板B",
+  },
+  {
+    value: "3",
+    name: "科创板",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1991-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setRaiseIpoParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //会员类型数据渲染
+        $(".js_raiseIpoType .selectpicker")
+          .html(addSelectOption(_this.raiseIpoTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_raiseIpoType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setRaiseIpoParams();
+          }
+        );
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setRaiseIpoParams);
+
+    //初始加载
+    $(".js_date input").val(_this.todayDate.substr(0, 4));
+    _this.raiseIpoAShareAndStarParams.SEARCH_YEAR = _this.todayDate.substr(
+      0,
+      4
+    );
+    $(".js_raiseIpo .title_lev2 .new_date").html(
+      "数据日期：" + _this.todayDate.substr(0, 4) + "年"
+    );
+    $(".js_raiseIpo .title_lev2 .new_date").hide();
+    _this.raiseIpoAShareAndStarParams.LIST_BOARD = "1";
+    _this.raiseIpoAShareAndStarParams.SEC_CODE_DESC = 1;
+    _this.getRaiseIpoAShareAndStarList(1);
+
+    //排序事件
+    $(".js_raiseIpo").on("click", ".js_orderBtn", function () {
+      _this.raiseIpoAShareAndStarParams.SEC_CODE_ASC = null;
+      _this.raiseIpoAShareAndStarParams.SEC_CODE_DESC = null;
+      _this.raiseIpoAShareAndStarParams.ISS_DATE_ASC = null;
+      _this.raiseIpoAShareAndStarParams.ISS_DATE_DESC = null;
+      _this.raiseIpoAShareAndStarParams.LIST_DATE_ASC = null;
+      _this.raiseIpoAShareAndStarParams.LIST_DATE_DESC = null;
+      var sort = $(this).attr("data-order").split(",")[0],
+        order = $(this).attr("data-order").split(",")[1];
+      if ((order == "00" || order == "10") && sort == "SEC_CODE") {
+        _this.raiseIpoAShareAndStarParams.SEC_CODE_DESC = 1; //原无排序/正序 现倒序
+      }
+      if ((order == "00" || order == "10") && sort == "ISS_DATE") {
+        _this.raiseIpoAShareAndStarParams.ISS_DATE_DESC = 1; //原无排序/正序 现倒序
+      }
+      if ((order == "00" || order == "10") && sort == "LIST_DATE") {
+        _this.raiseIpoAShareAndStarParams.LIST_DATE_DESC = 1; //原无排序/正序 现倒序
+      }
+      if (order == "01" && sort == "SEC_CODE") {
+        _this.raiseIpoAShareAndStarParams.SEC_CODE_ASC = 1; //原倒序现正序
+      }
+      if (order == "01" && sort == "ISS_DATE") {
+        _this.raiseIpoAShareAndStarParams.ISS_DATE_ASC = 1; //原倒序现正序
+      }
+      if (order == "01" && sort == "LIST_DATE") {
+        _this.raiseIpoAShareAndStarParams.LIST_DATE_ASC = 1; //原倒序现正序
+      }
+      _this.setRaiseIpoParams(true);
+    });
+  },
+  setRaiseIpoParams: function (isSort) {
+    var _this = raiseIpo;
+    if (!isSort) {
+      _this.raiseIpoAShareAndStarParams.SEC_CODE_ASC = "";
+      _this.raiseIpoAShareAndStarParams.SEC_CODE_DESC = 1;
+      _this.raiseIpoAShareAndStarParams.ISS_DATE_ASC = "";
+      _this.raiseIpoAShareAndStarParams.ISS_DATE_DESC = "";
+      _this.raiseIpoAShareAndStarParams.LIST_DATE_ASC = "";
+      _this.raiseIpoAShareAndStarParams.LIST_DATE_DESC = "";
+    }
+    var raiseIpoType = $(".js_raiseIpoType .selectpicker").val() ?
+      $(".js_raiseIpoType .selectpicker").val() :
+      "";
+    var searchYear = $(".js_date input").val() ? $(".js_date input").val() : ""; //日期
+    $(".js_raiseIpo .title_lev2 .new_date").html(
+      "数据日期：" + searchYear + "年"
+    );
+    $(".js_raiseIpo .title_lev2 .new_date").hide();
+    if (raiseIpoType == "1") {
+      //主板A
+      _this.raiseIpoAShareAndStarParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseIpoAShareAndStarParams.LIST_BOARD = "1";
+      _this.getRaiseIpoAShareAndStarList(1);
+    }
+    if (raiseIpoType == "2") {
+      //主板B
+      _this.raiseIpoBShareParams.searchyear = searchYear;
+      _this.getRaiseIpoBShareList(1);
+    }
+    if (raiseIpoType == "3") {
+      //科创板
+      _this.raiseIpoAShareAndStarParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseIpoAShareAndStarParams.LIST_BOARD = "2";
+      _this.getRaiseIpoAShareAndStarList(1);
+    }
+  },
+  getRaiseIpoAShareAndStarList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.raiseIpoAShareAndStarParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="11">暂无数据</td></tr>';
+    var raiseIpoHtml = "<thead><tr>";
+
+    raiseIpoHtml +=
+      '<th class="js_orderBtn codeNameWidth " data-order="SEC_CODE,' +
+      (_this.raiseIpoAShareAndStarParams.SEC_CODE_ASC == 1 ? "1" : "0") +
+      (_this.raiseIpoAShareAndStarParams.SEC_CODE_DESC == 1 ? "1" : "0") +
+      '">证券代码<span class="sort_btn"><em class="caret_up  ' +
+      (_this.raiseIpoAShareAndStarParams.SEC_CODE_ASC == 1 ? "fill" : "") +
+      '"></em><em class="caret_down ' +
+      (_this.raiseIpoAShareAndStarParams.SEC_CODE_DESC == 1 ? "fill" : "") +
+      '"></em></span></th>';
+    raiseIpoHtml += '<th class="codeNameWidth">证券简称</th>';
+    raiseIpoHtml +=
+      '<th class="js_orderBtn text-nowrap " data-order="ISS_DATE,' +
+      (_this.raiseIpoAShareAndStarParams.ISS_DATE_ASC == 1 ? "1" : "0") +
+      (_this.raiseIpoAShareAndStarParams.ISS_DATE_DESC == 1 ? "1" : "0") +
+      '">发行日期<span class="sort_btn"><em class="caret_up ' +
+      (_this.raiseIpoAShareAndStarParams.ISS_DATE_ASC == 1 ? "fill" : "") +
+      '"></em><em class="caret_down ' +
+      (_this.raiseIpoAShareAndStarParams.ISS_DATE_DESC == 1 ? "fill" : "") +
+      '"></em></span></th>';
+
+    if (_this.raiseIpoAShareAndStarParams.LIST_BOARD == "1") {
+      raiseIpoHtml += '<th class="text-right">发行股数(万股)</th>';
+    } else {
+      raiseIpoHtml += '<th class="text-right">发行股数(万股/万份)</th>';
+    }
+
+    raiseIpoHtml += '<th class="text-right">发行价格</th>';
+    raiseIpoHtml += '<th class="text-right">筹资金额(万元)</th>';
+    raiseIpoHtml += '<th class="text-right">发行市盈率</th>';
+    raiseIpoHtml += "<th>发行方式</th>";
+    raiseIpoHtml +=
+      '<th class="js_orderBtn text-nowrap " data-order="LIST_DATE,' +
+      (_this.raiseIpoAShareAndStarParams.LIST_DATE_ASC == 1 ? "1" : "0") +
+      (_this.raiseIpoAShareAndStarParams.LIST_DATE_DESC == 1 ? "1" : "0") +
+      '">上市日<span class="sort_btn"><em class="caret_up ' +
+      (_this.raiseIpoAShareAndStarParams.LIST_DATE_ASC == 1 ? "fill" : "") +
+      '"></em><em class="caret_down ' +
+      (_this.raiseIpoAShareAndStarParams.LIST_DATE_DESC == 1 ? "fill" : "") +
+      '"></em></span></th>';
+    raiseIpoHtml += "</tr></thead><tbody>";
+    //更改栏目-1.2.5.募集资金-首发主板A、科创板（符合预期)-2021-11-29
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.raiseIpoUrl,
+      data: _this.raiseIpoAShareAndStarParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            raiseIpoHtml += "<tr>";
+            raiseIpoHtml +=
+              '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.COMPANY_CODE +
+              '" target="_blank">' +
+              v.SEC_CODE +
+              "</a></td>"; //代码
+            raiseIpoHtml +=
+              '<td class="codeNameWidth"><span>' +
+              v.COMPANY_ABBR +
+              "</span></td>"; //简称
+            raiseIpoHtml +=
+              '<td class="text-nowrap"><span>' +
+              turnDateAddLine(v.ISS_DATE) +
+              "</span></td>"; //发行日期
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              newFormatDecimal(formatDecimal(v.ISS_VOL, 2)) +
+              "</td>"; //发行股数
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              newFormatDecimal(formatDecimal(v.ISS_PRICE, 2)) +
+              "</td>"; //发行价格
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              newFormatDecimal(formatDecimal(v.RAISE_CAP, 2)) +
+              "</td>"; //筹资金额
+            raiseIpoHtml += '<td class="text-right">' + v.ISS_PE + "</td>"; //发行市盈率
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' + v.ISS_TYPE_DESC + "</td>"; //发行方式
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' +
+              turnDateAddLine(v.LIST_DATE) +
+              "</td>"; //上市日
+            raiseIpoHtml += "</tr>";
+          });
+          raiseIpoHtml += "</tbody>";
+          $(".js_raiseIpo .table").html(raiseIpoHtml);
+          //调用分页
+          Page.navigation(
+            ".js_raiseIpo .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "raiseIpo.getRaiseIpoAShareAndStarList"
+          );
+          $(".js_raiseIpo .title_lev2 .new_date").show();
+        } else {
+          raiseIpoHtml += emptyTr;
+          raiseIpoHtml += "</tbody>";
+          $(".js_raiseIpo .table").html(raiseIpoHtml);
+          $(".js_raiseIpo .pagination-box").html("");
+        }
+      },
+      errCallback: function () {
+        raiseIpoHtml += emptyTr;
+        raiseIpoHtml += "</tbody>";
+        $(".js_raiseIpo .table").html(raiseIpoHtml);
+        $(".js_raiseIpo .pagination-box").html("");
+      },
+    });
+  },
+  getRaiseIpoBShareList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.raiseIpoBShareParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="11">暂无数据</td></tr>';
+    var raiseIpoHtml = "<thead><tr>";
+    raiseIpoHtml += '<th class="codeNameWidth">证券简称</th>';
+    raiseIpoHtml += '<th class="text-nowrap">发行日期</th>';
+    raiseIpoHtml += '<th class="text-right">发行股数(万股)</th>';
+    raiseIpoHtml += '<th class="text-right">发行价格(元人民币/美元)</th>';
+    raiseIpoHtml += '<th class="text-right">筹资金额(万人民币/万美元)</th>';
+    raiseIpoHtml += '<th class="text-right">发行市盈率(加权法/摊薄法)</th>';
+    raiseIpoHtml += '<th class="text-nowrap">发行方式</th>';
+    raiseIpoHtml += '<th class="text-right">主承销商</th>';
+    raiseIpoHtml += '<th class="text-nowrap">上市日</th>';
+    raiseIpoHtml += '<th class="text-nowrap">发行公告</th>';
+    raiseIpoHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.raiseIpoUrl,
+      data: _this.raiseIpoBShareParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            raiseIpoHtml += "<tr>";
+            raiseIpoHtml +=
+              '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.COMPANY_CODE +
+              '" target="_blank">' +
+              v.SECURITY_NAME_B +
+              "</a></td>"; //简称
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' +
+              v.BEGIN_DATE +
+              "<br>至" +
+              v.END_DATE +
+              "</td>"; //发行日期
+            raiseIpoHtml +=
+              '<td class="text-right">' + v.ISSUED_VOLUME_B + "</td>"; //发行股数
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              (v.ISSUED_PRICE_B2 &&
+                v.ISSUED_PRICE_B2 != "-" &&
+                !isNaN(v.ISSUED_PRICE_B2) ?
+                fixedNum.tofixedNum(v.ISSUED_PRICE_B2, 2) :
+                "-") +
+              "/" +
+              (v.ISSUED_PRICE_B1 &&
+                v.ISSUED_PRICE_B1 != "-" &&
+                isNaN(v.ISSUED_PRICE_B1) ?
+                fixedNum.tofixedNum(v.ISSUED_PRICE_B1) :
+                "-") +
+              "</td>"; //发行价格
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              v.RAISED_MONEY_B2 +
+              "/" +
+              v.RAISED_MONEY_B1 +
+              "</td>"; //筹资金额
+            raiseIpoHtml +=
+              '<td class="text-right">' +
+              v.ISSUED_PROFIT_RATE_B1 +
+              "/" +
+              v.ISSUED_PROFIT_RATE_B2 +
+              "</td>"; //发行市盈率
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' + v.ISSUED_MODE_CODE_B + "</td>"; //发行方式
+            raiseIpoHtml +=
+              '<td class="text-right">' + v.MAIN_UNDERWRITER_NAME_B + "</td>"; //主承销商
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' + v.LISTING_DATE_B + "</td>"; //上市日
+            raiseIpoHtml +=
+              '<td class="text-nowrap">' + v.ANNOUNCED_DATE + "</td>"; //发行公告
+            raiseIpoHtml += "</tr>";
+          });
+          raiseIpoHtml += "</tbody>";
+          $(".js_raiseIpo .table").html(raiseIpoHtml);
+          //调用分页
+          Page.navigation(
+            ".js_raiseIpo .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "raiseIpo.getRaiseIpoBShareList"
+          );
+          $(".js_raiseIpo .title_lev2 .new_date").show();
+        } else {
+          raiseIpoHtml += emptyTr;
+          raiseIpoHtml += "</tbody>";
+          $(".js_raiseIpo .table").html(raiseIpoHtml);
+          $(".js_raiseIpo .pagination-box").html("");
+        }
+      },
+      errCallback: function () {
+        raiseIpoHtml += emptyTr;
+        raiseIpoHtml += "</tbody>";
+        $(".js_raiseIpo .table").html(raiseIpoHtml);
+        $(".js_raiseIpo .pagination-box").html("");
+      },
+    });
+  },
+};
+if ($(".js_raiseIpo").length > 0) {
+  raiseIpo.init();
+}
+//首发募集资金情况 END
+
+/**
+* 增发募集资金情况
+*/
+var raiseAdditional = {
+  todayDate: get_systemDate_global(),
+  raiseAdditionalUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  raiseAdditionalParams: {
+    //主板B
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_MJZJ_ZF_ZBA_L", //主板A、科创板
+    LIST_BOARD: "1",
+  },
+  raiseAdditionalTypeOption: [{
+    value: "1",
+    name: "主板A",
+  },
+  {
+    value: "2",
+    name: "主板B",
+  },
+  {
+    value: "3",
+    name: "科创板",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1999-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setRaiseAdditionalParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_raiseAdditionalType .selectpicker")
+          .html(addSelectOption(_this.raiseAdditionalTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_raiseAdditionalType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setRaiseAdditionalParams();
+          }
+        );
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setRaiseAdditionalParams);
+
+    //初始加载
+    $(".js_date input").val(_this.todayDate.substr(0, 4));
+    // _this.raiseAdditionalParams.searchyear = _this.todayDate.substr(0, 4);
+    _this.raiseAdditionalParams.SEARCH_YEAR = _this.todayDate.substr(0, 4);
+    $(".js_raiseAdditional .title_lev2 .new_date").html(
+      "数据日期：" + _this.todayDate.substr(0, 4) + "年"
+    );
+    $(".js_raiseAllotment .title_lev2 .new_date").hide();
+    _this.getRaiseAdditionalList(1);
+  },
+  setRaiseAdditionalParams: function () {
+    var _this = raiseAdditional;
+
+    var raiseAdditionalType = $(".js_raiseAdditionalType .selectpicker").val() ?
+      $(".js_raiseAdditionalType .selectpicker").val() :
+      "";
+    var searchYear = $(".js_date input").val() ? $(".js_date input").val() : ""; //日期
+    $(".js_raiseAdditional .title_lev2 .new_date").html(
+      "数据日期：" + searchYear + "年"
+    );
+    $(".js_raiseAdditional .title_lev2 .new_date").hide();
+    if (raiseAdditionalType == "1") {
+      //主板A
+      _this.raiseAdditionalParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseAdditionalParams.sqlId = "COMMON_SSE_SJ_GPSJ_MJZJ_ZF_ZBA_L"; //类型
+      _this.raiseAdditionalParams.LIST_BOARD = "1"; //标识主板、科创板，’1’为主板，’2’为科创板
+      _this.raiseAdditionalParams.searchyear = undefined;
+      _this.getRaiseAdditionalList(1);
+    }
+    if (raiseAdditionalType == "2") {
+      //主板B
+      _this.raiseAdditionalParams.searchyear = searchYear;
+      _this.raiseAdditionalParams.sqlId = "COMMON_SSE_GP_SJTJ_MJZJ_ZF_BGZF_L";
+      _this.raiseAdditionalParams.LIST_BOARD = "1"; //标识主板、科创板，’1’为主板，’2’为科创板
+      _this.raiseAdditionalParams.SEARCH_YEAR = undefined;
+      _this.getRaiseAdditionalList(1);
+    }
+    if (raiseAdditionalType == "3") {
+      //科创板
+      _this.raiseAdditionalParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseAdditionalParams.sqlId = "COMMON_SSE_SJ_GPSJ_MJZJ_ZF_ZBA_L"; //类型
+      _this.raiseAdditionalParams.LIST_BOARD = "2"; //标识主板、科创板，’1’为主板，’2’为科创板
+      _this.raiseAdditionalParams.searchyear = undefined;
+      _this.getRaiseAdditionalList(1);
+    }
+  },
+  getRaiseAdditionalList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.raiseAdditionalParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="12">暂无数据</td></tr>';
+    var raiseAdditionalHtml = "<thead><tr>";
+    raiseAdditionalHtml += '<th class="codeNameWidth">证券简称</th>';
+    raiseAdditionalHtml += '<th class="text-nowrap">发行日期</th>';
+    if (
+      _this.raiseAdditionalParams.IS_STAR == "0" ||
+      _this.raiseAdditionalParams.sqlId == "COMMON_SSE_GP_SJTJ_MJZJ_ZF_BGZF_L"
+    ) {
+      //主板A B
+      raiseAdditionalHtml += '<th class="text-right">发行股数(万股)</th>';
+    } else {
+      raiseAdditionalHtml += '<th class="text-right">发行股数(万股/万份)</th>';
+    }
+    if (
+      _this.raiseAdditionalParams.sqlId == "COMMON_SSE_SJ_GPSJ_MJZJ_ZF_ZBA_L"
+    ) {
+      //主板A 科创板
+      raiseAdditionalHtml += '<th class="text-right">发行价格</th>';
+      raiseAdditionalHtml += '<th class="text-right">筹资金额(万元)</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">发行方式</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">上市日</th>';
+      raiseAdditionalHtml += "</tr></thead><tbody>";
+    } else {
+      raiseAdditionalHtml +=
+        '<th class="text-right">发行价格(元人民币/美元)</th>';
+      raiseAdditionalHtml +=
+        '<th class="text-right">筹资金额(万人民币/万美元)</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">发行方式</th>';
+      raiseAdditionalHtml += "<th>主承销商</th>";
+      raiseAdditionalHtml += '<th class="text-right">中签率(%)</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">上市日</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">招股说明书</th>';
+      raiseAdditionalHtml += '<th class="text-nowrap">发行公告</th>';
+    }
+    raiseAdditionalHtml += "</tr></thead><tbody>";
+    //更改栏目-1.2.2.募集资金-增发主板A(符合预期)-2021-11-29
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.raiseAdditionalUrl,
+      data: _this.raiseAdditionalParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            raiseAdditionalHtml += "<tr>";
+            if (
+              _this.raiseAdditionalParams.sqlId ==
+              "COMMON_SSE_SJ_GPSJ_MJZJ_ZF_ZBA_L"
+            ) {
+              //主板A 科创板
+              raiseAdditionalHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.COMPANY_CODE +
+                '" target="_blank">' +
+                v.COMPANY_ABBR +
+                "</a></td>"; //简称
+              raiseAdditionalHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.ISS_DATE) +
+                "</td>"; //发行日期
+              raiseAdditionalHtml +=
+                '<td class="text-right text-nowrap">' +
+                newFormatDecimal(formatDecimal(v.ISS_VOL, 2)) +
+                "</td>"; //发行股数
+              raiseAdditionalHtml +=
+                '<td class="text-right text-nowrap">' +
+                newFormatDecimal(formatDecimal(v.ISS_PRICE, 2)) +
+                "</td>"; //发行价格
+              raiseAdditionalHtml +=
+                '<td class="text-right text-nowrap">' +
+                newFormatDecimal(formatDecimal(v.RAISE_CAP, 2)) +
+                "</td>"; //筹资金额
+              raiseAdditionalHtml +=
+                '<td class="text-nowrap">' + v.ISS_TYPE_DESC + "</td>"; //发行方式
+              raiseAdditionalHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.LIST_DATE) +
+                "</td>"; //上市日
+            } else {
+              raiseAdditionalHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.COMPANY_CODE +
+                '" target="_blank">' +
+                v.SECURITY_NAME_B +
+                "</a></td>"; //简称
+              raiseAdditionalHtml += '<td class="text-nowrap">-</td>'; //发行日期
+              raiseAdditionalHtml +=
+                '<td class="text-right">' +
+                (v.ISSUED_VOLUME_B &&
+                  v.ISSUED_VOLUME_B != "-" &&
+                  !isNaN(v.ISSUED_VOLUME_B) ?
+                  v.ISSUED_VOLUME_B :
+                  "-") +
+                "</td>"; //发行股数
+              raiseAdditionalHtml +=
+                '<td class="text-right">' +
+                (v.ISSUED_PRICE_B2 &&
+                  v.ISSUED_PRICE_B2 != "-" &&
+                  !isNaN(v.ISSUED_PRICE_B2) ?
+                  fixedNum.tofixedNum(v.ISSUED_PRICE_B2, 2) :
+                  "-") +
+                "/" +
+                (v.ISSUED_PRICE_B1 && !isNaN(v.ISSUED_PRICE_B1) ?
+                  parseFloat(v.ISSUED_PRICE_B1).toFixed(2) :
+                  "-") +
+                "</td>"; //发行价格
+              raiseAdditionalHtml +=
+                '<td class="text-right">' +
+                (v.RAISED_MONEY_B2 &&
+                  v.RAISED_MONEY_B2 != "-" &&
+                  !isNaN(v.RAISED_MONEY_B2) ?
+                  fixedNum.tofixedNum(v.RAISED_MONEY_B2, 2) :
+                  "-") +
+                "/" +
+                (v.RAISED_MONEY_B1 && !isNaN(v.RAISED_MONEY_B1) ?
+                  parseFloat(v.RAISED_MONEY_B1).toFixed(2) :
+                  "-") +
+                "</td>"; //筹资金额
+              raiseAdditionalHtml +=
+                '<td class="text-nowrap">' + v.ISSUED_MODE_CODE_B + "</td>"; //发行方式
+              raiseAdditionalHtml +=
+                '<td class="text-xxl-nowrap">' +
+                v.MAIN_UNDERWRITER_NAME_B +
+                "</td>"; //主承销商
+              raiseAdditionalHtml += '<td class="text-right">-</td>'; //中签率
+              raiseAdditionalHtml +=
+                '<td class="text-nowrap">' + v.LISTING_DATE_B + "</td>"; //上市日
+              raiseAdditionalHtml += '<td class="text-nowrap">-</td>'; //招股说明书
+              raiseAdditionalHtml += '<td class="text-nowrap">-</td>'; //发行公告
+            }
+            raiseAdditionalHtml += "</tr>";
+          });
+          raiseAdditionalHtml += "</tbody>";
+          $(".js_raiseAdditional .table").html(raiseAdditionalHtml);
+          //调用分页
+          Page.navigation(
+            ".js_raiseAdditional .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "raiseAdditional.getRaiseAdditionalList"
+          );
+          $(".js_raiseAdditional .title_lev2 .new_date").show();
+        } else {
+          raiseAdditionalHtml += emptyTr;
+          raiseAdditionalHtml += "</tbody>";
+          $(".js_raiseAdditional .table").html(raiseAdditionalHtml);
+          $(".js_raiseAdditional .pagination-box").html("");
+        }
+      },
+      errCallback: function () {
+        raiseAdditionalHtml += emptyTr;
+        raiseAdditionalHtml += "</tbody>";
+        $(".js_raiseAdditional .table").html(raiseAdditionalHtml);
+        $(".js_raiseAdditional .pagination-box").html("");
+      },
+    });
+  },
+};
+if ($(".js_raiseAdditional").length > 0) {
+  raiseAdditional.init();
+}
+//增发募集资金情况 END
+
+/**
+* 配股募集资金情况
+*/
+var raiseAllotment = {
+  todayDate: get_systemDate_global(),
+  raiseAllotmentUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  raiseAllotmentParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_MJZJ_PG_ZBAKCB_L", // 主板 A & 科创板
+    SEARCH_YEAR: "",
+    LIST_BOARD: 1,
+  },
+  raiseAllotmentParamsB: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_GP_SJTJ_MJZJ_PG_BGPG_L", // 主板 B
+    searchyear: "",
+  },
+  raiseAllotmentTypeOption: [{
+    value: "1",
+    name: "主板A",
+  },
+  {
+    value: "2",
+    name: "主板B",
+  },
+  {
+    value: "3",
+    name: "科创板",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1997-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setRaiseAllotmentParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_raiseAllotmentType .selectpicker")
+          .html(addSelectOption(_this.raiseAllotmentTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_raiseAllotmentType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setRaiseAllotmentParams();
+          }
+        );
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setRaiseAllotmentParams);
+
+    //初始加载
+    $(".js_date input").val(_this.todayDate.substr(0, 4));
+    _this.raiseAllotmentParams.SEARCH_YEAR = _this.todayDate.substr(0, 4);
+    _this.getRaiseAllotmentList(1);
+  },
+  setRaiseAllotmentParams: function () {
+    var _this = raiseAllotment;
+
+    var raiseAllotmentType = $(".js_raiseAllotmentType .selectpicker").val() ?
+      $(".js_raiseAllotmentType .selectpicker").val() :
+      "";
+    var searchYear = $(".js_date input").val() ? $(".js_date input").val() : ""; //日期
+    $(".js_raiseAllotment .title_lev2 .new_date").html(
+      "数据日期：" + searchYear + "年"
+    );
+    if (raiseAllotmentType == "1") {
+      //主板A
+      _this.raiseAllotmentParams.searchyear = undefined;
+      _this.raiseAllotmentParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseAllotmentParams.LIST_BOARD = 1; //类型
+      _this.raiseAllotmentParams.sqlId = "COMMON_SSE_SJ_GPSJ_MJZJ_PG_ZBAKCB_L"; //主板 A & 科创板
+      _this.getRaiseAllotmentList(1);
+    }
+    if (raiseAllotmentType == "2") {
+      //主板B
+      _this.raiseAllotmentParamsB.searchyear = searchYear;
+      _this.raiseAllotmentParamsB.sqlId = "COMMON_SSE_GP_SJTJ_MJZJ_PG_BGPG_L";
+      _this.getRaiseAllotmentList(1, true);
+    }
+    if (raiseAllotmentType == "3") {
+      //科创板
+      _this.raiseAllotmentParams.searchyear = undefined;
+      _this.raiseAllotmentParams.SEARCH_YEAR = searchYear; //日期
+      _this.raiseAllotmentParams.LIST_BOARD = 2; //类型
+      _this.raiseAllotmentParams.sqlId = "COMMON_SSE_SJ_GPSJ_MJZJ_PG_ZBAKCB_L"; //主板 A & 科创板
+      _this.getRaiseAllotmentList(1);
+    }
+  },
+  getRaiseAllotmentList: function (pageIndex, isStockB) {
+    var _this = this;
+    if (!paginationChange(_this.raiseAllotmentParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="9">暂无数据</td></tr>';
+    var raiseAllotmentHtml = "<thead><tr>";
+    raiseAllotmentHtml += '<th class="codeNameWidth">股票简称</th>';
+    if (
+      isStockB == undefined &&
+      _this.raiseAllotmentParams.sqlId == "COMMON_SSE_SJ_GPSJ_MJZJ_PG_ZBAKCB_L"
+    ) {
+      //主板A 科创板
+      raiseAllotmentHtml += '<th class="text-nowrap">A股股权登记日</th>';
+      raiseAllotmentHtml += '<th class="text-nowrap">A股除权交易日</th>';
+      raiseAllotmentHtml += '<th class="text-right">A股配股价格</th>';
+      raiseAllotmentHtml += '<th class="text-right">配股比例<br>(10：?)</th>';
+    }
+    if (isStockB) {
+      // 主板B
+      raiseAllotmentHtml += '<th class="text-nowrap">B股股权登记日</th>';
+      raiseAllotmentHtml += '<th class="text-nowrap">B股除权交易日</th>';
+      raiseAllotmentHtml +=
+        '<th class="text-right">B股配股价格<br>(美元/汇率)</th>';
+      raiseAllotmentHtml += '<th class="text-right">配股比例<br>(10：?)</th>';
+      raiseAllotmentHtml += '<th class="text-nowrap">配股缴款起始日</th>';
+      raiseAllotmentHtml += '<th class="text-nowrap">配股缴款截止日</th>';
+    }
+    if (
+      _this.raiseAllotmentParams.IS_STAR == 0 ||
+      _this.raiseAllotmentParamsB.sqlId == "COMMON_SSE_GP_SJTJ_MJZJ_PG_BGPG_L"
+    ) {
+      //主板A 主板B
+      raiseAllotmentHtml += '<th class="text-right">实际配股量(万股)</th>';
+    } else {
+      raiseAllotmentHtml += '<th class="text-right">实际配股量(万股/万份)</th>';
+    }
+    raiseAllotmentHtml += '<th class="text-nowrap">配股上市日</th>';
+    raiseAllotmentHtml += "</tr></thead><tbody>";
+    if (isStockB) {
+      // 主板B
+      getJSONP({
+        type: "post",
+        dataType: "jsonp",
+        url: _this.raiseAllotmentUrl,
+        data: _this.raiseAllotmentParamsB,
+        successCallback: function (data) {
+          if (data && data.result && data.result.length > 0) {
+            $.each(data.result, function (k, v) {
+              raiseAllotmentHtml += "<tr>";
+              raiseAllotmentHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.COMPANY_CODE +
+                '" target="_blank">' +
+                v.SECURITY_NAME_B +
+                "</a></td>"; //简称
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' + v.RECORD_DATE_B + "</td>"; //A股股权登记日
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' + v.EX_RIGHTS_DATE_B + "</td>"; //A股除权交易日
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.PRICE_OF_RIGHTS_ISSUE_B &&
+                  v.PRICE_OF_RIGHTS_ISSUE_B != "-" &&
+                  !isNaN(v.PRICE_OF_RIGHTS_ISSUE_B) ?
+                  fixedNum.tofixedNum(v.PRICE_OF_RIGHTS_ISSUE_B, 2) :
+                  "-") +
+                "</td>"; //A股配股价格
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.RATIO_OF_RIGHTS_ISSUE_B &&
+                  v.RATIO_OF_RIGHTS_ISSUE_B != "-" &&
+                  !isNaN(v.RATIO_OF_RIGHTS_ISSUE_B) ?
+                  fixedNum.tofixedNum(v.RATIO_OF_RIGHTS_ISSUE_B, 2) :
+                  "-") +
+                "</td>"; //配股比例
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' +
+                v.START_DATE_OF_REMITTANCE_B +
+                "</td>"; //配股缴款起始日
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' +
+                v.END_DATE_OF_REMITTANCE_B +
+                "</td>"; //配股缴款截止日
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.TRUE_COLUME_B &&
+                  v.TRUE_COLUME_B != "-" &&
+                  !isNaN(v.TRUE_COLUME_B) ?
+                  fixedNum.tofixedNum(v.TRUE_COLUME_B, 2) :
+                  "-") +
+                "</td>"; //实际配股量
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' + v.LISTING_DATE_B + "</td>"; //配股上市日
+              raiseAllotmentHtml += "</tr>";
+            });
+            raiseAllotmentHtml += "</tbody>";
+            $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+            //调用分页
+            Page.navigation(
+              ".js_raiseAllotment .pagination-box",
+              data.pageHelp.pageCount,
+              data.pageHelp.total,
+              data.pageHelp.pageNo,
+              data.pageHelp.pageSize,
+              "raiseAllotment.getRaiseAllotmentList"
+            );
+            $(".js_raiseAllotment .title_lev2 .new_date").show();
+          } else {
+            raiseAllotmentHtml += emptyTr;
+            raiseAllotmentHtml += "</tbody>";
+            $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+            $(".js_raiseAllotment .pagination-box").html("");
+          }
+        },
+        errCallback: function () {
+          raiseAllotmentHtml += emptyTr;
+          raiseAllotmentHtml += "</tbody>";
+          $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+          $(".js_raiseAllotment .pagination-box").html("");
+        },
+      });
+    } else {
+      // 主板A 科创板
+      getJSONP({
+        type: "post",
+        dataType: "jsonp",
+        url: _this.raiseAllotmentUrl,
+        data: _this.raiseAllotmentParams,
+        successCallback: function (data) {
+          if (data && data.result && data.result.length > 0) {
+            $.each(data.result, function (k, v) {
+              raiseAllotmentHtml += "<tr>";
+              raiseAllotmentHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.COMPANY_CODE +
+                '" target="_blank">' +
+                v.COMPANY_ABBR +
+                "</a></td>"; //简称
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.REG_DATE) +
+                "</td>"; //A股股权登记日
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.DERIGHTS_DATE) +
+                "</td>"; //A股除权交易日
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.RIGHTS_PRICE &&
+                  v.RIGHTS_PRICE != "-" &&
+                  !isNaN(v.RIGHTS_PRICE) ?
+                  v.RIGHTS_PRICE :
+                  "-") +
+                "</td>"; //A股配股价格
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.RIGHTS_RATIO &&
+                  v.RIGHTS_RATIO != "-" &&
+                  !isNaN(v.RIGHTS_RATIO) ?
+                  v.RIGHTS_RATIO :
+                  "-") +
+                "</td>"; //配股比例
+              raiseAllotmentHtml +=
+                '<td class="text-right">' +
+                (v.RIGHTS_VOL && v.RIGHTS_VOL != "-" && !isNaN(v.RIGHTS_VOL) ?
+                  v.RIGHTS_VOL :
+                  "-") +
+                "</td>"; //实际配股量
+              raiseAllotmentHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.RIGHTS_LIST_DATE) +
+                "</td>"; //配股上市日
+              raiseAllotmentHtml += "</tr>";
+            });
+            raiseAllotmentHtml += "</tbody>";
+            $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+            //调用分页
+            Page.navigation(
+              ".js_raiseAllotment .pagination-box",
+              data.pageHelp.pageCount,
+              data.pageHelp.total,
+              data.pageHelp.pageNo,
+              data.pageHelp.pageSize,
+              "raiseAllotment.getRaiseAllotmentList"
+            );
+            $(".js_raiseAllotment .title_lev2 .new_date").show();
+          } else {
+            raiseAllotmentHtml += emptyTr;
+            raiseAllotmentHtml += "</tbody>";
+            $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+            $(".js_raiseAllotment .pagination-box").html("");
+          }
+        },
+        errCallback: function () {
+          raiseAllotmentHtml += emptyTr;
+          raiseAllotmentHtml += "</tbody>";
+          $(".js_raiseAllotment .table").html(raiseAllotmentHtml);
+          $(".js_raiseAllotment .pagination-box").html("");
+        },
+      });
+    }
+  },
+};
+if ($(".js_raiseAllotment").length > 0) {
+  raiseAllotment.init();
+}
+//配股募集资金情况 END
+
+/**
+* 股本结构-股本排行-最新股本结构总貌
+*/
+var structureOverview = {
+  init: function () {
+    this.loadEvents();
+  },
+  structureOverviewUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  structureOverviewParams: {
+    isPagination: false,
+    sqlId: "COMMON_SSE_SJ_GPSJ_GBJG_GBJGZM_ZXGBJGZM_L",
+  },
+  loadEvents: function () {
+    var _this = this;
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setStructureOverview);
+    _this.getstructureOverviewList();
+  },
+  setStructureOverview: function () {
+    var _this = structureOverview;
+    var inputCode = $("#inputCode").val() ? $("#inputCode").val() : "";
+    var res = (reg = /^\d{6}$/);
+    if (inputCode && !res.test(inputCode)) {
+      bootstrapModal({
+        text: "证券代码必须为6位数字",
+      });
+      return;
+    }
+    //搜索内容添加cookie
+    popularize.saveCpyIntoCookie(
+      $("#inputCode").val().trim(),
+      $("#inputCode"),
+      1
+    );
+    window.open(
+      "/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=" +
+      inputCode,
+      "_blank"
+    );
+  },
+  getstructureOverviewList: function () {
+    var _this = structureOverview;
+    var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+    var structureOverviewHtml = "<thead><tr>";
+    structureOverviewHtml += '<th class="text-nowrap">股份类型</th>';
+    structureOverviewHtml += '<th class="text-right">股本数(亿股/亿份)</th>';
+    structureOverviewHtml += '<th class="text-right">比例(%)</th>';
+    structureOverviewHtml +=
+      '<th class="text-right">较上月增减(亿股/亿份)</th>';
+    structureOverviewHtml += "</tr></thead><tbody>";
+
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.structureOverviewUrl,
+      data: _this.structureOverviewParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            if (
+              v &&
+              v.SHARES_TYPE != "H股股本" &&
+              v.SHARES_TYPE != "公司总股本"
+            ) {
+              structureOverviewHtml += "<tr>";
+              structureOverviewHtml +=
+                '<td class="text-nowrap">' + v.SHARES_TYPE + "</td>"; //股份类型
+              structureOverviewHtml +=
+                '<td class="text-right">' +
+                newFormatDecimal(formatDecimal(v.ISSUE_VOL, 2, 1)) +
+                "</td>"; //股本数
+              structureOverviewHtml +=
+                '<td class="text-right">' +
+                newFormatDecimal(formatDecimal(v.VOL_RATIO, 3, 1)) * 10000 / 100 +
+                "</td>"; //比例
+              structureOverviewHtml +=
+                '<td class="text-right">' +
+                newFormatDecimal(formatDecimal(v.CHANGE_VOL, 2, 1)) +
+                "</td>"; //较上月增减
+              structureOverviewHtml += "</tr>";
+            }
+          });
+          $(".js_structureOverview .title_lev2").append(
+            '<span class="new_date">*截止日期：' +
+            turnDateAddLine(data.result[0].TRADE_DATE) +
+            "</span>"
+          );
+          structureOverviewHtml += "</tbody>";
+          $(".js_structureOverview .table").html(structureOverviewHtml);
+        } else {
+          structureOverviewHtml += emptyTr;
+          structureOverviewHtml += "</tbody>";
+          $(".js_structureOverview .table").html(structureOverviewHtml);
+        }
+      },
+      errCallback: function () {
+        structureOverviewHtml += emptyTr;
+        structureOverviewHtml += "</tbody>";
+        $(".js_structureOverview .table").html(structureOverviewHtml);
+      },
+    });
+  },
+};
+if ($(".js_structureOverview").length > 0) {
+  structureOverview.init();
+}
+//股本结构-股本排行-最新股本结构总貌 END
+
+/**
+* 股本结构-股本排行-发行股本排行
+*/
+var structureOverviewFX = {
+  init: function () {
+    this.loadEvents();
+  },
+  structureOverviewFXListURL: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  structureOverviewFXListParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 5,
+    "pageHelp.cacheSize": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_GBJG_L",
+    ISSUE_VOL: 1,
+    TOP_TEN: 1,
+  },
+  loadEvents: function () {
+    var _this = this;
+    _this.getstructureOverviewFXList();
+  },
+  getstructureOverviewFXList: function () {
+    var _this = structureOverviewFX;
+    var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+    var structureOverviewFXHtml = "<tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.structureOverviewFXListURL,
+      data: _this.structureOverviewFXListParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            if (v) {
+              structureOverviewFXHtml += "<tr>";
+              structureOverviewFXHtml += "<td>" + (k + 1) + "</td>";
+              structureOverviewFXHtml +=
+                '<td><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.A_STOCK_CODE +
+                '" target="_blank">' +
+                v.A_STOCK_CODE +
+                "</a></td>";
+              structureOverviewFXHtml += "<td>" + v.SEC_NAME + "</td>";
+              structureOverviewFXHtml += "</tr>";
+            }
+          });
+          structureOverviewFXHtml += "</tbody>";
+          $(".js_structureOverviewFX .table").html(structureOverviewFXHtml);
+          $(".js_structureOverviewFX .new_date").html(
+            "截止日期：" + turnDateAddLine(data.result[0].TRADE_DATE) + ""
+          );
+        } else {
+          structureOverviewFXHtml += emptyTr;
+          structureOverviewFXHtml += "</tbody>";
+          $(".js_structureOverviewFX .table").html(structureOverviewFXHtml);
+        }
+      },
+      errCallback: function () {
+        structureOverviewFXHtml += emptyTr;
+        structureOverviewFXHtml += "</tbody>";
+        $(".js_structureOverviewFX .table").html(structureOverviewFXHtml);
+      },
+    });
+  },
+};
+if ($(".js_structureOverviewFX").length > 0) {
+  structureOverviewFX.init();
+}
+//股本结构-股本排行-发行股本排行 END
+
+/**
+* 股本结构-股本排行-流通股本排行
+*/
+var structureOverviewLt = {
+  init: function () {
+    this.loadEvents();
+  },
+  structureOverviewLtListURL: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  structureOverviewLtListParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 5,
+    "pageHelp.cacheSize": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_GBJG_L",
+    NEGO_VOL: 1,
+    TOP_TEN: 1,
+  },
+  loadEvents: function () {
+    var _this = this;
+    _this.getstructureOverviewLtList();
+  },
+  getstructureOverviewLtList: function () {
+    var _this = structureOverviewLt;
+    var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+    var structureOverviewLtHtml = "<tbody>";
+
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.structureOverviewLtListURL,
+      data: _this.structureOverviewLtListParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            if (v) {
+              structureOverviewLtHtml += "<tr>";
+              structureOverviewLtHtml += "<td>" + (k + 1) + "</td>";
+              structureOverviewLtHtml +=
+                '<td><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.A_STOCK_CODE +
+                '" target="_blank">' +
+                v.A_STOCK_CODE +
+                "</a></td>";
+              structureOverviewLtHtml += "<td>" + v.SEC_NAME + "</td>";
+              structureOverviewLtHtml += "</tr>";
+            }
+          });
+          structureOverviewLtHtml += "</tbody>";
+          $(".js_structureOverviewLt .table").html(structureOverviewLtHtml);
+          $(".js_structureOverviewLt .new_date").html(
+            "截止日期：" + turnDateAddLine(data.result[0].TRADE_DATE) + ""
+          );
+        } else {
+          structureOverviewLtHtml += emptyTr;
+          structureOverviewLtHtml += "</tbody>";
+          $(".js_structureOverviewLt .table").html(structureOverviewLtHtml);
+        }
+      },
+      errCallback: function () {
+        structureOverviewLtHtml += emptyTr;
+        structureOverviewLtHtml += "</tbody>";
+        $(".js_structureOverviewLt .table").html(structureOverviewLtHtml);
+      },
+    });
+  },
+};
+if ($(".js_structureOverviewLt").length > 0) {
+  structureOverviewLt.init();
+}
+//股本结构-股本排行-流通股本排行 END
+
+/**
+* 股本结构-股本排行
+*/
+var structureRank = {
+  todayDate: get_systemDate_global(),
+  structureRankUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  structureRankParams: {
+    sqlId: "COMMON_SSE_SJ_GPSJ_GBJG_L",
+    SEARCH_DATE: "",
+    ISSUE_VOL: 1, // 查询发行股本，参数值为 ‘1’ ; 'NEGO_VOL': 1  查询流通股本，参数值为 ‘1’
+    TOP_TEN: 1,
+  },
+  structureRankTypeOption: [{
+    value: "1",
+    name: "十种发行股本最大的股票",
+  },
+  {
+    value: "2",
+    name: "十种流通股本最大的股票",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    $(".js_date input").attr("placeholder", "截止日期");
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setStructureRankParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_structureRankType .selectpicker")
+          .html(addSelectOption(_this.structureRankTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_structureRankType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setStructureRankParams();
+          }
+        );
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setStructureRankParams);
+    //初始加载
+    _this.getStructureRankList();
+  },
+  structureRankVol: function (t, v) {
+    if (t == 2) {
+      return {
+        VOL: v.NEGO_VOL,
+        VOL_PER: v.NEGO_VOL_PER,
+      };
+    } else {
+      return {
+        VOL: v.ISSUE_VOL,
+        VOL_PER: v.ISSUE_VOL_PER,
+      };
+    }
+  },
+  setStructureRankParams: function () {
+    var _this = structureRank;
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : ""; //日期
+    var structureRankType = $(".js_structureRankType .selectpicker").val() ?
+      $(".js_structureRankType .selectpicker").val() :
+      "";
+    if (structureRankType == "2") {
+      _this.structureRankParams.NEGO_VOL = 1;
+      _this.structureRankParams.ISSUE_VOL = undefined;
+      $(".js_structureRank .title_lev3").html(
+        '十种流通股本最大的股票<span class="new_date">截止日期：' +
+        searchDate +
+        "</span>"
+      );
+    } else {
+      _this.structureRankParams.NEGO_VOL = undefined;
+      _this.structureRankParams.ISSUE_VOL = 1;
+      $(".js_structureRank .title_lev3").html(
+        '十种发行股本最大的股票<span class="new_date">截止日期：' +
+        searchDate +
+        "</span>"
+      );
+    }
+    _this.structureRankParams.SEARCH_DATE = searchDate;
+    _this.getStructureRankList();
+  },
+  getStructureRankList: function () {
+    var _this = this,
+      url = _this.structureRankUrl;
+    var structureRankType = $(".js_structureRankType .selectpicker").val() ?
+      $(".js_structureRankType .selectpicker").val() :
+      "";
+    $(".js_structureRank .title_lev3 .new_date").html("");
+    var emptyTr = '<tr><td colspan="6">暂无数据</td></tr>';
+    var structureRankHtml = "<thead><tr>";
+    structureRankHtml += "<th>名次</th>";
+    structureRankHtml += '<th class="codeNameWidth">股票代码</th>';
+    structureRankHtml += '<th class="codeNameWidth">股票简称</th>';
+    structureRankHtml += "<th>股票全称</th>";
+    structureRankHtml += '<th class="text-right">发行股本(万股/万份)</th>';
+    structureRankHtml += '<th class="text-right">所占比例(%)</th>';
+    structureRankHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: url,
+      data: _this.structureRankParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          if (structureRankType == "2") {
+            $(".js_structureRank .title_lev3").html(
+              '十种流通股本最大的股票<span class="new_date">截止日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+          } else {
+            $(".js_structureRank .title_lev3").html(
+              '十种发行股本最大的股票<span class="new_date">截止日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+          }
+          var issvolSum = 0,
+            issperSum = 0;
+          
+          $.each(data.result, function (k, v) {
+            var vol = _this.structureRankVol(structureRankType, v).VOL;
+            var vol_per = _this.structureRankVol(structureRankType, v).VOL_PER;
+            structureRankHtml += "<tr>";
+            structureRankHtml += "<td>" + (k + 1) + "</td>"; //名次
+            structureRankHtml +=
+              '<td class="text-nowrap"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.A_STOCK_CODE +
+              '" target="_blank">' +
+              v.A_STOCK_CODE +
+              "</a></td>"; //代码
+            structureRankHtml +=
+              '<td class="text-nowrap"><span>' + v.SEC_NAME + "</span></td>"; //股票简称
+            structureRankHtml +=
+              '<td class="text-nowrap">' + v.FULL_NAME + "</td>"; //股票名称
+            structureRankHtml += '<td class="text-right">' + vol + "</td>"; //发行股本
+            structureRankHtml += '<td class="text-right">' + vol_per + "</td>"; //所占比例
+            structureRankHtml += "</tr>";
+            issvolSum += vol && !isNaN(vol) ? parseFloat(vol) : 0;
+            issperSum += vol_per && !isNaN(vol_per) ? parseFloat(vol_per) : 0;
+          });
+          structureRankHtml += "<tr>";
+          structureRankHtml += '<td colspan="4">合计</td>';
+          structureRankHtml +=
+            '<td class="text-right">' + issvolSum.toFixed(2) + "</td>"; //发行股本
+          structureRankHtml +=
+            '<td class="text-right">' + issperSum.toFixed(2) + "</td>"; //所占比例
+          structureRankHtml += "</tr>";
+          structureRankHtml += "</tbody>";
+          $(".js_structureRank .table").html(structureRankHtml);
+        } else {
+          structureRankHtml += emptyTr;
+          structureRankHtml += "</tbody>";
+          $(".js_structureRank .table").html(structureRankHtml);
+          $(".js_structureRank .title_lev3 .new_date").html("");
+        }
+      },
+      errCallback: function () {
+        structureRankHtml += emptyTr;
+        structureRankHtml += "</tbody>";
+        $(".js_structureRank .table").html(structureRankHtml);
+        $(".js_structureRank .title_lev3 .new_date").html("");
+      },
+    });
+  },
+};
+if ($(".js_structureRank").length > 0) {
+  structureRank.init();
+}
+//股本结构-股本排行 END
+
+/**
+* 上市公司分红情况
+*/
+var dividend = {
+  todayDate: get_systemDate_global(),
+  dividendUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  dividendParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_FHSG_SSGSFHQK_L",
+    CONDITION_AG: 1, // 参数值为1时查询A股
+  },
+  dividendTypeOption: [{
+    value: "1",
+    name: "A股",
+  },
+  {
+    value: "2",
+    name: "B股",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1991-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setdividendParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_dividendType .selectpicker")
+          .html(addSelectOption(_this.dividendTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_dividendType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setdividendParams();
+          }
+        );
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setdividendParams);
+    //初始加载
+    $(".js_date input").val(_this.todayDate.substr(0, 4));
+    _this.dividendParams.A_REG_DATE = _this.todayDate.substr(0, 4);
+    _this.getdividendList(1);
+  },
+  setdividendParams: function () {
+    var _this = dividend;
+    _this.dividendParams.CONDITION_AG = undefined;
+    _this.dividendParams.A_STOCK_CODE = undefined;
+    _this.dividendParams.A_REG_DATE = undefined;
+    _this.dividendParams.CONDITION_BG = undefined;
+    _this.dividendParams.B_STOCK_CODE = undefined;
+    _this.dividendParams.B_REG_DATE = undefined;
+    var dividendType = $(".js_dividendType .selectpicker").val() ?
+      $(".js_dividendType .selectpicker").val() :
+      "";
+    var record_date = $(".js_date input").val() ?
+      $(".js_date input").val() :
+      ""; //日期
+    var inputCode = $("#inputCode").val() ? $("#inputCode").val() : ""; //证券代码
+    var res = (reg = /^\d{6}$/);
+    if (inputCode && !res.test(inputCode)) {
+      bootstrapModal({
+        text: "证券代码必须为6位数字",
+      });
+      return;
+    }
+    if (dividendType == "1") {
+      //A股
+      _this.dividendParams.A_REG_DATE = record_date;
+      _this.dividendParams.A_STOCK_CODE = inputCode;
+      _this.dividendParams.CONDITION_AG = 1;
+      _this.getdividendList(1);
+    }
+    if (dividendType == "2") {
+      //B股
+      _this.dividendParams.B_REG_DATE = record_date;
+      _this.dividendParams.B_STOCK_CODE = inputCode;
+      _this.dividendParams.CONDITION_BG = 1;
+      _this.getdividendList(1);
+    }
+  },
+  getdividendList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.dividendParams, pageIndex)) return; //触发分页改变分页参数
+    var emptyTr = '<tr><td colspan="7">暂无数据</td></tr>';
+    var dividendHtml = "<thead><tr>";
+    dividendHtml += '<th class="codeNameWidth">股票代码</th>';
+    dividendHtml += '<th class="codeNameWidth">股票简称</th>';
+    dividendHtml += '<th class="text-nowrap">公司名称</th>';
+    dividendHtml += '<th class="text-right">每股红利</th>';
+
+    dividendHtml += '<th class="text-nowrap">股权登记日</th>';
+    dividendHtml += '<th class="text-nowrap">除息日</th>';
+    dividendHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.dividendUrl,
+      data: _this.dividendParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            dividendHtml += "<tr>";
+
+            if (_this.dividendParams.CONDITION_AG == 1) {
+              //A
+              dividendHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.A_STOCK_CODE +
+                "&FULLNAME=" +
+                v.FULL_NAME +
+                '" target="_blank">' +
+                v.A_STOCK_CODE +
+                "</a></td>"; //代码
+              dividendHtml +=
+                '<td class="codeNameWidth"><span>' +
+                v.COMPANY_ABBR +
+                "</span></td>"; //股票简称
+              dividendHtml +=
+                '<td class="text-nowrap">' + v.FULL_NAME + "</td>"; //公司名称
+              dividendHtml +=
+                '<td class="text-right">' + v.A_BEFR_TAX_DIV + "</td>"; //税前每股红利
+              dividendHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.A_REG_DATE) +
+                "</td>"; //股权登记日
+              dividendHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.A_DIV_DATE) +
+                "</td>"; //除息日
+            } else {
+              dividendHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.B_STOCK_CODE +
+                "&FULLNAME=" +
+                v.FULL_NAME +
+                '" target="_blank">' +
+                v.B_STOCK_CODE +
+                "</a></td>"; //代码
+              dividendHtml +=
+                '<td class="codeNameWidth"><span>' +
+                v.COMPANY_ABBR +
+                "</span></td>"; //股票简称
+              dividendHtml +=
+                '<td class="text-nowrap">' + v.FULL_NAME + "</td>"; //公司名称
+              dividendHtml +=
+                '<td class="text-right">' + v.B_BEFR_TAX_DIV + "</td>"; //税前每股红利
+              dividendHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.B_REG_DATE) +
+                "</td>"; //股权登记日
+              dividendHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.B_DIV_DATE) +
+                "</td>"; //除息日
+            }
+          });
+          dividendHtml += "</tbody>";
+          $(".js_dividend .table").html(dividendHtml);
+          //调用分页
+          Page.navigation(
+            ".js_dividend .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "dividend.getdividendList"
+          );
+        } else {
+          dividendHtml += emptyTr;
+          dividendHtml += "</tbody>";
+          $(".js_dividend .table").html(dividendHtml);
+          $(".js_dividend .pagination-box").html("");
+        }
+        //搜索代码添加cookie
+        popularize.saveCpyIntoCookie(
+          $("#inputCode").val().trim(),
+          $("#inputCode"),
+          1
+        );
+      },
+      errCallback: function () {
+        dividendHtml += emptyTr;
+        dividendHtml += "</tbody>";
+        $(".js_dividend .table").html(dividendHtml);
+        $(".js_dividend .pagination-box").html("");
+      },
+    });
+  },
+};
+if ($(".js_dividend").length > 0) {
+  dividend.init();
+}
+//上市公司分红情况 END
+
+/**
+* 上市公司送股情况
+*/
+var bonus = {
+  todayDate: get_systemDate_global(),
+  bonusUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  bonusParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 25,
+    "pageHelp.pageNo": 1,
+    "pageHelp.beginPage": 1,
+    "pageHelp.cacheSize": 1,
+    "pageHelp.endPage": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_FHSG_SG_L",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    $(".js_date input").attr("placeholder", "请选择");
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      type: "year",
+      format: "yyyy",
+      trigger: "click",
+      min: "1991-01-01",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setbonusParams();
+        }, 500);
+      },
+    });
+    //点击搜索、回车触发查询
+    triggerSearch(_this.setbonusParams);
+    //初始加载
+    _this.getBonusList(1);
+  },
+  setbonusParams: function () {
+    var _this = bonus;
+    var year = $(".js_date input").val() ? $(".js_date input").val() : ""; //日期
+    var inputCode = $("#inputCode").val() ? $("#inputCode").val() : ""; //证券代码
+    var reg = /^\d{6}$/;
+    if (inputCode && !reg.test(inputCode)) {
+      bootstrapModal({
+        text: "证券代码必须为6位数字",
+      });
+      return;
+    }
+    // _this.bonusParams.sqlId = 'COMMON_SSE_GP_SJTJ_FHSG_SG_L_NEW';
+    _this.bonusParams.SEARCH_YEAR = year;
+    _this.bonusParams.COMPANY_CODE = inputCode;
+    _this.getBonusList(1);
+  },
+  getBonusList: function (pageIndex) {
+    var _this = this;
+    if (!paginationChange(_this.bonusParams, pageIndex)) return; //触发分页改变分页参数
+
+    var emptyTr = '<tr><td colspan="10">暂无数据</td></tr>';
+    var bonusHtml = "<thead><tr>";
+    bonusHtml += '<th class="codeNameWidth">公司代码</th>';
+    bonusHtml += "<th>公司名称</th>";
+    bonusHtml += '<th class="codeNameWidth">股票代码</th>';
+    bonusHtml += '<th class="codeNameWidth">股票简称</th>';
+    bonusHtml += '<th class="text-nowrap">股权登记日</th>';
+    bonusHtml += '<th class="text-nowrap">除权基准日</th>';
+    bonusHtml += '<th class="text-nowrap">送股比例(10:?)</th>';
+    bonusHtml += '<th class="text-right">转股比例(10:?)</th>';
+    bonusHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.bonusUrl,
+      data: _this.bonusParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            if (v.BONUS_RATIO != "-" || v.CONVERT_RATIO != "-") {
+              bonusHtml += "<tr>";
+              bonusHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.COMPANY_CODE +
+                "&FULLNAME=" +
+                v.COMPANY_ABBR +
+                '" target="_blank">' +
+                v.COMPANY_CODE +
+                "</a></td>"; //代码
+              bonusHtml += '<td class="text-nowrap">' + v.FULL_NAME + "</td>"; //公司名称
+              bonusHtml +=
+                '<td class="codeNameWidth">' + v.A_STOCK_CODE + "</td>"; //股票代码
+              bonusHtml +=
+                '<td class="codeNameWidth"><span>' +
+                v.COMPANY_ABBR +
+                "</span></td>"; //股票简称
+              bonusHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.A_REG_DATE) +
+                "</td>"; //股权登记日
+              bonusHtml +=
+                '<td class="text-nowrap">' +
+                turnDateAddLine(v.A_DERIGHTS_DATE) +
+                "</td>"; //除权基准日
+              bonusHtml += '<td class="text-right">' + v.BONUS_RATIO + "</td>"; //送股比例(10:?)
+              bonusHtml +=
+                '<td class="text-right">' + v.CONVERT_RATIO + "</td>"; //转股比例(10:?)
+              bonusHtml += "</tr>";
+            }
+          });
+          bonusHtml += "</tbody>";
+          $(".js_bonus .table").html(bonusHtml);
+          //调用分页
+          Page.navigation(
+            ".js_bonus .pagination-box",
+            data.pageHelp.pageCount,
+            data.pageHelp.total,
+            data.pageHelp.pageNo,
+            data.pageHelp.pageSize,
+            "bonus.getBonusList"
+          );
+        } else {
+          bonusHtml += emptyTr;
+          bonusHtml += "</tbody>";
+          $(".js_bonus .table").html(bonusHtml);
+          $(".js_bonus .pagination-box").html("");
+        }
+        //搜索代码添加cookie
+        popularize.saveCpyIntoCookie(
+          $("#inputCode").val().trim(),
+          $("#inputCode"),
+          1
+        );
+      },
+      errCallback: function () {
+        bonusHtml += emptyTr;
+        bonusHtml += "</tbody>";
+        $(".js_bonus .table").html(bonusHtml);
+        $(".js_bonus .pagination-box").html("");
+      },
+    });
+  },
+};
+if ($(".js_bonus").length > 0) {
+  bonus.init();
+}
+//上市公司送股情况 END
+
+/**
+* 上海市场A股市盈率
+*/
+var priceSh = {
+  priceShUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  priceShParams: {
+    sqlId: "COMMON_SYL_BKPE_LIST_L",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    _this.getPriceShList();
+  },
+  getPriceShList: function () {
+    var _this = this;
+    var emptyTr = '<tr><td colspan="9">暂无数据</td></tr>';
+    var priceShHtml = "<thead>";
+    priceShHtml += "<tr>";
+    priceShHtml +=
+      '<th class="table_grayBg text-center" rowspan="2">行业分类名称</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center" colspan="2">上证A股</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center" colspan="2">上证180成分股</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center" colspan="2">上证380成分股</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center" colspan="2">其他A股</th>';
+    priceShHtml += "</tr>";
+    priceShHtml += "<tr>";
+    priceShHtml +=
+      '<th class="table_grayBg text-center">股票数<br>(亏损数)</th>';
+    priceShHtml += '<th class="table_grayBg text-center">静态市盈率</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center">股票数<br>(亏损数)</th>';
+    priceShHtml += '<th class="table_grayBg text-center">静态市盈率</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center">股票数<br>(亏损数)</th>';
+    priceShHtml += '<th class="table_grayBg text-center">静态市盈率</th>';
+    priceShHtml +=
+      '<th class="table_grayBg text-center">股票数<br>(亏损数)</th>';
+    priceShHtml += '<th class="table_grayBg text-center">静态市盈率</th>';
+    priceShHtml += "</tr>";
+    priceShHtml += "</thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.priceShUrl,
+      data: _this.priceShParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $(".system_date").html("数据截止日期：" + data.result[0].FILEDATE);
+          $.each(data.result, function (k, v) {
+            priceShHtml += "<tr>";
+            priceShHtml +=
+              '<td class="text-nowrap text-left"><a target="_blank"' +
+              (k == data.result.length - 1 ?
+                "" :
+                ' href="/market/stockdata/price/sh/index_detail.shtml?type=' +
+                v.INDCODE +
+                "&abbName=" +
+                v.MAIORNAME +
+                '"') +
+              ">" +
+              v.MAIORNAME +
+              "</a></td>";
+            priceShHtml +=
+              '<td class="text-right">' +
+              v.COMCNTALL +
+              (v.COMCNTALLBAD && v.COMCNTALLBAD != "-" ?
+                "(" + v.COMCNTALLBAD + ")" :
+                "") +
+              "</td>";
+            priceShHtml += '<td class="text-right">' + v.PEALL + "</td>";
+            priceShHtml +=
+              '<td class="text-right">' +
+              v.COMCNT180 +
+              (v.COMCNT180BAD && v.COMCNT180BAD != "-" ?
+                "(" + v.COMCNT180BAD + ")" :
+                "") +
+              "</td>";
+            priceShHtml += '<td class="text-right">' + v.PE180 + "</td>";
+            priceShHtml +=
+              '<td class="text-right">' +
+              v.COMCNT380 +
+              (v.COMCNT380BAD && v.COMCNT380BAD != "-" ?
+                "(" + v.COMCNT380BAD + ")" :
+                "") +
+              "</td>";
+            priceShHtml += '<td class="text-right">' + v.PE380 + "</td>";
+            priceShHtml +=
+              '<td class="text-right">' +
+              v.COMCNTOTHER +
+              (v.COMCNTOTHERBAD && v.COMCNTOTHERBAD != "-" ?
+                "(" + v.COMCNTOTHERBAD + ")" :
+                "") +
+              "</td>";
+            priceShHtml += '<td class="text-right">' + v.PEOTHER + "</td>";
+            priceShHtml += "</tr>";
+          });
+          priceShHtml += "</tbody>";
+          $(".js_priceSh .table").html(priceShHtml);
+        } else {
+          priceShHtml += emptyTr;
+          priceShHtml += "</tbody>";
+          $(".js_priceSh .table").html(priceShHtml);
+        }
+      },
+      errCallback: function () {
+        priceShHtml += emptyTr;
+        priceShHtml += "</tbody>";
+        $(".js_priceSh .table").html(priceShHtml);
+      },
+    });
+  },
+};
+if ($(".js_priceSh").length > 0) {
+  priceSh.init();
+}
+//上海市场A股市盈率 END
+
+/**
+* 上海市场A股市盈率详情
+*/
+var priceShDetail = {
+  priceShDetailUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  priceShDetailParams: {
+    sqlId: "COMMON_SYL_GPMX_LIST_L",
+    indCode: "",
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    var indCode = getWindowHref().type,
+      abbName = getWindowHref().abbName;
+    if (indCode) {
+      _this.priceShDetailParams.indCode = indCode;
+      _this.getPriceShDetailList();
+    }
+    if (abbName) {
+      $(".js_priceShDetail .title_lev3").html(
+        decodeURI($.trim(abbName)) + " 行业股票列表"
+      );
+    }
+  },
+  getPriceShDetailList: function () {
+    var _this = this;
+    var emptyTr = '<tr><td colspan="4">暂无数据</td></tr>';
+    var priceShDetailHtml = "<thead><tr>";
+    priceShDetailHtml += '<th class="text-center">股票代码</th>';
+    priceShDetailHtml += '<th class="text-center">股票简称</th>';
+    priceShDetailHtml += '<th class="text-center">上证180成份股</th>';
+    priceShDetailHtml += '<th class="text-center">上证380成份股</th>';
+    priceShDetailHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.priceShDetailUrl,
+      data: _this.priceShDetailParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            priceShDetailHtml += "<tr>";
+            priceShDetailHtml +=
+              '<td class="text-center text-nowrap">' + v.SECURITYCODE + "</td>";
+            priceShDetailHtml +=
+              '<td class="text-center text-nowrap">' + v.SECURITYABBR + "</td>";
+            priceShDetailHtml += '<td class="text-center">' + v.IS180 + "</td>";
+            priceShDetailHtml += '<td class="text-center">' + v.IS380 + "</td>";
+            priceShDetailHtml += "</tr>";
+          });
+          priceShDetailHtml += "</tbody>";
+          $(".js_priceShDetail .table").html(priceShDetailHtml);
+        } else {
+          priceShDetailHtml += emptyTr;
+          priceShDetailHtml += "</tbody>";
+          $(".js_priceShDetail .table").html(priceShDetailHtml);
+        }
+      },
+      errCallback: function () {
+        priceShDetailHtml += emptyTr;
+        priceShDetailHtml += "</tbody>";
+        $(".js_priceShDetail .table").html(priceShDetailHtml);
+      },
+    });
+  },
+};
+if ($(".js_priceShDetail").length > 0) {
+  priceShDetail.init();
+}
+//上海市场A股市盈率详情 END
+
+/**
+* 市值排名-主板市值排名
+*/
+var marketvalueMain = {
+  todayDate: get_systemDate_global(),
+  marketvalueMainUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?", // 股票市价总值 && 股票流通市值
+  marketvalueMainParams: {
+    isPagination: true,
+    sqlId: "COMMON_SSE_SJ_SZPM_L",
+    LIST_BOARD: 1,
+    SEARCH_DATE: "",
+    TOTAL_VALUE_DESC: 1, // 市价总值;'NEGO_VALUE_DESC': 流通市值
+  },
+  marketvalueMainTypeOption: [{
+    value: "1",
+    name: "股票市价总值",
+  },
+  {
+    value: "2",
+    name: "股票流通市值",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_marketvalueMainType .selectpicker")
+          .html(addSelectOption(_this.marketvalueMainTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_marketvalueMainType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setMarketvalueMainParams();
+          }
+        );
+      },
+    });
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      min: "1990-12-19",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setMarketvalueMainParams();
+        }, 500);
+      },
+    });
+
+    $(".js_date input").attr("placeholder", "请选择日期");
+    _this.getMarketvalueMainList();
+  },
+  setMarketvalueMainParams: function () {
+    var _this = marketvalueMain;
+    var marketvalueMainType = $(".js_marketvalueMainType .selectpicker").val() ?
+      $(".js_marketvalueMainType .selectpicker").val() :
+      "";
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : "";
+    _this.marketvalueMainParams.SEARCH_DATE = searchDate;
+    if (marketvalueMainType == "2") {
+      _this.marketvalueMainParams.TOTAL_VALUE_DESC = undefined;
+      _this.marketvalueMainParams.NEGO_VALUE_DESC = 1;
+    } else {
+      _this.marketvalueMainParams.TOTAL_VALUE_DESC = 1;
+      _this.marketvalueMainParams.NEGO_VALUE_DESC = undefined;
+    }
+
+    _this.getMarketvalueMainList();
+  },
+  getMarketvalueMainList: function () {
+    var _this = this,
+      url = _this.marketvalueMainUrl;
+    var marketvalueMainType = $(".js_marketvalueMainType .selectpicker").val() ?
+      $(".js_marketvalueMainType .selectpicker").val() :
+      "";
+    var emptyTr = '<tr><td colspan="5">暂无数据</td></tr>';
+    var marketvalueMainHtml = "<thead><tr>";
+    marketvalueMainHtml += "<th>名次</th>";
+    marketvalueMainHtml += '<th class="codeNameWidth">股票代码</th>';
+    marketvalueMainHtml += '<th class="codeNameWidth">股票简称</th>';
+    if (marketvalueMainType == "2") {
+      marketvalueMainHtml += '<th class="text-right">流通市值(万元)</th>';
+      marketvalueMainHtml +=
+        '<th class="text-right">所占流通市值的比例(%)</th>';
+    } else {
+      marketvalueMainHtml += '<th class="text-right">市价总值(万元)</th>';
+      marketvalueMainHtml += '<th class="text-right">所占总市值的比例(%)</th>';
+    }
+    marketvalueMainHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: url,
+      data: _this.marketvalueMainParams,
+      successCallback: function (data) {
+        var totalPer = 0; // 比例总计
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            marketvalueMainHtml += "<tr>";
+            marketvalueMainHtml += "<td>" + v.RN + "</td>"; // 名次
+            marketvalueMainHtml +=
+              '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.SEC_CODE +
+              "&FULLNAME=" +
+              v.SEC_NAME +
+              '" target="_blank">' +
+              v.SEC_CODE +
+              "</a></td>"; //股票代码
+            marketvalueMainHtml +=
+              '<td class="codeNameWidth"><span>' + v.SEC_NAME + "</span></td>"; // 股票简称
+            if (marketvalueMainType == "2") {
+              marketvalueMainHtml +=
+                '<td class="text-right">' + v.NEGO_VALUE + "</td>"; //流通市值(万元)
+              marketvalueMainHtml +=
+                '<td class="text-right">' + v.NEGO_VALUE_RATIO + "</td>"; // 所占流通市值的比例(%)
+            } else {
+              marketvalueMainHtml +=
+                '<td class="text-right">' + v.TOTAL_VALUE + "</td>"; //市价总值(万元)
+              marketvalueMainHtml +=
+                '<td class="text-right">' + v.TOTAL_VALUE_RATIO + "</td>"; // 所占总市值的比例(%)
+            }
+            marketvalueMainHtml += "</tr>";
+          });
+          marketvalueMainHtml += "</tbody>";
+          $(".js_marketvalueMain .table").html(marketvalueMainHtml);
+
+          if (marketvalueMainType == "2") {
+            $(".js_marketvalueMain .title_lev2").html(
+              '股票流通市值排名前十名<span class="new_date">数据更新日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+            totalPer = data.result[0].NEGO_VALUE_PER;
+          } else {
+            $(".js_marketvalueMain .title_lev2").html(
+              '股票市价总值排名前十名<span class="new_date">数据更新日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+            totalPer = data.result[0].TOTAL_VALUE_PER;
+          }
+          if (!$(".js_date input").val()) {
+            $(".js_date input").val(turnDateAddLine(data.result[0].TRADE_DATE));
+          }
+        } else {
+          marketvalueMainHtml += emptyTr;
+          marketvalueMainHtml += "</tbody>";
+          $(".js_marketvalueMain .table").html(marketvalueMainHtml);
+          var emtDataDate = $(".js_date input").val();
+          if (marketvalueMainType == "2") {
+            $(".js_marketvalueMain .title_lev2").html(
+              '股票流通市值排名前十名<span class="new_date">数据更新日期：' +
+              emtDataDate +
+              "</span>"
+            );
+          } else {
+            $(".js_marketvalueMain .title_lev2").html(
+              '股票市价总值排名前十名<span class="new_date">数据更新日期：' +
+              emtDataDate +
+              "</span>"
+            );
+          }
+        }
+      },
+      errCallback: function () {
+        marketvalueMainHtml += emptyTr;
+        marketvalueMainHtml += "</tbody>";
+        $(".js_marketvalueMain .table").html(marketvalueMainHtml);
+      },
+    });
+  },
+};
+if ($(".js_marketvalueMain").length > 0) {
+  marketvalueMain.init();
+}
+//市值排名-主板市值排名 END
+
+/**
+* 市值排名-科创板市值排名
+*/
+var marketvalueStar = {
+  todayDate: get_systemDate_global(),
+  marketvalueStarUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  marketvalueStarParams: {
+    isPagination: true,
+    sqlId: "COMMON_SSE_SJ_SZPM_L",
+    LIST_BOARD: 2,
+    SEARCH_DATE: "",
+    TOTAL_VALUE_DESC: 1, // 市价总值;'NEGO_VALUE_DESC': 流通市值
+  },
+  marketvalueStarTypeOption: [{
+    value: "1",
+    name: "科创板股票市价总值",
+  },
+  {
+    value: "2",
+    name: "科创板股票流通市值",
+  },
+  ],
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //类型数据渲染
+        $(".js_marketvalueStarType .selectpicker")
+          .html(addSelectOption(_this.marketvalueStarTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_marketvalueStarType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setmarketvalueStarParams();
+          }
+        );
+      },
+    });
+    //日期
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      min: "1990-12-19",
+      max: _this.todayDate,
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setmarketvalueStarParams();
+        }, 500);
+      },
+    });
+    $(".js_date input").attr("placeholder", "请选择日期");
+    _this.getmarketvalueStarList();
+  },
+  setmarketvalueStarParams: function () {
+    var _this = marketvalueStar;
+    var marketvalueStarType = $(".js_marketvalueStarType .selectpicker").val() ?
+      $(".js_marketvalueStarType .selectpicker").val() :
+      "";
+    var searchDate = $(".js_date input").val() ? $(".js_date input").val() : "";
+    _this.marketvalueStarParams.SEARCH_DATE = searchDate;
+    if (marketvalueStarType == "2") {
+      _this.marketvalueStarParams.TOTAL_VALUE_DESC = undefined;
+      _this.marketvalueStarParams.NEGO_VALUE_DESC = 1;
+    } else {
+      _this.marketvalueStarParams.TOTAL_VALUE_DESC = 1;
+      _this.marketvalueStarParams.NEGO_VALUE_DESC = undefined;
+    }
+
+    _this.getmarketvalueStarList();
+  },
+  getmarketvalueStarList: function () {
+    var _this = this,
+      url = _this.marketvalueStarUrl;
+    var marketvalueStarType = $(".js_marketvalueStarType .selectpicker").val() ?
+      $(".js_marketvalueStarType .selectpicker").val() :
+      "";
+
+    var emptyTr = '<tr><td colspan="5">暂无数据</td></tr>';
+    var marketvalueStarHtml = "<thead><tr>";
+    marketvalueStarHtml += "<th>名次</th>";
+    marketvalueStarHtml += '<th class="codeNameWidth">股票代码</th>';
+    marketvalueStarHtml += '<th class="codeNameWidth">股票简称</th>';
+    if (marketvalueStarType == "2") {
+      marketvalueStarHtml += '<th class="text-right">流通市值(万元)</th>';
+      marketvalueStarHtml +=
+        '<th class="text-right">所占流通市值的比例(%)</th>';
+    } else {
+      marketvalueStarHtml += '<th class="text-right">市价总值(万元)</th>';
+      marketvalueStarHtml += '<th class="text-right">所占总市值的比例(%)</th>';
+    }
+    marketvalueStarHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: url,
+      data: _this.marketvalueStarParams,
+      successCallback: function (data) {
+        var totalPer = 0; // 比例总计
+        if (data && data.result && data.result.length > 0) {
+          $.each(data.result, function (k, v) {
+            marketvalueStarHtml += "<tr>";
+            marketvalueStarHtml += "<td>" + v.RN + "</td>";
+            marketvalueStarHtml +=
+              '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+              v.SEC_CODE +
+              "&FULLNAME=" +
+              v.SEC_NAME +
+              '" target="_blank">' +
+              v.SEC_CODE +
+              "</a></td>";
+            marketvalueStarHtml +=
+              '<td class="codeNameWidth"><span>' + v.SEC_NAME + "</span></td>";
+            if (marketvalueStarType == "2") {
+              marketvalueStarHtml +=
+                '<td class="text-right">' + v.NEGO_VALUE + "</td>";
+              marketvalueStarHtml +=
+                '<td class="text-right">' + v.NEGO_VALUE_RATIO + "</td>";
+            } else {
+              marketvalueStarHtml +=
+                '<td class="text-right">' + v.TOTAL_VALUE + "</td>";
+              marketvalueStarHtml +=
+                '<td class="text-right">' + v.TOTAL_VALUE_RATIO + "</td>";
+            }
+            marketvalueStarHtml += "</tr>";
+          });
+          marketvalueStarHtml += "</tbody>";
+          $(".js_marketvalueStar .table").html(marketvalueStarHtml);
+
+          if (marketvalueStarType == "2") {
+            $(".js_marketvalueStar .title_lev2").html(
+              '科创板股票流通市值排名前十名<span class="new_date">数据更新日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+            totalPer = data.result[0].NEGO_VALUE_PER;
+          } else {
+            $(".js_marketvalueStar .title_lev2").html(
+              '科创板股票市价总值排名前十名<span class="new_date">数据更新日期：' +
+              turnDateAddLine(data.result[0].TRADE_DATE) +
+              "</span>"
+            );
+            totalPer = data.result[0].TOTAL_VALUE_PER;
+          }
+          if (!$(".js_date input").val()) {
+            $(".js_date input").val(turnDateAddLine(data.result[0].TRADE_DATE));
+          }
+        } else {
+          marketvalueStarHtml += emptyTr;
+          marketvalueStarHtml += "</tbody>";
+          $(".js_marketvalueStar .table").html(marketvalueStarHtml);
+          var emtDataDate = $(".js_date input").val();
+          if (marketvalueStarType == "2") {
+            $(".js_marketvalueStar .title_lev2").html(
+              '科创板股票流通市值排名前十名<span class="new_date">数据更新日期：' +
+              emtDataDate +
+              "</span>"
+            );
+          } else {
+            $(".js_marketvalueStar .title_lev2").html(
+              '科创板股票市价总值排名前十名<span class="new_date">数据更新日期：' +
+              emtDataDate +
+              "</span>"
+            );
+          }
+        }
+      },
+      errCallback: function () {
+        marketvalueStarHtml += emptyTr;
+        marketvalueStarHtml += "</tbody>";
+        $(".js_marketvalueStar .table").html(marketvalueStarHtml);
+      },
+    });
+  },
+};
+if ($(".js_marketvalueStar").length > 0) {
+  marketvalueStar.init();
+}
+//市值排名-科创板市值排名 END
+
+/**
+* 活跃股排名-主板活跃股排名
+*/
+var activityMain = {
+  activityMainTypeOption: [{
+    value: "TRADE_VOL_DESC",
+    name: "成交量",
+  },
+  {
+    value: "TRADE_AMT_DESC",
+    name: "成交金额",
+  },
+  {
+    value: "CHANGE_RATIO_DESC",
+    name: "涨幅",
+  },
+  {
+    value: "CHANGE_RATIO_ASC",
+    name: "跌幅",
+  },
+  {
+    value: "QJZF_DESC",
+    name: "振幅",
+  },
+  {
+    value: "TO_RATE_DESC",
+    name: "换手率",
+  },
+  ],
+  activityMainUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  activityMainParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 20,
+    "pageHelp.cacheSize": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_HYGPM_L",
+    LIST_BOARD: 1,
+    TRADE_VOL_DESC: 1, // 按成交量排序，参数值为1
+    TRADE_DATE: '',//查询日期
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setActivityMainParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //会员类型数据渲染
+        $(".js_activityMainType .selectpicker")
+          .html(addSelectOption(_this.activityMainTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_activityMainType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setActivityMainParams();
+          }
+        );
+      },
+    });
+    _this.getActivityMainList();
+  },
+  setActivityMainParams: function () {
+    var _this = activityMain;
+    _this.activityMainParams = {
+      isPagination: true,
+      "pageHelp.pageSize": 20,
+      "pageHelp.cacheSize": 1,
+      sqlId: "COMMON_SSE_SJ_GPSJ_HYGPM_L",
+      LIST_BOARD: 1,
+      TRADE_DATE: '',//查询日期
+    };
+    var activityMainType = $(".js_activityMainType .selectpicker").val() ?
+      $(".js_activityMainType .selectpicker").val() :
+      "";
+    _this.activityMainParams[activityMainType] = 1;
+    _this.activityMainParams.TRADE_DATE = $(".js_date input").val();
+    _this.getActivityMainList();
+  },
+  getActivityMainList: function (funcname) {
+    var _this = activityMain;
+    var emptyTr = '<tr><td colspan="11">暂无数据</td></tr>';
+    var activityMainHtml = "<thead><tr>";
+    activityMainHtml += "<th>名次</th>";
+    activityMainHtml += '<th class="codeNameWidth">股票代码</th>';
+    activityMainHtml += '<th class="codeNameWidth">股票简称</th>';
+    activityMainHtml += '<th class="text-right">开盘价</th>';
+    activityMainHtml += '<th class="text-right">收盘价</th>';
+    activityMainHtml += '<th class="text-right">平均价</th>';
+    activityMainHtml += '<th class="text-right">累计成交量<br>(万股)</th>';
+    activityMainHtml += '<th class="text-right">累计成交金额<br>(万元)</th>';
+    activityMainHtml += '<th class="text-right">累计涨跌幅(%)</th>';
+    activityMainHtml += '<th class="text-right">期间振幅(%)</th>';
+    activityMainHtml += '<th class="text-right">累计换手率%</th>';
+    activityMainHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.activityMainUrl,
+      data: _this.activityMainParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $(".js_activityMain .new_date").html(
+            "数据日期：" + turnDateAddLine(data.result[0].TRADE_DATE)
+          );
+          if (!isNull($(".js_date input").val())) {
+            $(".js_date input").val(turnDateAddLine(data.result[0].TRADE_DATE));
+          }
+          $.each(data.result, function (k, v) {
+            if (v) {
+              activityMainHtml += "<tr>";
+              activityMainHtml += "<td>" + v.RN + "</td>"; //名次
+              activityMainHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.SEC_CODE +
+                '" target="_black">' +
+                v.SEC_CODE +
+                "</a></td>"; //股票代码
+              activityMainHtml +=
+                '<td class="codeNameWidth"><span>' + v.SEC_NAME + "<span></td>"; //股票简称
+              activityMainHtml +=
+                '<td class="text-right">' + v.OPEN_PRICE + "</td>"; //开盘价
+              activityMainHtml +=
+                '<td class="text-right">' + v.CLOSE_PRICE + "</td>"; //收盘价
+              activityMainHtml +=
+                '<td class="text-right">' + v.AVG_PRICE + "</td>"; //平均价
+              activityMainHtml +=
+                '<td class="text-right">' + v.TRADE_VOL + "</td>"; //累计成交量
+              activityMainHtml +=
+                '<td class="text-right">' + v.TRADE_AMT + "</td>"; //累计成交金额
+              activityMainHtml +=
+                '<td class="text-right">' + v.CHANGE_RATIO + "</td>"; //累计涨跌幅
+              activityMainHtml += '<td class="text-right">' + v.QJZF + "</td>"; //期间振幅
+              activityMainHtml +=
+                '<td class="text-right">' + v.TO_RATE + "</td>"; //累计换手率
+              activityMainHtml += "</tr>";
+            }
+          });
+          activityMainHtml += "</tbody>";
+          $(".js_activityMain .table").html(activityMainHtml);
+        } else {
+          activityMainHtml += emptyTr;
+          activityMainHtml += "</tbody>";
+          $(".js_activityMain .table").html(activityMainHtml);
+          $(".js_activityMain .new_date").html(
+            "数据日期：" + $(".js_date input").val()
+          );
+        }
+      },
+      errCallback: function () {
+        activityMainHtml += emptyTr;
+        activityMainHtml += "</tbody>";
+        $(".js_activityMain .table").html(activityMainHtml);
+        $(".js_activityMain .new_date").html(
+          "数据日期：" + $(".js_date input").val()
+        );
+      },
+    });
+  },
+};
+if ($(".js_activityMain").length > 0) {
+  activityMain.init();
+}
+//活跃股排名-主板活跃股排名 END
+
+/**
+* 活跃股排名-科创板活跃股排名
+*/
+var activityStar = {
+  activityStarTypeOption: [{
+    value: "TRADE_VOL_DESC",
+    name: "成交量",
+  },
+  {
+    value: "TRADE_AMT_DESC",
+    name: "成交金额",
+  },
+  {
+    value: "CHANGE_RATIO_DESC",
+    name: "涨幅",
+  },
+  {
+    value: "CHANGE_RATIO_ASC",
+    name: "跌幅",
+  },
+  {
+    value: "QJZF_DESC",
+    name: "振幅",
+  },
+  {
+    value: "TO_RATE_DESC",
+    name: "换手率",
+  },
+  ],
+  activityStarUrl: sseQueryURL + "commonQuery.do?jsonCallBack=?",
+  activityStarParams: {
+    isPagination: true,
+    "pageHelp.pageSize": 5,
+    "pageHelp.cacheSize": 1,
+    sqlId: "COMMON_SSE_SJ_GPSJ_HYGPM_L",
+    // 'IS_STAR': 1,
+    LIST_BOARD: 2,
+    TRADE_VOL_DESC: 1,
+    TRADE_DATE: '',//查询日期
+  },
+  init: function () {
+    this.loadEvents();
+  },
+  loadEvents: function () {
+    var _this = this;
+    laydate({
+      elem: ".js_date input",
+      theme: "#b50005",
+      format: "yyyy-MM-dd",
+      trigger: "click",
+      btns: ["confirm"],
+      done: function (value, date, endDate) {
+        //选择时间触发查询
+        setTimeout(function () {
+          _this.setactivityStarParams();
+        }, 500);
+      },
+    });
+    //下拉框数据渲染
+    bootstrapSelect({
+      method: function () {
+        //会员类型数据渲染
+        $(".js_activityStarType .selectpicker")
+          .html(addSelectOption(_this.activityStarTypeOption))
+          .selectpicker("refresh")
+          .selectpicker("render");
+        //下拉框改变触发查询
+        $(".js_activityStarType .selectpicker").on(
+          "changed.bs.select",
+          function (e) {
+            _this.setactivityStarParams();
+          }
+        );
+      },
+    });
+    _this.getactivityStarList();
+  },
+  setactivityStarParams: function () {
+    var _this = activityStar;
+    _this.activityStarParams = {
+      isPagination: true,
+      "pageHelp.pageSize": 5,
+      "pageHelp.cacheSize": 1,
+      sqlId: "COMMON_SSE_SJ_GPSJ_HYGPM_L",
+      LIST_BOARD: 2,
+      TRADE_DATE: '',//查询日期
+    };
+    var activityStarType = $(".js_activityStarType .selectpicker").val() ?
+      $(".js_activityStarType .selectpicker").val() :
+      "";
+    _this.activityStarParams[activityStarType] = 1;
+    _this.activityStarParams.TRADE_DATE = $(".js_date input").val();
+    _this.getactivityStarList();
+  },
+  getactivityStarList: function (funcname) {
+    var _this = activityStar;
+    var emptyTr = '<tr><td colspan="11">暂无数据</td></tr>';
+    var activityStarHtml = "<thead><tr>";
+    activityStarHtml += "<th>名次</th>";
+    activityStarHtml += '<th class="codeNameWidth">股票代码</th>';
+    activityStarHtml += '<th class="codeNameWidth">股票简称</th>';
+    activityStarHtml += '<th class="text-right">开盘价</th>';
+    activityStarHtml += '<th class="text-right">收盘价</th>';
+    activityStarHtml += '<th class="text-right">平均价</th>';
+    activityStarHtml += '<th class="text-right">累计成交量<br>(万股/万份)</th>';
+    activityStarHtml += '<th class="text-right">累计成交金额<br>(万元)</th>';
+    activityStarHtml += '<th class="text-right">累计涨跌幅(%)</th>';
+    activityStarHtml += '<th class="text-right">期间振幅(%)</th>';
+    activityStarHtml += '<th class="text-right">累计换手率%</th>';
+    activityStarHtml += "</tr></thead><tbody>";
+    getJSONP({
+      type: "post",
+      dataType: "jsonp",
+      url: _this.activityStarUrl,
+      data: _this.activityStarParams,
+      successCallback: function (data) {
+        if (data && data.result && data.result.length > 0) {
+          $(".js_activityStar .new_date").html(
+            "数据日期：" + turnDateAddLine(data.result[0].TRADE_DATE)
+          );
+          if (!isNull($(".js_date input").val())) {
+            $(".js_date input").val(turnDateAddLine(data.result[0].TRADE_DATE));
+          }
+          $.each(data.result, function (k, v) {
+            if (v) {
+              activityStarHtml += "<tr>";
+              activityStarHtml += "<td>" + v.RN + "</td>"; //名次
+              activityStarHtml +=
+                '<td class="codeNameWidth"><a href="/assortment/stock/list/info/company/index.shtml?COMPANY_CODE=' +
+                v.SEC_CODE +
+                '" target="_black">' +
+                v.SEC_CODE +
+                "</a></td>"; //股票代码
+              activityStarHtml +=
+                '<td class="codeNameWidth"><span>' + v.SEC_NAME + "<span></td>"; //股票简称
+              activityStarHtml +=
+                '<td class="text-right">' + v.OPEN_PRICE + "</td>"; //开盘价
+              activityStarHtml +=
+                '<td class="text-right">' + v.CLOSE_PRICE + "</td>"; //收盘价
+              activityStarHtml +=
+                '<td class="text-right">' + v.AVG_PRICE + "</td>"; //平均价
+              activityStarHtml +=
+                '<td class="text-right">' + v.TRADE_VOL + "</td>"; //累计成交量
+              activityStarHtml +=
+                '<td class="text-right">' + v.TRADE_AMT + "</td>"; //累计成交金额
+              activityStarHtml +=
+                '<td class="text-right">' + v.CHANGE_RATIO + "</td>"; //累计涨跌幅
+              activityStarHtml += '<td class="text-right">' + v.QJZF + "</td>"; //期间振幅
+              activityStarHtml +=
+                '<td class="text-right">' + v.TO_RATE + "</td>"; //累计换手率
+              activityStarHtml += "</tr>";
+            }
+          });
+          activityStarHtml += "</tbody>";
+          $(".js_activityStar .table").html(activityStarHtml);
+        } else {
+          activityStarHtml += emptyTr;
+          activityStarHtml += "</tbody>";
+          $(".js_activityStar .table").html(activityStarHtml);
+          $(".js_activityStar .new_date").html(
+            "数据日期：" + $(".js_date input").val()
+          );
+        }
+      },
+      errCallback: function () {
+        activityStarHtml += emptyTr;
+        activityStarHtml += "</tbody>";
+        $(".js_activityStar .table").html(activityStarHtml);
+        $(".js_activityStar .new_date").html(
+          "数据日期：" + $(".js_date input").val()
+        );
+      },
+    });
+  },
+};
+if ($(".js_activityStar").length > 0) {
+  activityStar.init();
+}
+//活跃股排名-科创板活跃股排名 END

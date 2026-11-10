@@ -1,0 +1,24 @@
+{
+  "stem": "gfex_page",
+  "url": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
+  "referer": "http://www.gfex.com.cn/",
+  "method": "GET",
+  "status": 200,
+  "final_url": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
+  "headers": {
+    "Server": "nginx",
+    "Content-Type": "text/html",
+    "Age": "0",
+    "Via": "http/1.1 GFEX (GFEX [cSsSfU])",
+    "Set-Cookie": "SF_cookie_3=68941398; path=/",
+    "Cache-Control": "max-age=300",
+    "Transfer-Encoding": "chunked",
+    "Accept-Ranges": "bytes",
+    "Connection": "close",
+    "Date": "Tue, 10 Nov 2026 10:09:09 GMT",
+    "EO-LOG-UUID": "15580283900879037149",
+    "EO-Cache-Status": "MISS"
+  },
+  "body_bytes": 52748,
+  "body_sha256": "a43c692f8f2ba2dcd5691eecbea38c9743668c3579e736c2a10571c089cdd49b"
+}

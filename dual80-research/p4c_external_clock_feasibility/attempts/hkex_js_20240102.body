@@ -1,0 +1,70 @@
+
+ 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/Images/HKEX/HKEX GROUP/favicon.ico" />
+    <title>HKEX</title>
+    <!--<link rel="stylesheet" href="/css/HKEX/HKEX GROUP/hkexgroup_common.css"/>-->
+    <style>
+        div {
+            line-height: 1.5em !important;
+        }
+
+        body {
+            font-family: FSElliot, Arial, "Heiti TC", "Heiti SC", "微軟正黑體", "微软雅黑", "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="width: 720px; margin: 30px auto 0; text-align: center;" class="container">
+        <div style='width: 160px; margin: 0 auto; height: 84px; overflow: hidden;'><a href='http://www.hkex.com.hk'>
+            <img src='/Images/HKEX/HKEX GROUP/logo.png' width='210px' height='130px' alt='Logo-HKEx' tooltip='Logo-HKEx' border='0'></a></div>
+        <br>
+
+
+        <div>
+            The page requested may have been relocated, renamed or removed from
+            <br>
+            the Hong Kong Exchanges and Clearing Limited, or HKEX, website.
+            <br>
+            For information currently available on the website, please visit <a href="http://www.hkex.com.hk">http://www.hkex.com.hk</a><br>
+            and update your bookmark if necessary.<br>
+            This page will be redirected to the homepage after five seconds.
+        </div>
+        <br>
+
+        <div>
+            您要找的香港交易及結算所有限公司(香港交易所)網頁<br>
+            位置已更改、變更名稱或被刪除。<br>
+            如欲查詢網站內的資料，請瀏覽<a style="letter-spacing: 0;" href="http://www.hkex.com.hk">http://www.hkex.com.hk</a>，<br>
+            並請更新你的書籤(如有需要)。<br>
+            此網頁會於5秒後自動轉至網站首頁
+        </div>
+        <br>
+
+        <div>
+            您要找的香港交易及结算所有限公司(香港交易所)网页<br>
+            位置已更改丶变更名称或被删除。<br>
+            如欲查询网站内的资料，请浏览<a style="letter-spacing: 0;" href="http://www.hkex.com.hk">http://www.hkex.com.hk</a>，<br>
+            并请更新你的书签(如有需要)。<br>
+            此网页会於5秒後自动转至网站首页
+        </div>
+        <br>
+
+        <script type="text/javascript">
+<!--
+                     setTimeout("window.location.replace('http://www.hkex.com.hk')", 5000);
+    //-->
+        </script>
+
+
+    </div>
+
+</body>
+</html>

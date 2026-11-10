@@ -1,0 +1,22 @@
+{
+  "stem": "sse_overview_page",
+  "url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+  "referer": "https://www.sse.com.cn/",
+  "status": 200,
+  "final_url": "https://www.sse.com.cn/market/stockdata/overview/day/",
+  "headers": {
+    "Server": "nginx",
+    "Date": "Tue, 10 Nov 2026 10:05:38 GMT",
+    "Content-Type": "text/html",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Vary": "Accept-Encoding",
+    "X-Download-Options": "noopen",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-Xss-Protection": "1",
+    "Referrer-Policy": "origin-when-cross-origin",
+    "Content-Security-Policy": "style-src 'self' https://*.sseinfo.com https://*.sse.com.cn  https://yunhq.sse.com.cn:32042 'unsafe-inline'; script-src 'self' https://*.sseinfo.com https://*.sse.com.cn https://yunhq.sse.com.cn:32042  'unsafe-inline' 'unsafe-eval';worker-src www.sse.com.cn play.szs.nagasoft.cn blob:;  frame-ancestors *.sse.com.cn *.sseinfo.com "
+  },
+  "body_bytes": 26590,
+  "body_sha256": "2c3cf552f8c421664bb3f4e9a8fb9385487df93f770f72968ab17ad76674abca"
+}

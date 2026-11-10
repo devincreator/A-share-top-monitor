@@ -1,0 +1,4162 @@
+var queryConfigData = {
+    "list_8580": { //债券列表
+        "queryParams": [
+            {
+                "type": "1",
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "5",
+                "hasWrap": true,
+                "wrapTitle": "债券类型筛选",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+    },
+    "etflist": { //etf公告申购赎回清单
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code2",
+                "title":"基金代码",
+                "placeholder":"6位代码 / 扩位简称"
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": "js_keywords",
+                "placeholder":"标题 / 关键字"
+            }
+
+        ],
+    },
+    "exchange_14860": { //信息交流工具询价概况
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "title":"证券代码或简称",
+                "placeholder":"6位代码 / 简称"
+            }
+        ],
+    },
+     "mate": { //信息交流工具意向匹配概况
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "title":"证券代码或简称查询",
+                "placeholder":"6位代码 / 简称"
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ],
+    },
+    "lend": { //转融通证券出借交易概况
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "placeholder":"6位代码 / 简称"
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ],
+    },
+    "eligible": { //港股通标的证券名单
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "placeholder":"代码/中文简称/英文简称",
+                "noTips":true
+            }
+        ],
+    },
+    "eligiblead": { //港股通标的证券调整信息
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "placeholder":"代码/中文简称/英文简称",
+                "noTips":true
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"生效日期",
+                "placeholder":"生效日期"
+            }
+        ],
+    },
+    
+    /**
+     * 2024-07-09
+     * 港股通市场数据->成交活跃证券
+     * dev_V3.4.1new
+     */
+    "ggtcjhyzq":{
+        "queryParams": [ 
+            {
+                "type": "2",
+                "id": "select_ggtcjhyzq",
+                "class": "js_select_type",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "0",
+                        "name": "每日统计"
+                    },
+                    {
+                        "value": "1",
+                        "name": "月度统计"
+                    },
+                    {
+                        "value": "2",
+                        "name": "年度统计"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    /**
+     * 2024-07-09
+     * 港股通市场数据->港股通证券持有数量
+     * dev_V3.4.1new
+     */
+    "ggtzqcysl":{
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "placeholder":"代码/中文简称/英文简称",
+                "noTips":true
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    /**
+     * 2024-06-25
+     * 成交活跃证券
+     * dev_V3.4.1new
+     */
+    "hgtcjhyzq":{
+        "queryParams": [ 
+            {
+                "type": "2",
+                "id": "select_hgtcjhyzq",
+                "class": "js__select_type",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "每日统计"
+                    },
+                    {
+                        "value": "2",
+                        "name": "月度统计"
+                    },
+                    {
+                        "value": "3",
+                        "name": "年度统计"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    /**
+     * 2024-06-25
+     * 沪港通证券持有数量
+     * dev_V3.4.1new
+     */
+    "hgtzqcysl":{
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1",
+                "placeholder":"代码/中文简称/英文简称",
+                "noTips":true
+            },
+            {
+                "type": "12",
+                "class": "js_year_data",
+                "title": "年份",
+            },
+            {
+                "type": "2",
+                "class": "js_select_data",
+                "title": "季度",
+                "placeholder": "季度",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "第一季度"
+                    },
+                    {
+                        "value": "2",
+                        "name": "第二季度"
+                    },
+                    {
+                        "value": "3",
+                        "name": "第三季度"
+                    },
+                    {
+                        "value": "4",
+                        "name": "第四季度"
+                    }
+                ]
+            },
+        ],
+    },
+
+    "suspension": { //停复牌信息
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "bond_14526": { //停复牌信息--债券和股票
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    /**
+     * 2024-06-25
+     * 停复牌信息--债券和股票
+     * dev_V3.2.4new
+     */
+    "bond_14526_js_suspension_stock": {
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或证券简称",
+                "id":"inputCode",
+                "class1":"js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'关键字'
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+
+    "fund_14527": { //停复牌--基金
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code2",
+                "title":"基金代码或扩位简称",
+                "placeholder":"6位代码 / 扩位简称"
+            },     
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'关键字'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder":"开始时间  至  结束时间"
+            }
+        ],
+    },
+
+    "tpxxreits": { //停复牌--公募reits
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_QcodeQnameN",
+                "title":"代码或扩位简称",
+                "placeholder":"6位代码 / 扩位简称"
+            },     
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'关键字'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder":"开始时间  至  结束时间"
+            }
+        ],
+    },
+
+    "calendar": { //市场日历
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "measures_10006": { //监管措施
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code00"
+            },
+            {
+                "type": "1",
+                "class": "js_sjdx",
+                "placeholder": "涉及对象",
+                "title": "涉及对象"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_regulatoryType",
+                "title": "监管类型"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "inquiries_10011": { //监管问询
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_inquiriesType",
+                "title": "监管问询类型"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "promisho_10014": { //承诺履行
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code00"
+            },
+            {
+                "type": "1",
+                "class": "js_promiseMainName",
+                "title": "承诺主体名称"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_promiseType",
+                "title": "承诺类型"
+            },
+            {
+                "type": "2",
+                "class": "js_itemType",
+                "title": "承诺事项类别"
+            },
+            {
+                "type": "2",
+                "class": "js_promiseStatus",
+                "title": "履行状态"
+            },
+        ],
+    },
+    "change": { //持股变动
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1"
+            },
+            {
+                "type": "1",
+                "class": "js_name",
+                "title": "姓名"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+   "measures_15093": { //监管措施
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code00"
+            },
+            {
+                "type": "1",
+                "class": "js_sjdx",
+                "placeholder": "涉及对象",
+                "title": "涉及对象"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_regulatoryType",
+                "title": "监管类型"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "inquiries_15094": { //监管问询
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_inquiriesType",
+                "title": "监管问询类型"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "promisho_15095": { //承诺履行
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code00"
+            },
+            {
+                "type": "1",
+                "class": "js_promiseMainName",
+                "title": "承诺主体名称"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "2",
+                "class": "js_promiseType",
+                "title": "承诺类型"
+            },
+            {
+                "type": "2",
+                "class": "js_itemType",
+                "title": "承诺事项类别"
+            },
+            {
+                "type": "2",
+                "class": "js_promiseStatus",
+                "title": "履行状态"
+            },
+        ],
+    },
+    "change_15096": { //持股变动
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code1"
+            },
+            {
+                "type": "1",
+                "class": "js_name",
+                "title": "姓名"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "announcement_8349": { //最新公告
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "2",
+                'title': '市场类型',
+                "class": 'js_marketType'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "announceLine",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            },
+            {
+                "type": "1",
+                'title': '公告类型筛选',
+                "class": 'js_typeList',
+                'placeholder':'类型编号/类型名称'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement",
+        "noMenu":true
+    },
+    "zhbxxpl": { //提质增效重回报-信息披露
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "2",
+                'title': '市场类型',
+                "class": 'js_marketType'
+            },
+            {
+                "type": "12",
+                "title": "日期范围",
+                "class": "js_dateRange"
+            },
+        ],
+    },
+    "kcczcgplb": { // 科创板成长层-股票列表
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": 'js_type'
+            },
+        ],
+    },
+    "listing_8350": { //发行上市公告
+        "queryParams": [
+            {
+                "type": "10",
+                "name": "COMPANY_CODE"
+            },
+            {
+                "type": "12",
+                "start": "BEGIN_DATE",
+                "end": "END_DATE",
+                "isHour": "true",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "periodic": { //定期报告预约情况
+        "queryParams": [
+            {
+                "type": "10",
+                "name": "COMPANY_CODE"
+            },
+            {
+                "type": "2",
+                "id": "select_jglx",
+                "class": "js_reportType",
+                "name": "extWTFL",
+                "title": "报告类型",
+                "placeholder": "报告类型",
+                "options": []
+            },
+            {
+                "type": "1",
+                "class": "js_date",
+                "title": "实际披露日",
+                "placeholder": "实际披露日",
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "regular": { //定期报告
+        "queryParams": [
+            {
+                "type": "10",
+            },
+            {
+                "type": "11",
+            },
+            {
+                "type": "2",
+                "id": "select_jglx",
+                "class": "js_reportType",
+                "title": "报告类型",
+                "placeholder": "报告类型",
+                "options": [{
+                    "value": "ALL",
+                    "name": "全部"
+                },
+                    {
+                        "value": "YEARLY",
+                        "name": "年报"
+                    },
+                    {
+                        "value": "QUATER1",
+                        "name": "第一季度报"
+                    },
+                    {
+                        "value": "QUATER2",
+                        "name": "半年报"
+                    },
+                    {
+                        "value": "QUATER3",
+                        "name": "第三季度报"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange",
+            }
+        ],
+    },
+    "listedcompanies": { //上市公司经营业绩概览
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_custom_title",
+                "title": "请输入公司代码或简称",
+            },
+            {
+                "type": "2",
+                "class": "js_typeOption js_select_detail",
+                "title": "报告类型",
+                "placeholder": "报告类型",
+                "options": [
+                    {
+                        "value": "ALL",
+                        "name": "全部"
+                    },
+                    {
+                        "value": "YEARLY",
+                        "name": "年报"
+                    },
+                    {
+                        "value": "QUATER2",
+                        "name": "半年报"
+                    },
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_biggestYear js_date_detail",
+                "title": "年份",
+            },
+        ],
+    },
+    "summaries": { //公告摘要
+        "queryParams": [
+            {
+                "type": "10",
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "margin_8434": { //融资余额/融券余量超25%信息
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码',
+                "class": "js_code1"
+            },
+            {
+                "type": "2",
+                'title': '日期范围',
+                "class": "js_timeRange"
+            }
+        ],
+    },
+    "margin2": { //融资买入/融券卖出超50%信息
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '板块',
+                "class": "js_plate"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "announcement_8361": { //基金公告
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code2",
+                "title":"证券代码或扩位简称",
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": "js_keywords"
+            },
+            {
+                "type": "2",
+                'title': '公告类型',
+                "class": "js_announcementType"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ]
+        
+    },
+    "etf_8362": { //ETF公告
+        "queryParams": [
+            {
+                "type": "10",
+                "title":"证券代码或扩位简称",
+                "class": "js_code2"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "reits_12905": { //基础设施公募REITs公告
+        "queryParams": [
+            {
+                "type": "10",
+                "title":"证券代码或扩位简称",
+                'placeholder':'6位代码 / 扩位简称',
+                "class": 'js_code2'
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange",
+                
+            }
+        ],
+        
+    },
+    "public_8443": { //交易公开信息
+        "queryParams": [
+             
+            {
+                "type": "12",
+                "title": '日期',
+                "class": 'js_date',
+                'placeholder': '请选择日期'
+            }],
+    },
+    "public_seven": { //交易公开信息
+        "queryParams": [
+             {
+                "type": "2",
+                'title': '类型',
+                "class": "js_sevenindexType",
+                'placeholder': ''
+            },
+            {
+                "type": "12",
+                "title": '日期',
+                "class": 'js_date',
+                'placeholder': '请选择日期'
+            }],
+    },
+    "dailydata": { //每日交易公开信息（主板）
+        "queryParams": [
+            {
+                "type": "12",
+                "title": '日期',
+                "class": 'js_date',
+                'placeholder': '开始时间  至  结束时间'
+            }],
+    },
+    "inquirydata": { //交易公开信息查询（主板）
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '查询类型',
+                "class": "js_inquirydataType"
+            },
+            {
+                "type": "1",
+                "title":"证券代码或简称",
+                "class": "js_stockCode",
+                "id": "inputCode",
+                "class1": "js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '营业部名称',
+                "class": "js_salesDeptName",
+                "id": "inputCode2",
+                "class1": "js_code3",
+                'placeholder':'营业部名称'
+            },
+            {
+                "type": "2",
+                'title': '披露类型',
+                "class": "js_disclosureType"
+            },
+            {
+                "type": "2",
+                'title': '买卖方向',
+                "class": "js_bandsdirection"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "dailydatatib": { //每日交易公开信息（科创板）
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+
+    "inquirydatatib": { //交易公开信息查询（科创板）
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '查询类型',
+                "class": "js_inquirydatatibType",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "查询个股"
+                    },
+                    {
+                        "value": "2",
+                        "name": "查询营业部"
+                    },
+                ]
+            },
+            {
+                "type": "1",
+                "title":"证券代码或简称",
+                "class": "js_stockCode",
+                "id": "inputCode",
+                "class1": "js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '营业部名称',
+                "class": "js_salesDeptName",
+                "id": "inputCode2",
+                "class1": "js_code3",
+                'placeholder':'营业部名称'
+            },
+            {
+                "type": "2",
+                'title': '披露类型',
+                "class": "js_disclosureTypeByGg",
+                "options": [
+                    {
+                        "value": "",
+                        "name": "披露类型"
+                    },
+                    {
+                        "value": "1",
+                        "name": "涨幅达15%"
+                    },
+                    {
+                        "value": "2",
+                        "name": "跌幅达15%"
+                    },
+                    {
+                        "value": "3",
+                        "name": "振幅达30%"
+                    },
+                    {
+                        "value": "4",
+                        "name": "换手率达30%"
+                    },
+                    {
+                        "value": "5",
+                        "name": "3日涨幅偏离累计达30%"
+                    },
+                    {
+                        "value": "6",
+                        "name": "3日跌幅偏离累计达30%"
+                    },
+                    {
+                        "value": "7",
+                        "name": "实施特别停牌的证券"
+                    },
+                    {
+                        "value": "8",
+                        "name": "10日内3次出现同正向异常波动"
+                    },
+                    {
+                        "value": "9",
+                        "name": "10日内3次出现同负向异常波动"
+                    },
+                    {
+                        "value": "10",
+                        "name": "10日涨幅偏离达100%"
+                    },
+                    {
+                        "value": "11",
+                        "name": "10日跌幅偏离达50"
+                    },
+                    {
+                        "value": "12",
+                        "name": "30日涨幅偏离达200"
+                    },
+                    {
+                        "value": "13",
+                        "name": "30日跌幅偏离累计达70"
+                    },
+                    {
+                        "value": "14",
+                        "name": "当日融资买入数量达50%以上"
+                    },
+                    {
+                        "value": "15",
+                        "name": "当日融券卖出数量达50%以上"
+                    },
+                ]
+            },
+            {
+                "type": "2",
+                'title': '披露类型',
+                "class": "js_disclosureTypeByYyb",
+                "options": [
+                    {
+                        "value": "",
+                        "name": "披露类型"
+                    },
+                    {
+                        "value": "1",
+                        "name": "涨幅达15%"
+                    },
+                    {
+                        "value": "2",
+                        "name": "跌幅达15%"
+                    },
+                    {
+                        "value": "3",
+                        "name": "振幅达30%"
+                    },
+                    {
+                        "value": "4",
+                        "name": "换手率达30%"
+                    },
+                    {
+                        "value": "5",
+                        "name": "3日涨幅偏离累计达30%"
+                    },
+                    {
+                        "value": "6",
+                        "name": "3日跌幅偏离累计达30%"
+                    },
+                    {
+                        "value": "7",
+                        "name": "实施特别停牌的证券"
+                    },
+                    {
+                        "value": "8",
+                        "name": "10日内3次出现同正向异常波动"
+                    },
+                    {
+                        "value": "9",
+                        "name": "10日内3次出现同负向异常波动"
+                    },
+                    {
+                        "value": "10",
+                        "name": "10日涨幅偏离达100%"
+                    },
+                    {
+                        "value": "11",
+                        "name": "10日跌幅偏离达50"
+                    },
+                    {
+                        "value": "12",
+                        "name": "30日涨幅偏离达200"
+                    },
+                    {
+                        "value": "13",
+                        "name": "30日跌幅偏离累计达70"
+                    },
+                    {
+                        "value": "14",
+                        "name": "当日融资买入数量达50%以上"
+                    },
+                    {
+                        "value": "15",
+                        "name": "当日融券卖出数量达50%以上"
+                    },
+                ]
+            },
+            {
+                "type": "2",
+                'title': '买卖方向',
+                "class": "js_bandsdirection"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "dailydatakzz": { //每日交易公开信息（可转债）
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "inquirydatakzz": { //交易公开信息查询（可转债）
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '查询类型',
+                "class": "js_inquirydataticType"
+            },
+            {
+                "type": "1",
+                "title":"证券代码或简称",
+                "class": "js_kzzStockCode",
+                "id": "inputCode",
+                "class1": "js_code1",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '营业部名称',
+                "class": "js_salesDeptKzzName",
+                "id": "inputCode2",
+                "class1": "js_code3",
+                'placeholder':'营业部名称'
+            },
+            {
+                "type": "2",
+                'title': '披露类型',
+                "class": "js_disclosureTypecByGg"
+            },
+            {
+                "type": "2",
+                'title': '披露类型',
+                "class": "js_disclosureTypecByYyb"
+            },
+            {
+                "type": "2",
+                'title': '买卖方向',
+                "class": "js_bandsdirectionc"
+            }, {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+   "main_14715": { //严重异常波动（主板）
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "star_11921": { //严重异常波动（科创板）
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "kzz": { //严重异常波动（可转债）
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "dzjyxx": { //大宗交易信息
+        "queryParams": [
+            {
+                "type": "10",
+                "class": 'js_code1'
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "dzjyyxsbxx": { //大宗交易意向申报信息
+        "queryParams": [
+            {
+                "type": "10",
+                "class": 'js_code1'
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "fixprep": { //固定价格申报
+        "queryParams": [
+            {
+                "type": "10",
+                "class": 'js_code1'
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "qfii": { //境外投资者持股信息披露
+        "queryParams": [
+            {
+                "type": "10"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "bookentry": { //国债公告
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+
+    "tenderoffer": { //要约收购
+        "queryParams": [
+            {
+                "type": "2",
+                "class": "js_type",
+                "title": "类型"
+            },
+            {
+                "type": "2",
+                "class": "js_plate",
+                "title": "板块"
+            }
+        ],
+    },
+
+    "local": { //地方政府债券公告
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "common": { //金融债公告
+        "queryParams": [
+            {
+                "type": "10",
+                "class": 'js_code3'
+            },
+            {
+                "type": "2",
+                'title': '债券类型',
+                "class": 'js_bondType js_option2 js_type2'
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "bond_9859_js_common_page": { //金融债公告-新页面
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "area_detail": { //地区分类详情页
+        "queryParams": [
+
+            {
+                "type": "2",
+                'title': '地区',
+                "class": 'js_area'
+            }
+        ],
+    },
+    "trade_8536_detail": { //行业分类详情页
+        "queryParams": [
+
+            {
+                "type": "2",
+                'title': '行业',
+                "class": 'js_trade'
+            }
+        ],
+    },
+    "gkfxgszq": { //公开发行公司债券（含企业债券）公告
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "gkfxgszq_2026": { //公开发行公司债券（含企业债券）公告-新
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "5",
+                "class": 'js_lifecycle',
+                "class1": "announceTypeList",
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "convertible_9863": { //可转换公司债券公告
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },          
+        ],
+        "type":"announcement"
+    },
+    "exchangeable_9868": { //可交换公司债券公告
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "exchangeable_9868_2026": { //可交换公司债券公告-新
+        "queryParams": [
+            {
+                "type": "1",
+                "class": 'js_code',
+                "title":"证券代码或简称",
+                "id":"inputCode",
+                "class1":"js_code3",
+                'placeholder':'6位代码 / 简称'
+            },
+            {
+                "type": "5",
+                "class": 'js_lifecycle',
+                "class1": "announceTypeList",
+            },
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 关键字'
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+                "hasOpen":"hasShow"
+            }
+        ],
+        "type":"announcement"
+    },
+    "ratios": { //通用质押式回购定盘利率
+        "queryParams": [
+            {
+                'type': '10',
+                "class": "js_code3"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    /*"tbond": { //债券应计利息额
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },*/
+    "repurchase_8416": { //国债、公司债回购折算率
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "riskbond": { //投资者适当性管理债券
+        "queryParams": [
+            {
+                'type': '10',
+                'class': 'js_code3'
+            },
+            {
+                "type": '2',
+                "title": '类型',
+                "class": 'js_type'
+            }
+        ],
+    },
+    "tdrottbcbip": { //三方回购质押券篮子的折扣率数据公布
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date",
+                "title": '日期'
+            }
+        ],
+    },
+    "composition": { //三方回购质押券篮子的债券构成信息
+        "queryParams": [
+            {
+                "type": '10',
+                "class": "js_code1",
+                "noTips":true
+            },
+            {
+                "type": '1',
+                "class": "js_lzbm",
+                "title": '篮子编码'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title": '日期'
+            }
+        ],
+    },
+    "parties": { //三方回购投资者适当性备案
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date",
+                "title": '时间'
+            }
+        ],
+    },
+    "preinfo": { //当日合约
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "2",
+                'title': '期权到期日',
+                "class": "js_date"
+            }
+        ],
+    },
+    "info_8624": { //挂牌信息
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "js_code search_radio"
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "note": { //提醒信息
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "tradeinfo": { //交易信息
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "exercise": { //行权交收信息
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "day_8466": { //每日概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "weekly_11169": { //每周概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "monthly_8467": { //月度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+                
+            }
+        ],
+    },
+    "yearly_8468": { //年度概况
+        "queryParams": [{
+            "type": "12",
+            "class": "js_date"
+        }],
+    },
+    "firstday": { //首日表现
+        "queryParams": [
+            {
+                "type": "10",
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "overview_9837": { //概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }],
+    },
+    "ipo_9838": { //首发
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            },
+            {
+                "type": "2",
+                "id": "select_sf",
+                "class": "js_raiseIpoType",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [{
+                    "value": "1",
+                    "name": "主板A"
+                },
+                    {
+                        "value": "2",
+                        "name": "主板B"
+                    },
+                    {
+                        "value": "3",
+                        "name": "科创板"
+                    }
+                ]
+            }
+        ],
+    },
+    "additional": { //增发
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            },
+            {
+                "type": "2",
+                "id": "select_sf",
+                "class": "js_raiseAdditionalType",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "主板A"
+                    },
+                    {
+                        "value": "2",
+                        "name": "主板B"
+                    },
+                    {
+                        "value": "3",
+                        "name": "科创板"
+                    }
+                ]
+            }
+        ],
+    },
+    "allotment_9840": { //配股
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            },
+            {
+                "type": "2",
+                "id": "select_sf",
+                "class": "js_raiseAllotmentType",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "主板A"
+                    },
+                    {
+                        "value": "2",
+                        "name": "主板B"
+                    },
+                    {
+                        "value": "3",
+                        "name": "科创板"
+                    }
+                ]
+            }
+        ],
+    },
+    "rank": { //股本排行
+        "queryParams": [
+            {
+                "type": "2",
+                "id": "select_gbph",
+                "class": "js_structureRankType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "十种发行股本最大的股票"
+                    },
+                    {
+                        "value": "2",
+                        "name": "十种流通股本最大的股票"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "dividend": { //分红
+        "queryParams": [
+            {
+                "type": "2",
+                "id": "select_fh",
+                "class": "js_dividendType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "A股"
+                    },
+                    {
+                        "value": "2",
+                        "name": "B股"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            },
+            {
+                "type": "10",
+            }
+        ],
+    },
+    "bonus": { //送股
+        "queryParams": [
+            {
+                "type": "10",
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "main_11913": { //主板
+        "queryParams": [
+            {
+                "type": "2",
+                "id": "select_zb",
+                "class": "js_marketvalueMainType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [{
+                    "value": "1",
+                    "name": "股票市价总值"
+                },
+                    {
+                        "value": "2",
+                        "name": "股票流通市值"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "star_11914": { //科创板
+        "queryParams": [
+            {
+                "type": "2",
+                "id": "select_kcb",
+                "class": "js_marketvalueStarType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "科创板股票市价总值"
+                    },
+                    {
+                        "value": "2",
+                        "name": "科创板股票流通市值"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+
+    "day": { //每日概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "weekly": { //每周概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "monthly_9880": { //月度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "yearly_9881": { //年度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "pb": { //中小企业私募债券
+        "queryParams": [
+            {
+                "type": "10",
+            }
+        ],
+    },
+    "cb": { //公司债券
+        "queryParams": [{
+            "type": "10",
+        }],
+    },
+    "convertible_10695": { //可转换公司债券
+        "queryParams": [
+            {
+                "type": "10",
+            }
+        ],
+    },
+    "statistic_8504": { //统计数据
+        "queryParams": [
+            {
+                "type": "12",
+"class":"js_date"
+            }
+        ],
+    },
+    "convertible": { //可转债转股统计
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code3",
+            }
+        ],
+    },
+    "exchangeable": { //可交换债换股统计
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code3",
+            }
+        ],
+    },
+    "profit": { //债券收益统计
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code3",
+            }
+        ],
+    },
+    "netfull": { //净价与全价
+
+        "queryParams": [
+           {
+                "type": "10",
+                "title":"债券代码或简称",
+                "placeholder":"6位代码 / 简称",
+                "class": "js_code3"
+            },
+            {
+                "type": "12",
+             "class":"js_date"
+            }
+        ],
+    },
+    "livelybond": { //债券活跃品种
+        "queryParams": [
+            {
+                "type": "2",
+                "title":"类型",
+                "class":"js_livelybondType"
+            }
+        ],
+    },
+    "day_8487": { //每日概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "weekly_11171": { //每周概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "monthly_8488": { //月度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "yearly_8489": { //年度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reitsmrgk": { //reits每日概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reitsmzgk": { //reits每周概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reitsydgk": { //reits月度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reitsndgk": { //reits年度概况
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "etfvolumn": { //ETF规模
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reitsgm": { //公募REITs规模
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "reits_12906": { //基础设施公募REITs规模
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "tcuvolumn": { //交易型货币基金规模
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "lofvolumn": { //上市开放式基金（LOF）规模
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "fjlofvolumn": { //分级LOF基金规模
+        "queryParams": [
+            {
+                "type": "2",
+                "title": '类型',
+                "class": "js_statisticsType"
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "sum": { //融资融券汇总
+        "queryParams": [
+            {
+                "type": "10",
+                "placeholder":"6位代码 / 扩位简称",
+                "class": "js_code2"
+            },
+            {
+                "type": "12",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "detail_9808": { //融资融券明细
+        "queryParams": [
+            {
+                "type": "10",
+                "class": "js_code2"
+            },
+            {
+                "type": "12",
+                "title": '交易日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "refinancing_8511": { //转融通
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '查询日期',
+                "class": "js_date"
+            }
+        ],
+    },
+"main_14717": { //主板战略配售可出借信息
+        "queryParams": [
+            {
+                "type": "10",
+                'placeholder': '6位代码 / 简称',
+                "class": "js_code1"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+"star_14718": { //科创板战略配售可出借信息
+        "queryParams": [
+            {
+                "type": "10",
+                'placeholder': '6位代码 / 简称',
+                "class": "js_code1"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "asset_8513": { //资管计划份额转让
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期范围',
+                "class": "js_dateRange"
+            },
+            {
+                "type": "1",
+                'title': '证券代码',
+                "class": "js_security_code",
+                "noTips": true,
+                "id": 'inputCode'
+
+            },
+            {
+                "type": "1",
+                'title': '证券简称',
+                "class": "js_security_name",
+                "noTips": true,
+                "id": 'inputCode2'
+            }
+        ],
+    },
+    "memberlist": { //会员列表
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_member_type"
+            },
+            {
+                "type": "1",
+                'title': '名称',
+                "placeholder": '按名称查询',
+                "class": "js_full_name"
+            },
+            {
+                "type": "1",
+                'title': '地址',
+                "placeholder": '按地址查询',
+                "class": "js_address"
+            },
+            {
+                "type": "2",
+                'title': '地区',
+                "class": "js_city"
+            }
+        ],
+    },
+    "memberlistDetail": { //会员列表-详情
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '信息类型',
+                "class": "js_member_type"
+            },
+            {
+                "type": "1",
+                'title': '名称',
+                "placeholder": '按名称查询',
+                "class": "js_full_name"
+            },
+            {
+                "type": "1",
+                'title': '地址',
+                "placeholder": '按地址查询',
+                "class": "js_address"
+            },
+            {
+                "type": "2",
+                'title': '地区',
+                "class": "js_city"
+            }
+        ],
+    },
+    "registered": { //会员注册资本排名
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '公司类型',
+                "class": "js_company_type"
+            }
+        ],
+    },
+    "sale": { //会员营业部数量排名
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "area_8518": { //会员规模按地区分布
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "repurchase": { //股票质押回购
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_repurchaseType"
+            },
+            {
+                "type": "1",
+                'title': '证券代码或简称',
+                "class": "js_repurchaseCode",
+                "id": 'inputCode',
+"placeholder":"6位代码 / 简称"
+
+            },
+            {
+                "type": "12",
+                'title': '日期范围',
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "trends_8453": { //行情走势
+        "queryParams": [
+            {
+                "type": "10",
+                "title": "代码",
+                "class": 'js_code1'
+            }
+        ],
+    },
+    "report_8454": { //行情报表
+        "queryParams": [
+            {
+                "type": "11",
+                "title": "类型",
+                "class": 'js_reportType'
+            },
+            {
+                "type": "11",
+                "title": "股票类型",
+                "class": "js_shareType"
+            }
+        ],
+    },
+
+    "indexlist": { //指数列表
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_indexlistType"
+            }
+        ],
+    },
+
+    "quotation": { //指数行情
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_quotationType"
+            }
+        ],
+    },
+
+    "share": { //股票
+        "queryParams": [
+            {
+                "type": "10",
+                "class": 'js_code1'
+            },
+            {
+                "type": "11",
+                "title": '板块',
+                "class": "js_plate"
+            },
+            {
+                "type": "11",
+                "title": '地区',
+                "class": "js_city"
+            }
+            //{
+            //    "type": "11",
+           //     "title": '行业',
+           //     "class": "js_industry"
+           // }
+        ],
+    },
+    "delisting_8530": { //暂停/终止上市公司
+        "queryParams": [
+            {
+                "type": "11",
+                "title": '暂停/终止上市',
+                "class": 'js_listed'
+            },
+            {
+                "type": "10",
+                "class": 'js_code1'
+            },
+            {
+                "type": "11",
+                "title": '板块',
+                "class": "js_plate"
+            },
+            {
+                "type": "11",
+                "title": '地区',
+                "class": "js_city"
+            }
+            /*
+            {
+                "type": "11",
+                "title": '行业',
+                "class": "js_industry"
+            }
+            */
+        ],
+    },
+    "list_8542": { //基金列表
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type"
+            }
+        ],
+    },
+    "list_8544": { //基金管理公司列表
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": "js_keywords"
+            }
+        ],
+    },
+    "jjcpzsslb": { //基金产品做市商列表
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '关键字',
+                "class": "js_keywords"
+            }
+        ],
+    },
+    "netvalue": { //净值
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "netvalue_8567": { //净值
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "scale": { //规模
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    
+    "listing_12158": { //债券上市
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '债券类型',
+                "class": 'js_bongdsType'
+            },
+            {
+                "type": "2",
+                "title": "上市类型",
+                "class": "js_bongdsListingType"
+            },
+            {
+                "type": "1",
+                "title": "证券代码或简称",
+                "class": "js_inputCode",
+                 "class1": "js_code3",
+                "id":"inputCode",
+     'placeholder':'6位代码 / 简称'
+            },
+           {
+               "type": "12",
+                "title": "日期范围",
+              "class": "js_dateRange"
+           },
+        ],
+    },
+    "repo": { //债券回购
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '回购类型',
+                "class": 'js_bongdsRepoType'
+            }
+        ],
+    },
+    "products": { //产品列表
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": 'js_productsType'
+            }
+        ],
+    },
+    "price_8619": { //行情
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '标的代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "2",
+                'title': '合约到期月份',
+                "class": "js_dateType"
+            }
+        ],
+    },
+    "risk": { //风险指标
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '标的代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "preinfo_8623": { //当日合约
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "js_code search_radio"
+            },
+            {
+                "type": "2",
+                'title': '期权到期日',
+                "class": "js_date"
+            }
+        ],
+    },
+    "info_12436": { //挂牌信息
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            }
+        ],
+    },
+    "note_8625": { //提醒信息
+        "queryParams": [
+            {
+                "type": "4",
+                'title': '代码',
+                "class": "search_radio js_code"
+            },
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "tradeinfo_8626": { //交易信息
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "exercise_8627": { //行权交收信息
+        "queryParams": [
+            {
+                "type": "12",
+                "class": "js_date"
+            }
+        ],
+    },
+    "date": { //每日/月度统计
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '统计类型',
+                "class": "js_type"
+            },
+            {
+                "type": "12",
+                'title': '日期',
+                "class": "js_date"
+            },
+{
+                "type": "12",
+                'title': '日期',
+                "class": "js_date02"
+            }
+        ],
+    },
+    "ratios_9836": { //参考汇率/结算汇兑比率
+        "queryParams": [
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type",
+ "options": [
+                   
+                    {
+                        "value": "0",
+                        "name": "历史参考汇率"
+                    },
+                    {
+                        "value": "1",
+                        "name": "结算汇兑比率"
+                    },
+                ]
+            },
+            {
+                "type": "12",
+                'title': '日期范围',
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "list_11356": { //产品列表
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码或简称',
+                "class": "js_code5"
+            },
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type"
+            }
+        ],
+    },
+    "disclosure_11357": { //公告披露
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码或简称',
+                "class": "js_code5"
+            },
+            {
+                "type": "2",
+                'title': '类型',
+                "class": "js_type"
+            }
+        ],
+    },
+    "index_11358": { //绿色指数
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码或简称',
+                "class": "js_code8"
+            }],
+    },
+    "ptcpgg": { //平台产品公告
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码或扩位简称',
+                "class": 'js_code2'
+            },
+            {
+                "type": "12",
+                'title': '日期范围',
+                "class": 'js_datePlatformRange'
+            }
+        ],
+    },
+    "zszxsgg": { //平台做市商和销售机构公告
+        "queryParams": [
+            {
+                "type": "10",
+                'title': '证券代码或扩位简称',
+                "class": 'js_code2'
+            },
+            {
+                "type": "12",
+                'title': '日期范围',
+                "class": 'js_datePlatformSaleRange'
+            }
+        ],
+    },
+    "product_8977": { //产品信息
+        "queryParams": [
+            {
+                "type": "2",
+                "title": "类型",
+                "class": "js_type"
+            },
+            {
+                "type": "1",
+                "title": "资管机构名称",
+                "class": "js_company"
+            },
+            {
+                "type": "1",
+                "title": "证券代码",
+                "class": "js_codeWord"
+            },
+            {
+                "type": "1",
+                "title": "证券简称",
+                "class": "js_nameWord"
+            }
+        ],
+    },
+    "deal_8978": { //成交信息
+        "queryParams": [
+            {
+                "type": "12",
+                "title": "日期范围",
+                "class": "js_dateRange"
+            },
+            {
+                "type": "1",
+                "title": "证券代码",
+                "class": "js_codeWord"
+            },
+            {
+                "type": "1",
+                "title": "证券简称",
+                "class": "js_nameWord"
+            }
+        ],
+    },
+    "securitiesfinancing": { //转融通证券出借交易概况
+        "queryParams": [
+            {
+                "type": "10",
+                "name": "COMPANY_CODE"
+            },
+            {
+                "type": "12",
+                "title": "日期范围",
+                "start": "BEGIN_DATE",
+                "end": "END_DATE",
+                "isHour": "true",
+                "class": "js_date"
+            }
+        ],
+    },
+    "againstmargin": { //标的证券和可充抵保证金证券列表
+        "queryParams": [
+            {
+                "type": "2",
+                "title": "类型",
+                "class": "js_type"
+            }
+        ],
+    },
+    "overview_13208": { //市场概况
+        "queryParams": [
+            {
+                "type": "12",
+                "title": '日期',
+                "class": 'js_dateMonthlyReportRange',
+                'placeholder': '请选择时间'
+            }
+        ],
+    },
+    "view": { //市场总貌
+        "queryParams": [
+            {
+                "type": "12",
+                "title": '日期',
+                "class": 'js_date'
+            }
+        ],
+    },
+    "index_13209": { //证券指数
+        "queryParams": [
+            {
+                "type": "1",
+                "title": '日期',
+                "class": 'js_stockIndexRange',
+                'placeholder': '请选择时间',
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "company_13212": { //上市公司
+        "queryParams": [
+            {
+                "type": "1",
+                "title": '日期',
+                "class": 'js_listed_companyRange',
+                'placeholder': '请选择时间',
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "member_13213": { //会员
+        "queryParams": [
+            {
+                "type": "1",
+                "title": '日期',
+                "class": 'js_memberRange',
+                'placeholder': '请选择时间',
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "report_13217": { //证券交易
+        "queryParams": [
+            {
+                "type": "1",
+                "title": '日期',
+                "class": 'js_securitiesTradingRange',
+                'placeholder': '请选择时间',
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "investor": { //投资者
+        "queryParams": [
+            {
+                "type": "1",
+                "title": '日期',
+                "class": 'js_investorsRange',
+                'placeholder': '请选择时间',
+                "btnClass":"bi-calendar4-week"
+            }
+        ],
+    },
+    "delisting": { //已退市公司信息
+        "queryParams": [
+            {
+                "type": "2",
+                "title": "类型",
+                "class": "js_plate"
+            }
+        ],
+    },
+    "tb": { //记账式国债
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "ltb": { //地方政府债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "fb": { //地方政府债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "eb": { //企业债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "ppb": { //非公开发行公司债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "ib": { //次级债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "abs": { //企业资产支持证券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "creditabs": { //信贷资产支持证券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "other_10702": { //其他债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "wb": { //分离交易的可转换公司债券
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            },
+        ],
+    },
+    "StarMarketMaker": { //科创板做市商信息
+        "queryParams": [
+            {
+                "type": "10",
+                "title": "证券代码",
+                "placeholder": "代码",
+                
+            },
+            {
+                "type": "12",
+                "title": "日期范围",
+                "class": "js_dateRange"
+            }
+        ],
+    },
+    "stocklist_14768": { //科创板做市商信息 做市股票列表
+        "queryParams": [
+            {
+                "type": "1",
+                "title": "关键字",
+                "class": ""
+            },
+        ],
+    },
+    "announcement_14769": { //科创板做市商信息 信息披露
+        "queryParams": [
+            {
+                "type": "1",
+                "title": "证券代码",
+                "id":"inputCode",
+                "placeholder":"代码",
+                "class": "",
+                "class1": "js_code1"
+            },
+        ],
+    },
+    "starzsjdxx": { //科创板做市商信息 做市借券信息
+        "queryParams": [
+            {
+                "type": "1",
+                "title": "证券代码或简称",
+                "id":"inputCode",
+                "placeholder":"6位代码 / 简称",
+                "class": "",
+                "class1": "js_code1"
+            },
+            {
+                "type": "12",
+                "title": "日期范围",
+                "class": "js_date"
+            },
+        ],
+    },
+    "main_11915": { //主板活跃股排名前二十名
+        "queryParams": [
+            {
+                "type": "2",
+                "class": "js_activityMainType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "成交量"
+                    },
+                    {
+                        "value": "2",
+                        "name": "成交金额"
+                    },
+                    {
+                        "value": "3",
+                        "name": "涨幅"
+                    },
+                    {
+                        "value": "4",
+                        "name": "跌幅"
+                    },
+                    {
+                        "value": "5",
+                        "name": "振幅"
+                    },
+                    {
+                        "value": "6",
+                        "name": "换手率"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "title": "日期",
+                "class": "js_date"
+            },
+        ],
+    },
+    "star_11916": { //科创板活跃股排名前二十名
+        "queryParams": [
+            {
+                "type": "2",
+                "class": "js_activityStarType",
+                "title": "类型",
+                "placeholder": "类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "成交量"
+                    },
+                    {
+                        "value": "2",
+                        "name": "成交金额"
+                    },
+                    {
+                        "value": "3",
+                        "name": "涨幅"
+                    },
+                    {
+                        "value": "4",
+                        "name": "跌幅"
+                    },
+                    {
+                        "value": "5",
+                        "name": "振幅"
+                    },
+                    {
+                        "value": "6",
+                        "name": "换手率"
+                    }
+                ]
+            },
+            {
+                "type": "12",
+                "title": "日期",
+                "class": "js_date"
+            },
+        ],
+    },
+    "info_11342": { //全球存托凭证信息
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'inputCode'
+            }
+        ],
+    },
+ "announcements_12369": { //司法处置公告
+        "queryParams": [
+            {
+                "type": "10",
+                "id": 'js_code1'
+            }
+        ],
+    },
+"single": { //单一股票担保物比例
+        "queryParams": [
+            {
+                "type": "12",
+                'title': '日期',
+                'placeholder': '生效日期',
+                "class": "js_date"
+            }
+        ],
+    },
+"ipo202407fxd": {
+        //发行上市
+        "queryParams": [
+            {
+                "type": "10",
+                "id": "js_code1",
+            },
+            {
+                "type": "2",
+                "id": "select_sf",
+                "class": "js_raiseIpoType",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "主板A",
+                    },
+                    {
+                        "value": "2",
+                        "name": "主板B",
+                    },
+                    {
+                        "value": "3",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "class": "js_disclosureType",
+                "title": "披露类型",
+                "placeholder": "披露类型",
+                "options": [
+                    {
+                        "value": "1",
+                        "name": "主板A",
+                    },
+                    {
+                        "value": "2",
+                        "name": "主板B",
+                    },
+                    {
+                        "value": "3",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "12",
+                "title": "日期范围",
+                "placeholder": "日期范围",
+                "class": "js_date",
+            },
+        ],
+    },
+    "refinancing202407fxr": {
+        //审核动态再融资
+        "queryParams": [
+            {
+                "type": "1",
+                "class": "js_code",
+                "title": "发行人/中介机构",
+                "id": "inputkeyWords",
+                "class1": "js_code1",
+                "placeholder": "发行人/中介机构",
+            },
+            {
+                "type": "2",
+                "title": "板块",
+                "class": "js_rankType",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "状态",
+                "class": "js_status",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "已受理",
+                      "value": 1,
+                    },
+                    {
+                      "name": "已问询",
+                      "value": 2,
+                    },
+                    {
+                      "name": "已回复",
+                      "value": 3,
+                    },
+                    {
+                      "name": "暂缓审议",
+                      "value": 5,
+                    },
+                    {
+                      "name": "通过",
+                      "value": 4,
+                    },
+                    {
+                      "name": "未通过",
+                      "value": 6,
+                    },
+                    {
+                      "name": "提交注册",
+                      "value": 45,
+                    },
+                    {
+                      "name": "补充审核已问询",
+                      "value": 46,
+                    },
+                    {
+                      "name": "补充审核已回复",
+                      "value": 47,
+                    },
+                    {
+                      "name": "注册结果",
+                      "value": 50,
+                    },
+                    {
+                      "name": "中止及财报更新",
+                      "value": 55,
+                    },
+                    {
+                      "name": "终止",
+                      "value": 60,
+                    }
+                ],
+            },
+            {
+                "type": "2",
+                "title": "再融资方式",
+                "class": "js_bussinesType",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "公开增发股票",
+                      "value": "1",
+                    }, {
+                      "name": "配股",
+                      "value": "2",
+                    }, {
+                      "name": "非公开发行股票",
+                      "value": "3,9,11",
+                    }, {
+                      "name": "公开发行存托凭证",
+                      "value": "4",
+                    }, {
+                      "name": "非公开发行存托凭证",
+                      "value": "5",
+                    }, {
+                      "name": "公开发行可转债",
+                      "value": "6",
+                    }, {
+                      "name": "定向可转债",
+                      "value": "7,10",
+                    }, {
+                      "name": "优先股",
+                      "value": "8",
+                    }
+                ],
+            },
+            {
+                "type": "12",
+                "title": "受理日期",
+                "class": "js_dateRange",
+            },
+        ],
+        "type":"listing",
+    },
+    "ma202407fxr": {
+        //审核动态并购重组
+        "queryParams": [
+            {
+                "type": "1",
+                "class": "js_code",
+                "title": "发行人/中介机构",
+                "id": "inputkeyWords",
+                "class1": "js_code1",
+                "placeholder": "发行人/中介机构",
+            },
+            {
+                "type": "2",
+                "title": "板块",
+                "class": "js_rankType",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "状态",
+                "class": "js_status",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "已受理",
+                      "value": 1,
+                    },
+                    {
+                      "name": "已问询",
+                      "value": 2,
+                    },
+                    {
+                      "name": "已回复",
+                      "value": 3,
+                    },
+                    {
+                      "name": "重组委会议结果",
+                      "value": '7,8,9,10,11',
+                    },
+                    {
+                      "name": "提交注册",
+                      "value": 45,
+                    },
+                    {
+                      "name": "补充审核已问询",
+                      "value": 46,
+                    },
+                    {
+                      "name": "补充审核已回复",
+                      "value": 47,
+                    },
+                    {
+                      "name": "注册结果",
+                      "value": 50,
+                    },
+                    {
+                      "name": "中止及财报更新",
+                      "value": 55,
+                    },
+                    {
+                      "name": "终止",
+                      "value": 60,
+                    }
+                ],
+            },
+            {
+                "type": "14",
+                "title": "业务类型",
+                "class": "js_bussinesType",
+                "options": [
+                  {
+                    "name": "发行股份购买资产",
+                    "value": "1",
+                    "children": [
+                      {
+                        "name": "普通程序",
+                        "value": "1000"
+                      },
+                      {
+                        "name": "快速审核",
+                        "value": "1001"
+                      },
+                      {
+                        "name": "小额快速",
+                        "value": "1002"
+                      },
+                      {
+                        "name": "简易审核",
+                        "value": "1003"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "重组上市",
+                    "value": "3000",
+                  }
+                ],
+            },
+            {
+                "type": "12",
+                "title": "受理日期",
+                "class": "js_dateRange",
+            },
+            {
+                "type": "5",
+                "class": "js_typeListUl",
+                "class1": "announceTypeList",
+            }
+        ],
+        "type":"listing",
+    },
+    "gdr202407fxr": {
+        //审核动态DR基础股票
+        "queryParams": [
+            {
+                "type": "1",
+                "class": "js_code",
+                "title": "发行人/中介机构",
+                "id": "inputkeyWords",
+                "class1": "js_code1",
+                "placeholder": "发行人/中介机构",
+            },
+            {
+                "type": "2",
+                "title": "板块",
+                "class": "js_rankType",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "状态",
+                "class": "js_status",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "已受理",
+                      "value": 1,
+                    },
+                    {
+                      "name": "已问询",
+                      "value": 2,
+                    },
+                    {
+                      "name": "已回复",
+                      "value": 3,
+                    },
+                    {
+                      "name": "暂缓审议",
+                      "value": 5,
+                    },
+                    {
+                      "name": "通过",
+                      "value": 4,
+                    },
+                    {
+                      "name": "未通过",
+                      "value": 6,
+                    },
+                    {
+                      "name": "提交注册",
+                      "value": 45,
+                    },
+                    {
+                      "name": "补充审核已问询",
+                      "value": 46,
+                    },
+                    {
+                      "name": "补充审核已回复",
+                      "value": 47,
+                    },
+                    {
+                      "name": "注册结果",
+                      "value": 50,
+                    },
+                    {
+                      "name": "中止及财报更新",
+                      "value": 55,
+                    },
+                    {
+                      "name": "终止",
+                      "value": 60,
+                    }
+                ],
+            },
+            {
+                "type": "2",
+                "title": "再融资方式",
+                "class": "js_bussinesType",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "公开增发股票",
+                      "value": "1",
+                    }, 
+                    {
+                      "name": "配股",
+                      "value": "2",
+                    }, 
+                    {
+                      "name": "非公开发行股票",
+                      "value": "3,9",
+                    }, 
+                    {
+                      "name": "公开发行存托凭证",
+                      "value": "4",
+                    }, 
+                    {
+                      "name": "非公开发行存托凭证",
+                      "value": "5",
+                    }, 
+                    {
+                      "name": "公开发行可转债",
+                      "value": "6",
+                    }, 
+                    {
+                      "name": "定向可转债",
+                      "value": "7,10",
+                    }
+                ],
+            },
+            {
+                "type": "12",
+                "title": "受理日期",
+                "class": "js_dateRange",
+            },
+        ],
+        "type":"listing",
+    },
+    "ipo202407fxr": {
+        //项目动态发行上市
+        "queryParams": [
+            {
+                "type": "1",
+                "class": "js_code",
+                "title": "发行人/中介机构",
+                "id": "inputkeyWords",
+                "class1": "js_code1",
+                "placeholder": "发行人/中介机构",
+            },
+            {
+                "type": "2",
+                "title": "板块",
+                "class": "js_plate",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "状态",
+                'class': "js_status",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "已受理",
+                      "value": "1",
+                    },
+                    {
+                      "name": "已问询",
+                      "value": "2",
+                    },
+                    {
+                      "name": "上市委审议",
+                      "value": "3,9",
+                    },
+                    {
+                      "name": "提交注册",
+                      "value": "4",
+                    },
+                    {
+                      "name": "补充审核",
+                      "value": "10",
+                    },
+                    {
+                      "name": "注册结果",
+                      "value": "5",
+                    },
+                    {
+                      "name": "中止及财报更新",
+                      "value": "7",
+                    },
+                    {
+                      "name": "终止",
+                      "value": "8",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "注册地",
+                'class': "js_province",
+            },
+            {
+                "type": "2",
+                "title": "行业",
+                'class': "js_industry",
+            },
+            {
+                "type": "12",
+                "title": "受理日期",
+                "class": "js_dateRange"
+            },
+        ],
+        "type":"listing",
+    },
+    "transfer202407fxr": {
+        //项目动态转板上市
+        "queryParams": [
+            {
+                "type": "1",
+                "class": "js_code",
+                "title": "发行人/中介机构",
+                "id": "inputkeyWords",
+                "class1": "js_code1",
+                "placeholder": "发行人/中介机构",
+            },
+            {
+                "type": "2",
+                "title": "状态",
+                'class': "js_status",
+                "options": [
+                    {
+                      "name": "全部",
+                      "value": "",
+                    },
+                    {
+                      "name": "已受理",
+                      "value": "1",
+                    },
+                    {
+                      "name": "已问询",
+                      "value": "2",
+                    },
+                    {
+                      "name": "上市委审议",
+                      "value": "3,4,5",
+                    },
+                    {
+                      "name": "审核结果",
+                      "value": "50",
+                    },
+                    {
+                      "name": "中止及财报更新",
+                      "value": "55",
+                    },
+                    {
+                      "name": "终止",
+                      "value": "60",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "title": "注册地",
+                'class': "js_province",
+            },
+            {
+                "type": "2",
+                "title": "行业",
+                'class': "js_industry",
+            },
+            {
+                "type": "12",
+                "title": "受理日期",
+                "class": "js_dateRange"
+            },
+        ],
+        "type":"listing",
+    },
+    "commiteenotice202407fx": {
+        //上市委会议公告和结果
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '标题 / 发行人',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 发行人'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ]
+    },
+    "commiteeresult202407fx": {
+        //并购重组会议公告和结果
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '标题 / 发行人',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 发行人'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ]
+    },
+    "termination202407fx": {
+        //终止审核决定
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '标题 / 发行人',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 发行人'
+            },
+            {
+                "type": "2",
+                "id": "select_plate",
+                "class": "js_plate",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "id": "select_businessType",
+                "class": "js_businessType",
+                "title": "业务类型",
+                "placeholder": "业务类型",
+                "options": [
+                    {
+                        "value": "I1020,T1020,S1020,M1020,D1020",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "I1020",
+                        "name": "发行上市",
+                    },
+                    {
+                        "value": "S1020",
+                        "name": "再融资",
+                    },
+                    {
+                        "value": "M1020",
+                        "name": "并购重组",
+                    },
+                    {
+                        'value': "T1020",
+                        "name": "转板上市",
+                    },
+                    {
+                        "value": "D1020",
+                        "name": "DR基础股票",
+                    },
+                ],
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ]
+    },
+    "regresult202407fx": {
+        //注册结果文件
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '标题 / 发行人',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 发行人'
+            },
+            {
+                "type": "2",
+                "id": "select_plate",
+                "class": "js_plate",
+                "title": "板块",
+                "placeholder": "板块",
+                "options": [
+                    {
+                        "value": "1,2",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "2",
+                        "name": "主板",
+                    },
+                    {
+                        "value": "1",
+                        "name": "科创板",
+                    },
+                ],
+            },
+            {
+                "type": "2",
+                "id": "select_businessType",
+                "class": "js_businessType",
+                "title": "业务类型",
+                "placeholder": "业务类型",
+                "options": [
+                    {
+                        "value": "I1010,S1010,M1010,D1010",
+                        "name": "全部",
+                    },
+                    {
+                        'value': "I1010",
+                        "name": "发行上市",
+                    },
+                    {
+                        "value": "S1010",
+                        "name": "再融资",
+                    },
+                    {
+                        "value": "M1010",
+                        "name": "并购重组",
+                    },
+                    {
+                        "value": "D1010",
+                        "name": "DR基础股票",
+                    },
+                ],
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ]
+    },
+    "tbresult202407fx": {
+        //转板上市决定
+        "queryParams": [
+            {
+                "type": "1",
+                'title': '标题 / 发行人',
+                "class": 'js_keyWords',
+                'placeholder':'标题 / 发行人'
+            },
+            {
+                "type": "12",
+                "class": "js_date",
+                "title":"日期范围",
+                "placeholder": "开始时间  至  结束时间"
+            }
+        ]
+    },
+    ipo202407fxd: {
+        //发行上市
+        queryParams: [
+          {
+            type: "1",
+            class: "js_title",
+            id: "js_code3",
+            title: "标题/发行人",
+            placeholder: "标题/发行人",
+          },
+          {
+            type: "2",
+            class: "js_plateType",
+            title: "板块",
+            placeholder: "板块",
+            options: [
+              {
+                value: "1,2",
+                name: "全部",
+              },
+              {
+                value: "2",
+                name: "主板",
+              },
+              {
+                value: "1",
+                name: "科创板",
+              },
+            ],
+          },
+          {
+            type: "2",
+            class: "js_disclosureType",
+            title: "披露类型",
+            placeholder: "披露类型",
+            options: [
+              {
+                value: "I0011,I0012,I0013,I3010",
+                name: "全部",
+              },
+              {
+                value: "I0011",
+                name: "申报稿",
+              },
+              {
+                value: "I0012",
+                name: "上会稿",
+              },
+              {
+                value: "I0013",
+                name: "注册稿",
+              },
+              {
+                value: "I3010",
+                name: "问询与回复",
+              },
+            ],
+          },
+          {
+            type: "12",
+            title: "日期范围",
+            placeholder: "日期范围",
+            class: "js_date",
+          },
+        ],
+      },
+      transfer202407fxd: {
+        //转板上市
+        queryParams: [
+          {
+            type: "1",
+            id: "js_code3",
+            class: "js_title",
+            title: "标题/转板公司",
+            placeholder: "标题/转板公司",
+          },
+          {
+            type: "2",
+            class: "js_disclosureType",
+            title: "披露类型",
+            placeholder: "披露类型",
+            options: [
+              {
+                value: "T0011,T0012,T0013,T3010",
+                name: "全部",
+              },
+              {
+                value: "T0011",
+                name: "申报稿",
+              },
+              {
+                value: "T0012",
+                name: "上会稿",
+              },
+              {
+                value: "T0013",
+                name: "封卷稿",
+              },
+              {
+                value: "T3010",
+                name: "问询与回复",
+              },
+            ],
+          },
+          {
+            type: "12",
+            title: "日期范围",
+            placeholder: "日期范围",
+            class: "js_date",
+          },
+        ],
+      },
+      refinancing202407fxd: {
+        //再融资
+        queryParams: [
+        {
+            type: "1",
+            id: "js_code3",
+            class: "js_title",
+            title: "标题/发行人",
+            placeholder: "标题/发行人",
+            },
+            {
+            type: "1",
+            id: "js_code3",
+            class: "js_companyCode",
+            title: "公司代码/公司简称",
+            placeholder: "公司代码/公司简称",
+            },
+          {
+            type: "2",
+            class: "js_plateType",
+            title: "板块",
+            placeholder: "板块",
+            options: [
+              {
+                value: "1,2",
+                name: "全部",
+              },
+              {
+                value: "2",
+                name: "主板",
+              },
+              {
+                value: "1",
+                name: "科创板",
+              },
+            ],
+          },
+          {
+            type: "2",
+            class: "js_disclosureType",
+            title: "披露类型",
+            placeholder: "披露类型",
+            options: [
+              {
+                value: "S0011,S3010,S3020",
+                name: "全部",
+              },
+              {
+                value: "S0011",
+                name: "申报稿",
+              },
+              {
+                value: "S3010,S3020",
+                name: "问询回复",
+              },
+            ],
+          },
+          {
+            type: "12",
+            title: "日期范围",
+            placeholder: "日期范围",
+            class: "js_date",
+          },
+        ],
+      },
+      ma202407fxd: {
+        //并购重组
+        queryParams: [
+            {
+                type: "1",
+                id: "js_code3",
+                class: "js_title",
+                title: "文件名称/上市公司",
+                placeholder: "文件名称/上市公司",
+           },
+           {
+                type: "1",
+                id: "js_code3",
+                class: "js_companyCode",
+                title: "公司代码/公司简称",
+                placeholder: "公司代码/公司简称",
+              },
+          {
+            type: "2",
+            class: "js_plateType",
+            title: "板块",
+            placeholder: "板块",
+            options: [
+              {
+                value: "1,2",
+                name: "全部",
+              },
+              {
+                value: "2",
+                name: "主板",
+              },
+              {
+                value: "1",
+                name: "科创板",
+              },
+            ],
+          },
+          {
+            type: "2",
+            class: "js_disclosureType",
+            title: "披露类型",
+            placeholder: "披露类型",
+            options: [
+              {
+                value: "M0011,M3010,M3020",
+                name: "全部",
+              },
+              {
+                value: "M0011",
+                name: "申报稿",
+              },
+              {
+                value: "M3010,M3020",
+                name: "问询回复",
+              },
+            ],
+          },
+          {
+            type: "12",
+            title: "日期范围",
+            placeholder: "日期范围",
+            class: "js_date",
+          },
+        ],
+      },
+      gdr202407fxd:{
+        //DR基础股票
+        queryParams: [
+          {
+            type: "1",
+            id: "js_code3",
+            class: "js_title",
+            title: "标题/发行人",
+            placeholder: "标题/发行人",
+          },
+          {
+            type: "1",
+            id: "js_code3",
+            class: "js_companyCode",
+            title: "公司代码/公司简称",
+            placeholder: "公司代码/公司简称",
+          },
+          {
+            type: "2",
+            class: "js_plateType",
+            title: "板块",
+            placeholder: "板块",
+            options: [
+              {
+                value: "1,2",
+                name: "全部",
+              },
+              {
+                value: "2",
+                name: "主板",
+              },
+              {
+                value: "1",
+                name: "科创板",
+              },
+            ],
+          },
+          {
+            type: "2",
+            class: "js_disclosureType",
+            title: "披露类型",
+            placeholder: "披露类型",
+            options: [
+              {
+                value: "D0011,D3010",
+                name: "全部",
+              },
+              {
+                value: "D0011",
+                name: "申报稿",
+              },
+              {
+                value: "D3010",
+                name: "问询回复",
+              },
+            ],
+          },
+          {
+            type: "12",
+            title: "日期范围",
+            placeholder: "日期范围",
+            class: "js_date",
+          },
+        ],
+      },
+}

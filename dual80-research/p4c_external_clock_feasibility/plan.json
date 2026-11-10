@@ -1,0 +1,201 @@
+{
+  "phase": "P4c",
+  "title": "Does any official family outside the closed in-repo set have a certifiable pre-open disclosure clock?",
+  "contains_measurements": false,
+  "written_before_evidence": true,
+  "do_not_rewrite_after_evidence": true,
+  "hypothesis": "P4a left every in-repo non-price family unadmitted, and P4b found no certified disclosure clock on the stored Shanghai and Shenzhen financing balances. The in-repo minimum set is therefore exhausted under the existing gate. This phase only asks whether any official family outside that set has a publisher clock that meets the same rule. It does not loosen the rule, it does not admit a family, and it does not fit a score.",
+  "freeze": {
+    "index": "000985.CSI",
+    "style_controls": ["000300", "000852"],
+    "style_controls_are_not_targets": true,
+    "label": "close",
+    "tasks": ["5_TOP", "5_BOTTOM", "9_TOP", "9_BOTTOM"],
+    "decision_clock": "Pre-open on research session D. The deadline is 09:15 Asia/Shanghai on D, the start of the opening call auction, before the 09:30 continuous open.",
+    "calendar": {
+      "file": "turning-research-canonical/tables/research_inputs.csv",
+      "start": "2011-08-02",
+      "end": "2026-08-25",
+      "rows": 3659,
+      "non_terminal_rows": 3658,
+      "next_session_source": "The following date in research_inputs.csv. No other calendar is added. The last research date has no following session and cannot be certified. A later session is not invented."
+    },
+    "prior_decisions_unchanged": {
+      "P1": "BLOCKED_NO_CONCENTRATION",
+      "P1b": "GO_PRE_PIVOT_COORDINATE",
+      "P1c": "BLOCKED_NO_WINDOW_PEAK",
+      "P1d": "GO_NEW_FACTORS",
+      "P4a": "NO_FAMILY_ADMITTED",
+      "P4b": "CLOCKS_UNAVAILABLE"
+    },
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "family_admitted_in_this_phase": false,
+    "model_fit_in_this_phase": false,
+    "p2_opened": false,
+    "threshold_changed": false,
+    "six_price_features_refit": false,
+    "fast_features_added": false,
+    "fast_features_named": ["return3", "change_in_return3"]
+  },
+  "clock_rule": {
+    "definition": "A clock counts only when the publisher's own payload, or an official timestamped publication record of that same publisher, gives a timezone-aware publication time for that session's field. The observation_date must be strictly before the decision day D. The publication time must be strictly before 09:15 Asia/Shanghai on the next date in research_inputs.csv.",
+    "timezone": "The timestamp must already carry a timezone, or the same official evidence must state Beijing time, 北京时间, or Asia/Shanghai. A bare clock with no zone is not certified.",
+    "one_row": "One row per research date per publisher per field. A date with no clock stays blank. Neighbors are not filled.",
+    "values": "A value is stored only when it arrives in the same official payload as a clock that this rule accepts. A value without that clock is not collected.",
+    "what_is_not_a_clock": [
+      "A published schedule or a standing sentence that the publisher usually releases before the next open.",
+      "A 2026 download time, receipt time, or capture time.",
+      "An HTTP Date or Last-Modified header of a later fetch.",
+      "A page-shell generation time, including 页面生成时间.",
+      "A vendor reprint, a 数据来源 label, or a parameter equal to 最新.",
+      "An interpolated, backfilled, or copied timestamp.",
+      "An invented next session.",
+      "The observation date itself, a trade date, or a filename date.",
+      "A news article's publication time used as the clock of a different family's field.",
+      "A clock that is real but not strictly before 09:15 Asia/Shanghai on the next research session. Record it as too late. It does not certify the row."
+    ]
+  },
+  "search_scope": {
+    "purpose": "Inventory official series that could, in principle, be known before the next 09:15 Asia/Shanghai and that are outside the families P4a and P4b already closed. The hints below are the search list. None is assumed to be usable.",
+    "in_scope_families": [
+      {
+        "family_id": "northbound_connect",
+        "publisher_candidates": ["SSE", "SZSE", "HKEX"],
+        "field_that_would_be": "A daily northbound Stock Connect figure published by one of those exchanges: net buy, buy amount, sell amount, or quota balance. Shanghai and Shenzhen legs stay separate if the publisher separates them."
+      },
+      {
+        "family_id": "exchange_market_statistics",
+        "publisher_candidates": ["SSE", "SZSE"],
+        "field_that_would_be": "An exchange daily market statistic that is not the financing balance and not the stored CSI index amount. Examples to look for: official advance and decline counts, official daily market summary totals. A breadth series rebuilt from constituent closes is not this family."
+      },
+      {
+        "family_id": "csi_other_daily",
+        "publisher_candidates": ["CSI"],
+        "field_that_would_be": "A CSI daily publication other than the 000985 close and amount already stored and other than the 000300 and 000852 closes. The stored price, amount, and style comparison is not re-run."
+      },
+      {
+        "family_id": "announcement_disclosure",
+        "publisher_candidates": ["cninfo", "SSE", "SZSE"],
+        "field_that_would_be": "A session-level official disclosure statistic whose own payload carries both the value and that document's publication time. The publication time of an unrelated announcement is not a clock for another field, and announcement text is not mined into a score."
+      },
+      {
+        "family_id": "futures_options_daily",
+        "publisher_candidates": ["CFFEX", "SHFE", "DCE", "CZCE", "INE", "GFEX"],
+        "field_that_would_be": "A field on the exchange's own daily futures or options report, such as settlement, volume, or open interest, and only if that report carries a publication time for that session."
+      },
+      {
+        "family_id": "requirements_note_outside_minimum",
+        "publisher_candidates": ["the publisher named by the note, if that publisher is official"],
+        "field_that_would_be": "Each item that A-share-top-monitor-history/完整数据需求清单.md names as outside the current minimum set. The file is read only after this plan is saved. Each item becomes its own inventory row. Categories the phase brief already names, which the file may confirm or extend, are news, financial statements, macro, and fund flow."
+      }
+    ],
+    "found_publishers": "An official publisher found while executing this search is added to the inventory. Adding that row does not edit this plan and does not change the clock rule. The host must be the publisher's own site.",
+    "official_hosts": [
+      "sse.com.cn",
+      "szse.cn",
+      "hkex.com.hk",
+      "hkexnews.hk",
+      "csindex.com.cn",
+      "cffex.com.cn",
+      "shfe.com.cn",
+      "dce.com.cn",
+      "czce.com.cn",
+      "ine.cn",
+      "gfex.com.cn",
+      "cninfo.com.cn",
+      "stats.gov.cn",
+      "pbc.gov.cn",
+      "chinamoney.com.cn",
+      "chinaclear.cn",
+      "bse.cn",
+      "csrc.gov.cn"
+    ],
+    "not_official_clocks": [
+      "A vendor or portal host, including eastmoney, sina, 10jqka, tonghuashun, iFinD, Wind, and akshare wrappers.",
+      "A news reprint host, including nbd.com.cn.",
+      "An unofficial mirror or a second host used to bypass a TLS, authentication, or block failure on the publisher's own host."
+    ],
+    "closed_unless_a_new_timestamp_field": {
+      "financing_balance": "P4b already examined the stored balances, the iFinD history, the v92 captures, the SSE queryMargin summary, the SZSE 1837_xxpl summary, the two HTML pages, and the news reprint. Those are not re-probed. A financing row is reopened only if an official payload shows a publication-time field that P4b did not examine. opDate, tradeDate, date, 信用交易日期, txtDate, retrieved_at, HTTP Date, 页面生成时间, and an article pubDate are already examined and are not clocks.",
+      "turnover_rate": "P4a left it RESEARCH_ONLY. It is not reopened.",
+      "market_breadth_rebuilt_from_constituents": "P4a left it RESEARCH_ONLY because the files are absent. Rebuilding it is not this phase. An exchange-published advance or decline count stays under exchange_market_statistics.",
+      "index_trading_amount": "Already compared as price_amount_style. Do not re-run.",
+      "style_000300_000852": "Style controls. Do not re-run and do not promote them to a target.",
+      "peg_and_consNumber": "Unused raw fields. Not candidates.",
+      "price_transforms": "Not a new family. return3 and change_in_return3 stay out."
+    }
+  },
+  "procedure": {
+    "entry_point": "python -B dual80-research/p4c_external_clock_feasibility/survey.py",
+    "offline_rerun": "python -B dual80-research/p4c_external_clock_feasibility/survey.py --offline rebuilds the inventory, the decision, and the evidence from the saved attempt bytes. It does not open a socket.",
+    "plan_is_not_edited": true,
+    "order": [
+      "Check source_sha256. On a mismatch, abort with PLAN_SOURCE_CHANGED and do not write a research decision.",
+      "Read the requirements note and write one inventory row per in-scope family and per outside-minimum item.",
+      "For each inventory row, look for a historical per-session official clock that can be collected without changing the production collector. Record the publisher, the field, whether such a clock exists, the overlap with the research calendar, and the blocker if it does not.",
+      "A family is clock-feasible only when a saved official sample contains a publication time that meets the clock rule. The sample dates are 2011-08-02, 2020-07-13, 2021-09-13, and 2026-08-25. If the publisher states a later start, one extra sample date is allowed: the first research session on or after that stated start. The extra date is recorded in evidence and is not written back into this plan.",
+      "If the sample has no such timestamp, do not walk the rest of that family's history.",
+      "If a live official endpoint fails TLS, authentication, HTTP 401, or HTTP 403, save the failure and stop that endpoint. Do not proxy through another host and do not substitute an unofficial mirror.",
+      "If more than one family is clock-feasible, collect at most one. Rank by clock clarity, then by the publisher's stated overlap with the 3658 non-terminal research dates, then by the fixed order in this plan: northbound_connect, exchange_market_statistics, csi_other_daily, announcement_disclosure, futures_options_daily, then requirements-note items in the order they appear in the note, then found publishers in the order they were recorded. Do not rank by a return, a label, a lead profile, or a score.",
+      "Clock clarity: a per-row publication time on the publisher's payload ranks above a separate official publication record for that same session and field. A page-level time that equals the fetch time, or that is identical for every historical query, is not a clock and the family is not feasible.",
+      "Collect the chosen family for every non-terminal research date inside the publisher's stated history. Leave blanks where the official record has no clock. List every other feasible family as deferred and do not collect it.",
+      "Do not write turning-research-canonical/tables/disclosure_timestamps.csv. Admission is a later gate and it is not opened."
+    ]
+  },
+  "decision_codes": [
+    "CLOCKS_COLLECTED",
+    "CLOCKS_PARTIAL",
+    "NO_CERTIFIABLE_FAMILY"
+  ],
+  "decision_rule": [
+    "Write exactly one of the three decision codes, unless the source hash check aborts first.",
+    "PLAN_SOURCE_CHANGED aborts before a research decision. It is not one of the three codes.",
+    "eligible_dates are the non-terminal research dates inside the collected family's publisher-stated history. If the publisher states no history window, eligible_dates are all 3658 non-terminal research dates.",
+    "A date is unfinished when it was not requested, or the request ended in a transport, TLS, or authentication failure and no official payload was saved.",
+    "A hole is an eligible date whose saved official payload has no clock that meets the clock rule, including a clock that is too late.",
+    "NO_CERTIFIABLE_FAMILY if no inventory family has a certified clock. Stop. Do not loosen the rule to admit a schedule, a capture time, or a RESEARCH_ONLY value.",
+    "CLOCKS_PARTIAL if at least one official clock was collected and either some eligible date is unfinished or some eligible date is a hole. State what is missing. Do not hand that coverage to a later admission gate as a finished clock file.",
+    "CLOCKS_COLLECTED if exactly one new family was collected, every eligible date has a certified timezone-aware pre-09:15 clock, and nothing eligible is unfinished. State certified_rows/3658 and certified_rows/eligible_dates. Call the research calendar complete only when certified_rows equals 3658.",
+    "A family is not admitted under any of the three codes. formal_signal_allowed stays false."
+  ],
+  "success_and_failure": {
+    "success_means": "The decision file names exactly one pre-registered code, the inventory states the blocker or the coverage for every searched family, and any collected clock can be re-read from saved official bytes.",
+    "failure_means": "No expanded-scope family has a certifiable official clock. That outcome is NO_CERTIFIABLE_FAMILY and it is a finished result.",
+    "not_success": [
+      "Admitting a family.",
+      "Fitting or training a score.",
+      "Calling a fraction of the research calendar complete.",
+      "Using a schedule, a download time, or a vendor reprint as a clock."
+    ]
+  },
+  "do_not": [
+    "Do not rewrite this plan after evidence is read.",
+    "Do not invent or interpolate a timestamp.",
+    "Do not change the production collector, the production website, or official signals.",
+    "Do not edit anything outside dual80-research/ except repository_manifest.json when the repository verify step requires a rebuild.",
+    "Do not restore a V-series workflow.",
+    "Do not change labels, the primary index, the D..D+6 window, or the pre-open contract.",
+    "Do not open P2, raise a threshold, refit the six price features, or add return3 or change_in_return3.",
+    "Do not fit or train a score.",
+    "Do not set formal_signal_allowed to true.",
+    "Do not claim PIT, a blind test, or a formal signal.",
+    "Do not proxy a failed official endpoint through another host."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "dual80-research/p4a_factor_admission/plan.json": "5c59fd3f205aa9e2001303996afffa7b2715175e1fb0b630a0bddb00a85447d9",
+    "dual80-research/p4a_factor_admission/decision.json": "0c3e84ef26391ae01058e9901b35c9ea8587f186b670b7a90c65f78e914c1643",
+    "dual80-research/p4b_financing_clocks/plan.json": "50bfde9feef5ba4e96eb299c490ea92f866c879f493d419ad4410942baba4c9e",
+    "dual80-research/p4b_financing_clocks/decision.json": "2b590b4dd30c4ae2b741d1311f7cff90c72209b507138cc3025354fe00a06b70",
+    "dual80-research/p1_score_alignment/decision.json": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+    "dual80-research/p1b_feature_timing/decision.json": "4a3c816bcafff31228cbe9e9d6dd8ff4c9e790585ad5c4ad165d3b2a3ddfe4e6",
+    "dual80-research/p1c_slow_feature_score/decision.json": "111030674909e0124e97a961913ff6850f27d3112a4853163291798699b27139",
+    "dual80-research/p1d_fire_timing/decision.json": "883525cd7175058614ad920a0925de4a430b63ddcd7b20ce6dfd3d6c26873f11",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-research-canonical/source_policy.json": "3316c3b0a3177be8c880910d525dbc879133fae020ad2bb54013f1bfe585260a",
+    "A-share-top-monitor-history/完整数据需求清单.md": "7d1fa308665f9835bee84fca915f42f5943d228b4e6a8455de9cd096ea99ca47"
+  }
+}

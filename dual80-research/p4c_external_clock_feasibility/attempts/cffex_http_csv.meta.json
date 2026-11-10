@@ -1,0 +1,21 @@
+{
+  "stem": "cffex_http_csv",
+  "url": "http://www.cffex.com.cn/sj/hqsj/rtj/202109/13/20210913_1.csv",
+  "referer": "http://www.cffex.com.cn/",
+  "status": 200,
+  "final_url": "http://www.cffex.com.cn/sj/hqsj/rtj/202109/13/20210913_1.csv",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:07:34 GMT",
+    "Content-Type": "text/csv",
+    "Content-Length": "25326",
+    "Connection": "close",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Content-Type-Options": "nosniff",
+    "X-XSS-Protection": "1;mode=block",
+    "Last-Modified": "Fri, 27 Mar 2026 16:50:29 GMT",
+    "ETag": "\"62ee-64e044c683f40\"",
+    "Accept-Ranges": "bytes"
+  },
+  "body_bytes": 25326,
+  "body_sha256": "a60431613badb04cbfd657bc36b22458191d30f7c3a1d489a8d1d17195dc6d33"
+}

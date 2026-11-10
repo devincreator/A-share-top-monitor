@@ -1,0 +1,28 @@
+{
+  "stem": "cninfo_20210913",
+  "url": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+  "referer": "https://www.cninfo.com.cn/",
+  "method": "POST",
+  "status": 200,
+  "final_url": "https://www.cninfo.com.cn/new/hisAnnouncement/query",
+  "headers": {
+    "Date": "Tue, 10 Nov 2026 10:09:19 GMT",
+    "Content-Type": "application/json;charset=UTF-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "close",
+    "Server": "openresty",
+    "Set-Cookie": "JSESSIONID=2C0500A243D8FECADBC7B73A1A0D467A;Path=/new;HttpOnly",
+    "Vary": "Accept-Encoding",
+    "Content-Security-Policy": "default-src *;style-src 'self' 'unsafe-inline' *.cninfo.com.cn *.szse.cn ;script-src 'self' 'unsafe-inline' 'unsafe-eval' *.cninfo.com.cn *.szse.cn;img-src * *.cninfo.com.cn *.szse.cn data:;worker-src * *.cninfo.com.cn *.szse.cn blob:;font-src 'self' *.cninfo.com.cn *.szse.cn data:;",
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "X-Requested-With",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "X-CCDN-Origin-Time": "503",
+    "via": "LA-MEX-mexicocity-EDGE3-CACHE2[531],LA-MEX-mexicocity-EDGE3-CACHE5[529,TCP_MISS,531],LA-MEX-mexicocity-GLOBAL1-CACHE26[504],LA-MEX-mexicocity-GLOBAL1-CACHE23[503,TCP_MISS,504]",
+    "x-hcs-proxy-type": "0",
+    "X-CCDN-CacheTTL": "0",
+    "X-CCDN-REQ-ID-46B1": "6aed68ae7071cec176ffe3c234cda4b7"
+  },
+  "body_bytes": 4010,
+  "body_sha256": "73c319c161d05012c6e028f3e2da15cd98de507a0c7a023fd41aa48cc708d530"
+}
