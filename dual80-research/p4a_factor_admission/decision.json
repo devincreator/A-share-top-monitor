@@ -1,0 +1,18 @@
+{
+  "decision": "NO_FAMILY_ADMITTED",
+  "formal_signal_allowed": false,
+  "blind_test": false,
+  "PIT_certified": false,
+  "production_changed": false,
+  "comparison_ran": false,
+  "families_admitted": [],
+  "queued_not_run": [],
+  "next_step": "collect_financing_disclosure_timestamps",
+  "next_step_implemented": false,
+  "english": "No candidate has a structured disclosure timestamp on every research session, with observation_date strictly before D and the clock strictly before 09:15 Asia/Shanghai on D. Financing covers the 3659 sessions in the provider table, and its lineage statuses are PROVIDER_HISTORY_NOT_PIT 3659 and PROVIDER_HISTORY_REACQUIRED_NOT_PIT 3659. The exchange capture covers 34 sessions, PIT_certified values are False 68, capture-clock fields are first_captured_at_utc 64, source_run_started_at_utc 4, and those clocks run from 2026-10-21T03:55:49Z to 2026-10-26T08:48:48.991185+00:00; 0 of those capture times fall before the next pre-open, and a capture time would not count as disclosure anyway. Turnover is historical_publication_times_certified=False, constituents independently verified=False, and both the native-rate request and a float-A repair still say 最新. Market-breadth filename search found no files. Index amount and the 000300/000852 controls are OFFICIAL_HISTORY_NOT_PIT; the 000985 receipt clock is 2026-10-30T08:04:37.740882+00:00 to 2026-10-30T08:04:39.744425+00:00. Amount and style were already compared and are not re-run: 5_TOP price 23.6%/44.7% versus amount+style 18.3%/39.5%; 5_BOTTOM price 33.9%/51.3% versus amount+style 31.1%/48.7%; 9_TOP price 15.2%/38.9% versus amount+style 20.5%/50.0%; 9_BOTTOM price 15.7%/42.1% versus amount+style 17.3%/47.4%. The displayed baseline stayed on the price group. Official peg and consNumber are unused raw fields on that same receipt. The next step is to collect certified per-session disclosure timestamps for the Shanghai and Shenzhen financing balances. That collection is not done here. No family was fit. formal_signal_allowed stays false. This is not PIT, not a blind test, and not a signal. P1 remains BLOCKED_NO_CONCENTRATION. P1b remains GO_PRE_PIVOT_COORDINATE. P1c remains BLOCKED_NO_WINDOW_PEAK. P1d remains GO_NEW_FACTORS.",
+  "chinese": "没有任何候选家族在全部研究日上带有结构化披露时点，并且观察日严格早于 D、时钟严格早于 D 日上海时间 09:15。融资余额的供应商表覆盖 3659 个研究日，谱系状态是 PROVIDER_HISTORY_NOT_PIT 3659 和 PROVIDER_HISTORY_REACQUIRED_NOT_PIT 3659。交易所原始捕获覆盖 34 个交易日，PIT_certified 的取值是 False 68，捕获时钟字段是 first_captured_at_utc 64, source_run_started_at_utc 4，时间从 2026-10-21T03:55:49Z 到 2026-10-26T08:48:48.991185+00:00；其中 0 个捕获时间早于下一交易日开盘前，而且捕获时间本来就不是披露时点。换手率的 historical_publication_times_certified 是 False，历史成分独立认证是 False，原生换手率请求和一份流通 A 股修复回执仍然写着“最新”。市场广度文件名检索没有命中文件。成交额和 000300/000852 对照的谱系是 OFFICIAL_HISTORY_NOT_PIT；000985 回执时钟是 2026-10-30T08:04:37.740882+00:00 到 2026-10-30T08:04:39.744425+00:00。 成交额和风格已经比较过，本轮不重跑：5_TOP price 23.6%/44.7% versus amount+style 18.3%/39.5%; 5_BOTTOM price 33.9%/51.3% versus amount+style 31.1%/48.7%; 9_TOP price 15.2%/38.9% versus amount+style 20.5%/50.0%; 9_BOTTOM price 15.7%/42.1% versus amount+style 17.3%/47.4%。展示基线仍是价格组。官方回执上的 peg 和 consNumber 没有被研究代码用作特征。 下一步是为沪深融资余额收集逐日、带时区、并且早于下一交易日 09:15 的披露时点。这一步没有实施。没有拟合任何家族。 formal_signal_allowed 仍为 false。这不是 PIT，不是盲测，也不是信号。 P1 仍是 BLOCKED_NO_CONCENTRATION。P1b 仍是 GO_PRE_PIVOT_COORDINATE。P1c 仍是 BLOCKED_NO_WINDOW_PEAK。P1d 仍是 GO_NEW_FACTORS。",
+  "p1_decision": "BLOCKED_NO_CONCENTRATION",
+  "p1b_decision": "GO_PRE_PIVOT_COORDINATE",
+  "p1c_decision": "BLOCKED_NO_WINDOW_PEAK",
+  "p1d_decision": "GO_NEW_FACTORS"
+}

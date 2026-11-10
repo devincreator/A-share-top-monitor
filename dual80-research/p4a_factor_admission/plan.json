@@ -1,0 +1,359 @@
+{
+  "phase": "P4a",
+  "title": "Which stored non-price family has a disclosure timestamp before the D pre-open?",
+  "contains_measurements": false,
+  "hypothesis": "P1d found that both frozen scores are WEAK: most misses never entered the causal tail inside offsets -6..0. The next step named there is a feature outside the price family, gated on point-in-time availability. This phase only decides whether any non-price family already stored or already documented in this repository passes that gate. It does not search for a dual-80 result.",
+  "freeze": {
+    "index": "000985.CSI",
+    "style_controls": [
+      "000300",
+      "000852"
+    ],
+    "style_controls_are_not_targets": true,
+    "label": "close",
+    "tasks": [
+      "5_TOP",
+      "5_BOTTOM",
+      "9_TOP",
+      "9_BOTTOM"
+    ],
+    "decision_clock": "Pre-open on research session D. The deadline is 09:15 Asia/Shanghai on D, the start of the opening call auction, before the 09:30 continuous open.",
+    "observation_rule": "A used field is visible only when its observation_date is a research session strictly before D and its disclosure timestamp is strictly earlier than that deadline. A tradeDate equal to D is the session being decided. A tradeDate of D-1 without a disclosure timestamp is not proof.",
+    "calendar": {
+      "file": "turning-research-canonical/tables/research_inputs.csv",
+      "start": "2011-08-02",
+      "end": "2026-08-25",
+      "rows": 3659
+    },
+    "cohort_if_a_comparison_runs": "The same close-label mature cohort as label_clock_v4 rank_replay and P1. Not used unless a family is admitted.",
+    "formal_signal_allowed": false,
+    "blind_test": false,
+    "PIT_certified": false,
+    "production_changed": false,
+    "refit_six_feature_model": false,
+    "fast_features_added": false,
+    "threshold_search": false,
+    "p2_alert_compression": false,
+    "early_fire_implemented": false,
+    "new_external_download": false,
+    "prior_decisions_unchanged": {
+      "P1": "BLOCKED_NO_CONCENTRATION",
+      "P1b": "GO_PRE_PIVOT_COORDINATE",
+      "P1c": "BLOCKED_NO_WINDOW_PEAK",
+      "P1d": "GO_NEW_FACTORS"
+    }
+  },
+  "admission_gate": {
+    "default_status": "RESEARCH_ONLY",
+    "admit_only_with_positive_evidence": true,
+    "prose_is_not_evidence": "A sentence that says timing is certified does not admit a family. A sentence that says timing is uncertified is recorded, and it does not replace the missing timestamp file.",
+    "required_for_ADMITTED": [
+      "The family role is candidate.",
+      "Every field the family would use has a file already in this repository. This phase does not download or scrape a replacement.",
+      "Every used field has a structured disclosure timestamp on every research session it would enter. The only structured places that count are a CSV column or a JSON key whose name is on the disclosure allowlist.",
+      "Each observation_date is strictly before the decision session D, and each disclosure timestamp is timezone-aware and strictly earlier than 09:15 Asia/Shanghai on D.",
+      "Financing, turnover, and market breadth are not exempt from the same proof.",
+      "An index aggregate whose membership is documented as uncertified also needs that constituent-scope certification. Timestamps alone do not admit it.",
+      "At most one family is admitted. The order is financing_balance, then turnover_rate, then market_breadth. A later passer would be QUEUED_NOT_RUN and would not be fit."
+    ],
+    "insufficient_evidence": [
+      "The file is absent.",
+      "The file has dates and values but no disclosure-allowlist column or key.",
+      "The only clocks are capture or request times: request_started_at_utc, response_completed_at_utc, first_captured_at_utc.",
+      "Parameter metadata says 最新, including 交易日期 or 截止日期 equal to 最新.",
+      "Lineage status is OFFICIAL_HISTORY_NOT_PIT, PROVIDER_HISTORY_NOT_PIT, or PROVIDER_HISTORY_REACQUIRED_NOT_PIT.",
+      "source_policy.pit_certified, historical_publication_times_certified, or a record PIT_certified flag is false and no per-session disclosure file supersedes it.",
+      "Coverage is a subset of the 3659 research sessions.",
+      "A vendor reprint names an exchange as 数据来源, or gives 起始日期 and 终止日期 as series bounds. Those are not disclosure clocks.",
+      "An assumed T+0 or T+1 publication lag with no per-session clock.",
+      "Style-index levels promoted to a new official target.",
+      "Unused raw fields promoted because they sit on a receipt.",
+      "A derived table whose construction clock is AFTER_CLOSE."
+    ],
+    "disclosure_allowlist": [
+      "publishTime",
+      "publishedAt",
+      "disclosureTime",
+      "announcementTime",
+      "firstAvailableTime",
+      "visibleAt",
+      "releaseTime",
+      "publication_time",
+      "disclosure_timestamp",
+      "published_at",
+      "visible_at",
+      "release_time",
+      "公布时间",
+      "披露时间",
+      "发布时间",
+      "最早可用时间"
+    ],
+    "capture_keys_do_not_count": [
+      "request_started_at_utc",
+      "response_completed_at_utc",
+      "first_captured_at_utc"
+    ],
+    "recognized_disclosure_table": {
+      "path": "turning-research-canonical/tables/disclosure_timestamps.csv",
+      "required_columns": [
+        "observation_date",
+        "field",
+        "disclosure_timestamp"
+      ],
+      "created_by_this_phase": false,
+      "absence_is_a_gap": true
+    },
+    "status_enum": [
+      "ADMITTED",
+      "QUEUED_NOT_RUN",
+      "RESEARCH_ONLY",
+      "CITED_NOT_RERUN",
+      "CONTROL_NOT_A_TARGET",
+      "NOT_A_CANDIDATE"
+    ],
+    "status_rule": [
+      "excluded_price_family, out_of_scope, and raw_field_not_used are NOT_A_CANDIDATE.",
+      "control_not_a_target is CONTROL_NOT_A_TARGET even if timestamps existed.",
+      "cited_already_compared is CITED_NOT_RERUN. This phase does not re-run price_amount_style.",
+      "A candidate whose gate passes is ADMITTED, except that only the first passer in admission_order is ADMITTED and any later passer is QUEUED_NOT_RUN.",
+      "Every other candidate is RESEARCH_ONLY."
+    ]
+  },
+  "families": [
+    {
+      "family_id": "financing_balance",
+      "name": "Shanghai plus Shenzhen financing balance",
+      "role": "candidate",
+      "why_in_inventory": "Full-calendar provider series on the research main table and in financing_sh_sz.csv. Sparse exchange captures exist under v92. Not inside the frozen six-feature price model.",
+      "fields_that_would_be_used": [
+        "balance_sh_yuan",
+        "balance_sz_yuan"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    },
+    {
+      "family_id": "turnover_rate",
+      "name": "Project-recomputed float-A share turnover, with the vendor native rate kept as a control",
+      "role": "candidate",
+      "why_in_inventory": "turnover_rate is on the research main table. The selected series is official tradingVol divided by an iFinD float-A denominator. Financing and turnover are not auto-admitted.",
+      "fields_that_would_be_used": [
+        "official_tradingVol",
+        "ifind_float_a_shares",
+        "turnover_rate"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": true
+    },
+    {
+      "family_id": "market_breadth",
+      "name": "Constituent breadth: advance share or new-low share, and the documented C50 path",
+      "role": "candidate",
+      "why_in_inventory": "Named in the current research notes as the participation observation that price, amount, and style do not provide. Documented as not yet collected.",
+      "fields_that_would_be_used": [
+        "historical_constituents_including_later_delistings",
+        "halt_and_suspension_status",
+        "advance_or_new_low_counts",
+        "disclosure_timestamps"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": true
+    },
+    {
+      "family_id": "index_trading_amount",
+      "name": "CSI 000985 tradingValue, stored in the column named turnover",
+      "role": "cited_already_compared",
+      "why_in_inventory": "Non-price input already used as the three amount features inside label_clock_v4 price_amount_style. Cite that result. Do not refit it as a new family.",
+      "fields_that_would_be_used": [
+        "tradingValue"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    },
+    {
+      "family_id": "style_index_controls",
+      "name": "000300 and 000852 closes, used only as the style ratio",
+      "role": "control_not_a_target",
+      "why_in_inventory": "Already used as the three style features inside price_amount_style. They stay style controls. They are not a new official target and not a new family.",
+      "fields_that_would_be_used": [
+        "hs300_close",
+        "zz1000_close"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    },
+    {
+      "family_id": "official_peg",
+      "name": "peg on the official index receipt",
+      "role": "raw_field_not_used",
+      "why_in_inventory": "The key is present on the official 000985 row. It is not a research-input column and it is not a documented research family.",
+      "fields_that_would_be_used": [
+        "peg"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    },
+    {
+      "family_id": "official_constituent_count",
+      "name": "consNumber on the official index receipt",
+      "role": "raw_field_not_used",
+      "why_in_inventory": "A constituent count shipped on the same official row. It is not the documented advance or new-low breadth family, and it is not used as a feature.",
+      "fields_that_would_be_used": [
+        "consNumber"
+      ],
+      "not_auto_admitted": true,
+      "constituent_scope_required": true
+    },
+    {
+      "family_id": "price_transforms",
+      "name": "Returns, distances, range position, realized volatility, interactions, and swing state",
+      "role": "excluded_price_family",
+      "why_in_inventory": "These are the frozen price family and its transforms. P1 through P1d already cover them. They are listed so this inventory does not treat them as new non-price information.",
+      "fields_that_would_be_used": [],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    },
+    {
+      "family_id": "named_outside_minimum_set",
+      "name": "News, financial statements, macro, fund flow, level-2, and minute bars",
+      "role": "out_of_scope",
+      "why_in_inventory": "The data-requirements note says these are not part of the current minimum set. They are not research data already used here.",
+      "fields_that_would_be_used": [],
+      "not_auto_admitted": true,
+      "constituent_scope_required": false
+    }
+  ],
+  "derived_columns_are_not_new_families": {
+    "file": "turning-rebuild/sources/a_share_5_9_daily_reconstruction.csv",
+    "examples": [
+      "turnover_amt_p252_pct",
+      "turnover_rate_p252_pct",
+      "style_dd20_pct",
+      "finance_63d_growth_p756_pct",
+      "rv_p756_pct"
+    ],
+    "clock_file": "turning-rebuild/prepare_data.py",
+    "clock_sentence": "AFTER_CLOSE: uses same-day close; NOT D-day preopen",
+    "rule": "A percentile or growth rate of an unadmitted family stays unadmitted. An after-close construction is not a pre-open feature."
+  },
+  "citation_not_a_rerun": {
+    "experiment": "dual80-research/label_clock_v4",
+    "file": "dual80-research/label_clock_v4/rank_metrics.csv",
+    "rows": "label close, groups price__past_rank90 and price_amount_style__past_rank90",
+    "rule": "Copy the stored precision and recall. Do not refit. The displayed baseline stayed on the price group. Mixed task-level differences are not a reason to reopen amount or style, and they are not an admission gate."
+  },
+  "conditional_comparison": {
+    "implemented": false,
+    "runs_only_if_decision": "ADMITTED_ONE_FAMILY",
+    "at_most_one_family": true,
+    "admission_order": [
+      "financing_balance",
+      "turnover_rate",
+      "market_breadth"
+    ],
+    "baseline": "Frozen label_clock_v4 close x six price features x past_rank90. The logistic model is not refit.",
+    "same_calendar": "research_inputs.csv",
+    "same_targets": "close labels, four tasks, the P1 mature cohort",
+    "same_fire_rule": "past_rank90, lookback 252, minimum 126 earlier scores, quantile 0.90, current score excluded, lock through offset +6",
+    "placement": "Beside the frozen baseline. Not inside the six-feature logistic model. Amount and style are not added. The two fast price features are not added.",
+    "no_threshold_search": true,
+    "no_dual80_search": true,
+    "no_future_target_quota": true,
+    "financing_if_admitted": {
+      "fields": [
+        "balance_sh_yuan",
+        "balance_sz_yuan"
+      ],
+      "transform": "63-session log change of the sum. A session enters only when both balances have certified disclosure timestamps before that decision pre-open. No other lag is assumed. No 756-session percentile and no window search.",
+      "score": "That single series as an expanding causal z-score. The economic sign, written before any financing lead profile, is positive for tops and negative for bottoms: rising financing raises the top score and falling financing raises the bottom score. Fired with past_rank90."
+    },
+    "turnover_if_admitted": {
+      "fields": [
+        "turnover_rate"
+      ],
+      "transform": "The recomputed level itself. No percentile-window search and no second formula.",
+      "score": "Expanding causal z-score, positive for tops and negative for bottoms, past_rank90, beside the baseline."
+    },
+    "breadth_if_admitted": {
+      "transform": "Not defined. The family cannot pass until the missing files exist. This plan does not invent the formula."
+    },
+    "report_if_run": [
+      "Precision and recall against the frozen baseline on each of the four close tasks.",
+      "Lead-profile peak offset of the mean score on the same -6..+6 grid used in P1."
+    ],
+    "beat_baseline_only_if": "Precision and recall are both strictly higher on at least 3 of 4 tasks, and the mean-score peak lies in -6..0 on at least 3 of 4 tasks. If the peak remains at +1, or the metrics do not clear that bar, say so. Do not try a second transform."
+  },
+  "next_step_if_none_admitted": {
+    "implemented": false,
+    "name": "collect_financing_disclosure_timestamps",
+    "why_this_family": "It is the first candidate in the fixed order. A full-calendar file is already in the repository, it is outside the frozen price model, and it was not part of the price_amount_style comparison. Turnover stays second because its float-A denominator is still marked 最新 and its constituent scope is uncertified, so timestamps alone would not admit it. Breadth stays blocked on missing constituent, halt, and breadth files. Amount and style stay cited, not re-run.",
+    "artifact_that_would_be_required": "One row per research date for the Shanghai balance and one row per research date for the Shenzhen balance. Columns: observation_date, field, disclosure_timestamp. The timestamp must be timezone-aware and strictly before 09:15 Asia/Shanghai on the next research session. A 2026 capture time, an iFinD reprint, a 数据来源 label, or a sample of exchange files does not qualify.",
+    "do_not": [
+      "Do not scrape or download that file in this phase.",
+      "Do not assume a next-morning lag.",
+      "Do not fit the 63-session change, or any other transform, while the file is absent.",
+      "Do not collect breadth or a new external series in this phase."
+    ]
+  },
+  "leakage": [
+    "Using the decision session close, amount, volume, turnover, financing balance, peg, or constituent count at that same pre-open.",
+    "Treating a download clock or a 最新 parameter as a historical disclosure time.",
+    "Treating 数据来源, 起始日期, or 终止日期 as a disclosure time.",
+    "Admitting a family from a subset of dates.",
+    "Assuming a publication lag that is not written as a per-session clock.",
+    "Choosing which family to fit after seeing a lead profile or a precision number.",
+    "Re-running price_amount_style, refitting the six price features, or putting the two fast price features back.",
+    "Opening P2, raising the 0.90 quantile, or using a future target count as an alert quota.",
+    "Changing the label, the official index, or the hit window.",
+    "Promoting 000300 or 000852 from a style control to the official target.",
+    "Backfilling breadth from the names that are listed today.",
+    "Editing this plan after the evidence counts are known."
+  ],
+  "out_of_scope": [
+    "No production page, collector, official signal, or V-series workflow.",
+    "No new external dataset.",
+    "No label change and no index change.",
+    "No D-day feature.",
+    "formal_signal_allowed stays false.",
+    "Not PIT and not a blind test. Not dual-80.",
+    "P1, P1b, P1c, and P1d conclusions are not rewritten."
+  ],
+  "decision_rule": [
+    "BLOCKED_PLAN_MISMATCH if the frozen plan, the contract, or a prior decision file disagrees with this pre-registration. Abort before a decision.",
+    "ADMITTED_ONE_FAMILY if one candidate passes the gate. Then, and only then, run the single pre-registered comparison. This implementation aborts instead of fitting, so a pass cannot silently skip the comparison or invent a second transform.",
+    "NO_FAMILY_ADMITTED if no candidate passes. Report the inventory and the missing evidence. Name the financing disclosure-timestamp collection. Do not implement it."
+  ],
+  "source_sha256": {
+    "ACTIVE_RESEARCH_CONTRACT.json": "a763872fd1a7dd8820985b93779519c12b8b46741c22eea4d136113e5c8970c7",
+    "turning-research-canonical/tables/research_inputs.csv": "44d3165d15e674e12f31ca256ad0879e884b8de72bd9e2c90a2ebc8e95074538",
+    "turning-research-canonical/tables/field_lineage.csv": "9d61d7cc99cce436a907ef45a6f43d6fc3afee57f307c8565f525f7775b61e85",
+    "turning-research-canonical/source_policy.json": "3316c3b0a3177be8c880910d525dbc879133fae020ad2bb54013f1bfe585260a",
+    "turning-research-canonical/turnover_selection_audit.json": "62945fc83be945b1bb3e1008b15ad13b38de255c73d6e788652d4d22a7a98e39",
+    "turning-research-canonical/README.md": "b3fc747841bfa4e444cc789485340f7d736ac874ca129d225368001b0e12d5bd",
+    "turning-research-canonical/raw/official/000985_20110802_20260825.receipt.json": "4467aa2381d3c9af74122b9ac056ad59876275673077da300c070b46a859a25c",
+    "turning-research-canonical/raw/official/000985_20110802_20260825.response.json": "e2091ae8517c1a260f49e879ded0846e720489b62a789ed5fb22cf33e46d842a",
+    "turning-research-canonical/raw/official/000300_20110802_20260825.receipt.json": "5221932e3066a74cfb0799662082d8ed639e35608b7e328fe10e889683089d41",
+    "turning-research-canonical/raw/official/000300_20110802_20260825.response.json": "f9e156997d1592f2767cb5c624b5248754882be52583516af78940ef54e22377",
+    "turning-research-canonical/raw/official/000852_20110802_20260825.receipt.json": "ba1ec90d96abb8d36794c390248fd2a43d0f27d13e47c81d665d742d45950ba0",
+    "turning-research-canonical/raw/official/000852_20110802_20260825.response.json": "3a1f74c226fac8a4c10bf7cd8d12701b734746fab0a948869161dbe54b8ebc3a",
+    "turning-research-canonical/raw/turnover/ifind_definition_request.json": "54dd4f77db9627549f94827b299a22d32389af2f3b21d05fefc3131fc80b54c1",
+    "turning-research-canonical/raw/turnover/float_a_history/repair_2020-03-17_2020-03-17.json": "79892f655f5f6e8050351cec64d36b721ca0ad525d503a7098d8d61f4fb155f0",
+    "turning-raw-reacquired/README.md": "a0626361770f272ceb2d9d3ab8e16dad57dabc187a764f1f345bddc6f7c01153",
+    "turning-raw-reacquired/data_dictionary.json": "e8a891583e1a32d3aa09a8b15fc91997f9977955b306625cf2b56eafcd0c04fe",
+    "turning-raw-reacquired/tables/field_lineage.csv": "9fc0c451284caff189d3730ee54ec80581551dd2073c6943258510ad33b52c90",
+    "turning-raw-reacquired/tables/financing_sh_sz.csv": "7000bb8d56cb28492397e4c0c1183e7a1f889628e87f66ed5f6715c40c9d3594",
+    "A-share-top-monitor-history/ifind_financing/2022-02-23_2022-03-31_raw.json": "5573cbc4bc89f992cf077bf40eba88d54c4d680d5da47989e5e26eee59661cbf",
+    "A-share-top-monitor-history/完整数据需求清单.md": "7d1fa308665f9835bee84fca915f42f5943d228b4e6a8455de9cd096ea99ca47",
+    "A-share-top-monitor-history/补数验收说明.md": "298ae927cfb510345ccfa1f87efc5aa29fa756bf72d91812fc269c1454508471",
+    "A-share-top-monitor-history/research/v92_margin_recovery/records/2024-06-26/SSE.json": "e16754ab217ae066b91e02aa8ab27c8e47506885c8aed6b884247bcd8288d7f7",
+    "A-share-top-monitor-history/research/v92_margin_recovery/raw/SSE/2024-06-26.csv": "e81a97e532eae8f3a39dd741e2a4da722370e837076db96665f22f502d27bd1b",
+    "dual80-research/label_clock_v4/rank_metrics.csv": "e7e23bd59cef709e96379b239c23035f0e972cfcc520888e83874bfd10d78f9f",
+    "dual80-research/p1_score_alignment/decision.json": "384b0f6424a72010f469bfc07782d3ccc2c9ff5eb4968bdd73ffadf9a24b6498",
+    "dual80-research/p1b_feature_timing/decision.json": "4a3c816bcafff31228cbe9e9d6dd8ff4c9e790585ad5c4ad165d3b2a3ddfe4e6",
+    "dual80-research/p1c_slow_feature_score/decision.json": "111030674909e0124e97a961913ff6850f27d3112a4853163291798699b27139",
+    "dual80-research/p1d_fire_timing/decision.json": "883525cd7175058614ad920a0925de4a430b63ddcd7b20ce6dfd3d6c26873f11",
+    "dual80-research/broad_experiments_v2/失败原因与优化建议_20261102.md": "985aec95a2d76ba55d9b9a0bfe5e2e9c4d8ccbb314fdd47e030747ad1a605e71",
+    "turning-rebuild/prepare_data.py": "2d52bb54082f19c7312d7516efdd1826285980425cd8bd6de47fd4a5aec008c5",
+    "turning-rebuild/sources/a_share_5_9_daily_reconstruction.csv": "10f38086191dd9ab194f6bf478fc26fc2eba7fb59f0883c6d84019ef64e6e621"
+  }
+}
